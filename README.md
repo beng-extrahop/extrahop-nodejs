@@ -18,19 +18,53 @@ node index.js
 ```
 
 ## Usage
+
 Within index.js:
 
-### Import
+### Import - Single Appliance
 ```
 const Extrahop = require('extrahop-nodejs')
-
 const config = {
-  hostname: 'extrahop.mydomain.tld',
+  hostname: 'extrahop.domain.internal',
   apikey: 'XXXXXXXXXXXXXX',
   type: eca
 };
 
 const eca = new Extrahop(config);
+
+```
+
+### Import - Multiple Appliances
+```
+const Extrahop = require('extrahop-nodejs')
+const config = {
+  environments: [
+    {
+      name: 'my-environment',
+      appliances: [
+        {
+          hostname: 'extrahop.domain.internal',
+          apikey: 'XXXXXXXXXXXXXX',
+          type: eca
+        },
+        {
+          hostname: 'eda01.domain.internal',
+          apikey: 'XXXXXXXXXXXXXX',
+          type: eda
+        },
+        {
+          hostname: 'eda02.domain.internal',
+          apikey: 'XXXXXXXXXXXXXX',
+          type: eda
+        }
+      ]
+    }
+  ]
+};
+
+const extrahop = new Extrahop(config);
+const eca = extrahop.getECA();
+
 ```
 
 ### Records
@@ -49,6 +83,7 @@ const params = {
 // Call records controller & save
 const recordSearch = eca.records().search(params);
 recordSearch.saveToCSV(search);
+
 ```
 
 
