@@ -1,5 +1,4 @@
-config.toml
-config.json
+config.*.json
 examples/
 *.bkp*
 *.tmp*
