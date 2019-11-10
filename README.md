@@ -17,7 +17,10 @@ touch index.js
 node index.js
 ```
 
-## Import (index.js)
+## Usage
+Within index.js:
+
+### Import
 ```
 const Extrahop = require('extrahop-nodejs')
 
@@ -30,7 +33,6 @@ const config = {
 const eca = new Extrahop(config);
 ```
 
-## Usage (index.js)
 ### Records
 ```
 // Initialize appliance
