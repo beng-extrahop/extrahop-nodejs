@@ -25,6 +25,11 @@ const config = {
 const eca = new Extrahop(config);
 ```
 
+## Run
+```
+node index.js
+```
+
 ## Usage (index.js)
 ### Records
 ```
@@ -43,4 +48,5 @@ const params = {
 const recordSearch = eca.records().search(params);
 recordSearch.saveToCSV(search);
 ```
+
 

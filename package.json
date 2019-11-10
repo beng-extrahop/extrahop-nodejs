@@ -1,7 +1,7 @@
 {
-  "name": "@bengbsn/extrahop-nodejs",
+  "name": "@beng.extrahop/extrahop-nodejs",
   "version": "1.0.0",
-  "description": "",
+  "description": "ExtraHop API Wrapper",
   "main": "index.js",
   "private": false,
   "dependencies": {
