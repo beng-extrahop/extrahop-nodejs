@@ -17,8 +17,7 @@ touch index.js
 const Extrahop = require('extrahop-nodejs')
 
 const config = {
-  id: 1,
-  hostname: 'extrahop.mydomain.domain',
+  hostname: 'extrahop.mydomain.tld',
   apikey: 'XXXXXXXXXXXXXX',
   type: eca
 };
