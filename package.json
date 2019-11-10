@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://git.bgibson.net/bgibson/extrahop-nodejs.git"
+    "url": "https://github.com/beng-extrahop/extrahop-nodejs"
   },
   "scripts": {
     "start": "NODE_OPTIONS='--max-old-space-size=4096' node index.js --use_strict",
