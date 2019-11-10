@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "ExtraHop API Wrapper",
   "main": "index.js",
-  "private": false,
   "dependencies": {
     "colors": "^1.3.1",
     "fast-csv": "^3.4.0",
