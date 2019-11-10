@@ -40,18 +40,20 @@ const Extahop = require('extrahop-nodejs');
 #### Single Appliance
 ```
 const Extahop = require('extrahop-nodejs');
+
 const config = {
   hostname: 'extrahop.domain.internal',
   apikey: 'XXXXXXXXXXXXXX',
   type: 'ECA'
 };
 
-const extrahop = new Extrahop(config);
+const eca = new Extrahop(config);
 ```
 
 #### Multiple Appliances
 ```
-const Extrahop = require('extrahop-nodejs')
+const Extrahop = require('extrahop-nodejs');
+
 const config = {
   environments: [
     {
@@ -77,19 +79,20 @@ const config = {
   ]
 };
 
-const extrahop = new Extrahop(config);
+const extrahopEnv = new Extrahop(config);
 ```
 
 #### From File
 ```
 const Extrahop = require('extrahop-nodejs');
 const config = require('./config.json');
-const extrahop = new Extrahop(config);
+
+const extrahopEnv = new Extrahop(config);
 ```
 ### Records
 #### Search
 ```
-const eca = extrahop.getECA();
+const eca = extrahopEnv.getECA();
 
 const params = {
   types: ['~ssl_open', '~ssl_close'], // default: any
@@ -103,7 +106,7 @@ const recordSearch = eca.records().search(params);
 
 #### Save
 ```
-const eca = extrahop.getECA();
+const eca = extrahopEnv.getECA();
 const recordSearch = eca.records().search(params);
 
 recordSearch.saveToCSV(search);
