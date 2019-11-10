@@ -31,7 +31,6 @@ const config = {
 };
 
 const eca = new Extrahop(config);
-
 ```
 
 ### Import - Multiple Appliances
@@ -64,7 +63,6 @@ const config = {
 
 const extrahop = new Extrahop(config);
 const eca = extrahop.getECA();
-
 ```
 
 ### Records
@@ -83,7 +81,6 @@ const params = {
 // Call records controller & save
 const recordSearch = eca.records().search(params);
 recordSearch.saveToCSV(search);
-
 ```
 
 
