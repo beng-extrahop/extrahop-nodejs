@@ -1,0 +1,36 @@
+{
+  "name": "@bengbsn/extrahop-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": false,
+  "dependencies": {
+    "colors": "^1.3.1",
+    "fast-csv": "^3.4.0",
+    "json2csv": "^4.5.4",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.27",
+    "nedb": "^1.8.0",
+    "sync-request": "^6.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.bgibson.net/bgibson/extrahop-nodejs.git"
+  },
+  "scripts": {
+    "start": "NODE_OPTIONS='--max-old-space-size=4096' node index.js --use_strict",
+    "test": "node index.test.js --use_strict",
+    "mocha": "mocha"
+  },
+  "author": "Ben Gibson",
+  "license": "ISC",
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "extrahop",
+    "extrahop-nodejs"
+  ]
+}
