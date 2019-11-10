@@ -29,10 +29,10 @@ node index.js
 ```
 
 ## Usage
-
 Within index.js:
 
-### Import - Single Appliance
+### Import
+#### Single Appliance
 ```
 const Extrahop = require('extrahop-nodejs')
 const config = {
@@ -44,7 +44,7 @@ const config = {
 const eca = new Extrahop(config);
 ```
 
-### Import - Multiple Appliances
+#### Multiple Appliances
 ```
 const Extrahop = require('extrahop-nodejs')
 const config = {
@@ -77,11 +77,8 @@ const eca = extrahop.getECA();
 ```
 
 ### Records
+#### Search
 ```
-// Initialize appliance
-const eca = new Extrahop(config);
-
-// Search parameters
 const params = {
   types: ['~ssl_open', '~ssl_close'], // default: any
   limit: 500, // default: 1000
@@ -89,7 +86,11 @@ const params = {
   until: '-30m', // default: now
 };
 
-// Call records controller & save
+const recordSearch = eca.records().search(params);
+```
+
+#### Save
+```
 const recordSearch = eca.records().search(params);
 recordSearch.saveToCSV(search);
 ```
