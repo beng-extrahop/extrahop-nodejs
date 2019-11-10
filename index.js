@@ -7,11 +7,14 @@ var EnvironmentSet = require('./src/models/environments/EnvironmentSet.model');
 
 module.exports = class Extrahop {
   constructor(config) {
-    if ( config instanceof Object ) {
-      return config.environments == null ? new Appliance(config) : new EnvironmentSet(config.environments);
+    if ( !config.environments ) {
+      return new Appliance(config);
+    }
+    else if ( config.environments.length == 1 ) {
+      return new Environment(config.environments[0]);
     }
     else {
-      return new Environment(config.environments.find(environment => environment.name == config));
+      return new EnvironmentSet(config.environments);
     }
   }
 

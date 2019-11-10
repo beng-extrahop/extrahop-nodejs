@@ -29,18 +29,18 @@ module.exports = class Environment extends BaseObject {
   }
 
   getECA() {
-    return this.appliances.filter(appliance => appliance.platform == Platforms.Command)[0];
+    return this.appliances.filter(x => x.platform == Platforms.Command || x.type == Types.Command)[0];
   }
 
   getEDAs() {
-    return this.appliances.filter(appliance => appliance.platform == Platforms.Discover);
+    return this.appliances.filter(x => x.platform == Platforms.Discover || x.type == Types.Discover);
   }
 
   getEXAs() {
-    return this.appliances.filter(appliance => appliance.platform == Platforms.Explore);
+    return this.appliances.filter(x => x.platform == Platforms.Explore || x.type == Types.Explore);
   }
 
   getETAs() {
-    return this.appliances.filter(appliance => appliance.platform == Platforms.Trace);
+    return this.appliances.filter(x => x.platform == Platforms.Trace || x.type == Types.Trace);
   }
 }
