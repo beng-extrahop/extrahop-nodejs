@@ -4,13 +4,44 @@
 - Node
 - npm
 
-## Install:
+## Install
 ```
+mkdir my-extrahop-cli
+cd ./my-extrahop-cli
 npm install extrahop-nodejs
+touch index.js
 ```
 
-## Test:
+## Import (index.js)
 ```
-npm install -g mocha
+const Extrahop = require('extrahop-nodejs')
+
+const config = {
+  id: 1,
+  hostname: 'extrahop.mydomain.domain',
+  apikey: 'XXXXXXXXXXXXXX',
+  type: eca
+};
+
+const eca = new Extrahop(config);
+```
+
+## Usage (index.js)
+### Records
+```
+// Initialize appliance
+const eca = new Extrahop(config);
+
+// Search parameters
+const params = {
+  types: ['~ssl_open', '~ssl_close'], // default: any
+  limit: 500, // default: 1000
+  from: '-60m', // default: 30m
+  until: '-30m', // default: now
+};
+
+// Call records controller & save
+const recordSearch = eca.records().search(params);
+recordSearch.saveToCSV(search);
 ```
 
