@@ -5,10 +5,21 @@
 - npm
 
 ## Install
+
+Create project directory:
 ```
 mkdir my-extrahop-cli
 cd ./my-extrahop-cli
+```
+
+Install package files:
+```
 npm install extrahop-nodejs
+```
+
+Create main JS file, data dirs:
+```
+mkdir -p data/{db,csv}
 touch index.js
 ```
 
@@ -27,7 +38,7 @@ const Extrahop = require('extrahop-nodejs')
 const config = {
   hostname: 'extrahop.domain.internal',
   apikey: 'XXXXXXXXXXXXXX',
-  type: eca
+  type: 'ECA'
 };
 
 const eca = new Extrahop(config);
@@ -44,17 +55,17 @@ const config = {
         {
           hostname: 'extrahop.domain.internal',
           apikey: 'XXXXXXXXXXXXXX',
-          type: eca
+          type: 'ECA'
         },
         {
           hostname: 'eda01.domain.internal',
           apikey: 'XXXXXXXXXXXXXX',
-          type: eda
+          type: 'EDA'
         },
         {
           hostname: 'eda02.domain.internal',
           apikey: 'XXXXXXXXXXXXXX',
-          type: eda
+          type: 'EDA'
         }
       ]
     }
