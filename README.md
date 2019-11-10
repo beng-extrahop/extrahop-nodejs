@@ -12,6 +12,11 @@ npm install extrahop-nodejs
 touch index.js
 ```
 
+## Run
+```
+node index.js
+```
+
 ## Import (index.js)
 ```
 const Extrahop = require('extrahop-nodejs')
@@ -23,11 +28,6 @@ const config = {
 };
 
 const eca = new Extrahop(config);
-```
-
-## Run
-```
-node index.js
 ```
 
 ## Usage (index.js)
