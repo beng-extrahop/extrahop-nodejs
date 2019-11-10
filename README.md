@@ -28,11 +28,8 @@ touch index.js
 node index.js
 ```
 
-## Usage
-Within index.js:
-
-### Configure
-#### Single Appliance
+## Configure
+### Single Appliance
 ```
 const Extrahop = require('extrahop-nodejs');
 
@@ -45,7 +42,7 @@ const config = {
 const eca = new Extrahop(config);
 ```
 
-#### Multiple Appliances
+### Multiple Appliances
 ```
 const Extrahop = require('extrahop-nodejs');
 
@@ -77,13 +74,15 @@ const config = {
 const extrahopEnv = new Extrahop(config);
 ```
 
-#### From Config File
+### From Config File
 ```
 const Extrahop = require('extrahop-nodejs');
 const config = require('./config.json');
 
 const extrahopEnv = new Extrahop(config);
 ```
+
+## Usage
 
 ### Activity Groups
 ```
