@@ -4,7 +4,7 @@ const { parse } = require('json2csv');
 
 module.exports = class BaseObject extends Object {
   constructor(baseObject = {}) {
-    super(baseObject);
+    super();
   }
 
   print() {

@@ -15,12 +15,12 @@ module.exports = class ActivityGroupCtrl extends BaseCtrl {
   // Global Search
   // -------------------------------------
 
-  findAll() {
-    return new ActivityGroupSet(this.getActivityGroups());
+  get(params = {}) {
+    return new ActivityGroupSet(this.filter(this.getActivityGroups(), params) || []);
   }
 
-  findAllDashboards(activityGroup) {
-    return new DashboardSet(this.getActivityGroupDashboards(activityGroup));
+  getDashboards(activityGroup) {
+    return new DashboardSet(this.getActivityGroupDashboards(activityGroup) || []);
   }
 
   // -------------------------------------
@@ -34,5 +34,4 @@ module.exports = class ActivityGroupCtrl extends BaseCtrl {
   getActivityGroupDashboards(activityGroup) {
     return this.process(this.appliance.getActivityGroupDashboards(activityGroup.id), 'related dashboards');
   }
-
 }

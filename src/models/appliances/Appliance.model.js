@@ -99,8 +99,8 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).get(`/activitygroups`);
   }
 
-  getActivityGroupDashboards(activityGroupID) {
-    return new Request(this.host, this.apikey).get(`/activitygroups/${activityGroupID}/dashboards`);
+  getActivityGroupDashboards(activityGroupId) {
+    return new Request(this.host, this.apikey).get(`/activitygroups/${activityGroupId}/dashboards`);
   }
 
   // -------------------------------------
@@ -119,32 +119,32 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).post(`/activitymaps/query`, payload);
   }
 
-  deleteActivityMap(activityMapID) {
-    return new Request(this.host, this.apikey).delete(`/activitymaps/${activityMapID}`);
+  deleteActivityMap(activityMapId) {
+    return new Request(this.host, this.apikey).delete(`/activitymaps/${activityMapId}`);
   }
 
-  getActivityMap(activityMapID) {
-    return new Request(this.host, this.apikey).get(`/activitymaps/${activityMapID}`);
+  getActivityMap(activityMapId) {
+    return new Request(this.host, this.apikey).get(`/activitymaps/${activityMapId}`);
   }
 
-  patchActivityMap(activityMapID, payload) {
-    return new Request(this.host, this.apikey).patch(`/activitymaps/${activityMapID}`, payload);
+  patchActivityMap(activityMapId, payload) {
+    return new Request(this.host, this.apikey).patch(`/activitymaps/${activityMapId}`, payload);
   }
 
-  postActivityMapQuery(activityMapID, payload) {
-    return new Request(this.host, this.apikey).post(`/activitymaps/${activityMapID}/query`, payload);
+  postActivityMapQuery(activityMapId, payload) {
+    return new Request(this.host, this.apikey).post(`/activitymaps/${activityMapId}/query`, payload);
   }
 
-  getActivityMapSharing(activityMapID) {
-    return new Request(this.host, this.apikey).get(`/activitymaps/${activityMapID}/sharing`);
+  getActivityMapSharing(activityMapId) {
+    return new Request(this.host, this.apikey).get(`/activitymaps/${activityMapId}/sharing`);
   }
 
-  patchActivityMapSharing(activityMapID, payload) {
-    return new Request(this.host, this.apikey).patch(`/activitymaps/${activityMapID}/sharing`, payload);
+  patchActivityMapSharing(activityMapId, payload) {
+    return new Request(this.host, this.apikey).patch(`/activitymaps/${activityMapId}/sharing`, payload);
   }
 
-  putActivityMapSharing(activityMapID, payload) {
-    return new Request(this.host, this.apikey).put(`/activitymaps/${activityMapID}/sharing`, payload);
+  putActivityMapSharing(activityMapId, payload) {
+    return new Request(this.host, this.apikey).put(`/activitymaps/${activityMapId}/sharing`, payload);
   }
 
   // -------------------------------------
@@ -159,136 +159,136 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).post(`/alerts`, payload);
   }
 
-  deleteAlert(alertID) {
-    return new Request(this.host, this.apikey).delete(`/alerts/${alertID}`);
+  deleteAlert(alertId) {
+    return new Request(this.host, this.apikey).delete(`/alerts/${alertId}`);
   }
 
-  getAlert(alertID) {
-    return new Request(this.host, this.apikey).get(`/alerts/${alertID}`);
+  getAlert(alertId) {
+    return new Request(this.host, this.apikey).get(`/alerts/${alertId}`);
   }
 
-  patchAlert(alertID, payload) {
-    return new Request(this.host, this.apikey).patch(`/alerts/${alertID}`, payload);
+  patchAlert(alertId, payload) {
+    return new Request(this.host, this.apikey).patch(`/alerts/${alertId}`, payload);
   }
 
-  getAlertApplications(alertID) {
-    return new Request(this.host, this.apikey).get(`/alerts/${alertID}/applications`);
+  getAlertApplications(alertId) {
+    return new Request(this.host, this.apikey).get(`/alerts/${alertId}/applications`);
   }
 
-  postAlertApplications(alertID, payload) {
-    return new Request(this.host, this.apikey).post(`/alerts/${alertID}/applications`, payload);
+  postAlertApplications(alertId, payload) {
+    return new Request(this.host, this.apikey).post(`/alerts/${alertId}/applications`, payload);
   }
 
-  deleteAlertApplication(alertID, appID) {
-    return new Request(this.host, this.apikey).delete(`/alerts/${alertID}/applications/${appID}`);
+  deleteAlertApplication(alertId, appId) {
+    return new Request(this.host, this.apikey).delete(`/alerts/${alertId}/applications/${appId}`);
   }
 
-  postAlertApplication(alertID, appID) {
-    return new Request(this.host, this.apikey).post(`/alerts/${alertID}/applications/${appID}`);
+  postAlertApplication(alertId, appId) {
+    return new Request(this.host, this.apikey).post(`/alerts/${alertId}/applications/${appId}`);
   }
 
-  getAlertDeviceGroups(alertID) {
-    return new Request(this.host, this.apikey).get(`/alerts/${alertID}/devicegroups`);
+  getAlertDeviceGroups(alertId) {
+    return new Request(this.host, this.apikey).get(`/alerts/${alertId}/devicegroups`);
   }
 
-  postAlertDeviceGroups(alertID, payload) {
-    return new Request(this.host, this.apikey).post(`/alerts/${alertID}/devicegroups`, payload);
+  postAlertDeviceGroups(alertId, payload) {
+    return new Request(this.host, this.apikey).post(`/alerts/${alertId}/devicegroups`, payload);
   }
 
-  deleteAlertDeviceGroup(alertID, deviceGroupID) {
-    return new Request(this.host, this.apikey).delete(`/alerts/${alertID}/devicegroups/${deviceGroupID}`);
+  deleteAlertDeviceGroup(alertId, deviceGroupId) {
+    return new Request(this.host, this.apikey).delete(`/alerts/${alertId}/devicegroups/${deviceGroupId}`);
   }
 
-  postAlertDeviceGroup(alertID, deviceGroupID) {
-    return new Request(this.host, this.apikey).post(`/alerts/${alertID}/devicegroups/${deviceGroupID}`);
+  postAlertDeviceGroup(alertId, deviceGroupId) {
+    return new Request(this.host, this.apikey).post(`/alerts/${alertId}/devicegroups/${deviceGroupId}`);
   }
 
-  getAlertDevices(alertID) {
-    return new Request(this.host, this.apikey).get(`/alerts/${alertID}/devices`);
+  getAlertDevices(alertId) {
+    return new Request(this.host, this.apikey).get(`/alerts/${alertId}/devices`);
   }
 
-  postAlertDevices(alertID, payload) {
-    return new Request(this.host, this.apikey).post(`/alerts/${alertID}/devices`, payload);
+  postAlertDevices(alertId, payload) {
+    return new Request(this.host, this.apikey).post(`/alerts/${alertId}/devices`, payload);
   }
 
-  deleteAlertDevice(alertID, deviceID) {
-    return new Request(this.host, this.apikey).delete(`/alerts/${alertID}/devices/${deviceID}`);
+  deleteAlertDevice(alertId, deviceId) {
+    return new Request(this.host, this.apikey).delete(`/alerts/${alertId}/devices/${deviceId}`);
   }
 
-  postAlertDevice(alertID, deviceID) {
-    return new Request(this.host, this.apikey).post(`/alerts/${alertID}/devices/${deviceID}`);
+  postAlertDevice(alertId, deviceId) {
+    return new Request(this.host, this.apikey).post(`/alerts/${alertId}/devices/${deviceId}`);
   }
 
-  getAlertEmailGroups(alertID) {
-    return new Request(this.host, this.apikey).get(`/alerts/${alertID}/emailgroups`);
+  getAlertEmailGroups(alertId) {
+    return new Request(this.host, this.apikey).get(`/alerts/${alertId}/emailgroups`);
   }
 
-  postAlertEmailGroups(alertID, payload) {
-    return new Request(this.host, this.apikey).post(`/alerts/${alertID}/emailgroups`, payload);
+  postAlertEmailGroups(alertId, payload) {
+    return new Request(this.host, this.apikey).post(`/alerts/${alertId}/emailgroups`, payload);
   }
 
-  deleteAlertEmailGroup(alertID, emailGroupID) {
-    return new Request(this.host, this.apikey).delete(`/alerts/${alertID}/emailgroups/${emailGroupID}`);
+  deleteAlertEmailGroup(alertId, emailGroupId) {
+    return new Request(this.host, this.apikey).delete(`/alerts/${alertId}/emailgroups/${emailGroupId}`);
   }
 
-  postAlertEmailGroup(alertID, emailGroupID) {
-    return new Request(this.host, this.apikey).post(`/alerts/${alertID}/emailgroups/${emailGroupID}`);
+  postAlertEmailGroup(alertId, emailGroupId) {
+    return new Request(this.host, this.apikey).post(`/alerts/${alertId}/emailgroups/${emailGroupId}`);
   }
 
-  getAlertExclusionIntervals(alertID) {
-    return new Request(this.host, this.apikey).get(`/alerts/${alertID}/exclusionintervals`);
+  getAlertExclusionIntervals(alertId) {
+    return new Request(this.host, this.apikey).get(`/alerts/${alertId}/exclusionintervals`);
   }
 
-  postAlertExclusionIntervals(alertID, payload) {
-    return new Request(this.host, this.apikey).post(`/alerts/${alertID}/exclusionintervals`, payload);
+  postAlertExclusionIntervals(alertId, payload) {
+    return new Request(this.host, this.apikey).post(`/alerts/${alertId}/exclusionintervals`, payload);
   }
 
-  deleteAlertExclusionInterval(alertID, exclusionIntervalID) {
-    return new Request(this.host, this.apikey).delete(`/alerts/${alertID}/exclusionintervals/${exclusionIntervalID}`);
+  deleteAlertExclusionInterval(alertId, exclusionIntervalId) {
+    return new Request(this.host, this.apikey).delete(`/alerts/${alertId}/exclusionintervals/${exclusionIntervalId}`);
   }
 
-  postAlertExclusionInterval(alertID, exclusionIntervalID) {
-    return new Request(this.host, this.apikey).post(`/alerts/${alertID}/exclusionintervals/${exclusionIntervalID}`);
+  postAlertExclusionInterval(alertId, exclusionIntervalId) {
+    return new Request(this.host, this.apikey).post(`/alerts/${alertId}/exclusionintervals/${exclusionIntervalId}`);
   }
 
-  getAlertNetworks(alertID) {
-    return new Request(this.host, this.apikey).get(`/alerts/${alertID}/networks`);
+  getAlertNetworks(alertId) {
+    return new Request(this.host, this.apikey).get(`/alerts/${alertId}/networks`);
   }
 
-  postAlertNetworks(alertID, payload) {
-    return new Request(this.host, this.apikey).post(`/alerts/${alertID}/networks`, payload);
+  postAlertNetworks(alertId, payload) {
+    return new Request(this.host, this.apikey).post(`/alerts/${alertId}/networks`, payload);
   }
 
-  deleteAlertNetwork(alertID, networkID) {
-    return new Request(this.host, this.apikey).delete(`/alerts/${alertID}/networks/${networkID}`);
+  deleteAlertNetwork(alertId, networkId) {
+    return new Request(this.host, this.apikey).delete(`/alerts/${alertId}/networks/${networkId}`);
   }
 
-  postAlertNetwork(alertID, networkID) {
-    return new Request(this.host, this.apikey).post(`/alerts/${alertID}/networks/${networkID}`);
+  postAlertNetwork(alertId, networkId) {
+    return new Request(this.host, this.apikey).post(`/alerts/${alertId}/networks/${networkId}`);
   }
 
-  getAlertStats(alertID) {
-    return new Request(this.host, this.apikey).get(`/alerts/${alertID}/stats`);
+  getAlertStats(alertId) {
+    return new Request(this.host, this.apikey).get(`/alerts/${alertId}/stats`);
   }
 
   // -------------------------------------
   // Analysis Priority
   // -------------------------------------
 
-  getAnalysisPriorityConfig(applianceID = 0) {
-    return new Request(this.host, this.apikey).get(`/analysispriority/config/${applianceID}`);
+  getAnalysisPriorityConfig(applianceId = 0) {
+    return new Request(this.host, this.apikey).get(`/analysispriority/config/${applianceId}`);
   }
 
-  putAnalysisPriorityConfig(payload, applianceID = 0) {
-    return new Request(this.host, this.apikey).put(`/analysispriority/config/${applianceID}`, payload);
+  putAnalysisPriorityConfig(payload, applianceId = 0) {
+    return new Request(this.host, this.apikey).put(`/analysispriority/config/${applianceId}`, payload);
   }
 
-  getAnalysisPriorityManager(applianceID = 0) {
-    return new Request(this.host, this.apikey).get(`/analysispriority/${applianceID}/manager`);
+  getAnalysisPriorityManager(applianceId = 0) {
+    return new Request(this.host, this.apikey).get(`/analysispriority/${applianceId}/manager`);
   }
 
-  patchAnalysisPriorityManager(payload, applianceID = 0) {
-    return new Request(this.host, this.apikey).patch(`/analysispriority/${applianceID}/manager`, payload);
+  patchAnalysisPriorityManager(payload, applianceId = 0) {
+    return new Request(this.host, this.apikey).patch(`/analysispriority/${applianceId}/manager`, payload);
   }
 
   // -------------------------------------
@@ -299,8 +299,8 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).get(`/apikeys`);
   }
 
-  getApiKey(keyID) {
-    return new Request(this.host, this.apikey).get(`/apikeys/${keyID}`);
+  getApiKey(keyId) {
+    return new Request(this.host, this.apikey).get(`/apikeys/${keyId}`);
   }
 
   postApiKeys(payload) {
@@ -315,8 +315,8 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).get(`/appliances`);
   }
 
-  getAppliance(applianceID) {
-    return new Request(this.host, this.apikey).get(`/appliances/${applianceID}`);
+  getAppliance(applianceId) {
+    return new Request(this.host, this.apikey).get(`/appliances/${applianceId}`);
   }
 
   postAppliance(payload) {
@@ -333,88 +333,88 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).get(`/applications${ queryString || '' }`);
   }
 
-  getApplication(appID) {
-    return new Request(this.host, this.apikey).get(`/applications/${appID}`);
+  getApplication(appId) {
+    return new Request(this.host, this.apikey).get(`/applications/${appId}`);
   }
 
-  postApplication(appID, payload) {
-    return new Request(this.host, this.apikey).post(`/applications/${appID}`, payload);
+  postApplication(appId, payload) {
+    return new Request(this.host, this.apikey).post(`/applications/${appId}`, payload);
   }
 
-  patchApplication(appID, payload) {
-    return new Request(this.host, this.apikey).patch(`/applications/${appID}`, payload);
+  patchApplication(appId, payload) {
+    return new Request(this.host, this.apikey).patch(`/applications/${appId}`, payload);
   }
 
-  getApplicationActivity(appID) {
-    return new Request(this.host, this.apikey).get(`/applications/${appID}/activity`);
+  getApplicationActivity(appId) {
+    return new Request(this.host, this.apikey).get(`/applications/${appId}/activity`);
   }
 
-  getApplicationAlerts(appID) {
-    return new Request(this.host, this.apikey).get(`/applications/${appID}/alerts`);
+  getApplicationAlerts(appId) {
+    return new Request(this.host, this.apikey).get(`/applications/${appId}/alerts`);
   }
 
-  postApplicationAlerts(appID, payload) {
-    return new Request(this.host, this.apikey).post(`/applications/${appID}/alerts`, payload);
+  postApplicationAlerts(appId, payload) {
+    return new Request(this.host, this.apikey).post(`/applications/${appId}/alerts`, payload);
   }
 
-  deleteApplicationAlert(appID, alertID) {
-    return new Request(this.host, this.apikey).delete(`/applications/${appID}/alerts/${alertID}`);
+  deleteApplicationAlert(appId, alertId) {
+    return new Request(this.host, this.apikey).delete(`/applications/${appId}/alerts/${alertId}`);
   }
 
-  postApplicationAlert(appID, alertID) {
-    return new Request(this.host, this.apikey).post(`/applications/${appID}/alerts/${alertID}`);
+  postApplicationAlert(appId, alertId) {
+    return new Request(this.host, this.apikey).post(`/applications/${appId}/alerts/${alertId}`);
   }
 
-  getApplicationDashboards(appID) {
-    return new Request(this.host, this.apikey).get(`/applications/${appID}/dashboards`);
+  getApplicationDashboards(appId) {
+    return new Request(this.host, this.apikey).get(`/applications/${appId}/dashboards`);
   }
 
-  getApplicationFlexGrids(appID) {
-    return new Request(this.host, this.apikey).get(`/applications/${appID}/flexgrids`);
+  getApplicationFlexGrids(appId) {
+    return new Request(this.host, this.apikey).get(`/applications/${appId}/flexgrids`);
   }
 
-  postApplicationFlexGrids(appID, payload) {
-    return new Request(this.host, this.apikey).post(`/applications/${appID}/flexgrids`, payload);
+  postApplicationFlexGrids(appId, payload) {
+    return new Request(this.host, this.apikey).post(`/applications/${appId}/flexgrids`, payload);
   }
 
-  deleteApplicationFlexGrid(appID, flexGridID) {
-    return new Request(this.host, this.apikey).delete(`/applications/${appID}/flexgrids/${flexGridID}`);
+  deleteApplicationFlexGrid(appId, flexGridId) {
+    return new Request(this.host, this.apikey).delete(`/applications/${appId}/flexgrids/${flexGridId}`);
   }
 
-  postApplicationFlexGrid(appID, flexGridID) {
-    return new Request(this.host, this.apikey).post(`/applications/${appID}/flexgrids/${flexGridID}`);
+  postApplicationFlexGrid(appId, flexGridId) {
+    return new Request(this.host, this.apikey).post(`/applications/${appId}/flexgrids/${flexGridId}`);
   }
 
-  getApplicationGeomaps(appID) {
-    return new Request(this.host, this.apikey).get(`/applications/${appID}/geomaps`);
+  getApplicationGeomaps(appId) {
+    return new Request(this.host, this.apikey).get(`/applications/${appId}/geomaps`);
   }
 
-  postApplicationGeomaps(appID, payload) {
-    return new Request(this.host, this.apikey).post(`/applications/${appID}/geomaps`, payload);
+  postApplicationGeomaps(appId, payload) {
+    return new Request(this.host, this.apikey).post(`/applications/${appId}/geomaps`, payload);
   }
 
-  deleteApplicationGeomap(appID, geomapID) {
-    return new Request(this.host, this.apikey).delete(`/applications/${appID}/geomaps/${geomapID}`);
+  deleteApplicationGeomap(appId, geomapId) {
+    return new Request(this.host, this.apikey).delete(`/applications/${appId}/geomaps/${geomapId}`);
   }
 
-  postApplicationGeomap(appID, geomapID) {
-    return new Request(this.host, this.apikey).post(`/applications/${appID}/geomaps/${geomapID}`);
+  postApplicationGeomap(appId, geomapId) {
+    return new Request(this.host, this.apikey).post(`/applications/${appId}/geomaps/${geomapId}`);
   }
 
-  getApplicationPages(appID) {
-    return new Request(this.host, this.apikey).get(`/applications/${appID}/pages`);
+  getApplicationPages(appId) {
+    return new Request(this.host, this.apikey).get(`/applications/${appId}/pages`);
   }
 
-  postApplicationPages(appID, payload) {
-    return new Request(this.host, this.apikey).post(`/applications/${appID}/pages`, payload);
+  postApplicationPages(appId, payload) {
+    return new Request(this.host, this.apikey).post(`/applications/${appId}/pages`, payload);
   }
 
-  deleteApplicationPage(appID, pageID) {
-    return new Request(this.host, this.apikey).delete(`/applications/${appID}/pages/${pageID}`);
+  deleteApplicationPage(appId, pageId) {
+    return new Request(this.host, this.apikey).delete(`/applications/${appId}/pages/${pageId}`);
   }
 
-  postApplicationPage(appID, pageID) {
-    return new Request(this.host, this.apikey).post(`/applications/${appID}/pages/${pageID}`);
+  postApplicationPage(appId, pageId) {
+    return new Request(this.host, this.apikey).post(`/applications/${appId}/pages/${pageId}`);
   }
 
   // -------------------------------------
@@ -438,16 +438,16 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).post(`/bundles`, payload);
   }
 
-  deleteBundle(bundleID) {
-    return new Request(this.host, this.apikey).delete(`/bundles/${bundleID}`);
+  deleteBundle(bundleId) {
+    return new Request(this.host, this.apikey).delete(`/bundles/${bundleId}`);
   }
 
-  getBundle(bundleID) {
-    return new Request(this.host, this.apikey).get(`/bundles/${bundleID}`);
+  getBundle(bundleId) {
+    return new Request(this.host, this.apikey).get(`/bundles/${bundleId}`);
   }
 
-  postBundleApply(bundleID, payload) {
-    return new Request(this.host, this.apikey).post(`/bundles/${bundleID}/apply`, payload);
+  postBundleApply(bundleId, payload) {
+    return new Request(this.host, this.apikey).post(`/bundles/${bundleId}/apply`, payload);
   }
 
   // -------------------------------------
@@ -462,33 +462,33 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).post(`/customdevices`, payload);
   }
 
-  deleteCustomDevice(customDeviceID) {
-    return new Request(this.host, this.apikey).delete(`/customdevices/${customDeviceID}`);
+  deleteCustomDevice(customDeviceId) {
+    return new Request(this.host, this.apikey).delete(`/customdevices/${customDeviceId}`);
   }
 
-  getCustomDevice(customDeviceID, includeCriteria) {
+  getCustomDevice(customDeviceId, includeCriteria) {
     const queryString = Utils.buildQuery({'include_criteria': includeCriteria});
-    return new Request(this.host, this.apikey).get(`/customdevices/${customDeviceID}${ queryString || '' }`);
+    return new Request(this.host, this.apikey).get(`/customdevices/${customDeviceId}${ queryString || '' }`);
   }
 
-  patchCustomDevice(customDeviceID, payload) {
-    return new Request(this.host, this.apikey).patch(`/customdevices/${customDeviceID}`, payload);
+  patchCustomDevice(customDeviceId, payload) {
+    return new Request(this.host, this.apikey).patch(`/customdevices/${customDeviceId}`, payload);
   }
 
-  getCustomDeviceCriteria(customDeviceID) {
-    return new Request(this.host, this.apikey).get(`/customdevices/${customDeviceID}/criteria`);
+  getCustomDeviceCriteria(customDeviceId) {
+    return new Request(this.host, this.apikey).get(`/customdevices/${customDeviceId}/criteria`);
   }
 
-  postCustomDeviceCriteria(customDeviceID, payload) {
-    return new Request(this.host, this.apikey).post(`/customdevices/${customDeviceID}/criteria`, payload);
+  postCustomDeviceCriteria(customDeviceId, payload) {
+    return new Request(this.host, this.apikey).post(`/customdevices/${customDeviceId}/criteria`, payload);
   }
 
-  deleteCustomDeviceCriteria(customDeviceID, criteriaID) {
-    return new Request(this.host, this.apikey).delete(`/customdevices/${customDeviceID}/criteria/${criteriaID}`);
+  deleteCustomDeviceCriteria(customDeviceId, criteriaId) {
+    return new Request(this.host, this.apikey).delete(`/customdevices/${customDeviceId}/criteria/${criteriaId}`);
   }
 
-  getCustomDeviceCriterion(customDeviceID, criteriaID) {
-    return new Request(this.host, this.apikey).get(`/customdevices/${customDeviceID}/criteria/${criteriaID}`);
+  getCustomDeviceCriterion(customDeviceId, criteriaId) {
+    return new Request(this.host, this.apikey).get(`/customdevices/${customDeviceId}/criteria/${criteriaId}`);
   }
 
   // -------------------------------------
@@ -507,20 +507,20 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).get(`/customizations/status`);
   }
 
-  deleteCustomization(customizationID) {
-    return new Request(this.host, this.apikey).delete(`/customizations/${customizationID}`);
+  deleteCustomization(customizationId) {
+    return new Request(this.host, this.apikey).delete(`/customizations/${customizationId}`);
   }
 
-  getCustomization(customizationID) {
-    return new Request(this.host, this.apikey).get(`/customizations/${customizationID}`);
+  getCustomization(customizationId) {
+    return new Request(this.host, this.apikey).get(`/customizations/${customizationId}`);
   }
 
-  postCustomizationApply(customizationID) {
-    return new Request(this.host, this.apikey).post(`/customizations/${customizationID}/apply`);
+  postCustomizationApply(customizationId) {
+    return new Request(this.host, this.apikey).post(`/customizations/${customizationId}/apply`);
   }
 
-  postCustomizationDownload(customizationID) {
-    return new Request(this.host, this.apikey).post(`/customizations/${customizationID}/download`);
+  postCustomizationDownload(customizationId) {
+    return new Request(this.host, this.apikey).post(`/customizations/${customizationId}/download`);
   }
 
   // -------------------------------------
@@ -531,32 +531,32 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).get(`/dashboards`);
   }
 
-  deleteDashboard(dashboardID) {
-    return new Request(this.host, this.apikey).delete(`/dashboards/${dashboardID}`);
+  deleteDashboard(dashboardId) {
+    return new Request(this.host, this.apikey).delete(`/dashboards/${dashboardId}`);
   }
 
-  getDashboard(dashboardID) {
-    return new Request(this.host, this.apikey).get(`/dashboards/${dashboardID}`);
+  getDashboard(dashboardId) {
+    return new Request(this.host, this.apikey).get(`/dashboards/${dashboardId}`);
   }
 
-  patchDashboard(dashboardID, payload) {
-    return new Request(this.host, this.apikey).patch(`/dashboards/${dashboardID}`, payload);
+  patchDashboard(dashboardId, payload) {
+    return new Request(this.host, this.apikey).patch(`/dashboards/${dashboardId}`, payload);
   }
 
-  getDashboardReports(dashboardID) {
-    return new Request(this.host, this.apikey).get(`/dashboards/${dashboardID}/reports`);
+  getDashboardReports(dashboardId) {
+    return new Request(this.host, this.apikey).get(`/dashboards/${dashboardId}/reports`);
   }
 
-  getDashboardSharing(dashboardID) {
-    return new Request(this.host, this.apikey).get(`/dashboards/${dashboardID}/sharing`);
+  getDashboardSharing(dashboardId) {
+    return new Request(this.host, this.apikey).get(`/dashboards/${dashboardId}/sharing`);
   }
 
-  patchDashboardSharing(dashboardID, payload) {
-    return new Request(this.host, this.apikey).patch(`/dashboards/${dashboardID}/sharing`, payload);
+  patchDashboardSharing(dashboardId, payload) {
+    return new Request(this.host, this.apikey).patch(`/dashboards/${dashboardId}/sharing`, payload);
   }
 
-  putDashboardSharing(dashboardID, payload) {
-    return new Request(this.host, this.apikey).put(`/dashboards/${dashboardID}/sharing`, payload);
+  putDashboardSharing(dashboardId, payload) {
+    return new Request(this.host, this.apikey).put(`/dashboards/${dashboardId}/sharing`, payload);
   }
 
   // -------------------------------------
@@ -572,135 +572,135 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).post(`/devices/search`, payload);
   }
 
-  getDevice(deviceID) {
-    return new Request(this.host, this.apikey).get(`/devices/${deviceID}`);
+  getDevice(deviceId) {
+    return new Request(this.host, this.apikey).get(`/devices/${deviceId}`);
   }
 
-  patchDevice(deviceID, payload) {
-    return new Request(this.host, this.apikey).patch(`/devices/${deviceID}`, payload);
+  patchDevice(deviceId, payload) {
+    return new Request(this.host, this.apikey).patch(`/devices/${deviceId}`, payload);
   }
 
-  getDeviceActivity(deviceID) {
-    return new Request(this.host, this.apikey).get(`/devices/${deviceID}/activity`);
+  getDeviceActivity(deviceId) {
+    return new Request(this.host, this.apikey).get(`/devices/${deviceId}/activity`);
   }
 
-  getDeviceAlerts(deviceID, direct_assignments_only) {
+  getDeviceAlerts(deviceId, direct_assignments_only) {
     const queryString = Utils.buildQuery({ direct_assignments_only });
-    return new Request(this.host, this.apikey).get(`/devices/${deviceID}/alerts${ queryString || '' }`);
+    return new Request(this.host, this.apikey).get(`/devices/${deviceId}/alerts${ queryString || '' }`);
   }
 
-  postDeviceAlerts(deviceID, payload) {
-    return new Request(this.host, this.apikey).post(`/devices/${deviceID}/alerts`, payload);
+  postDeviceAlerts(deviceId, payload) {
+    return new Request(this.host, this.apikey).post(`/devices/${deviceId}/alerts`, payload);
   }
 
-  deleteDeviceAlert(deviceID, alertID) {
-    return new Request(this.host, this.apikey).delete(`/devices/${deviceID}/alerts/${alertID}`);
+  deleteDeviceAlert(deviceId, alertId) {
+    return new Request(this.host, this.apikey).delete(`/devices/${deviceId}/alerts/${alertId}`);
   }
 
-  postDeviceAlert(deviceID, alertID) {
-    return new Request(this.host, this.apikey).post(`/devices/${deviceID}/alerts/${alertID}`);
+  postDeviceAlert(deviceId, alertId) {
+    return new Request(this.host, this.apikey).post(`/devices/${deviceId}/alerts/${alertId}`);
   }
 
-  getDeviceDashboards(deviceID) {
-    return new Request(this.host, this.apikey).get(`/devices/${deviceID}/dashboards`);
+  getDeviceDashboards(deviceId) {
+    return new Request(this.host, this.apikey).get(`/devices/${deviceId}/dashboards`);
   }
 
-  getDeviceDeviceGroups(deviceID) {
-    return new Request(this.host, this.apikey).get(`/devices/${deviceID}/devicegroups`);
+  getDeviceDeviceGroups(deviceId) {
+    return new Request(this.host, this.apikey).get(`/devices/${deviceId}/devicegroups`);
   }
 
-  postDeviceDeviceGroups(deviceID, payload) {
-    return new Request(this.host, this.apikey).post(`/devices/${deviceID}/devicegroups`, payload);
+  postDeviceDeviceGroups(deviceId, payload) {
+    return new Request(this.host, this.apikey).post(`/devices/${deviceId}/devicegroups`, payload);
   }
 
-  deleteDeviceDeviceGroup(deviceID, deviceGroupID) {
-    return new Request(this.host, this.apikey).delete(`/devices/${deviceID}/devicegroups/${deviceGroupID}`);
+  deleteDeviceDeviceGroup(deviceId, deviceGroupId) {
+    return new Request(this.host, this.apikey).delete(`/devices/${deviceId}/devicegroups/${deviceGroupId}`);
   }
 
-  postDeviceDeviceGroup(deviceID, deviceGroupID) {
-    return new Request(this.host, this.apikey).post(`/devices/${deviceID}/devicegroups/${deviceGroupID}`);
+  postDeviceDeviceGroup(deviceId, deviceGroupId) {
+    return new Request(this.host, this.apikey).post(`/devices/${deviceId}/devicegroups/${deviceGroupId}`);
   }
 
-  getDeviceFlexGrids(deviceID) {
-    return new Request(this.host, this.apikey).get(`/devices/${deviceID}/flexgrids`);
+  getDeviceFlexGrids(deviceId) {
+    return new Request(this.host, this.apikey).get(`/devices/${deviceId}/flexgrids`);
   }
 
-  postDeviceFlexGrids(deviceID, payload) {
-    return new Request(this.host, this.apikey).post(`/devices/${deviceID}/flexgrids`, payload);
+  postDeviceFlexGrids(deviceId, payload) {
+    return new Request(this.host, this.apikey).post(`/devices/${deviceId}/flexgrids`, payload);
   }
 
-  deleteDeviceFlexGrid(deviceID, flexGridID) {
-    return new Request(this.host, this.apikey).delete(`/devices/${deviceID}/flexgrids/${flexGridID}`);
+  deleteDeviceFlexGrid(deviceId, flexGridId) {
+    return new Request(this.host, this.apikey).delete(`/devices/${deviceId}/flexgrids/${flexGridId}`);
   }
 
-  postDeviceFlexGrid(deviceID, flexGridID) {
-    return new Request(this.host, this.apikey).post(`/devices/${deviceID}/flexgrids/${flexGridID}`);
+  postDeviceFlexGrid(deviceId, flexGridId) {
+    return new Request(this.host, this.apikey).post(`/devices/${deviceId}/flexgrids/${flexGridId}`);
   }
 
-  getDeviceGeomaps(deviceID, direct_assignments_only) {
-    const queryString = Utils.buildQuery({ direct_assignments_only });    return new Request(this.host, this.apikey).get(`/devices/${deviceID}/geomaps${ queryString || '' }`);
+  getDeviceGeomaps(deviceId, direct_assignments_only) {
+    const queryString = Utils.buildQuery({ direct_assignments_only });    return new Request(this.host, this.apikey).get(`/devices/${deviceId}/geomaps${ queryString || '' }`);
   }
 
-  postDeviceGeomaps(deviceID, payload) {
-    return new Request(this.host, this.apikey).post(`/devices/${deviceID}/geomaps`, payload);
+  postDeviceGeomaps(deviceId, payload) {
+    return new Request(this.host, this.apikey).post(`/devices/${deviceId}/geomaps`, payload);
   }
 
-  deleteDeviceGeomap(deviceID, geomapID) {
-    return new Request(this.host, this.apikey).delete(`/devices/${deviceID}/geomaps/${geomapID}`);
+  deleteDeviceGeomap(deviceId, geomapId) {
+    return new Request(this.host, this.apikey).delete(`/devices/${deviceId}/geomaps/${geomapId}`);
   }
 
-  postDeviceGeomap(deviceID, geomapID) {
-    return new Request(this.host, this.apikey).post(`/devices/${deviceID}/geomaps/${geomapID}`);
+  postDeviceGeomap(deviceId, geomapId) {
+    return new Request(this.host, this.apikey).post(`/devices/${deviceId}/geomaps/${geomapId}`);
   }
 
-  getDevicePages(deviceID, direct_assignments_only) {
+  getDevicePages(deviceId, direct_assignments_only) {
     const queryString = Utils.buildQuery({ direct_assignments_only });
-    return new Request(this.host, this.apikey).get(`/devices/${deviceID}/pages${ queryString || '' }`);
+    return new Request(this.host, this.apikey).get(`/devices/${deviceId}/pages${ queryString || '' }`);
   }
 
-  postDevicePages(deviceID, payload) {
-    return new Request(this.host, this.apikey).post(`/devices/${deviceID}/pages`, payload);
+  postDevicePages(deviceId, payload) {
+    return new Request(this.host, this.apikey).post(`/devices/${deviceId}/pages`, payload);
   }
 
-  deleteDevicePage(deviceID, pageID) {
-    return new Request(this.host, this.apikey).delete(`/devices/${deviceID}/pages/${pageID}`);
+  deleteDevicePage(deviceId, pageId) {
+    return new Request(this.host, this.apikey).delete(`/devices/${deviceId}/pages/${pageId}`);
   }
 
-  postDevicePage(deviceID, pageID) {
-    return new Request(this.host, this.apikey).post(`/devices/${deviceID}/pages/${pageID}`);
+  postDevicePage(deviceId, pageId) {
+    return new Request(this.host, this.apikey).post(`/devices/${deviceId}/pages/${pageId}`);
   }
 
-  getDeviceTags(deviceID) {
-    return new Request(this.host, this.apikey).get(`/devices/${deviceID}/tags`);
+  getDeviceTags(deviceId) {
+    return new Request(this.host, this.apikey).get(`/devices/${deviceId}/tags`);
   }
 
-  postDeviceTags(deviceID, payload) {
-    return new Request(this.host, this.apikey).post(`/devices/${deviceID}/tags`, payload);
+  postDeviceTags(deviceId, payload) {
+    return new Request(this.host, this.apikey).post(`/devices/${deviceId}/tags`, payload);
   }
 
-  deleteDeviceTag(deviceID, tagID) {
-    return new Request(this.host, this.apikey).delete(`/devices/${deviceID}/tags/${tagID}`);
+  deleteDeviceTag(deviceId, tagId) {
+    return new Request(this.host, this.apikey).delete(`/devices/${deviceId}/tags/${tagId}`);
   }
 
-  postDeviceTag(deviceID, tagID) {
-    return new Request(this.host, this.apikey).post(`/devices/${deviceID}/tags/${tagID}`);
+  postDeviceTag(deviceId, tagId) {
+    return new Request(this.host, this.apikey).post(`/devices/${deviceId}/tags/${tagId}`);
   }
 
-  getDeviceTriggers(deviceID, direct_assignments_only) {
+  getDeviceTriggers(deviceId, direct_assignments_only) {
     const queryString = Utils.buildQuery({ direct_assignments_only });
-    return new Request(this.host, this.apikey).get(`/devices/${deviceID}/triggers${ queryString || '' }`);
+    return new Request(this.host, this.apikey).get(`/devices/${deviceId}/triggers${ queryString || '' }`);
   }
 
-  postDeviceTriggers(deviceID, payload) {
-    return new Request(this.host, this.apikey).post(`/devices/${deviceID}/triggers`, payload);
+  postDeviceTriggers(deviceId, payload) {
+    return new Request(this.host, this.apikey).post(`/devices/${deviceId}/triggers`, payload);
   }
 
-  deleteDeviceTrigger(deviceID, triggerID) {
-    return new Request(this.host, this.apikey).delete(`/devices/${deviceID}/triggers/${triggerID}`);
+  deleteDeviceTrigger(deviceId, triggerId) {
+    return new Request(this.host, this.apikey).delete(`/devices/${deviceId}/triggers/${triggerId}`);
   }
 
-  postDeviceTrigger(deviceID, triggerID) {
-    return new Request(this.host, this.apikey).post(`/devices/${deviceID}/triggers/${triggerID}`);
+  postDeviceTrigger(deviceId, triggerId) {
+    return new Request(this.host, this.apikey).post(`/devices/${deviceId}/triggers/${triggerId}`);
   }
 
   // -------------------------------------
@@ -716,137 +716,137 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).post(`/devicegroups`, payload);
   }
 
-  deleteDeviceGroup(deviceGroupID) {
-    return new Request(this.host, this.apikey).delete(`/devicegroups/${deviceGroupID}`);
+  deleteDeviceGroup(deviceGroupId) {
+    return new Request(this.host, this.apikey).delete(`/devicegroups/${deviceGroupId}`);
   }
 
-  getDeviceGroup(deviceGroupID) {
-    return new Request(this.host, this.apikey).get(`/devicegroups/${deviceGroupID}`);
+  getDeviceGroup(deviceGroupId) {
+    return new Request(this.host, this.apikey).get(`/devicegroups/${deviceGroupId}`);
   }
 
-  patchDeviceGroup(deviceGroupID, payload) {
-    return new Request(this.host, this.apikey).patch(`/devicegroups/${deviceGroupID}`, payload);
+  patchDeviceGroup(deviceGroupId, payload) {
+    return new Request(this.host, this.apikey).patch(`/devicegroups/${deviceGroupId}`, payload);
   }
 
-  getDeviceGroupAlerts(deviceGroupID, direct_assignments_only) {
+  getDeviceGroupAlerts(deviceGroupId, direct_assignments_only) {
     const queryString = Utils.buildQuery({ direct_assignments_only });
-    return new Request(this.host, this.apikey).get(`/devicegroups/${deviceGroupID}/alerts${ queryString || '' }`);
+    return new Request(this.host, this.apikey).get(`/devicegroups/${deviceGroupId}/alerts${ queryString || '' }`);
   }
 
-  postDeviceGroupAlerts(deviceGroupID, payload) {
-    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupID}/alerts`, payload);
+  postDeviceGroupAlerts(deviceGroupId, payload) {
+    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupId}/alerts`, payload);
   }
 
-  deleteDeviceGroupAlert(deviceGroupID, alertID) {
-    return new Request(this.host, this.apikey).delete(`/devicegroups/${deviceGroupID}/alerts/${alertID}`);
+  deleteDeviceGroupAlert(deviceGroupId, alertId) {
+    return new Request(this.host, this.apikey).delete(`/devicegroups/${deviceGroupId}/alerts/${alertId}`);
   }
 
-  postDeviceGroupAlert(deviceGroupID, alertID) {
-    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupID}/alerts/${alertID}`);
+  postDeviceGroupAlert(deviceGroupId, alertId) {
+    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupId}/alerts/${alertId}`);
   }
 
-  getDeviceGroupDashboards(deviceGroupID) {
-    return new Request(this.host, this.apikey).get(`/devicegroups/${deviceGroupID}/dashboards`);
+  getDeviceGroupDashboards(deviceGroupId) {
+    return new Request(this.host, this.apikey).get(`/devicegroups/${deviceGroupId}/dashboards`);
   }
 
-  getDeviceGroupDevices(deviceGroupID, activeFrom, activeUntil, limit, offset) {
+  getDeviceGroupDevices(deviceGroupId, activeFrom, activeUntil, limit, offset) {
     const queryString = Utils.buildQuery({ activeFrom, activeUntil, limit, offset });
-    return new Request(this.host, this.apikey).get(`/devicegroups/${deviceGroupID}/devices${ queryString || '' }`);
+    return new Request(this.host, this.apikey).get(`/devicegroups/${deviceGroupId}/devices${ queryString || '' }`);
   }
 
-  postDeviceGroupDevices(deviceGroupID, payload) {
-    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupID}/devices`, payload);
+  postDeviceGroupDevices(deviceGroupId, payload) {
+    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupId}/devices`, payload);
   }
 
-  deleteDeviceGroupDevice(deviceGroupID, deviceID) {
-    return new Request(this.host, this.apikey).delete(`/devicegroups/${deviceGroupID}/devices/${deviceID}`);
+  deleteDeviceGroupDevice(deviceGroupId, deviceId) {
+    return new Request(this.host, this.apikey).delete(`/devicegroups/${deviceGroupId}/devices/${deviceId}`);
   }
 
-  postDeviceGroupDevice(deviceGroupID, deviceID) {
-    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupID}/devices/${deviceID}`);
+  postDeviceGroupDevice(deviceGroupId, deviceId) {
+    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupId}/devices/${deviceId}`);
   }
 
-  getDeviceGroupFlexGrids(deviceGroupID) {
-    return new Request(this.host, this.apikey).get(`/devicegroups/${deviceGroupID}/flexgrids`);
+  getDeviceGroupFlexGrids(deviceGroupId) {
+    return new Request(this.host, this.apikey).get(`/devicegroups/${deviceGroupId}/flexgrids`);
   }
 
-  postDeviceGroupFlexGrids(deviceGroupID, payload) {
-    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupID}/flexgrids`, payload);
+  postDeviceGroupFlexGrids(deviceGroupId, payload) {
+    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupId}/flexgrids`, payload);
   }
 
-  deleteDeviceGroupFlexGrid(deviceGroupID, flexGridID) {
-    return new Request(this.host, this.apikey).delete(`/devicegroups/${deviceGroupID}/flexgrids/${flexGridID}`);
+  deleteDeviceGroupFlexGrid(deviceGroupId, flexGridId) {
+    return new Request(this.host, this.apikey).delete(`/devicegroups/${deviceGroupId}/flexgrids/${flexGridId}`);
   }
 
-  postDeviceGroupFlexGrid(deviceGroupID, flexGridID) {
-    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupID}/flexgrids/${flexGridID}`);
+  postDeviceGroupFlexGrid(deviceGroupId, flexGridId) {
+    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupId}/flexgrids/${flexGridId}`);
   }
 
-  getDeviceGroupGeomaps(deviceGroupID, direct_assignments_only) {
+  getDeviceGroupGeomaps(deviceGroupId, direct_assignments_only) {
     const queryString = Utils.buildQuery({ direct_assignments_only });
-    return new Request(this.host, this.apikey).get(`/devicegroups/${deviceGroupID}/geomaps${ queryString || '' }`);
+    return new Request(this.host, this.apikey).get(`/devicegroups/${deviceGroupId}/geomaps${ queryString || '' }`);
   }
 
-  postDeviceGroupGeomaps(deviceGroupID, payload) {
-    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupID}/geomaps`, payload);
+  postDeviceGroupGeomaps(deviceGroupId, payload) {
+    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupId}/geomaps`, payload);
   }
 
-  deleteDeviceGroupGeomap(deviceGroupID, geomapID) {
-    return new Request(this.host, this.apikey).delete(`/devicegroups/${deviceGroupID}/geomaps/${geomapID}`);
+  deleteDeviceGroupGeomap(deviceGroupId, geomapId) {
+    return new Request(this.host, this.apikey).delete(`/devicegroups/${deviceGroupId}/geomaps/${geomapId}`);
   }
 
-  postDeviceGroupGeomap(deviceGroupID, geomapID) {
-    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupID}/geomaps/${geomapID}`);
+  postDeviceGroupGeomap(deviceGroupId, geomapId) {
+    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupId}/geomaps/${geomapId}`);
   }
 
-  getDeviceGroupPages(deviceGroupID, direct_assignments_only) {
+  getDeviceGroupPages(deviceGroupId, direct_assignments_only) {
     const queryString = Utils.buildQuery({ direct_assignments_only });
-    return new Request(this.host, this.apikey).get(`/devicegroups/${deviceGroupID}/pages${ queryString || '' }`);
+    return new Request(this.host, this.apikey).get(`/devicegroups/${deviceGroupId}/pages${ queryString || '' }`);
   }
 
-  postDeviceGroupPages(deviceGroupID, payload) {
-    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupID}/pages`, payload);
+  postDeviceGroupPages(deviceGroupId, payload) {
+    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupId}/pages`, payload);
   }
 
-  deleteDeviceGroupPage(deviceGroupID, pageID) {
-    return new Request(this.host, this.apikey).delete(`/devicegroups/${deviceGroupID}/pages/${pageID}`);
+  deleteDeviceGroupPage(deviceGroupId, pageId) {
+    return new Request(this.host, this.apikey).delete(`/devicegroups/${deviceGroupId}/pages/${pageId}`);
   }
 
-  postDeviceGroupPage(deviceGroupID, pageID) {
-    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupID}/pages/${pageID}`);
+  postDeviceGroupPage(deviceGroupId, pageId) {
+    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupId}/pages/${pageId}`);
   }
 
-  getDeviceGroupTags(deviceGroupID) {
-    return new Request(this.host, this.apikey).get(`/devicegroups/${deviceGroupID}/tags`);
+  getDeviceGroupTags(deviceGroupId) {
+    return new Request(this.host, this.apikey).get(`/devicegroups/${deviceGroupId}/tags`);
   }
 
-  postDeviceGroupTags(deviceGroupID, payload) {
-    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupID}/tags`, payload);
+  postDeviceGroupTags(deviceGroupId, payload) {
+    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupId}/tags`, payload);
   }
 
-  deleteDeviceGroupTag(deviceGroupID, tagID) {
-    return new Request(this.host, this.apikey).delete(`/devicegroups/${deviceGroupID}/tags/${tagID}`);
+  deleteDeviceGroupTag(deviceGroupId, tagId) {
+    return new Request(this.host, this.apikey).delete(`/devicegroups/${deviceGroupId}/tags/${tagId}`);
   }
 
-  postDeviceGroupTag(deviceGroupID, tagID) {
-    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupID}/tags/${tagID}`);
+  postDeviceGroupTag(deviceGroupId, tagId) {
+    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupId}/tags/${tagId}`);
   }
 
-  getDeviceGroupTriggers(deviceGroupID, direct_assignments_only) {
+  getDeviceGroupTriggers(deviceGroupId, direct_assignments_only) {
     const queryString = Utils.buildQuery({ direct_assignments_only });
-    return new Request(this.host, this.apikey).get(`/devicegroups/${deviceGroupID}/triggers${ queryString || '' }`);
+    return new Request(this.host, this.apikey).get(`/devicegroups/${deviceGroupId}/triggers${ queryString || '' }`);
   }
 
-  postDeviceGroupTriggers(deviceGroupID, payload) {
-    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupID}/triggers`, payload);
+  postDeviceGroupTriggers(deviceGroupId, payload) {
+    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupId}/triggers`, payload);
   }
 
-  deleteDeviceGroupTrigger(deviceGroupID, triggerID) {
-    return new Request(this.host, this.apikey).delete(`/devicegroups/${deviceGroupID}/triggers/${triggerID}`);
+  deleteDeviceGroupTrigger(deviceGroupId, triggerId) {
+    return new Request(this.host, this.apikey).delete(`/devicegroups/${deviceGroupId}/triggers/${triggerId}`);
   }
 
-  postDeviceGroupTrigger(deviceGroupID, triggerID) {
-    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupID}/triggers/${triggerID}`);
+  postDeviceGroupTrigger(deviceGroupId, triggerId) {
+    return new Request(this.host, this.apikey).post(`/devicegroups/${deviceGroupId}/triggers/${triggerId}`);
   }
 
   // -------------------------------------
@@ -861,16 +861,16 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).post(`/emailgroups`, payload);
   }
 
-  deleteEmailGroup(emailGroupID) {
-    return new Request(this.host, this.apikey).delete(`/emailgroups/${emailGroupID}`);
+  deleteEmailGroup(emailGroupId) {
+    return new Request(this.host, this.apikey).delete(`/emailgroups/${emailGroupId}`);
   }
 
-  getEmailGroup(emailGroupID) {
-    return new Request(this.host, this.apikey).get(`/emailgroups/${emailGroupID}`);
+  getEmailGroup(emailGroupId) {
+    return new Request(this.host, this.apikey).get(`/emailgroups/${emailGroupId}`);
   }
 
-  patchEmailGroup(emailGroupID, payload) {
-    return new Request(this.host, this.apikey).patch(`/emailgroups/${emailGroupID}`, payload);
+  patchEmailGroup(emailGroupId, payload) {
+    return new Request(this.host, this.apikey).patch(`/emailgroups/${emailGroupId}`, payload);
   }
 
   // -------------------------------------
@@ -885,16 +885,16 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).post(`/exclusionintervals`, payload);
   }
 
-  deleteExclusionInterval(exclusionIntervalID) {
-    return new Request(this.host, this.apikey).delete(`/exclusionintervals/${exclusionIntervalID}`);
+  deleteExclusionInterval(exclusionIntervalId) {
+    return new Request(this.host, this.apikey).delete(`/exclusionintervals/${exclusionIntervalId}`);
   }
 
-  getExclusionInterval(exclusionIntervalID) {
-    return new Request(this.host, this.apikey).get(`/exclusionintervals/${exclusionIntervalID}`);
+  getExclusionInterval(exclusionIntervalId) {
+    return new Request(this.host, this.apikey).get(`/exclusionintervals/${exclusionIntervalId}`);
   }
 
-  patchExclusionInterval(exclusionIntervalID, payload) {
-    return new Request(this.host, this.apikey).patch(`/exclusionintervals/${exclusionIntervalID}`, payload);
+  patchExclusionInterval(exclusionIntervalId, payload) {
+    return new Request(this.host, this.apikey).patch(`/exclusionintervals/${exclusionIntervalId}`, payload);
   }
 
   // -------------------------------------
@@ -905,7 +905,7 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).get(`/extrahop`);
   }
 
-  getExtrahopIDrac() {
+  getExtrahopIdrac() {
     return new Request(this.host, this.apikey).get(`/extrahop/idrac`);
   }
 
@@ -917,8 +917,8 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).get(`/extrahop/processes`);
   }
 
-  postExtrahopProcessRestart(processID) {
-    return new Request(this.host, this.apikey).post(`/extrahop/processes/${processID}/restart`);
+  postExtrahopProcessRestart(processId) {
+    return new Request(this.host, this.apikey).post(`/extrahop/processes/${processId}/restart`);
   }
 
   postExtrahopSSLCert() {
@@ -941,52 +941,52 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).get(`/flexgrids`);
   }
 
-  getFlexGridApplications(flexGridID) {
-    return new Request(this.host, this.apikey).get(`/flexgrids/${flexGridID}/applications`);
+  getFlexGridApplications(flexGridId) {
+    return new Request(this.host, this.apikey).get(`/flexgrids/${flexGridId}/applications`);
   }
 
-  postFlexGridApplications(flexGridID, payload) {
-    return new Request(this.host, this.apikey).post(`/flexgrids/${flexGridID}/applications`, payload);
+  postFlexGridApplications(flexGridId, payload) {
+    return new Request(this.host, this.apikey).post(`/flexgrids/${flexGridId}/applications`, payload);
   }
 
-  deleteFlexGridApplication(flexGridID, appID) {
-    return new Request(this.host, this.apikey).delete(`/flexgrids/${flexGridID}/applications/${appID}`);
+  deleteFlexGridApplication(flexGridId, appId) {
+    return new Request(this.host, this.apikey).delete(`/flexgrids/${flexGridId}/applications/${appId}`);
   }
 
-  postFlexGridApplication(flexGridID, appID) {
-    return new Request(this.host, this.apikey).post(`/flexgrids/${flexGridID}/applications/${appID}`);
+  postFlexGridApplication(flexGridId, appId) {
+    return new Request(this.host, this.apikey).post(`/flexgrids/${flexGridId}/applications/${appId}`);
   }
 
-  getFlexGridDeviceGroups(flexGridID) {
-    return new Request(this.host, this.apikey).get(`/flexgrids/${flexGridID}/devicegroups`);
+  getFlexGridDeviceGroups(flexGridId) {
+    return new Request(this.host, this.apikey).get(`/flexgrids/${flexGridId}/devicegroups`);
   }
 
-  postFlexGridDeviceGroups(flexGridID, payload) {
-    return new Request(this.host, this.apikey).post(`/flexgrids/${flexGridID}/devicegroups`, payload);
+  postFlexGridDeviceGroups(flexGridId, payload) {
+    return new Request(this.host, this.apikey).post(`/flexgrids/${flexGridId}/devicegroups`, payload);
   }
 
-  deleteFlexGridDeviceGroup(flexGridID, deviceGroupID) {
-    return new Request(this.host, this.apikey).delete(`/flexgrids/${flexGridID}/devicegroups/${deviceGroupID}`);
+  deleteFlexGridDeviceGroup(flexGridId, deviceGroupId) {
+    return new Request(this.host, this.apikey).delete(`/flexgrids/${flexGridId}/devicegroups/${deviceGroupId}`);
   }
 
-  postFlexGridDeviceGroup(flexGridID, deviceGroupID) {
-    return new Request(this.host, this.apikey).post(`/flexgrids/${flexGridID}/devicegroups/${deviceGroupID}`);
+  postFlexGridDeviceGroup(flexGridId, deviceGroupId) {
+    return new Request(this.host, this.apikey).post(`/flexgrids/${flexGridId}/devicegroups/${deviceGroupId}`);
   }
 
-  getFlexGridDevices(flexGridID) {
-    return new Request(this.host, this.apikey).get(`/flexgrids/${flexGridID}/devices`);
+  getFlexGridDevices(flexGridId) {
+    return new Request(this.host, this.apikey).get(`/flexgrids/${flexGridId}/devices`);
   }
 
-  postFlexGridDevices(flexGridID, payload) {
-    return new Request(this.host, this.apikey).post(`/flexgrids/${flexGridID}/devices`, payload);
+  postFlexGridDevices(flexGridId, payload) {
+    return new Request(this.host, this.apikey).post(`/flexgrids/${flexGridId}/devices`, payload);
   }
 
-  deleteFlexGridDevice(flexGridID, deviceID) {
-    return new Request(this.host, this.apikey).delete(`/flexgrids/${flexGridID}/devices/${deviceID}`);
+  deleteFlexGridDevice(flexGridId, deviceId) {
+    return new Request(this.host, this.apikey).delete(`/flexgrids/${flexGridId}/devices/${deviceId}`);
   }
 
-  postFlexGridDevice(flexGridID, deviceID) {
-    return new Request(this.host, this.apikey).post(`/flexgrids/${flexGridID}/devices/${deviceID}`);
+  postFlexGridDevice(flexGridId, deviceId) {
+    return new Request(this.host, this.apikey).post(`/flexgrids/${flexGridId}/devices/${deviceId}`);
   }
 
   // -------------------------------------
@@ -1001,64 +1001,64 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).post(`/geomaps`, payload);
   }
 
-  deleteGeomap(geomapID) {
-    return new Request(this.host, this.apikey).delete(`/geomaps/${geomapID}`);
+  deleteGeomap(geomapId) {
+    return new Request(this.host, this.apikey).delete(`/geomaps/${geomapId}`);
   }
 
-  getGeomap(geomapID) {
-    return new Request(this.host, this.apikey).get(`/geomaps/${geomapID}`);
+  getGeomap(geomapId) {
+    return new Request(this.host, this.apikey).get(`/geomaps/${geomapId}`);
   }
 
-  patchGeomap(geomapID, payload) {
-    return new Request(this.host, this.apikey).patch(`/geomaps/${geomapID}`, payload);
+  patchGeomap(geomapId, payload) {
+    return new Request(this.host, this.apikey).patch(`/geomaps/${geomapId}`, payload);
   }
 
-  getGeomapApplications(geomapID) {
-    return new Request(this.host, this.apikey).get(`/geomaps/${geomapID}/applications`);
+  getGeomapApplications(geomapId) {
+    return new Request(this.host, this.apikey).get(`/geomaps/${geomapId}/applications`);
   }
 
-  postGeomapApplications(geomapID, payload) {
-    return new Request(this.host, this.apikey).post(`/geomaps/${geomapID}/applications`, payload);
+  postGeomapApplications(geomapId, payload) {
+    return new Request(this.host, this.apikey).post(`/geomaps/${geomapId}/applications`, payload);
   }
 
-  deleteGeomapApplication(geomapID, appID) {
-    return new Request(this.host, this.apikey).delete(`/geomaps/${geomapID}/applications/${appID}`);
+  deleteGeomapApplication(geomapId, appId) {
+    return new Request(this.host, this.apikey).delete(`/geomaps/${geomapId}/applications/${appId}`);
   }
 
-  postGeomapApplication(geomapID, appID) {
-    return new Request(this.host, this.apikey).post(`/geomaps/${geomapID}/applications/${appID}`);
+  postGeomapApplication(geomapId, appId) {
+    return new Request(this.host, this.apikey).post(`/geomaps/${geomapId}/applications/${appId}`);
   }
 
-  getGeomapDeviceGroups(geomapID) {
-    return new Request(this.host, this.apikey).get(`/geomaps/${geomapID}/devicegroups`);
+  getGeomapDeviceGroups(geomapId) {
+    return new Request(this.host, this.apikey).get(`/geomaps/${geomapId}/devicegroups`);
   }
 
-  postGeomapDeviceGroups(geomapID, payload) {
-    return new Request(this.host, this.apikey).post(`/geomaps/${geomapID}/devicegroups`, payload);
+  postGeomapDeviceGroups(geomapId, payload) {
+    return new Request(this.host, this.apikey).post(`/geomaps/${geomapId}/devicegroups`, payload);
   }
 
-  deleteGeomapDeviceGroup(geomapID, deviceGroupID) {
-    return new Request(this.host, this.apikey).delete(`/geomaps/${geomapID}/devicegroups/${deviceGroupID}`);
+  deleteGeomapDeviceGroup(geomapId, deviceGroupId) {
+    return new Request(this.host, this.apikey).delete(`/geomaps/${geomapId}/devicegroups/${deviceGroupId}`);
   }
 
-  postGeomapDeviceGroup(geomapID, deviceGroupID) {
-    return new Request(this.host, this.apikey).post(`/geomaps/${geomapID}/devicegroups/${deviceGroupID}`);
+  postGeomapDeviceGroup(geomapId, deviceGroupId) {
+    return new Request(this.host, this.apikey).post(`/geomaps/${geomapId}/devicegroups/${deviceGroupId}`);
   }
 
-  getGeomapDevices(geomapID) {
-    return new Request(this.host, this.apikey).get(`/geomaps/${geomapID}/devices`);
+  getGeomapDevices(geomapId) {
+    return new Request(this.host, this.apikey).get(`/geomaps/${geomapId}/devices`);
   }
 
-  postGeomapDevices(geomapID, payload) {
-    return new Request(this.host, this.apikey).post(`/geomaps/${geomapID}/devices`, payload);
+  postGeomapDevices(geomapId, payload) {
+    return new Request(this.host, this.apikey).post(`/geomaps/${geomapId}/devices`, payload);
   }
 
-  deleteGeomapDevice(geomapID, deviceID) {
-    return new Request(this.host, this.apikey).delete(`/geomaps/${geomapID}/devices/${deviceID}`);
+  deleteGeomapDevice(geomapId, deviceId) {
+    return new Request(this.host, this.apikey).delete(`/geomaps/${geomapId}/devices/${deviceId}`);
   }
 
-  postGeomapDevice(geomapID, deviceID) {
-    return new Request(this.host, this.apikey).post(`/geomaps/${geomapID}/devices/${deviceID}`);
+  postGeomapDevice(geomapId, deviceId) {
+    return new Request(this.host, this.apikey).post(`/geomaps/${geomapId}/devices/${deviceId}`);
   }
 
   // -------------------------------------
@@ -1089,8 +1089,8 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).post(`/metrics`, payload);
   }
 
-  getMetricsNextXID(xID) {
-    return new Request(this.host, this.apikey).get(`/metrics/next/${xID}`);
+  getMetricsNextXId(xId) {
+    return new Request(this.host, this.apikey).get(`/metrics/next/${xId}`);
   }
 
   postMetricsTotal(payload) {
@@ -1109,50 +1109,50 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).get(`/networks`);
   }
 
-  getNetwork(networkID) {
-    return new Request(this.host, this.apikey).get(`/networks/${networkID}`);
+  getNetwork(networkId) {
+    return new Request(this.host, this.apikey).get(`/networks/${networkId}`);
   }
 
-  patchNetwork(networkID, payload) {
-    return new Request(this.host, this.apikey).patch(`/networks/${networkID}`, payload);
+  patchNetwork(networkId, payload) {
+    return new Request(this.host, this.apikey).patch(`/networks/${networkId}`, payload);
   }
 
-  getNetworkAlerts(networkID, direct_assignments_only) {
+  getNetworkAlerts(networkId, direct_assignments_only) {
     const queryString = Utils.buildQuery({ direct_assignments_only });
-    return new Request(this.host, this.apikey).get(`/networks/${networkID}/alerts${ queryString || '' }`);
+    return new Request(this.host, this.apikey).get(`/networks/${networkId}/alerts${ queryString || '' }`);
   }
 
-  postNetworkAlerts(networkID, payload) {
-    return new Request(this.host, this.apikey).post(`/networks/${networkID}/alerts`, payload);
+  postNetworkAlerts(networkId, payload) {
+    return new Request(this.host, this.apikey).post(`/networks/${networkId}/alerts`, payload);
   }
 
-  deleteNetworkAlert(networkID, alertID) {
-    return new Request(this.host, this.apikey).delete(`/networks/${networkID}/alerts/${alertID}`);
+  deleteNetworkAlert(networkId, alertId) {
+    return new Request(this.host, this.apikey).delete(`/networks/${networkId}/alerts/${alertId}`);
   }
 
-  postNetworkAlert(networkID, alertID) {
-    return new Request(this.host, this.apikey).post(`/networks/${networkID}/alerts/${alertID}`);
+  postNetworkAlert(networkId, alertId) {
+    return new Request(this.host, this.apikey).post(`/networks/${networkId}/alerts/${alertId}`);
   }
 
-  getNetworkPages(networkID, direct_assignments_only) {
+  getNetworkPages(networkId, direct_assignments_only) {
     const queryString = Utils.buildQuery({ direct_assignments_only });
-    return new Request(this.host, this.apikey).get(`/networks/${networkID}/pages${ queryString || '' }`);
+    return new Request(this.host, this.apikey).get(`/networks/${networkId}/pages${ queryString || '' }`);
   }
 
-  postNetworkPages(networkID, payload) {
-    return new Request(this.host, this.apikey).post(`/networks/${networkID}/pages`, payload);
+  postNetworkPages(networkId, payload) {
+    return new Request(this.host, this.apikey).post(`/networks/${networkId}/pages`, payload);
   }
 
-  deleteNetworkPage(networkID, pageID) {
-    return new Request(this.host, this.apikey).delete(`/networks/${networkID}/pages/${pageID}`);
+  deleteNetworkPage(networkId, pageId) {
+    return new Request(this.host, this.apikey).delete(`/networks/${networkId}/pages/${pageId}`);
   }
 
-  postNetworkPage(networkID, pageID) {
-    return new Request(this.host, this.apikey).post(`/networks/${networkID}/pages/${pageID}`);
+  postNetworkPage(networkId, pageId) {
+    return new Request(this.host, this.apikey).post(`/networks/${networkId}/pages/${pageId}`);
   }
 
-  getNetworkVlans(networkID) {
-    return new Request(this.host, this.apikey).get(`/networks/${networkID}/vlans`);
+  getNetworkVlans(networkId) {
+    return new Request(this.host, this.apikey).get(`/networks/${networkId}/vlans`);
   }
 
   // -------------------------------------
@@ -1167,16 +1167,16 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).post(`/networklocality`, payload);
   }
 
-  deleteNetworkLocality(networkLocalityID) {
-    return new Request(this.host, this.apikey).delete(`/networklocality/${networkLocalityID}`);
+  deleteNetworkLocality(networkLocalityId) {
+    return new Request(this.host, this.apikey).delete(`/networklocality/${networkLocalityId}`);
   }
 
-  getNetworkLocality(networkLocalityID) {
-    return new Request(this.host, this.apikey).get(`/networklocality/${networkLocalityID}`);
+  getNetworkLocality(networkLocalityId) {
+    return new Request(this.host, this.apikey).get(`/networklocality/${networkLocalityId}`);
   }
 
-  patchNetworkLocality(networkLocalityID, payload) {
-    return new Request(this.host, this.apikey).patch(`/networklocality/${networkLocalityID}`, payload);
+  patchNetworkLocality(networkLocalityId, payload) {
+    return new Request(this.host, this.apikey).patch(`/networklocality/${networkLocalityId}`, payload);
   }
 
   // -------------------------------------
@@ -1187,12 +1187,12 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).get(`/nodes`);
   }
 
-  getNode(nodeID) {
-    return new Request(this.host, this.apikey).get(`/nodes/${nodeID}`);
+  getNode(nodeId) {
+    return new Request(this.host, this.apikey).get(`/nodes/${nodeId}`);
   }
 
-  patchNode(nodeID, payload) {
-    return new Request(this.host, this.apikey).patch(`/nodes/${nodeID}`, payload);
+  patchNode(nodeId, payload) {
+    return new Request(this.host, this.apikey).patch(`/nodes/${nodeId}`, payload);
   }
 
   // -------------------------------------
@@ -1203,12 +1203,12 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).get(`/packetcaptures`);
   }
 
-  deletePacketCapture(packetCaptureID) {
-    return new Request(this.host, this.apikey).delete(`/packetcaptures/${packetCaptureID}`);
+  deletePacketCapture(packetCaptureId) {
+    return new Request(this.host, this.apikey).delete(`/packetcaptures/${packetCaptureId}`);
   }
 
-  getPacketCapture(packetCaptureID) {
-    return new Request(this.host, this.apikey).get(`/packetcaptures/${packetCaptureID}`);
+  getPacketCapture(packetCaptureId) {
+    return new Request(this.host, this.apikey).get(`/packetcaptures/${packetCaptureId}`);
   }
 
   // -------------------------------------
@@ -1223,80 +1223,80 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).post(`/pages`, payload);
   }
 
-  deletePage(pageID) {
-    return new Request(this.host, this.apikey).delete(`/pages/${pageID}`);
+  deletePage(pageId) {
+    return new Request(this.host, this.apikey).delete(`/pages/${pageId}`);
   }
 
-  getPage(pageID) {
-    return new Request(this.host, this.apikey).get(`/pages/${pageID}`);
+  getPage(pageId) {
+    return new Request(this.host, this.apikey).get(`/pages/${pageId}`);
   }
 
-  patchPage(pageID, payload) {
-    return new Request(this.host, this.apikey).patch(`/pages/${pageID}`, payload);
+  patchPage(pageId, payload) {
+    return new Request(this.host, this.apikey).patch(`/pages/${pageId}`, payload);
   }
 
-  getPageApplications(pageID) {
-    return new Request(this.host, this.apikey).get(`/pages/${pageID}/applications`);
+  getPageApplications(pageId) {
+    return new Request(this.host, this.apikey).get(`/pages/${pageId}/applications`);
   }
 
-  postPageApplications(pageID, payload) {
-    return new Request(this.host, this.apikey).post(`/pages/${pageID}/applications`, payload);
+  postPageApplications(pageId, payload) {
+    return new Request(this.host, this.apikey).post(`/pages/${pageId}/applications`, payload);
   }
 
-  deletePageApplication(pageID, appID) {
-    return new Request(this.host, this.apikey).delete(`/pages/${pageID}/applications/${appID}`);
+  deletePageApplication(pageId, appId) {
+    return new Request(this.host, this.apikey).delete(`/pages/${pageId}/applications/${appId}`);
   }
 
-  postPageApplication(pageID, appID) {
-    return new Request(this.host, this.apikey).post(`/pages/${pageID}/applications/${appID}`);
+  postPageApplication(pageId, appId) {
+    return new Request(this.host, this.apikey).post(`/pages/${pageId}/applications/${appId}`);
   }
 
-  getPageDeviceGroups(pageID) {
-    return new Request(this.host, this.apikey).get(`/pages/${pageID}/devicegroups`);
+  getPageDeviceGroups(pageId) {
+    return new Request(this.host, this.apikey).get(`/pages/${pageId}/devicegroups`);
   }
 
-  postPageDeviceGroups(pageID, payload) {
-    return new Request(this.host, this.apikey).post(`/pages/${pageID}/devicegroups`, payload);
+  postPageDeviceGroups(pageId, payload) {
+    return new Request(this.host, this.apikey).post(`/pages/${pageId}/devicegroups`, payload);
   }
 
-  deletePageDeviceGroup(pageID, deviceGroupID) {
-    return new Request(this.host, this.apikey).delete(`/pages/${pageID}/devicegroups/${deviceGroupID}`);
+  deletePageDeviceGroup(pageId, deviceGroupId) {
+    return new Request(this.host, this.apikey).delete(`/pages/${pageId}/devicegroups/${deviceGroupId}`);
   }
 
-  postPageDeviceGroup(pageID, deviceGroupID) {
-    return new Request(this.host, this.apikey).post(`/pages/${pageID}/devicegroups/${deviceGroupID}`);
+  postPageDeviceGroup(pageId, deviceGroupId) {
+    return new Request(this.host, this.apikey).post(`/pages/${pageId}/devicegroups/${deviceGroupId}`);
   }
 
-  getPageDevices(pageID) {
-    return new Request(this.host, this.apikey).get(`/pages/${pageID}/devices`);
+  getPageDevices(pageId) {
+    return new Request(this.host, this.apikey).get(`/pages/${pageId}/devices`);
   }
 
-  postPageDevices(pageID, payload) {
-    return new Request(this.host, this.apikey).post(`/pages/${pageID}/devices`, payload);
+  postPageDevices(pageId, payload) {
+    return new Request(this.host, this.apikey).post(`/pages/${pageId}/devices`, payload);
   }
 
-  deletePageDevice(pageID, deviceID) {
-    return new Request(this.host, this.apikey).delete(`/pages/${pageID}/devices/${deviceID}`);
+  deletePageDevice(pageId, deviceId) {
+    return new Request(this.host, this.apikey).delete(`/pages/${pageId}/devices/${deviceId}`);
   }
 
-  postPageDevice(pageID, deviceID) {
-    return new Request(this.host, this.apikey).post(`/pages/${pageID}/devices/${deviceID}`);
+  postPageDevice(pageId, deviceId) {
+    return new Request(this.host, this.apikey).post(`/pages/${pageId}/devices/${deviceId}`);
   }
 
-  getPageNetworks(pageID) {
-    return new Request(this.host, this.apikey).get(`/pages/${pageID}/networks`);
+  getPageNetworks(pageId) {
+    return new Request(this.host, this.apikey).get(`/pages/${pageId}/networks`);
   }
 
-  postPageNetworks(pageID, payload) {
-    return new Request(this.host, this.apikey).post(`/pages/${pageID}/networks`, payload);
+  postPageNetworks(pageId, payload) {
+    return new Request(this.host, this.apikey).post(`/pages/${pageId}/networks`, payload);
   }
 
-  deletePageNetwork(pageID, networkID) {
-    return new Request(this.host, this.apikey).delete(`/pages/${pageID}/networks/${networkID}`);
+  deletePageNetwork(pageId, networkId) {
+    return new Request(this.host, this.apikey).delete(`/pages/${pageId}/networks/${networkId}`);
   }
 
-  postPageNetwork(pageID, networkID) {
-    return new Request(this.host, this.apikey).post(`/pages/${pageID}/networks/${networkID}`);
+  postPageNetwork(pageId, networkId) {
+    return new Request(this.host, this.apikey).post(`/pages/${pageId}/networks/${networkId}`);
   }
 
   // -------------------------------------
@@ -1327,44 +1327,44 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).post(`/reports`, payload);
   }
 
-  deleteReport(reportID) {
-    return new Request(this.host, this.apikey).delete(`/reports/${reportID}`);
+  deleteReport(reportId) {
+    return new Request(this.host, this.apikey).delete(`/reports/${reportId}`);
   }
 
-  getReport(reportID) {
-    return new Request(this.host, this.apikey).get(`/reports/${reportID}`);
+  getReport(reportId) {
+    return new Request(this.host, this.apikey).get(`/reports/${reportId}`);
   }
 
-  patchReport(reportID, payload) {
-    return new Request(this.host, this.apikey).patch(`/reports/${reportID}`, payload);
+  patchReport(reportId, payload) {
+    return new Request(this.host, this.apikey).patch(`/reports/${reportId}`, payload);
   }
 
-  getReportContents(reportID) {
-    return new Request(this.host, this.apikey).get(`/reports/${reportID}/contents`);
+  getReportContents(reportId) {
+    return new Request(this.host, this.apikey).get(`/reports/${reportId}/contents`);
   }
 
-  putReportContents(reportID, payload) {
-    return new Request(this.host, this.apikey).put(`/reports/${reportID}/contents`, payload);
+  putReportContents(reportId, payload) {
+    return new Request(this.host, this.apikey).put(`/reports/${reportId}/contents`, payload);
   }
 
-  getReportEmailGroups(reportID) {
-    return new Request(this.host, this.apikey).get(`/reports/${reportID}/emailgroups`);
+  getReportEmailGroups(reportId) {
+    return new Request(this.host, this.apikey).get(`/reports/${reportId}/emailgroups`);
   }
 
-  postReportEmailGroups(reportID, payload) {
-    return new Request(this.host, this.apikey).post(`/reports/${reportID}/emailgroups`, payload);
+  postReportEmailGroups(reportId, payload) {
+    return new Request(this.host, this.apikey).post(`/reports/${reportId}/emailgroups`, payload);
   }
 
-  deleteReportEmailGroup(reportID, emailGroupID) {
-    return new Request(this.host, this.apikey).delete(`/reports/${reportID}/emailgroups/${emailGroupID}`);
+  deleteReportEmailGroup(reportId, emailGroupId) {
+    return new Request(this.host, this.apikey).delete(`/reports/${reportId}/emailgroups/${emailGroupId}`);
   }
 
-  postReportEmailGroup(reportID, emailGroupID) {
-    return new Request(this.host, this.apikey).post(`/reports/${reportID}/emailgroups/${emailGroupID}`);
+  postReportEmailGroup(reportId, emailGroupId) {
+    return new Request(this.host, this.apikey).post(`/reports/${reportId}/emailgroups/${emailGroupId}`);
   }
 
-  postReportQueue(reportID) {
-    return new Request(this.host, this.apikey).post(`/reports/${reportID}/queue`);
+  postReportQueue(reportId) {
+    return new Request(this.host, this.apikey).post(`/reports/${reportId}/queue`);
   }
 
   // -------------------------------------
@@ -1400,28 +1400,28 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).post(`/ssldecryptkeys`, payload);
   }
 
-  deleteSslDecryptKey(sslDecryptKeyID) {
-    return new Request(this.host, this.apikey).delete(`/ssldecryptkeys/${sslDecryptKeyID}`);
+  deleteSslDecryptKey(sslDecryptKeyId) {
+    return new Request(this.host, this.apikey).delete(`/ssldecryptkeys/${sslDecryptKeyId}`);
   }
 
-  getSslDecryptKey(sslDecryptKeyID) {
-    return new Request(this.host, this.apikey).get(`/ssldecryptkeys/${sslDecryptKeyID}`);
+  getSslDecryptKey(sslDecryptKeyId) {
+    return new Request(this.host, this.apikey).get(`/ssldecryptkeys/${sslDecryptKeyId}`);
   }
 
-  patchSslDecryptKey(sslDecryptKeyID, payload) {
-    return new Request(this.host, this.apikey).patch(`/ssldecryptkeys/${sslDecryptKeyID}`, payload);
+  patchSslDecryptKey(sslDecryptKeyId, payload) {
+    return new Request(this.host, this.apikey).patch(`/ssldecryptkeys/${sslDecryptKeyId}`, payload);
   }
 
-  getSslDecryptKeyProtocols(sslDecryptKeyID) {
-    return new Request(this.host, this.apikey).get(`/ssldecrpytkeys/${sslDecryptKeyID}/protocols`);
+  getSslDecryptKeyProtocols(sslDecryptKeyId) {
+    return new Request(this.host, this.apikey).get(`/ssldecrpytkeys/${sslDecryptKeyId}/protocols`);
   }
 
-  postSslDecryptKeyProtocols(sslDecryptKeyID, payload) {
-    return new Request(this.host, this.apikey).post(`/ssldecrpytkeys/${sslDecryptKeyID}/protocols`, payload);
+  postSslDecryptKeyProtocols(sslDecryptKeyId, payload) {
+    return new Request(this.host, this.apikey).post(`/ssldecrpytkeys/${sslDecryptKeyId}/protocols`, payload);
   }
 
-  deleteSslDecryptKeyProtocol(sslDecryptKeyID, protocolID) {
-    return new Request(this.host, this.apikey).delete(`/ssldecrpytkeys/${sslDecryptKeyID}/protocols/${protocolID}`);
+  deleteSslDecryptKeyProtocol(sslDecryptKeyId, protocolId) {
+    return new Request(this.host, this.apikey).delete(`/ssldecrpytkeys/${sslDecryptKeyId}/protocols/${protocolId}`);
   }
 
   // -------------------------------------
@@ -1436,8 +1436,8 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).post(`/supportpacks/execute`);
   }
 
-  getSupportPackQueue(queueID) {
-    return new Request(this.host, this.apikey).get(`/supportpacks/queue/${encodeURIComponent}`(queueID));
+  getSupportPackQueue(queueId) {
+    return new Request(this.host, this.apikey).get(`/supportpacks/queue/${encodeURIComponent}`(queueId));
   }
 
   getSupportPack(filename) {
@@ -1456,32 +1456,32 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).post(`/tags`, payload);
   }
 
-  deleteTag(tagID) {
-    return new Request(this.host, this.apikey).delete(`/tags/${tagID}`);
+  deleteTag(tagId) {
+    return new Request(this.host, this.apikey).delete(`/tags/${tagId}`);
   }
 
-  getTag(tagID) {
-    return new Request(this.host, this.apikey).get(`/tags/${tagID}`);
+  getTag(tagId) {
+    return new Request(this.host, this.apikey).get(`/tags/${tagId}`);
   }
 
-  patchTag(tagID, payload) {
-    return new Request(this.host, this.apikey).patch(`/tags/${tagID}`, payload);
+  patchTag(tagId, payload) {
+    return new Request(this.host, this.apikey).patch(`/tags/${tagId}`, payload);
   }
 
-  getTagDevices(tagID) {
-    return new Request(this.host, this.apikey).get(`/tags/${tagID}/devices`);
+  getTagDevices(tagId) {
+    return new Request(this.host, this.apikey).get(`/tags/${tagId}/devices`);
   }
 
-  postTagDevices(tagID, payload) {
-    return new Request(this.host, this.apikey).post(`/tags/${tagID}/devices`, payload);
+  postTagDevices(tagId, payload) {
+    return new Request(this.host, this.apikey).post(`/tags/${tagId}/devices`, payload);
   }
 
-  deleteTagDevice(tagID, deviceID) {
-    return new Request(this.host, this.apikey).delete(`/tags/${tagID}/devices/${deviceID}`);
+  deleteTagDevice(tagId, deviceId) {
+    return new Request(this.host, this.apikey).delete(`/tags/${tagId}/devices/${deviceId}`);
   }
 
-  postTagDevice(tagID, deviceID) {
-    return new Request(this.host, this.apikey).post(`/tags/${tagID}/devices/${deviceID}`);
+  postTagDevice(tagId, deviceId) {
+    return new Request(this.host, this.apikey).post(`/tags/${tagId}/devices/${deviceId}`);
   }
 
   // -------------------------------------
@@ -1496,48 +1496,48 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).post(`/triggers`, payload);
   }
 
-  deleteTrigger(triggerID) {
-    return new Request(this.host, this.apikey).delete(`/triggers/${triggerID}`);
+  deleteTrigger(triggerId) {
+    return new Request(this.host, this.apikey).delete(`/triggers/${triggerId}`);
   }
 
-  getTrigger(triggerID) {
-    return new Request(this.host, this.apikey).get(`/triggers/${triggerID}`);
+  getTrigger(triggerId) {
+    return new Request(this.host, this.apikey).get(`/triggers/${triggerId}`);
   }
 
-  patchTrigger(triggerID, payload) {
-    return new Request(this.host, this.apikey).patch(`/triggers/${triggerID}`, payload);
+  patchTrigger(triggerId, payload) {
+    return new Request(this.host, this.apikey).patch(`/triggers/${triggerId}`, payload);
   }
 
-  getTriggerDeviceGroups(triggerID) {
-    return new Request(this.host, this.apikey).get(`/triggers/${triggerID}/devicegroups`);
+  getTriggerDeviceGroups(triggerId) {
+    return new Request(this.host, this.apikey).get(`/triggers/${triggerId}/devicegroups`);
   }
 
-  postTriggerDeviceGroups(triggerID, payload) {
-    return new Request(this.host, this.apikey).post(`/triggers/${triggerID}/devicegroups`, payload);
+  postTriggerDeviceGroups(triggerId, payload) {
+    return new Request(this.host, this.apikey).post(`/triggers/${triggerId}/devicegroups`, payload);
   }
 
-  deleteTriggerDeviceGroup(triggerID, deviceGroupID) {
-    return new Request(this.host, this.apikey).delete(`/triggers/${triggerID}/devicegroups/${deviceGroupID}`);
+  deleteTriggerDeviceGroup(triggerId, deviceGroupId) {
+    return new Request(this.host, this.apikey).delete(`/triggers/${triggerId}/devicegroups/${deviceGroupId}`);
   }
 
-  postTriggerDeviceGroup(triggerID, deviceGroupID) {
-    return new Request(this.host, this.apikey).post(`/triggers/${triggerID}/devicegroups/${deviceGroupID}`);
+  postTriggerDeviceGroup(triggerId, deviceGroupId) {
+    return new Request(this.host, this.apikey).post(`/triggers/${triggerId}/devicegroups/${deviceGroupId}`);
   }
 
-  getTriggerDevices(triggerID) {
-    return new Request(this.host, this.apikey).get(`/triggers/${triggerID}/devices`);
+  getTriggerDevices(triggerId) {
+    return new Request(this.host, this.apikey).get(`/triggers/${triggerId}/devices`);
   }
 
-  postTriggerDevices(triggerID, payload) {
-    return new Request(this.host, this.apikey).post(`/triggers/${triggerID}/devices`, payload);
+  postTriggerDevices(triggerId, payload) {
+    return new Request(this.host, this.apikey).post(`/triggers/${triggerId}/devices`, payload);
   }
 
-  deleteTriggerDevice(triggerID, deviceID) {
-    return new Request(this.host, this.apikey).delete(`/triggers/${triggerID}/devices/${deviceID}`);
+  deleteTriggerDevice(triggerId, deviceId) {
+    return new Request(this.host, this.apikey).delete(`/triggers/${triggerId}/devices/${deviceId}`);
   }
 
-  postTriggerDevice(triggerID, deviceID) {
-    return new Request(this.host, this.apikey).post(`/triggers/${triggerID}/devices/${deviceID}`);
+  postTriggerDevice(triggerId, deviceId) {
+    return new Request(this.host, this.apikey).post(`/triggers/${triggerId}/devices/${deviceId}`);
   }
 
   // -------------------------------------
@@ -1568,8 +1568,8 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).get(`/users/${user}/apikeys`);
   }
 
-  getUserApiKey(user, keyID) {
-    return new Request(this.host, this.apikey).get(`/users/${user}/apikeys/${keyID}`);
+  getUserApiKey(user, keyId) {
+    return new Request(this.host, this.apikey).get(`/users/${user}/apikeys/${keyId}`);
   }
 
   // -------------------------------------
@@ -1584,24 +1584,24 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).post(`/usergroups/refresh`);
   }
 
-  getUserGroup(userGroupID) {
-    return new Request(this.host, this.apikey).get(`/usergroups/${userGroupID}`);
+  getUserGroup(userGroupId) {
+    return new Request(this.host, this.apikey).get(`/usergroups/${userGroupId}`);
   }
 
-  patchUserGroup(userGroupID, payload) {
-    return new Request(this.host, this.apikey).patch(`/usergroups/${userGroupID}`, payload);
+  patchUserGroup(userGroupId, payload) {
+    return new Request(this.host, this.apikey).patch(`/usergroups/${userGroupId}`, payload);
   }
 
-  deleteUserGroupAssociations(userGroupID) {
-    return new Request(this.host, this.apikey).delete(`/usergroups/${userGroupID}`);
+  deleteUserGroupAssociations(userGroupId) {
+    return new Request(this.host, this.apikey).delete(`/usergroups/${userGroupId}`);
   }
 
-  getUserGroupMembers(userGroupID) {
-    return new Request(this.host, this.apikey).get(`/usergroups/${userGroupID}/members`);
+  getUserGroupMembers(userGroupId) {
+    return new Request(this.host, this.apikey).get(`/usergroups/${userGroupId}/members`);
   }
 
-  postUserGroupRefresh(userGroupID) {
-    return new Request(this.host, this.apikey).post(`/usergroups/${userGroupID}/refresh`);
+  postUserGroupRefresh(userGroupId) {
+    return new Request(this.host, this.apikey).post(`/usergroups/${userGroupId}/refresh`);
   }
 
   // -------------------------------------
@@ -1612,24 +1612,24 @@ module.exports = class Appliance extends BaseObject {
     return new Request(this.host, this.apikey).get(`/vlans`);
   }
 
-  getVlan(vlanID) {
-    return new Request(this.host, this.apikey).get(`/vlans/${vlanID}`);
+  getVlan(vlanId) {
+    return new Request(this.host, this.apikey).get(`/vlans/${vlanId}`);
   }
 
-  patchVlan(vlanID, payload) {
-    return new Request(this.host, this.apikey).patch(`/vlans/${vlanID}`, payload);
+  patchVlan(vlanId, payload) {
+    return new Request(this.host, this.apikey).patch(`/vlans/${vlanId}`, payload);
   }
 
   // -------------------------------------
   // Whitelist
   // -------------------------------------
 
-  deleteWhitelistDevice(deviceID) {
-    return new Request(this.host, this.apikey).delete(`/whitelist/device/${deviceID}`);
+  deleteWhitelistDevice(deviceId) {
+    return new Request(this.host, this.apikey).delete(`/whitelist/device/${deviceId}`);
   }
 
-  postWhitelistDevice(deviceID) {
-    return new Request(this.host, this.apikey).post(`/whitelist/device/${deviceID}`);
+  postWhitelistDevice(deviceId) {
+    return new Request(this.host, this.apikey).post(`/whitelist/device/${deviceId}`);
   }
 
   getWhitelistsDevices() {

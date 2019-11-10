@@ -21,7 +21,7 @@ module.exports = class BaseCtrl {
   }
 
   printSuccess(count, type) {
-    console.log(`${Icons.Success} Retrieved ${count} ${type} from ${this.appliance.host}`);
+    console.info(`${Icons.Success} Retrieved ${count} ${type} from ${this.appliance.host}`);
   }
 
   printError(type) {
@@ -32,29 +32,10 @@ module.exports = class BaseCtrl {
     console.warn(`${Icons.Warn} No ${type} returned from ${this.appliance.host}`);
   }
 
-  process(results, type, options = {}) {
-    if ( !results.success ) {
-      this.printError(type);
-      return {};
-    }
-
-    const numResults = (results.data[options.subkey] || results.data || []).length;
-
-    if ( !options.suppress ) {
-      if ( numResults > 0 ) {
-        this.printSuccess(numResults, type);
-      }
-      else {
-        this.printWarning(type);
-      }
-    }
-
-    return results.data;
-  }
-
   // -------------------------------------
   // Utility Functions
   // -------------------------------------
+
 
   generateId(params) {
     if ( !params ) {
@@ -62,6 +43,11 @@ module.exports = class BaseCtrl {
     } else {
       return Crypto.createHash('md5').update(JSON.stringify(params), 'utf-8').digest('hex');
     }
+  }
+
+  filter(results = [], params = {}) {
+    const [ key ] = Object.keys(params);
+    return results.filter(result => result[key] == params[key]);
   }
 
   parse(data = {}, subkey) {
@@ -84,4 +70,22 @@ module.exports = class BaseCtrl {
     return Object.assign(data, (subkey ? { [subkey]: parseData } : parseData));
   }
 
+  process(results, type, options = {}) {
+    if ( !results.success ) {
+      return this.printError(type);
+    }
+
+    if ( !options.suppress ) {
+      const subkey = options.subkey;
+      const numResults = (results.data[subkey] || results.data || []).length;
+
+      if ( (results.data[subkey] || results.data || []).length > 0 ) {
+        this.printSuccess(numResults, type);
+      } else {
+        this.printWarning(type);
+      }
+    }
+
+    return results.data;
+  }
 }

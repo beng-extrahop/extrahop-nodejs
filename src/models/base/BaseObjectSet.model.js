@@ -5,7 +5,7 @@ const fs = require('fs');
 
 module.exports = class BaseObjectSet extends Array {
   constructor(baseObjects = []) {
-    super(baseObjects);
+    super();
   }
 
   print() {

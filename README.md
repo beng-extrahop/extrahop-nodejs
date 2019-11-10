@@ -31,15 +31,10 @@ node index.js
 ## Usage
 Within index.js:
 
-### Import
-```
-const Extahop = require('extrahop-nodejs');
-```
-
 ### Configure
 #### Single Appliance
 ```
-const Extahop = require('extrahop-nodejs');
+const Extrahop = require('extrahop-nodejs');
 
 const config = {
   hostname: 'extrahop.domain.internal',
@@ -82,13 +77,26 @@ const config = {
 const extrahopEnv = new Extrahop(config);
 ```
 
-#### From File
+#### From Config File
 ```
 const Extrahop = require('extrahop-nodejs');
 const config = require('./config.json');
 
 const extrahopEnv = new Extrahop(config);
 ```
+
+### Activity Groups
+```
+const activityGroups = eca.activityGroups().get();
+
+activityGroups.forEach(activityGroup => {
+  const dashboards = eca.activityGroups().getDashboards(activityGroup);
+  if ( dashboards.length > 0 ) {
+    console.log(JSON.stringify(dashboards));
+  }
+});
+```
+
 ### Records
 #### Search
 ```

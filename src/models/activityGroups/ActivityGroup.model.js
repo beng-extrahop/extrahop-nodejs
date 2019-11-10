@@ -3,7 +3,7 @@
 const BaseObject = require('../../models/base/BaseObject.model');
 
 module.exports = class ActivityGroup extends BaseObject {
-  constructor(activityGroup) {
+  constructor(activityGroup = {}) {
     super();
     this.display = activityGroup.display;
     this.name = this.display;
