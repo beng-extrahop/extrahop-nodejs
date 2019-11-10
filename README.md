@@ -32,16 +32,21 @@ node index.js
 Within index.js:
 
 ### Import
+```
+const Extahop = require('extrahop-nodejs');
+```
+
+### Configure
 #### Single Appliance
 ```
-const Extrahop = require('extrahop-nodejs')
+const Extahop = require('extrahop-nodejs');
 const config = {
   hostname: 'extrahop.domain.internal',
   apikey: 'XXXXXXXXXXXXXX',
   type: 'ECA'
 };
 
-const eca = new Extrahop(config);
+const extrahop = new Extrahop(config);
 ```
 
 #### Multiple Appliances
@@ -73,12 +78,19 @@ const config = {
 };
 
 const extrahop = new Extrahop(config);
-const eca = extrahop.getECA();
 ```
 
+#### From File
+```
+const Extrahop = require('extrahop-nodejs');
+const config = require('./config.json');
+const extrahop = new Extrahop(config);
+```
 ### Records
 #### Search
 ```
+const eca = extrahop.getECA();
+
 const params = {
   types: ['~ssl_open', '~ssl_close'], // default: any
   limit: 500, // default: 1000
@@ -91,7 +103,9 @@ const recordSearch = eca.records().search(params);
 
 #### Save
 ```
+const eca = extrahop.getECA();
 const recordSearch = eca.records().search(params);
+
 recordSearch.saveToCSV(search);
 ```
 
