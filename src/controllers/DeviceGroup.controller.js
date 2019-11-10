@@ -1,7 +1,7 @@
 // DeviceGroup.controller.js
 
 const DeviceGroup = require('../models/deviceGroups/DeviceGroup.model')
-const Strings = require('../constants/String.constants');
+const Strings = require('../constants/Global.constants');
 
 module.exports = class DeviceGroupCtrl {
 	constructor(appliance) {
