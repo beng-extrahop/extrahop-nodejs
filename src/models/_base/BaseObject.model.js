@@ -1,7 +1,5 @@
 // BaseObject.model.js
 
-const { parse } = require('json2csv');
-
 module.exports = class BaseObject {
   print() {
     console.log('\n' + this.toString());
