@@ -74,6 +74,38 @@ const config = {
 const extrahopEnv = new Extrahop(config);
 ```
 
+#### Environment
+```js
+const Extrahop = require('extrahop-nodejs');
+
+const config = {
+  environments: [
+    {
+      name: 'my-environment',
+      appliances: [
+        {
+          hostname: 'extrahop.domain.internal',
+          apikey: 'XXXXXXXXXXXXXX',
+          type: 'ECA'
+        },
+        {
+          hostname: 'eda01.domain.internal',
+          apikey: 'XXXXXXXXXXXXXX',
+          type: 'EDA'
+        },
+        {
+          hostname: 'eda02.domain.internal',
+          apikey: 'XXXXXXXXXXXXXX',
+          type: 'EDA'
+        }
+      ]
+    }
+  ]
+};
+
+const extrahopEnv = new Extrahop(config);
+```
+
 #### From Config File
 ```js
 const Extrahop = require('extrahop-nodejs');
