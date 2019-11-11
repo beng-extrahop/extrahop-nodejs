@@ -1,10 +1,10 @@
-# extrahop-nodejs
+## extrahop-nodejs
 
-## Requirements:
+### Requirements:
 - Node
 - npm
 
-## Install
+### Install
 
 Create project directory:
 ```
@@ -23,13 +23,13 @@ mkdir -p data/{db,csv}
 touch index.js
 ```
 
-## Run
+### Run
 ```
 node index.js
 ```
 
-## Configure
-### Single Appliance
+### Configure
+#### Single Appliance
 ```
 const Extrahop = require('extrahop-nodejs');
 
@@ -42,7 +42,7 @@ const config = {
 const eca = new Extrahop(config);
 ```
 
-### Multiple Appliances
+#### Multiple Appliances
 ```
 const Extrahop = require('extrahop-nodejs');
 
@@ -74,7 +74,7 @@ const config = {
 const extrahopEnv = new Extrahop(config);
 ```
 
-### From Config File
+#### From Config File
 ```
 const Extrahop = require('extrahop-nodejs');
 const config = require('./config.json');
@@ -82,9 +82,9 @@ const config = require('./config.json');
 const extrahopEnv = new Extrahop(config);
 ```
 
-## Usage
+### Usage
 
-### Activity Groups
+#### Activity Groups
 ```
 const activityGroups = eca.activityGroups().find();
 
