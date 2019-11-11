@@ -86,21 +86,17 @@ const extrahopEnv = new Extrahop(config);
 
 ### Activity Groups
 ```
-const activityGroups = eca.activityGroups().get();
+const activityGroups = eca.activityGroups().find();
 
 activityGroups.forEach(activityGroup => {
   const dashboards = eca.activityGroups().getDashboards(activityGroup);
-  if ( dashboards.length > 0 ) {
-    console.log(JSON.stringify(dashboards));
-  }
+  dashboard.forEach(dashboard => dashboard.print());
 });
 ```
 
 ### Records
 #### Search
 ```
-const eca = extrahopEnv.getECA();
-
 const params = {
   types: ['~ssl_open', '~ssl_close'], // default: any
   limit: 500, // default: 1000
