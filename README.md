@@ -7,30 +7,30 @@
 ### Install
 
 Create project directory:
-```
+```sh
 mkdir my-extrahop-cli
 cd ./my-extrahop-cli
 ```
 
 Install package files:
-```
+```sh
 npm install extrahop-nodejs
 ```
 
 Create main JS file, data dirs:
-```
+```sh
 mkdir -p data/{db,csv}
 touch index.js
 ```
 
 ### Run
-```
+```js
 node index.js
 ```
 
 ### Configure
 #### Single Appliance
-```
+```js
 const Extrahop = require('extrahop-nodejs');
 
 const config = {
@@ -43,7 +43,7 @@ const eca = new Extrahop(config);
 ```
 
 #### Multiple Appliances
-```
+```js
 const Extrahop = require('extrahop-nodejs');
 
 const config = {
@@ -75,7 +75,7 @@ const extrahopEnv = new Extrahop(config);
 ```
 
 #### From Config File
-```
+```js
 const Extrahop = require('extrahop-nodejs');
 const config = require('./config.json');
 
@@ -85,7 +85,7 @@ const extrahopEnv = new Extrahop(config);
 ### Usage
 
 #### Activity Groups
-```
+```js
 const activityGroups = eca.activityGroups().find();
 
 activityGroups.forEach(activityGroup => {
@@ -96,7 +96,7 @@ activityGroups.forEach(activityGroup => {
 
 ### Records
 #### Search
-```
+```js
 const params = {
   types: ['~ssl_open', '~ssl_close'], // default: any
   limit: 500, // default: 1000
@@ -104,15 +104,23 @@ const params = {
   until: '-30m', // default: now
 };
 
-const recordSearch = eca.records().search(params);
+const records = eca.records();
+const search = records.search(params);
 ```
 
-#### Save
-```
-const eca = extrahopEnv.getECA();
-const recordSearch = eca.records().search(params);
+#### Search & Save
+```js
+const params = {
+  types: ['~ssl_open', '~ssl_close'], // default: any
+  limit: 500, // default: 1000
+  from: '-60m', // default: 30m
+  until: '-30m', // default: now
+};
 
-recordSearch.saveToCSV(search);
+const records = eca.records();
+const search = records.search(params);
+
+records.saveToCSV(search);
 ```
 
 
