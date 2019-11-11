@@ -1,8 +1,8 @@
 // Record.controller.js
 
 const BaseCtrl = require('../controllers/BaseCtrl.controller');
-const RecordSet = require('../models/records/RecordSet.model');
-const RecordSearch = require('../models/records/RecordSearch.model');
+const RecordSet = require('../models/record/RecordSet.model');
+const RecordSearch = require('../models/record/RecordSearch.model');
 const { Config, Icons } = require('../constants/Global.constants');
 
 const Database = require('nedb');
@@ -66,7 +66,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
   }
 
   searchFirst(search = {}) {
-    const searchId = Date.now().toString(16);
+    const searchId = this.generateId();
     const getRecords = this.postRecordsSearch(search);
 
     if ( getRecords.error ) {
@@ -108,7 +108,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
     console.log();
     console.log(`------------------------------ SEARCH INFO ------------------------------------`);
     console.log(`- Search ID (local): ${search.id}`);
-    // console.log(`- Search timestamp: ${parseInt(search.id, 16)}`);
+    console.log(`- Search timestamp: ${parseInt(search.id, 36)}`);
     console.log(`- Search types: ${search.types || 'any'}`);
     console.log(`- Search limit: ${search.limit}`);
     console.log(`- Search results: ${search.total}`);

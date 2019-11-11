@@ -1,6 +1,6 @@
 // License.controller.js
 
-const License = require('../models/License.model');
+const License = require('../models/license/License.model');
 
 module.exports = class LicenseCtrl {
 	constructor(appliance) {

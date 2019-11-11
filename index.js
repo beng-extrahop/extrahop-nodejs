@@ -1,12 +1,11 @@
 // index.js
-'use strict';
 
-var Appliance = require('./src/models/appliances/Appliance.model');
-var Environment = require('./src/models/environments/Environment.model');
-var EnvironmentSet = require('./src/models/environments/EnvironmentSet.model');
+const Appliance = require('./src/models/_extrahop/Appliance.model');
+const Environment = require('./src/models/_extrahop/Environment.model');
+const EnvironmentSet = require('./src/models/_extrahop/EnvironmentSet.model');
 
 module.exports = class Extrahop {
-  constructor(config) {
+  constructor(config = {}) {
     if ( !config.environments ) {
       return new Appliance(config);
     }
@@ -16,9 +15,5 @@ module.exports = class Extrahop {
     else {
       return new EnvironmentSet(config.environments);
     }
-  }
-
-  printMsg() {
-    console.log("This is a message from the demo package");
   }
 }

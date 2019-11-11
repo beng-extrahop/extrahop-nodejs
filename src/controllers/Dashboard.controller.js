@@ -1,7 +1,7 @@
 // Dashboard.controller.js
 
 const BaseCtrl = require('../controllers/BaseCtrl.controller');
-const DashboardSet = require('../models/dashboards/DashboardSet.model');
+const DashboardSet = require('../models/dashboard/DashboardSet.model');
 const Strings = require('../constants/Global.constants');
 
 module.exports = class DashboardCtrl extends BaseCtrl {

@@ -1,6 +1,6 @@
 // Trigger.controller.js
 
-const Trigger = require('../models/triggers/Trigger.model')
+const Trigger = require('../models/trigger/Trigger.model')
 const Strings = require('../constants/Global.constants');
 
 module.exports = class TriggerCtrl {

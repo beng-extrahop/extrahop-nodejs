@@ -1,7 +1,7 @@
 // Appliance.controller.js
 
 const BaseCtrl = require('../controllers/BaseCtrl.controller');
-const ApplianceSet = require('../models/appliances/ApplianceSet.model');
+const ApplianceSet = require('../models/appliance/ApplianceSet.model');
 const { Config, Icons, Strings } = require('../constants/Global.constants');
 
 module.exports = class ApplianceCtrl extends BaseCtrl {

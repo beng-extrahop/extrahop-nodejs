@@ -1,15 +1,16 @@
 // Device.controller.js
 
 const BaseCtrl = require('../controllers/BaseCtrl.controller');
-const DeviceSet = require('../models/devices/DeviceSet.model');
-const DeviceSearch = require('../models/devices/DeviceSearch.model');
+const DeviceSet = require('../models/device/DeviceSet.model');
+const DeviceSearch = require('../models/device/DeviceSearch.model');
 const Strings = require('../constants/Device.constants');
 
 const { Config, Icons } = require('../constants/Global.constants');
 
 module.exports = class DeviceCtrl extends BaseCtrl {
   constructor(appliance) {
-    super(appliance);
+    super();
+    this.appliance = appliance;
   }
 
   // -------------------------------------
@@ -32,15 +33,11 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   // -------------------------------------
 
   findAll(limit, offset, activeFrom, activeUntil) {
-    return this.find({
-      [Strings.Search.Types.Any]: undefined
-    }, limit, offset, activeFrom, activeUntil);
+    return this.find({ [Strings.Search.Types.Any]: undefined }, limit, offset, activeFrom, activeUntil);
   }
 
   findAllCustom(limit, offset, activeFrom, activeUntil) {
-    return this.find({
-      [Strings.Search.Types.Type]: 'custom'
-    }, limit, offset, activeFrom, activeUntil);
+    return this.find({ [Strings.Search.Types.Type]: 'custom' }, limit, offset, activeFrom, activeUntil);
   }
 
   // -------------------------------------
@@ -48,69 +45,47 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   // -------------------------------------
 
   findByName(name, limit, offset, activeFrom, activeUntil) {
-    return this.find({
-      [Strings.Search.Types.Name]: name
-    }, limit, offset, activeFrom, activeUntil);
+    return this.find({ [Strings.Search.Types.Name]: name }, limit, offset, activeFrom, activeUntil);
   }
 
   findByDiscoveryId(discoveryId, limit, offset, activeFrom, activeUntil) {
-    return this.find({
-      [Strings.Search.Types.DiscoveryId]: discoveryId
-    }, limit, offset, activeFrom, activeUntil);
+    return this.find({ [Strings.Search.Types.DiscoveryId]: discoveryId }, limit, offset, activeFrom, activeUntil);
   }
 
   findByIpAddress(ip, limit, offset, activeFrom, activeUntil) {
-    return this.find({
-      [Strings.Search.Types.IpAddress]: ip
-    }, limit, offset, activeFrom, activeUntil);
+    return this.find({ [Strings.Search.Types.IpAddress]: ip }, limit, offset, activeFrom, activeUntil);
   }
 
   findByMacAddress(mac, limit, offset, activeFrom, activeUntil) {
-    return this.find({
-      [Strings.Search.Types.MacAddress]: mac
-    }, limit, offset, activeFrom, activeUntil);
+    return this.find({ [Strings.Search.Types.MacAddress]: mac }, limit, offset, activeFrom, activeUntil);
   }
 
   findByVendor(vendor, limit, offset, activeFrom, activeUntil) {
-    return this.find({
-      [Strings.Search.Types.Vendor]: vendor
-    }, limit, offset, activeFrom, activeUntil);
+    return this.find({ [Strings.Search.Types.Vendor]: vendor }, limit, offset, activeFrom, activeUntil);
   }
 
   findByType(type, limit, offset, activeFrom, activeUntil) {
-    return this.find({
-      [Strings.Search.Types.Type]: type
-    }, limit, offset, activeFrom, activeUntil);
+    return this.find({ [Strings.Search.Types.Type]: type }, limit, offset, activeFrom, activeUntil);
   }
 
   findByTag(tag, limit, offset, activeFrom, activeUntil) {
-    return this.find({
-      [Strings.Search.Types.Tag]: tag
-    }, limit, offset, activeFrom, activeUntil);
+    return this.find({ [Strings.Search.Types.Tag]: tag }, limit, offset, activeFrom, activeUntil);
   }
 
   findByActivity(activity, limit, offset, activeFrom, activeUntil) {
-    return this.find({
-      [Strings.Search.Types.Activity]: activity
-    }, limit, offset, activeFrom, activeUntil);
+    return this.find({ [Strings.Search.Types.Activity]: activity }, limit, offset, activeFrom, activeUntil);
   }
 
   findByNode(node, limit, offset, activeFrom, activeUntil) {
-    return this.find({
-      [Strings.Search.Types.Node]: node
-    }, limit, offset, activeFrom, activeUntil);
+    return this.find({ [Strings.Search.Types.Node]: node }, limit, offset, activeFrom, activeUntil);
   }
 
   findByVlan(vlan, limit, offset, activeFrom, activeUntil) {
-    return this.find({
-      [Strings.Search.Types.Vlan]: vlan
-    }, limit, offset, activeFrom, activeUntil);
+    return this.find({ [Strings.Search.Types.Vlan]: vlan }, limit, offset, activeFrom, activeUntil);
   }
 
   findByDiscoverTime(discoverTime, limit, offset, activeFrom, activeUntil) {
-    return this.find({
-      [Strings.Search.Types.DiscoverTime]: discoverTime
-    }, limit, offset, activeFrom, activeUntil);
+    return this.find({ [Strings.Search.Types.DiscoverTime]: discoverTime }, limit, offset, activeFrom, activeUntil);
   }
 
   // -------------------------------------
@@ -139,29 +114,19 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   // Search Functions
   // -------------------------------------
 
-  find(filter, limit, offset, activeFrom, activeUntil) {
-    const searchType = Object.keys(filter)[0];
-    const value = filter[searchType];
-
+  find({ filter, limit, offset, activeFrom, activeUntil }) {
+    const { searchType, value } = filter || {};
     const getDevices = this.appliance.getDevices(searchType, value, limit, offset, activeFrom, activeUntil);
+
     return new DeviceSet(this.process(getDevices, 'devices'));
   }
 
-  findOne(searchType, value, offset, activeFrom, activeUntil) {
-    const getDevices = this.appliance.getDevices(searchType, value, 1, offset, activeFrom, activeUntil);
-    return new DeviceSet(this.process(getDevices, 'devices'));
-  }
+  search({ filter, operator, limit, offset, activeFrom, activeUntil }) {
+    filter = filter && filter[0] instanceof Array ? filter : [ filter ];
 
-  search(filters, operator, limit, offset, activeFrom, activeUntil) {
-    filters = filters && filters[0] instanceof Array ? filters : [ filters ];
-
-    const rules = filters.map(filter => ({
-      field: filter[0],
-      operator: filter[1],
-      operand: filter[2]
-    }));
-
+    const rules = filter.map(x => ({ field: x[0], operator: x[1], operand: x[2] }));
     const search = new DeviceSearch({ rules, operator }, limit, offset, activeFrom, activeUntil);
+
     console.log(JSON.stringify(search,null,2));
 
     return new DeviceSet(this.process(this.appliance.searchDevices(search), 'devices'));

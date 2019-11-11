@@ -1,7 +1,7 @@
 // Alert.controller.js
 
 const BaseCtrl = require('../controllers/BaseCtrl.controller');
-const Alert = require('../models/alerts/Alert.model')
+const Alert = require('../models/alert/Alert.model')
 const Strings = require('../constants/Global.constants');
 
 module.exports = class AlertCtrl extends BaseCtrl {

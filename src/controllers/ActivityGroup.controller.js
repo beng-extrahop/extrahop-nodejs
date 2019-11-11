@@ -1,8 +1,8 @@
 // ActivityGroup.controller.js
 
 const BaseCtrl = require('../controllers/BaseCtrl.controller');
-const ActivityGroupSet = require('../models/activityGroups/ActivityGroupSet.model');
-const DashboardSet = require('../models/dashboards/DashboardSet.model');
+const ActivityGroupSet = require('../models/activityGroup/ActivityGroupSet.model');
+const DashboardSet = require('../models/dashboard/DashboardSet.model');
 
 //const Strings = require('../constants/ActivityGroup.constants');
 

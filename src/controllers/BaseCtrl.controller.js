@@ -1,9 +1,8 @@
 // BaseCtrl.controller.js
 
-const { Config, Icons } = require('../constants/Global.constants');
-
 const Crypto = require('crypto');
 const Moment = require('moment-timezone');
+const { Config, Icons } = require('../constants/Global.constants');
 
 module.exports = class BaseCtrl {
   constructor(appliance = {}) {
@@ -39,7 +38,7 @@ module.exports = class BaseCtrl {
 
   generateId(params) {
     if ( !params ) {
-      return Date.now.toString(36);
+      return Date.now().toString(36);
     } else {
       return Crypto.createHash('md5').update(JSON.stringify(params), 'utf-8').digest('hex');
     }
@@ -71,18 +70,18 @@ module.exports = class BaseCtrl {
   }
 
   process(results, type, options = {}) {
-    if ( !results.success ) {
-      return this.printError(type);
-    }
-
     if ( !options.suppress ) {
+      if ( !results.success ) {
+        return this.printError(type);
+      }
+
       const subkey = options.subkey;
       const numResults = (results.data[subkey] || results.data || []).length;
 
-      if ( (results.data[subkey] || results.data || []).length > 0 ) {
-        this.printSuccess(numResults, type);
-      } else {
+      if ( !results.data || (results.data[subkey] || results.data).length == 0 ) {
         this.printWarning(type);
+      } else {
+        this.printSuccess(numResults, type);
       }
     }
 

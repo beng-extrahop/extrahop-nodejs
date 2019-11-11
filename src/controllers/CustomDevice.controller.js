@@ -1,12 +1,12 @@
 // CustomDevice.controller.js
 
 const BaseCtrl = require('../controllers/BaseCtrl.controller');
-const CustomDeviceSet = require('../models/customDevices/CustomDeviceSet.model');
-const Search = require('../models/search/Search.model');
-const SearchFilter = require('../models/search/SearchFilter.model');
-const SearchFilterRuleSet = require('../models/search/SearchFilterRuleSet.model');
-
+const CustomDeviceSet = require('../models/customDevice/CustomDeviceSet.model');
 const Strings = require('../constants/CustomDevice.constants');
+
+const Search = require('../models/_search/Search.model');
+const SearchFilter = require('../models/_search/SearchFilter.model');
+const SearchFilterRuleSet = require('../models/_search/SearchFilterRuleSet.model');
 
 module.exports = class CustomDeviceCtrl extends BaseCtrl {
   constructor(appliance) {
@@ -18,9 +18,7 @@ module.exports = class CustomDeviceCtrl extends BaseCtrl {
   // -------------------------------------
 
   findAll(limit, offset, activeFrom, activeUntil) {
-    return this.find({
-      [Strings.Search.Types.Any]: undefined
-    }, limit, offset, activeFrom, activeUntil);
+    return this.find({ [Strings.Search.Types.Any]: undefined }, limit, offset, activeFrom, activeUntil);
   }
 
   // -------------------------------------
@@ -28,21 +26,15 @@ module.exports = class CustomDeviceCtrl extends BaseCtrl {
   // -------------------------------------
 
   findByName(name, limit, offset, activeFrom, activeUntil) {
-    return this.find({
-      [Strings.Search.Types.Name]: name
-    }, limit, offset, activeFrom, activeUntil);
+    return this.find({ [Strings.Search.Types.Name]: name }, limit, offset, activeFrom, activeUntil);
   }
 
   findByExtrahopId(extrahopId, limit, offset, activeFrom, activeUntil) {
-    return this.find({
-      [Strings.Search.Types.ExtrahopId]: extrahopId
-    }, limit, offset, activeFrom, activeUntil);
+    return this.find({ [Strings.Search.Types.ExtrahopId]: extrahopId }, limit, offset, activeFrom, activeUntil);
   }
 
   findByAuthor(author, limit, offset, activeFrom, activeUntil) {
-    return this.find({
-      [Strings.Search.Types.Author]: author
-    }, limit, offset, activeFrom, activeUntil);
+    return this.find({ [Strings.Search.Types.Author]: author }, limit, offset, activeFrom, activeUntil);
   }
 
   // -------------------------------------
