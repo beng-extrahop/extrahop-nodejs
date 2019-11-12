@@ -5,7 +5,11 @@ const Alert = require('../../models/alert/Alert.model');
 
 module.exports = class AlertSet extends BaseObjectSet {
   constructor(alerts = []) {
-    super();
+    super(alerts);
     alerts.forEach(alert => this.push(new Alert(alert)));
+  }
+
+  writeToCSV({ filename = `alerts-${this.generateId()}.csv`, subkey }) {
+    super.writeToCSV({ filename, subkey });
   }
 }

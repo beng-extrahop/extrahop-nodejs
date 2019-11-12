@@ -41,11 +41,11 @@ module.exports = class DashboardCtrl extends BaseCtrl {
 		let dashboards = this.appliance.getDashboards().data;
 
 		if ( !dashboards || dashboards.length == 0 ) {
-			console.log(`No dashboards found on ${this.appliance.hostname}...`);
+			console.info(`No dashboards found on ${this.appliance.hostname}...`);
 			return new DashboardSet([]);
 		}
 		else if ( !criteria || criteria === null ) {
-			console.log(`Retrieving all dashboards from ${this.appliance.hostname}...`);
+			console.info(`Retrieving all dashboards from ${this.appliance.hostname}...`);
 			return new DashboardSet(dashboards.slice(-3));
 		}
 
@@ -67,7 +67,7 @@ module.exports = class DashboardCtrl extends BaseCtrl {
 		}
 
       let results = [];
-		console.log(`Retrieving dashboards with '${key}' ${filter} '${value}'...`);
+		console.info(`Retrieving dashboards with '${key}' ${filter} '${value}'...`);
 
 		dashboards.forEach(function(dashboard) {
 			if ( isMatch(dashboard, key, value, filter) ) {
@@ -75,7 +75,7 @@ module.exports = class DashboardCtrl extends BaseCtrl {
 			}
 		});
 
-		console.log(`Found ${results.length} dashboards. Ready to update...\n`);
+		console.info(`Found ${results.length} dashboards. Ready to update...\n`);
 		return new DashboardSet(results);
 	}
 
@@ -98,27 +98,27 @@ module.exports = class DashboardCtrl extends BaseCtrl {
 
 	transferOwnership(dashboard, owner, index = 0) {
 		let request = this.patchDashboard(dashboard.id, {'owner': owner});
-		console.log(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Transferred ownership of ${dashboard.name} from '${dashboard.owner}' to '${owner}'`);
+		console.info(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Transferred ownership of ${dashboard.name} from '${dashboard.owner}' to '${owner}'`);
 	}
 
 	updateAuthor(dashboard, author, index = 0) {
 		let request = this.patchDashboard(dashboard.id, {'author': author});
-		console.log(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Updating author of ${dashboard.name} from '${dashboard.author}' to '${author}'`);
+		console.info(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Updating author of ${dashboard.name} from '${dashboard.author}' to '${author}'`);
 	}
 
 	makePublic(dashboard, index = 0) {
 		let request = this.patchDashboardSharing(dashboard.id, {[Strings.Dashboard.Sharing.Anyone]: 'viewer'});
-		console.log(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Update ${dashboard.name} viewing to public (ID: ${dashboard.id})`);
+		console.info(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Update ${dashboard.name} viewing to public (ID: ${dashboard.id})`);
 	}
 
 	makePrivate(dashboard, index = 0) {
 		let request = this.patchDashboardSharing(dashboard.id, {[Strings.Dashboard.Sharing.Anyone]: null});
-		console.log(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Update ${dashboard.name} viewing to private (ID: ${dashboard.id})`);
+		console.info(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Update ${dashboard.name} viewing to private (ID: ${dashboard.id})`);
 	}
 
 	delete(dashboard, index = 0) {
 		let request = this.deleteDashboard(dashboard.id);
-		console.log(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Deleted ${dashboard.name} (ID: ${dashboard.id})`);
+		console.info(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Deleted ${dashboard.name} (ID: ${dashboard.id})`);
 	}
 
   // -------------------------------------
@@ -160,7 +160,7 @@ module.exports = class DashboardCtrl extends BaseCtrl {
 
 	addViewUser(dashboard, username, index = 0) {
 		let request = this.addUser(dashboard, username, 'viewer');
-		console.log(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Add viewer '${username}' to ${dashboard.name} (ID: ${dashboard.id})`);
+		console.info(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Add viewer '${username}' to ${dashboard.name} (ID: ${dashboard.id})`);
 	}
 
 	addViewUsers(dashboard, usernames) {
@@ -168,7 +168,7 @@ module.exports = class DashboardCtrl extends BaseCtrl {
 	}
 
 	addEditUser(dashboard, username) {
-    // console.log(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Add editor '${username}' to ${dashboard.name} (ID: ${dashboard.id})`);
+    // console.info(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Add editor '${username}' to ${dashboard.name} (ID: ${dashboard.id})`);
 		return this.addUser(dashboard, username, 'editor');
 	}
 

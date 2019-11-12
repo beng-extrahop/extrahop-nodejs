@@ -1,6 +1,6 @@
 // Appliance.model.js
 
-const Request = require('../../models/_request/AsyncRequest.model');
+const Request = require('../../models/_http/AsyncRequest.model');
 const Icons = require('../../constants/Global.constants').Icons;
 const Utils = require('../../utils/BaseUtil.util.js');
 
@@ -43,12 +43,12 @@ module.exports = class Appliance {
 
   init() {
     return this.getExtrahop().then((response) => {
-      console.log(`${Icons.Info} Connected to ${this.host}`);
+      console.info(`${Icons.Info} Connected to ${this.host}`);
       this.populate();
       return true;
     })
     .catch((error) => {
-      console.log(`${Icons.Warn} Error connecting to ${this.host}`);
+      console.info(`${Icons.Warn} Error connecting to ${this.host}`);
       return false;
     });
   }
@@ -59,7 +59,7 @@ module.exports = class Appliance {
       this.merge(thisAppliance);
     })
     .catch((error) => {
-      console.log(`${Icons.Warn} Error populating data for ${this.host}`);
+      console.info(`${Icons.Warn} Error populating data for ${this.host}`);
     });
   }
 
@@ -344,7 +344,7 @@ module.exports = class Appliance {
 
   async getApplications(activeFrom, activeUntil, limit, offset, searchType, value) {
     const  awaitqueryString = Utils.buildQuery({ activeFrom, activeUntil, limit, offset, searchType, value });
-    console.log(`QS: ${ queryString || '' }`);
+    console.info(`QS: ${ queryString || '' }`);
     return new Request(this.host, this.apikey).get(`/applications${ queryString || '' }`);
   }
 

@@ -45,7 +45,7 @@ module.exports = class CustomDeviceCtrl extends BaseCtrl {
     const searchType = Object.keys(filter)[0];
     const value = filter[searchType];
 
-    console.log(`Searching '${this.appliance.id}' for customDevices with query '?limit=${limit}&searchType=${searchType}${value ? '&value=' + value : ''}'`);
+    console.info(`Searching '${this.appliance.id}' for customDevices with query '?limit=${limit}&searchType=${searchType}${value ? '&value=' + value : ''}'`);
 
     const getCustomDevices = this.appliance.getCustomDevices(searchType, value, limit, offset, activeFrom, activeUntil);
     return new CustomDeviceSet(this.process(getCustomDevices, 'customDevices'));

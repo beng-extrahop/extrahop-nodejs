@@ -5,7 +5,7 @@ const Appliance = require('../../models/_extrahop/Appliance.model');
 
 module.exports = class ApplianceSet extends BaseObjectSet {
   constructor(appliances = []) {
-    super();
+    super(appliances);
     appliances.forEach(appliance => this.push(new Appliance(appliance)));
   }
 }

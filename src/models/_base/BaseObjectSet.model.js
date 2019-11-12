@@ -1,5 +1,8 @@
 // BaseObjectSet.model.js
 
+const Utils = require('../../utils/BaseUtil.util.js');
+const { Config } = require('../../constants/Global.constants');
+
 const fastCSV = require('fast-csv');
 const fs = require('fs');
 
@@ -8,20 +11,24 @@ module.exports = class BaseObjectSet extends Array {
     super();
   }
 
-  print() {
-    this.forEach(baseObject => baseObject.print());
-  }
-
   toString({ format }) {
     return format ? JSON.stringify(this, null, 2) : JSON.stringify(this);
+  }
+
+  print() {
+    this.forEach(baseObject => baseObject.print());
   }
 
   toCSV(subkey) {
     return fastCSV.write((subkey ? this.map(obj => obj[subkey]) : this), { headers: true });
   }
 
-  writeToCSV({ filename, subkey }) {
-    this.toCSV(subkey).pipe(fs.createWriteStream(filename));
+  writeToCSV(filename, subkey) {
+    this.toCSV(subkey).pipe(fs.createWriteStream(Config.CSV_DIR + '/' + filename));
+  }
+
+  generateId(params) {
+    return Utils.generateId(params);
   }
 
   // -------------------------------------

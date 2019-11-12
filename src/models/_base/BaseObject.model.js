@@ -1,12 +1,19 @@
 // BaseObject.model.js
 
-module.exports = class BaseObject {
+const fastCSV = require('fast-csv');
+const fs = require('fs');
+
+module.exports = class BaseObject extends Object {
+  constructor(baseObject = {}) {
+    super();
+  }
+
   print() {
-    console.log('\n' + this.toString());
+    console.info('\n' + this.toString());
   }
 
   printCSV(start, end) {
-    console.log(this.toCSV(start, end));
+    console.info(this.toCSV(start, end));
   }
 
   toString(format = false) {
@@ -14,7 +21,7 @@ module.exports = class BaseObject {
   }
 
   toCSV(subkey) {
-    return fastCSV.write((this[subkey] || this), { headers: true });
+    return fastCSV.write([ this[subkey] || this ], { headers: true });
   }
 
   writeToCSV({ filename, subkey }) {

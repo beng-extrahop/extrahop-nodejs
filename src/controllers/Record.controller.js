@@ -8,7 +8,7 @@ const { Config, Icons } = require('../constants/Global.constants');
 const Database = require('nedb');
 
 module.exports = class RecordCtrl extends BaseCtrl {
-  constructor(appliance) {
+  constructor(appliance = {}) {
     super(appliance);
   }
 
@@ -18,15 +18,12 @@ module.exports = class RecordCtrl extends BaseCtrl {
 
   saveToCSV(search = {}) {
     search.db.find({}, function(err, results) {
-      if ( err || results.length == 0 ) {
+      if ( err ) {
         console.error(err);
         return;
       }
-
-      const recordSet = new RecordSet(results);
-      recordSet.writeToCSV({ filename: `${Config.DATA_DIR}/csv/records-${search.id}.csv` });
-
-      console.log(`${Icons.Success} Saved ${results.length} records to CSV: records-${search.id}.csv`);
+      (new RecordSet(results)).writeToCSV({ filename: `records-${search.id}.csv` });
+      console.info(`${Icons.Success} Saved ${results.length} records to CSV: records-${search.id}.csv`);
     });
   }
 
@@ -36,64 +33,46 @@ module.exports = class RecordCtrl extends BaseCtrl {
 
   search(params = {}) {
     const search = this.searchFirst(new RecordSearch(params));
-    const db = new Database({ filename: `${Config.DATA_DIR}/db/records-${search.id}.db`, autoload: true });
+    const db = new Database({ filename: `${Config.DB_DIR}/records-${search.id}.db`, autoload: true });
 
     this.printSearchInfo(search);
 
     let records = search.records;
     let count = 0, pageAt = 0, numPages = this.getPageCount(search.total, search.limit);
 
-    let lastRecord = null;
-
     while ( records && records.length > 0 ) {
       records.forEach(record => {
         db.insert(this.parse(record), (error) => {
-          if ( error ) console.error(error)
+          if ( error ) {
+            console.error(error);
+          }
         });
       });
 
-      count += records.length;
-      console.log(`[${++pageAt}/${numPages}] Processed ${count} results, awaiting next page...`);
-
+      console.info(`[${++pageAt}/${numPages}] Processed ${(count += records.length)} results, awaiting next page...`);
       records = this.searchNext(search.cursor, search.context_ttl);
     }
 
-    const msgSuccess = `\n${Icons.Success} Committed ${count}/${search.total} results to DB: records-${search.id}.db`;
-    const msgWarning = `\n${Icons.Warn} Committed ${count}/${search.total} records to DB: records-${search.id}.db`;
-    console.log(count == search.total ? msgSuccess : msgWarning);
+    if ( count == search.total ) {
+      console.info(`\n${Icons.Success} Committed ${count}/${search.total} results to DB: records-${search.id}.db`);
+    } else {
+      console.info(`\n${Icons.Warn} Committed ${count}/${search.total} records to DB: records-${search.id}.db`);
+    }
 
     return Object.assign(search, { db, records });
   }
 
   searchFirst(search = {}) {
-    const searchId = this.generateId();
+    const searchId = this.utils.generateId();
     const getRecords = this.postRecordsSearch(search);
-
-    if ( getRecords.error ) {
-      console.log(`${Icons.Error} ${JSON.stringify(search, null, 2)}`);
-    }
 
     return Object.assign(search, getRecords.data, { id: searchId })
   }
 
   searchNext(cursor, contextTtl) {
-    let getRecords = this.postRecordsCursor(cursor, contextTtl);
-    let attempts = 0;
+    const getRecords = this.postRecordsCursor(cursor, contextTtl);
 
-    while ( !getRecords.success && attempts < 3 ) {
-      if ( attempts++ < 3 ) {
-        console.log('Retying next results, attempt ' + attempts);
-        sleep(2000);
-      }
-
-      getRecords = this.postRecordsCursor(cursor, contextTtl);
-    }
-
-    if ( !getRecords.success ) {
-      console.log('Search ended before retrieving all records.')
-    }
-
-    return getRecords.data.records || [];
+    return getRecords.data? getRecords.data.records : [];
   }
 
   // -------------------------------------
@@ -105,17 +84,17 @@ module.exports = class RecordCtrl extends BaseCtrl {
   }
 
   printSearchInfo(search = {}) {
-    console.log();
-    console.log(`------------------------------ SEARCH INFO ------------------------------------`);
-    console.log(`- Search ID (local): ${search.id}`);
-    console.log(`- Search timestamp: ${parseInt(search.id, 36)}`);
-    console.log(`- Search types: ${search.types || 'any'}`);
-    console.log(`- Search limit: ${search.limit}`);
-    console.log(`- Search results: ${search.total}`);
-    console.log(`- Search context_ttl: ${search.context_ttl}`);
-    console.log(`- Search from: ${new Date(search.from)}`);
-    console.log(`- Search until: ${new Date(search.until)}`);
-    console.log(`-------------------------------------------------------------------------------\n`);
+    console.info();
+    console.info(`------------------------------ SEARCH INFO ------------------------------------`);
+    console.info(`- Search ID (local): ${search.id}`);
+    console.info(`- Search timestamp: ${parseInt(search.id, 36)}`);
+    console.info(`- Search types: ${search.types || 'any'}`);
+    console.info(`- Search limit: ${search.limit}`);
+    console.info(`- Search results: ${search.total}`);
+    console.info(`- Search context_ttl: ${search.context_ttl}`);
+    console.info(`- Search from: ${new Date(search.from)}`);
+    console.info(`- Search until: ${new Date(search.until)}`);
+    console.info(`-------------------------------------------------------------------------------\n`);
   }
 
   getPageCount(total = 1, limit = 1) {

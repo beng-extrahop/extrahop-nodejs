@@ -5,7 +5,11 @@ const CustomDevice = require('../../models/customDevice/CustomDevice.model');
 
 module.exports = class CustomDeviceSet extends BaseObjectSet {
   constructor(customDevices = []) {
-    super();
+    super(customDevices);
     customDevices.forEach(customDevice => this.push(new CustomDevice(customDevice)));
+  }
+
+  writeToCSV({ filename = `customDevices-${this.generateId()}.csv`, subkey }) {
+    super.writeToCSV({ filename, subkey });
   }
 }

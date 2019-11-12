@@ -3,133 +3,108 @@
 const BaseCtrl = require('../controllers/BaseCtrl.controller');
 const DeviceSet = require('../models/device/DeviceSet.model');
 const DeviceSearch = require('../models/device/DeviceSearch.model');
-const Strings = require('../constants/Device.constants');
 
-const { Config, Icons } = require('../constants/Global.constants');
+const { Search, Config, Icons } = require('../constants/Global.constants');
 
 module.exports = class DeviceCtrl extends BaseCtrl {
   constructor(appliance) {
-    super();
-    this.appliance = appliance;
-  }
-
-  // -------------------------------------
-  // Save Functions
-  // -------------------------------------
-
-  saveToCSV(search = {}) {
-    search.db.find({}, function(err, results) {
-      if ( err ) {
-        console.error(err);
-      } else {
-        (new DeviceSet(results)).writeToCSV(`${Config.DATA_DIR}/csv/devices-${search.id}.csv`);
-        console.log(`${Icons.Success} Saved ${results.length} results to CSV: devices-${search.id}.csv`);
-      }
-    });
-  }
-
-  // -------------------------------------
-  // Search - Global
-  // -------------------------------------
-
-  findAll(limit, offset, activeFrom, activeUntil) {
-    return this.find({ [Strings.Search.Types.Any]: undefined }, limit, offset, activeFrom, activeUntil);
-  }
-
-  findAllCustom(limit, offset, activeFrom, activeUntil) {
-    return this.find({ [Strings.Search.Types.Type]: 'custom' }, limit, offset, activeFrom, activeUntil);
+    super(appliance);
   }
 
   // -------------------------------------
   // Search - Predefined
   // -------------------------------------
 
-  findByName(name, limit, offset, activeFrom, activeUntil) {
-    return this.find({ [Strings.Search.Types.Name]: name }, limit, offset, activeFrom, activeUntil);
+  find({ search_type, value }, options = {}) {
+    const { limit, offset, active_from, active_until } = options;
+    const getDevices = this.appliance.getDevices(search_type, value, limit, offset, active_from, active_until);
+
+    return new DeviceSet(this.process(getDevices, 'devices', { suppress: true }));
   }
 
-  findByDiscoveryId(discoveryId, limit, offset, activeFrom, activeUntil) {
-    return this.find({ [Strings.Search.Types.DiscoveryId]: discoveryId }, limit, offset, activeFrom, activeUntil);
+  findAny(options) {
+    return this.find({ search_type: Search.Types.Any, value: undefined }, options);
   }
 
-  findByIpAddress(ip, limit, offset, activeFrom, activeUntil) {
-    return this.find({ [Strings.Search.Types.IpAddress]: ip }, limit, offset, activeFrom, activeUntil);
+  findByName(name, options) {
+    return this.find({ search_type: Search.Types.Name, value: name }, options);
   }
 
-  findByMacAddress(mac, limit, offset, activeFrom, activeUntil) {
-    return this.find({ [Strings.Search.Types.MacAddress]: mac }, limit, offset, activeFrom, activeUntil);
+  findByDiscoveryId(discoveryId, options) {
+    return this.find({ search_type: Search.Types.DiscoveryId, value: discoveryId }, options);
   }
 
-  findByVendor(vendor, limit, offset, activeFrom, activeUntil) {
-    return this.find({ [Strings.Search.Types.Vendor]: vendor }, limit, offset, activeFrom, activeUntil);
+  findByIpAddress(ip, options) {
+    return this.find({ search_type: Search.Types.IpAddress, value: ip }, options);
   }
 
-  findByType(type, limit, offset, activeFrom, activeUntil) {
-    return this.find({ [Strings.Search.Types.Type]: type }, limit, offset, activeFrom, activeUntil);
+  findByMacAddress(mac, options) {
+    return this.find({ search_type: Search.Types.MacAddress, value: mac }, options);
   }
 
-  findByTag(tag, limit, offset, activeFrom, activeUntil) {
-    return this.find({ [Strings.Search.Types.Tag]: tag }, limit, offset, activeFrom, activeUntil);
+  findByVendor(vendor, options) {
+    return this.find({ search_type: Search.Types.Vendor, value: vendor }, options);
   }
 
-  findByActivity(activity, limit, offset, activeFrom, activeUntil) {
-    return this.find({ [Strings.Search.Types.Activity]: activity }, limit, offset, activeFrom, activeUntil);
+  findByType(type, options) {
+    return this.find({ search_type: Search.Types.Type, value: type }, options);
   }
 
-  findByNode(node, limit, offset, activeFrom, activeUntil) {
-    return this.find({ [Strings.Search.Types.Node]: node }, limit, offset, activeFrom, activeUntil);
+  findByTag(tag, options) {
+    return this.find({ search_type: Search.Types.Tag, value: tag }, options);
   }
 
-  findByVlan(vlan, limit, offset, activeFrom, activeUntil) {
-    return this.find({ [Strings.Search.Types.Vlan]: vlan }, limit, offset, activeFrom, activeUntil);
+  findByActivity(activity, options) {
+    return this.find({ search_type: Search.Types.Activity, value: activity }, options);
   }
 
-  findByDiscoverTime(discoverTime, limit, offset, activeFrom, activeUntil) {
-    return this.find({ [Strings.Search.Types.DiscoverTime]: discoverTime }, limit, offset, activeFrom, activeUntil);
+  findByNode(node, options) {
+    return this.find({ search_type: Search.Types.Node, value: node }, options);
+  }
+
+  findByVlan(vlan, options) {
+    return this.find({ search_type: Search.Types.Vlan, value: vlan }, options);
+  }
+
+  findByDiscoverTime(discoverTime, options) {
+    return this.find({ search_type: Search.Types.DiscoverTime, value: discoverTime }, options);
   }
 
   // -------------------------------------
   // Search - Custom
   // -------------------------------------
 
-  findById(id, filter, limit, offset, activeFrom, activeUntil) {
-    return this.customSearch({
-      'id': id
-    }, filter, limit, offset, activeFrom, activeUntil);
+  findCustom({ field, value }, options = {}) {
+    const { limit, offset = 0, activeFrom, activeUntil } = options;
+    return this.findAny().filter(device => device[field] == value).slice(offset, limit);
   }
 
-  findByExtrahopId(extrahopId, filter, limit, offset, activeFrom, activeUntil) {
-    return this.customSearch({
-      'extrahop_id': extrahopId
-    }, filter, limit, offset, activeFrom, activeUntil);
+  findById(id, options) {
+    return this.findCustom({ field: 'id', value: id }, options);
   }
 
-  findByParentId(parentId, filter, limit, offset, activeFrom, activeUntil) {
-    return this.customSearch({
-      'parent_id': parentId
-    }, filter, limit, offset, activeFrom, activeUntil);
+  findByExtrahopId(extrahopId, options) {
+    return this.findCustom({ field: 'extrahop_id', value: extrahopId }, options);
+  }
+
+  findByParentId(parentId, options) {
+    return this.findCustom({ field: 'parent_id', value: parentId }, options);
   }
 
   // -------------------------------------
   // Search Functions
   // -------------------------------------
 
-  find({ filter, limit, offset, activeFrom, activeUntil }) {
-    const { searchType, value } = filter || {};
-    const getDevices = this.appliance.getDevices(searchType, value, limit, offset, activeFrom, activeUntil);
+  search({ filter, limit, offset, active_from, active_until }) {
+    const search = new DeviceSearch({ filter, limit, offset, active_from, active_until });
+    console.log(search);
+    // if ( filter instanceof Array ) {
+    //   filter = filter[0] instanceof Array ? filter : [ filter ];
+    //   const rules = filter.map(x => ({ field: x[0], operator: x[1], operand: x[2] }));
+    //   search = new DeviceSearch({ rules, operator }, limit, offset, activeFrom, activeUntil);
+    // }
 
-    return new DeviceSet(this.process(getDevices, 'devices'));
-  }
-
-  search({ filter, operator, limit, offset, activeFrom, activeUntil }) {
-    filter = filter && filter[0] instanceof Array ? filter : [ filter ];
-
-    const rules = filter.map(x => ({ field: x[0], operator: x[1], operand: x[2] }));
-    const search = new DeviceSearch({ rules, operator }, limit, offset, activeFrom, activeUntil);
-
-    console.log(JSON.stringify(search,null,2));
-
-    return new DeviceSet(this.process(this.appliance.searchDevices(search), 'devices'));
+    return new DeviceSet(this.process(this.searchDevices(search), 'devices'));
   }
 
   // -------------------------------------
@@ -137,33 +112,23 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   // -------------------------------------
 
   setDescription(device, description) {
-    return this.patchDevice(device.id, {
-      'description': description
-    });
+    return this.patchDevice(device.id, { 'description': description });
   }
 
   setCustomName(device, customName) {
-    return this.patchDevice(device.id, {
-      'custom_name': customName
-    });
+    return this.patchDevice(device.id, { 'custom_name': customName });
   }
 
   setCustomType(device, customType) {
-    return this.patchDevice(device.id, {
-      'custom_type': customType
-    });
+    return this.patchDevice(device.id, { 'custom_type': customType });
   }
 
   setRole(device, role) {
-    return this.patchDevice(device.id, {
-      'custom_type': role
-    });
+    return this.patchDevice(device.id, { 'custom_type': role });
   }
 
   setVendor(device, vendor) {
-    return this.patchDevice(device.id, {
-      'vendor': vendor
-    });
+    return this.patchDevice(device.id, { 'vendor': vendor });
   }
 
   // -------------------------------------
@@ -180,6 +145,10 @@ module.exports = class DeviceCtrl extends BaseCtrl {
 
   postDevice(deviceId, payload) {
     return this.appliance.postDevice(deviceId, payload);
+  }
+
+  searchDevices(payload) {
+    return this.appliance.postDeviceSearch(payload);
   }
 
   putDevice(payload) {

@@ -44,16 +44,16 @@ module.exports = class TriggerCtrl {
 		let triggers = this.appliance.getTriggers().data;
 
 		if ( !triggers || triggers.length == 0 ) {
-			console.log(`No triggers found on ${this.appliance.hostname}...`);
+			console.info(`No triggers found on ${this.appliance.hostname}...`);
 			return [];
 		}
 		else if ( !criteria || criteria === null ) {
-			console.log(`Retrieving all triggers from ${this.appliance.hostname}...`);
+			console.info(`Retrieving all triggers from ${this.appliance.hostname}...`);
 			return triggers.map(trigger => new Trigger(trigger));
 		}
 
 		const [ key, value ] = [ Object.keys(criteria)[0], Object.values(criteria)[0] ];
-		console.log(`\nRetrieving triggers where '${key}' ${Search.Filters[filter]} '${value}'`);
+		console.info(`\nRetrieving triggers where '${key}' ${Search.Filters[filter]} '${value}'`);
 
 		const isMatch = function(trigger, key, value, filter) {
 			switch (filter) {
@@ -78,7 +78,7 @@ module.exports = class TriggerCtrl {
 			}
 		});
 
-		console.log(`Found ${results.length} triggers. Processing updates...\n`);
+		console.info(`Found ${results.length} triggers. Processing updates...\n`);
 		return results;
 	}
 

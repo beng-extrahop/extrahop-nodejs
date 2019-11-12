@@ -22,11 +22,11 @@ module.exports = class ApplianceCtrl extends BaseCtrl {
       }
     }
     catch (error) {
-      console.log(`${Icons.Error} No active hosts available. Exiting.\n`);
+      console.info(`${Icons.Error} No active hosts available. Exiting.\n`);
       process.exit();
     }
 
-    console.log(`${Icons.Info} ${this.appliances.length} hosts available\n`);
+    console.info(`${Icons.Info} ${this.appliances.length} hosts available\n`);
 
     for ( let i in this.appliances ) {
       this[this.appliances[i].id] = this.appliances[i];

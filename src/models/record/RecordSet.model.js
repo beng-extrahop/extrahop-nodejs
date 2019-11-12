@@ -5,11 +5,12 @@ const Record = require('../../models/record/Record.model');
 
 module.exports = class RecordSet extends BaseObjectSet {
   constructor(records = []) {
-    super();
+    super(records);
     records.forEach(record => this.push(new Record(record)));
   }
 
-  writeToCSV({ filename, subkey = '_source' }) {
-    super.writeToCSV({ filename, subkey });
+  writeToCSV(options = {}) {
+    const { filename = `devices-${this.generateId()}.csv`, subkey = '_source' } = options;
+    super.writeToCSV(filename, subkey);
   }
 }

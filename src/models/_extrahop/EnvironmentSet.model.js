@@ -5,7 +5,7 @@ const Environment = require('../../models/_extrahop/Environment.model');
 
 module.exports = class EnvironmentSet extends BaseObjectSet {
   constructor(environments = []) {
-    super();
+    super(environments);
     environments.filter(environment => !environment.disabled).forEach(environment => this.push(new Environment(environment)));
   }
 

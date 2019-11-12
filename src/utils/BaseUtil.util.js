@@ -1,11 +1,21 @@
 // BaseUtil.util.js
 
+const Crypto = require('crypto');
+
 const buildQuery = (params = {}) => {
   const keys = Object.keys(params).filter(x => params[x] != null);
 
   if ( !!keys.length ) {
-    return '?' + encodeURIComponent(keys.map(key => `${key}=${params[key]}`).join('&'));
+    return '?' + keys.map(key => `${key}=${encodeURIComponent(params[key])}`).join('&');
+  }
+}
+const generateId = (params) => {
+  if ( !params ) {
+    return Date.now().toString(36);
+  }
+  else {
+    return Crypto.createHash('md5').update(JSON.stringify(params), 'utf-8').digest('hex');
   }
 }
 
-module.exports = { buildQuery }
+module.exports = { buildQuery, generateId }

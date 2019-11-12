@@ -83,23 +83,23 @@ module.exports = class AlertCtrl extends BaseCtrl {
 
 	find(searchType, value, limit, offset, activeFrom, activeUntil) {
 		if ( searchType === 'any' ) {
-			console.log(`Searching '${this.appliance.hostname}' for all alerts...`);
+			console.info(`Searching '${this.appliance.hostname}' for all alerts...`);
 		} else {
-			console.log(`Searching '${this.appliance.hostname}' for alerts with query '?searchType=${searchType}&value=${value}'`);
+			console.info(`Searching '${this.appliance.hostname}' for alerts with query '?searchType=${searchType}&value=${value}'`);
 		}
 
 		let getAlerts = this.appliance.getAlerts(searchType, value, limit, offset, activeFrom, activeUntil);
 
 		if ( !getAlerts || !getAlerts.success ) {
-			console.log(`Error retrieving alerts from ${this.appliance.hostname}`);
+			console.info(`Error retrieving alerts from ${this.appliance.hostname}`);
 			return;
 		}
 		else if ( getAlerts.success && getAlerts.data.length === 0 ) {
-			console.log(`No alerts found on ${this.appliance.hostname}`);
+			console.info(`No alerts found on ${this.appliance.hostname}`);
 			return [];
 		}
 
-		console.log(`Found ${getAlerts.data.length} alerts matching search.\n`);
+		console.info(`Found ${getAlerts.data.length} alerts matching search.\n`);
 		return getAlerts.data.map(alert => new Alert(alert));
 	}
 
@@ -107,7 +107,7 @@ module.exports = class AlertCtrl extends BaseCtrl {
 		let alerts = this.appliance.alerts.findAll(criteria, filter, limit, offset, activeFrom, activeUntil);
 
 		for ( let key in criteria ) {
-			console.log(`Retrieving alerts where '${key}' ${filter} '${criteria[key]}'`);
+			console.info(`Retrieving alerts where '${key}' ${filter} '${criteria[key]}'`);
 		}
 
 		const isMatch = function(alert, key, value, filter) {
@@ -136,7 +136,7 @@ module.exports = class AlertCtrl extends BaseCtrl {
 			results.push(new Alert(alert));
 		});
 
-		console.log(`Found ${results.length} alerts. Processing updates...\n`);
+		console.info(`Found ${results.length} alerts. Processing updates...\n`);
 		return results.length > 1 ? results : results[0];
 	}
 

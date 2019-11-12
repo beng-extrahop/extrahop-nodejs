@@ -1,6 +1,6 @@
 // Axios.model.js
 
-const Response = require('../../models/_request/AxiosRsp.model');
+const Response = require('../../models/_http/AxiosRsp.model');
 const Axios = require('axios');
 
 module.exports = class Request {
@@ -49,31 +49,31 @@ module.exports = class Request {
 
   async get(uri) {
     return await this.send('GET', uri);
-    // console.log(this.response);
+    // console.info(this.response);
     // return this.response;
   }
 
   async post(uri, body) {
     return await this.send('POST', uri);
-    // console.log(JSON.stringify(response, null, 2));
+    // console.info(JSON.stringify(response, null, 2));
     // return response;
   }
 
   async patch(uri, body) {
     return await this.send('PATCH', uri);
-    // console.log(JSON.stringify(response, null, 2));
+    // console.info(JSON.stringify(response, null, 2));
     // return response;
   }
 
   async put(uri, body) {
     return await this.send('PUT', uri);
-    //console.log(JSON.stringify(response, null, 2));
+    //console.info(JSON.stringify(response, null, 2));
     return response;
   }
 
   async delete(uri, body) {
     return await this.send('DELETE', uri);
-    // console.log(JSON.stringify(response, null, 2));
+    // console.info(JSON.stringify(response, null, 2));
     // return response;
   }
 }

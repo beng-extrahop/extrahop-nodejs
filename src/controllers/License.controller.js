@@ -5,13 +5,12 @@ const License = require('../models/license/License.model');
 module.exports = class LicenseCtrl {
 	constructor(appliance) {
 		this.appliance = appliance;
+    this.license = this.getLicense();
+
+    return new License(this.license);
 	}
 
-	get() {
-		const license = this.appliance.getLicense();
-
-		if ( license.status === 200 && license.data ) {
-			return new License(license.data);
-		}
-	}
+  getLicense() {
+    return this.appliance.getLicense().data || {};
+  }
 }

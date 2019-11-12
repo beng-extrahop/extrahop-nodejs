@@ -3,9 +3,9 @@
 const Search = require('../../models/_search/Search.model');
 
 module.exports = class DeviceSearch extends Search {
-  constructor({ filter, limit, offset, activeFrom, activeUntil }) {
-    super(filter, limit, offset);
-    this.active_from = activeFrom;
-    this.active_until = activeUntil;
+  constructor({ filter, limit, offset, active_from, active_until }) {
+    super({ filter, limit, offset });
+    this.active_from = active_from;
+    this.active_until = active_until;
   }
 }

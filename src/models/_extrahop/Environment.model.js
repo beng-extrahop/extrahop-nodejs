@@ -12,9 +12,9 @@ module.exports = class Environment extends BaseObject {
     this.eca = this.getECA();
 
     if ( this.appliances.length > 1 ) {
-      this.eda = this.getEDAs();
-      this.eta = this.getETAs();
-      this.exa = this.getEXAs();
+      this.edas = this.getEDAs();
+      this.etas = this.getETAs();
+      this.exas = this.getEXAs();
     }
   }
 

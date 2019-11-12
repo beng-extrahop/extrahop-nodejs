@@ -40,16 +40,16 @@ module.exports = class DeviceGroupCtrl {
 		let deviceGroups = this.appliance.getDeviceGroups().data;
 
 		if ( !deviceGroups || deviceGroups.length == 0 ) {
-			console.log(`No device groups found on ${this.appliance.hostname}...`);
+			console.info(`No device groups found on ${this.appliance.hostname}...`);
 			return [];
 		}
 		else if ( !criteria || criteria === null ) {
-			console.log(`Retrieving all device groups from ${this.appliance.hostname}...`);
+			console.info(`Retrieving all device groups from ${this.appliance.hostname}...`);
 			return deviceGroups.map(deviceGroup => new DeviceGroup(deviceGroup));
 		}
 
 		for ( let key in criteria ) {
-			console.log(`\nRetrieving device groups where '${key}' ${filter} '${criteria[key]}'`);
+			console.info(`\nRetrieving device groups where '${key}' ${filter} '${criteria[key]}'`);
 		}
 
 		const isMatch = function(deviceGroup, key, value, filter) {
@@ -79,7 +79,7 @@ module.exports = class DeviceGroupCtrl {
 			results.push(new DeviceGroup(deviceGroup));
 		});
 
-		console.log(`Found ${results.length} device groups. Processing updates...\n`);
+		console.info(`Found ${results.length} device groups. Processing updates...\n`);
 		return results;
 	}
 
