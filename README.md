@@ -36,7 +36,7 @@ const Extrahop = require('extrahop-nodejs');
 ### Config
 Module accepts the following structure, either whole or in part:
 ```js
-[
+const config = [
   {
     name: 'my-environment',
     appliances: [
@@ -56,103 +56,29 @@ Module accepts the following structure, either whole or in part:
         type: 'EDA'
       }
     ]
-  }
-]
+  },
+  { ...Environment }
+];
 ```
 
 #### Single Appliance
 ```js
-const config = {
-  hostname: 'extrahop.domain.internal',
-  apikey: 'XXXXXXXXXXXXXX',
-  type: 'ECA'
-};
-
-const eca = new Extrahop(config);
+const eca = new Extrahop(config[0].appliances[0]); // provide { hostname, apikey }
 ```
 
 #### Multiple Appliances
 ```js
-const config = [
-  {
-    hostname: 'extrahop.domain.internal',
-    apikey: 'XXXXXXXXXXXXXX',
-    type: 'ECA'
-  },
-  {
-    hostname: 'eda01.domain.internal',
-    apikey: 'XXXXXXXXXXXXXX',
-    type: 'EDA'
-  },
-  { Appliance... }
-];
-
-const appliances = new Extrahop(config);
+const appliances = new Extrahop(config[0].appliances); // provide Array[{ hostname, apikey }]
 ```
 
 #### Single Environment
 ```js
-const config = {
-  name: 'my-environment',
-  appliances: [
-    {
-      hostname: 'extrahop.domain.internal',
-      apikey: 'XXXXXXXXXXXXXX',
-      type: 'ECA'
-    },
-    {
-      hostname: 'eda01.domain.internal',
-      apikey: 'XXXXXXXXXXXXXX',
-      type: 'EDA'
-    },
-    {
-      hostname: 'eda02.domain.internal',
-      apikey: 'XXXXXXXXXXXXXX',
-      type: 'EDA'
-    }
-  ]
-};
-
-const environment = new Extrahop(config);
+const environment = new Extrahop(config.environments[0]); // provide { name, appliances: Array[{ hostname, apikey }] }
 ```
 
 #### Multiple Environments
 ```js
-const config = [
-  {
-    name: 'my-environment',
-    appliances: [
-      {
-        hostname: 'extrahop.domain.internal',
-        apikey: 'XXXXXXXXXXXXXX',
-        type: 'ECA'
-      },
-      {
-        hostname: 'eda01.domain.internal',
-        apikey: 'XXXXXXXXXXXXXX',
-        type: 'EDA'
-      }
-    ]
-  },
-  {
-    name: 'my-environment-2',
-    appliances: [
-      {
-        hostname: 'extrahop.domain2.internal',
-        apikey: 'XXXXXXXXXXXXXX',
-        type: 'ECA'
-      },
-      {
-        hostname: 'eda01.domain2.internal',
-        apikey: 'XXXXXXXXXXXXXX',
-        type: 'EDA'
-      }
-    ]
-  },
-  { Environment... }
-];
-
-const environments = new Extrahop(config);
+const environments = new Extrahop(config); // provide Array[{ name, appliances: Array[{ hostname, apikey }] }]
 ```
 
 #### From File
