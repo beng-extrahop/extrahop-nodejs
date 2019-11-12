@@ -6,10 +6,6 @@ const RecordSearch = require('../models/record/RecordSearch.model');
 const { Config, Icons } = require('../constants/Global.constants');
 
 const Database = require('nedb');
-const fastCSV = require('fast-csv');
-const fs = require('fs');
-
-require('events').EventEmitter.defaultMaxListeners = 128;
 
 module.exports = class RecordCtrl extends BaseCtrl {
   constructor(appliance = {}) {
@@ -51,17 +47,10 @@ module.exports = class RecordCtrl extends BaseCtrl {
     let count = 0, pageAt = 0, numPages = this.getPageCount(search.total, search.limit);
 
     while ( records && records.length > 0 ) {
-      records.forEach(record => {
-        db.insert(this.parse(record));
-      });
+      records = records.map(record => this.parse(record, '_source'));
+      db.insert(records);
 
       console.info(`[${++pageAt}/${numPages}] Processed ${(count += records.length)} results, awaiting next page...`);
-
-      // if ( options.save ) {
-      //   fastCSV.write((records.map(obj => obj['_source'])), { headers: true }).pipe(stream);
-      //   console.info(`${Icons.Success} Saved ${records.length} records to CSV: records-${search.id}.csv`);
-      // }
-
       records = this.searchNext(search.cursor, search.context_ttl);
     }
 

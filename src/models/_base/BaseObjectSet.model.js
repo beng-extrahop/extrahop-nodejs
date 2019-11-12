@@ -6,9 +6,6 @@ const { Config } = require('../../constants/Global.constants');
 const fastCSV = require('fast-csv');
 const fs = require('fs');
 
-require('events').EventEmitter.defaultMaxListeners = 128;
-process.setMaxListeners(Infinity);
-
 module.exports = class BaseObjectSet extends Array {
   constructor(baseObjects = []) {
     super();
