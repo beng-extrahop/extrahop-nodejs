@@ -35,7 +35,7 @@ const Extrahop = require('extrahop-nodejs');
 
 ### Config
 Module accepts the following structure, either whole or in part:
-```json
+```js
 [
   {
     name: 'my-environment',
