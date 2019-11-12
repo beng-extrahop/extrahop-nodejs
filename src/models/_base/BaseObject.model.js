@@ -20,8 +20,8 @@ module.exports = class BaseObject extends Object {
     return JSON.stringify(this, null, format ? 2 : null);
   }
 
-  toCSV(subkey) {
-    return fastCSV.write([ this[subkey] || this ], { headers: true });
+  toCSV(subkey, headers = false) {
+    return fastCSV.write([ this[subkey] || this ], { headers });
   }
 
   writeToCSV({ filename, subkey }) {

@@ -6,6 +6,9 @@ const { Config } = require('../../constants/Global.constants');
 const fastCSV = require('fast-csv');
 const fs = require('fs');
 
+require('events').EventEmitter.defaultMaxListeners = 128;
+process.setMaxListeners(Infinity);
+
 module.exports = class BaseObjectSet extends Array {
   constructor(baseObjects = []) {
     super();
@@ -19,12 +22,15 @@ module.exports = class BaseObjectSet extends Array {
     this.forEach(baseObject => baseObject.print());
   }
 
-  toCSV(subkey) {
-    return fastCSV.write((subkey ? this.map(obj => obj[subkey]) : this), { headers: true });
+  toCSV(subkey, headers = true) {
+    return fastCSV.write((subkey ? this.map(obj => obj[subkey]) : this), { headers });
   }
 
   writeToCSV(filename, subkey) {
-    this.toCSV(subkey).pipe(fs.createWriteStream(Config.CSV_DIR + '/' + filename));
+    const stream = fs.createWriteStream(Config.CSV_DIR + '/' + filename, { encoding: 'utf8' });
+    const data = subkey ? this.map(obj => obj[subkey]) : this;
+
+    fastCSV.writeToStream(stream, data).on('error', err => console.error(err));
   }
 
   generateId(params) {

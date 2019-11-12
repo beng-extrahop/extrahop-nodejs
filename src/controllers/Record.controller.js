@@ -6,6 +6,10 @@ const RecordSearch = require('../models/record/RecordSearch.model');
 const { Config, Icons } = require('../constants/Global.constants');
 
 const Database = require('nedb');
+const fastCSV = require('fast-csv');
+const fs = require('fs');
+
+require('events').EventEmitter.defaultMaxListeners = 128;
 
 module.exports = class RecordCtrl extends BaseCtrl {
   constructor(appliance = {}) {
@@ -17,13 +21,19 @@ module.exports = class RecordCtrl extends BaseCtrl {
   // -------------------------------------
 
   saveToCSV(search = {}) {
-    search.db.find({}, function(err, results) {
+    let offset = 0, limit = 10000;
+
+    search.db.find({}).exec(function (err, results) {
       if ( err ) {
-        console.error(err);
-        return;
+        console.error(`${Icons.Error} ${err}`);
       }
-      (new RecordSet(results)).writeToCSV({ filename: `records-${search.id}.csv` });
-      console.info(`${Icons.Success} Saved ${results.length} records to CSV: records-${search.id}.csv`);
+      else if ( results.length == 0 ) {
+        console.warn(`${Icons.Warn} No results found in database.`);
+      }
+      else {
+        (new RecordSet(results)).writeToCSV({ filename: `records-${search.id}.csv` });
+        console.info(`${Icons.Success} Saved ${results.length} records to CSV: records-${search.id}.csv`);
+      }
     });
   }
 
@@ -31,8 +41,8 @@ module.exports = class RecordCtrl extends BaseCtrl {
   // Search Functions
   // -------------------------------------
 
-  search(params = {}) {
-    const search = this.searchFirst(new RecordSearch(params));
+  search(params = {}, options = {}) {
+    const search = this.searchInit(new RecordSearch(params));
     const db = new Database({ filename: `${Config.DB_DIR}/records-${search.id}.db`, autoload: true });
 
     this.printSearchInfo(search);
@@ -42,14 +52,16 @@ module.exports = class RecordCtrl extends BaseCtrl {
 
     while ( records && records.length > 0 ) {
       records.forEach(record => {
-        db.insert(this.parse(record), (error) => {
-          if ( error ) {
-            console.error(error);
-          }
-        });
+        db.insert(this.parse(record));
       });
 
       console.info(`[${++pageAt}/${numPages}] Processed ${(count += records.length)} results, awaiting next page...`);
+
+      // if ( options.save ) {
+      //   fastCSV.write((records.map(obj => obj['_source'])), { headers: true }).pipe(stream);
+      //   console.info(`${Icons.Success} Saved ${records.length} records to CSV: records-${search.id}.csv`);
+      // }
+
       records = this.searchNext(search.cursor, search.context_ttl);
     }
 
@@ -62,7 +74,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
     return Object.assign(search, { db, records });
   }
 
-  searchFirst(search = {}) {
+  searchInit(search = {}) {
     const searchId = this.utils.generateId();
     const getRecords = this.postRecordsSearch(search);
 
