@@ -34,8 +34,7 @@ const Extrahop = require('extrahop-nodejs');
 ```
 
 ### Config
-#### Structure
-Module accepts the following configuration, whole or in part:
+Module accepts the following structure, either whole or in part:
 ```json
 [
   {
@@ -57,8 +56,7 @@ Module accepts the following configuration, whole or in part:
         type: 'EDA'
       }
     ]
-  },
-  ...
+  }
 ]
 ```
 
@@ -85,8 +83,8 @@ const config = [
     hostname: 'eda01.domain.internal',
     apikey: 'XXXXXXXXXXXXXX',
     type: 'EDA'
-  }
-  ...
+  },
+  { Appliance... }
 ];
 
 const appliances = new Extrahop(config);
@@ -133,15 +131,25 @@ const config = [
         hostname: 'eda01.domain.internal',
         apikey: 'XXXXXXXXXXXXXX',
         type: 'EDA'
+      }
+    ]
+  },
+  {
+    name: 'my-environment-2',
+    appliances: [
+      {
+        hostname: 'extrahop.domain2.internal',
+        apikey: 'XXXXXXXXXXXXXX',
+        type: 'ECA'
       },
       {
-        hostname: 'eda02.domain.internal',
+        hostname: 'eda01.domain2.internal',
         apikey: 'XXXXXXXXXXXXXX',
         type: 'EDA'
       }
     ]
   },
-  ...
+  { Environment... }
 ];
 
 const environments = new Extrahop(config);
@@ -168,18 +176,6 @@ activityGroups.forEach(activityGroup => {
 ```
 
 ### Records
-#### Search
-```js
-const params = {
-  types: ['~ssl_open', '~ssl_close'], // default: any
-  limit: 500, // default: 1000
-  from: '-60m', // default: 30m
-  until: '-30m', // default: now
-};
-
-const records = eca.records();
-const search = records.search(params);
-```
 
 #### Search & Save
 ```js
@@ -190,10 +186,6 @@ const params = {
   until: '-30m', // default: now
 };
 
-const records = eca.records();
-const search = records.search(params);
-
-records.saveToCSV(search);
+const search = eca.records().search(params);
+eca.records().saveToCSV(search);
 ```
-
-
