@@ -116,7 +116,7 @@ const config = {
 const environment = new Extrahop(config);
 ```
 
-#### Single Environment
+#### Multiple Environments
 ```js
 const config = [
   {
@@ -175,6 +175,67 @@ activityGroups.forEach(activityGroup => {
 });
 ```
 
+#### Activity Maps
+```js
+const activityMaps = eca.activityMaps().find();
+
+activityMaps.forEach(activityMap => {
+  activityMap.print();
+});
+```
+
+#### Alerts
+```js
+const alerts = eca.alerts().find();
+
+alerts.forEach(alert => {
+  alert.print());
+});
+```
+
+#### Custom Devices
+```js
+const customDevices = eca.customDevices().find();
+
+customDevices.forEach(customDevice => {
+  customDevice.print());
+});
+```
+
+#### Dashboards
+```js
+const dashboards = eca.dashboards().find();
+
+dashboards.forEach(dashboard => {
+  dashboard.print());
+});
+```
+
+#### Devices
+```js
+const devices = eca.devices().find();
+
+devices.forEach(device => {
+  device.print());
+});
+```
+
+#### Device Groups
+```js
+const deviceGroups = eca.deviceGroups().find();
+
+deviceGroups.forEach(deviceGroup => {
+  deviceGroup.print());
+});
+```
+
+#### Licenses
+```js
+const license = eca.license();
+
+license.print();
+```
+
 ### Records
 
 #### Search & Save
@@ -188,4 +249,13 @@ const params = {
 
 const search = eca.records().search(params);
 eca.records().saveToCSV(search);
+```
+
+#### Triggers
+```js
+const triggers = eca.triggers().find();
+
+triggers.forEach(trigger => {
+  trigger.print());
+});
 ```
