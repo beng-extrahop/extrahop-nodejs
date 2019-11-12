@@ -1,8 +1,8 @@
 // BaseCtrl.controller.js
 
 const Moment = require('moment-timezone');
-const Utils = require('../utils/BaseUtil.util.js');
-const { Config, Icons } = require('../constants/Global.constants');
+const Utils = require('../../utils/BaseUtil.util.js');
+const { Config, Icons } = require('../../constants/Global.constants');
 
 module.exports = class BaseCtrl {
   constructor(appliance = {}) {
@@ -85,19 +85,21 @@ module.exports = class BaseCtrl {
   }
 
   process(results, type, options = {}) {
-    if ( !options.suppress ) {
-      if ( !results.success ) {
-        return this.printError(type);
-      }
+    if ( options.suppress ) {
+      return results.data;
+    }
 
-      const subkey = options.subkey;
-      const numResults = (results.data[subkey] || results.data || []).length;
+    if ( !results.success ) {
+      return this.printError(type);
+    }
 
-      if ( !results.data || (results.data[subkey] || results.data).length == 0 ) {
-        this.printWarning(type);
-      } else {
-        this.printSuccess(numResults, type);
-      }
+    const newResults = options.subkey ? results.data[options.subkey] : results.data;
+    const numResults = newResults instanceof Array ? (newResults || []).length : 1;
+
+    if ( numResults == 0 ) {
+      this.printWarning(type);
+    } else {
+      this.printSuccess(numResults, type);
     }
 
     return results.data;

@@ -15,7 +15,7 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   // Search - Predefined
   // -------------------------------------
 
-  find({ search_type, value }, options = {}) {
+  find({ search_type, value } = {}) {
     const { limit, offset, active_from, active_until } = options;
     const getDevices = this.appliance.getDevices(search_type, value, limit, offset, active_from, active_until);
 
@@ -23,72 +23,72 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   findAny(options) {
-    return this.find({ search_type: Search.Types.Any, value: undefined }, options);
+    return this.find({ search_type: Search.Types.Any, value: undefined });
   }
 
-  findByName(name, options) {
-    return this.find({ search_type: Search.Types.Name, value: name }, options);
+  findByName(name) {
+    return this.find({ search_type: Search.Types.Name, value: name });
   }
 
-  findByDiscoveryId(discoveryId, options) {
-    return this.find({ search_type: Search.Types.DiscoveryId, value: discoveryId }, options);
+  findByDiscoveryId(discoveryId) {
+    return this.find({ search_type: Search.Types.DiscoveryId, value: discoveryId });
   }
 
-  findByIpAddress(ip, options) {
-    return this.find({ search_type: Search.Types.IpAddress, value: ip }, options);
+  findByIpAddress(ip) {
+    return this.find({ search_type: Search.Types.IpAddress, value: ip });
   }
 
-  findByMacAddress(mac, options) {
-    return this.find({ search_type: Search.Types.MacAddress, value: mac }, options);
+  findByMacAddress(mac) {
+    return this.find({ search_type: Search.Types.MacAddress, value: mac });
   }
 
-  findByVendor(vendor, options) {
-    return this.find({ search_type: Search.Types.Vendor, value: vendor }, options);
+  findByVendor(vendor) {
+    return this.find({ search_type: Search.Types.Vendor, value: vendor });
   }
 
-  findByType(type, options) {
-    return this.find({ search_type: Search.Types.Type, value: type }, options);
+  findByType(type) {
+    return this.find({ search_type: Search.Types.Type, value: type });
   }
 
-  findByTag(tag, options) {
-    return this.find({ search_type: Search.Types.Tag, value: tag }, options);
+  findByTag(tag) {
+    return this.find({ search_type: Search.Types.Tag, value: tag });
   }
 
-  findByActivity(activity, options) {
-    return this.find({ search_type: Search.Types.Activity, value: activity }, options);
+  findByActivity(activity) {
+    return this.find({ search_type: Search.Types.Activity, value: activity });
   }
 
-  findByNode(node, options) {
-    return this.find({ search_type: Search.Types.Node, value: node }, options);
+  findByNode(node) {
+    return this.find({ search_type: Search.Types.Node, value: node });
   }
 
-  findByVlan(vlan, options) {
-    return this.find({ search_type: Search.Types.Vlan, value: vlan }, options);
+  findByVlan(vlan) {
+    return this.find({ search_type: Search.Types.Vlan, value: vlan });
   }
 
-  findByDiscoverTime(discoverTime, options) {
-    return this.find({ search_type: Search.Types.DiscoverTime, value: discoverTime }, options);
+  findByDiscoverTime(discoverTime) {
+    return this.find({ search_type: Search.Types.DiscoverTime, value: discoverTime });
   }
 
   // -------------------------------------
   // Search - Custom
   // -------------------------------------
 
-  findCustom({ field, value }, options = {}) {
+  findCustom({ field, value } = {}) {
     const { limit, offset = 0, activeFrom, activeUntil } = options;
     return this.findAny().filter(device => device[field] == value).slice(offset, limit);
   }
 
-  findById(id, options) {
-    return this.findCustom({ field: 'id', value: id }, options);
+  findById(id) {
+    return this.findCustom({ field: 'id', value: id });
   }
 
-  findByExtrahopId(extrahopId, options) {
-    return this.findCustom({ field: 'extrahop_id', value: extrahopId }, options);
+  findByExtrahopId(extrahopId) {
+    return this.findCustom({ field: 'extrahop_id', value: extrahopId });
   }
 
-  findByParentId(parentId, options) {
-    return this.findCustom({ field: 'parent_id', value: parentId }, options);
+  findByParentId(parentId) {
+    return this.findCustom({ field: 'parent_id', value: parentId });
   }
 
   // -------------------------------------
@@ -97,13 +97,6 @@ module.exports = class DeviceCtrl extends BaseCtrl {
 
   search({ filter, limit, offset, active_from, active_until }) {
     const search = new DeviceSearch({ filter, limit, offset, active_from, active_until });
-    console.log(search);
-    // if ( filter instanceof Array ) {
-    //   filter = filter[0] instanceof Array ? filter : [ filter ];
-    //   const rules = filter.map(x => ({ field: x[0], operator: x[1], operand: x[2] }));
-    //   search = new DeviceSearch({ rules, operator }, limit, offset, activeFrom, activeUntil);
-    // }
-
     return new DeviceSet(this.process(this.searchDevices(search), 'devices'));
   }
 
@@ -136,34 +129,34 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   // -------------------------------------
 
   getDevice(deviceId) {
-    return this.appliance.getDevice(deviceId);
+    return this.process(this.appliance.getDevice(deviceId), 'device');
   }
 
   patchDevice(deviceId, payload) {
-    return this.appliance.patchDevice(deviceId, payload);
+    return this.process(this.appliance.patchDevice(deviceId, payload), 'device');
   }
 
   postDevice(deviceId, payload) {
-    return this.appliance.postDevice(deviceId, payload);
+    return this.process(this.appliance.postDevice(deviceId, payload), 'device');
   }
 
   searchDevices(payload) {
-    return this.appliance.postDeviceSearch(payload);
+    return this.process(this.appliance.postDeviceSearch(payload), 'devices');
   }
 
   putDevice(payload) {
-    return this.appliance.putDevice(payload);
+    return this.process(this.appliance.putDevice(payload), 'device');
   }
 
   getDeviceTags(deviceId) {
-    return this.appliance.getDeviceTags(deviceId);
+    return this.process(this.appliance.getDeviceTags(deviceId), 'device tags');
   }
 
   postDeviceTags(deviceId, payload) {
-    return this.appliance.postDeviceTags(deviceId, payload);
+    return this.process(this.appliance.postDeviceTags(deviceId, payload), 'device tags');
   }
 
   postDeviceTag(deviceId, tagID) {
-    return this.appliance.postDeviceTag(deviceId, tagID);
+    return this.process(this.appliance.postDeviceTag(deviceId, tagID), 'device tag');
   }
 }

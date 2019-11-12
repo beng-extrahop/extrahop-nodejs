@@ -4,7 +4,7 @@ const BaseObject = require('../../models/_base/BaseObject.model');
 
 module.exports = class Dashboard extends BaseObject {
   constructor(dashboard = {}) {
-    super();
+    super(dashboard);
     this.id = dashboard.id;
     this.comment = dashboard.comment;
     this.mod_time = dashboard.mod_time;

@@ -3,6 +3,8 @@
 const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
 const Dashboard = require('../models/dashboard/Dashboard.model');
 const DashboardSet = require('../models/dashboard/DashboardSet.model');
+const DashboardSharing = require('../models/dashboard/DashboardSharing.model');
+const ReportSet = require('../models/report/ReportSet.model');
 const Strings = require('../constants/Global.constants');
 
 module.exports = class DashboardCtrl extends BaseCtrl {
@@ -15,7 +17,11 @@ module.exports = class DashboardCtrl extends BaseCtrl {
   }
 
   getSharing(dashboard) {
-    return this.getDashboardSharing(dashboard);
+    return new DashboardSharing(this.getDashboardSharing(dashboard));
+  }
+
+  getReports(dashboard) {
+    return new ReportSet(this.getDashboardReports(dashboard));
   }
 
   create(data) {
@@ -24,6 +30,10 @@ module.exports = class DashboardCtrl extends BaseCtrl {
 
   update(dashboard, data) {
     return this.patchDashboard(dashboard, data);
+  }
+
+  updateSharing(dashboard, sharing) {
+    return this.patchDashboardSharing(dashboard, sharing);
   }
 
   delete(dashboard) {
@@ -38,97 +48,77 @@ module.exports = class DashboardCtrl extends BaseCtrl {
   // Modify Dashboards
   // -------------------------------------
 
-	transferOwnership(dashboard, owner) {
-		return this.patchDashboard(dashboard.id, { owner: owner });
+	transferOwnership(dashboard, username) {
+		return this.update(dashboard, { owner: username });
 	}
 
 	makePublic(dashboard) {
-		return this.patchDashboardSharing(dashboard.id, { anyone: 'viewer' });
+		return this.addAnyoneView(dashboard);
 	}
 
 	makePrivate(dashboard) {
-		return this.patchDashboardSharing(dashboard.id, { anyone: null });
+		return this.removeAnyone(dashboard);
 	}
 
   // -------------------------------------
-  // Dashboard Sharing
+  // Anyone Sharing
   // -------------------------------------
 
-  updateSharing(dashboard, { anyone, groups, users }) {
-    return this.patchDashboardSharing(dashboard, { anyone, groups, users });
+  updateAnyoneSharing(dashboard, permission) {
+    return this.updateSharing(dashboard, { anyone: permission });
   }
 
-  addAnyone(dashboard, username, permission) {
-    return this.patchDashboardSharing(dashboard, { anyone: 'viewer' });
+  addAnyoneView(dashboard) {
+    return this.updateAnyoneSharing(dashboard, 'viewer');
   }
 
-  addUser(dashboard, username, permission) {
-    return this.patchDashboardSharing(dashboard, { users: { [username]: permission } });
+  addAnyoneEdit(dashboard) {
+    return this.updateAnyoneSharing(dashboard, 'editor');
   }
 
-  addGroup(dashboard, group, permission) {
+  removeAnyone(dashboard) {
+    return this.updateAnyoneSharing(dashboard, null);
+  }
+
+  // -------------------------------------
+  // User Sharing
+  // -------------------------------------
+
+  updateUserSharing(dashboard, username, permission) {
+    return this.updateSharing(dashboard, { users: { [username]: permission } });
+  }
+
+  addUserView(dashboard, username) {
+    return this.updateUserSharing(dashboard, username, 'viewer');
+  }
+
+  addUserEdit(dashboard, username) {
+    return this.updateUserSharing(dashboard, username, 'editor');
+  }
+
+  removeUser(dashboard, username) {
+    return this.updateUserSharing(dashboard, username, null);
+  }
+
+  // -------------------------------------
+  // Group Sharing
+  // -------------------------------------
+
+  updateGroupSharing(dashboard, group, permission) {
     return this.updateSharing(dashboard, { groups: { [group.id]: permission } });
   }
 
-	addGroupView(dashboard, group) {
-		return this.addGroup(dashboard, group, 'viewer');
-	}
+  addGroupView(dashboard, group) {
+    return this.updateGroupSharing(dashboard, group, 'viewer');
+  }
 
-	addGroupEdit(dashboard, group) {
-		return this.addGroup(dashboard, group, 'editor');
-	}
+  addGroupEdit(dashboard, group) {
+    return this.updateGroupSharing(dashboard, group, 'editor');
+  }
 
-	removeGroup(dashboard, group) {
-		return this.patchDashboardSharing(dashboard.id, { groups: { [group]: null }});
-	}
-
-	removeGroups(dashboard, groups) {
-		groups = groups.reduce((map, group) => { map[group] = null; return map; }, {});
-		return this.patchDashboardSharing(dashboard.id, { groups: groups});
-	}
-
-	removeAllGroups(dashboard) {
-		return this.patchDashboardSharing(dashboard.id, { groups: {}});
-	}
-
-  // -------------------------------------
-  // Share Dashboard - Users
-  // -------------------------------------
-
-	addViewUser(dashboard, username) {
-		let request = this.addUser(dashboard, username, 'viewer');
-		console.info(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Add viewer '${username}' to ${dashboard.name} (ID: ${dashboard.id})`);
-	}
-
-	addViewUsers(dashboard, usernames) {
-		usernames.forEach((username, index) => this.addViewUser(dashboard, username, index));
-	}
-
-	addEditUser(dashboard, username) {
-    // console.info(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Add editor '${username}' to ${dashboard.name} (ID: ${dashboard.id})`);
-		return this.addUser(dashboard, username, 'editor');
-	}
-
-	addUser(dashboard, username, permission) {
-		return this.patchDashboardSharing(dashboard.id, { users: { [username]: permission }});
-	}
-
-	removeUser(dashboard, user) {
-		return this.patchDashboardSharing(dashboard.id, { users: { [user]: null }});
-	}
-
-	addUsers(dashboard, userMap) {
-		return this.patchDashboardSharing(dashboard.id, { users: userMap});
-	}
-
-	removeUsers(dashboard, userList) {
-		const userMap = userList.reduce((map, user) => { map[user] = null; return map; }, {});
-		return this.patchDashboardSharing(dashboard.id, { users: userMap});
-	}
-
-	removeAllUsers(dashboard) {
-		return this.patchDashboardSharing(dashboard.id, { users: {}});
-	}
+  removeGroup(dashboard, group) {
+    return this.updateGroupSharing(dashboard, group, null);
+  }
 
   // -------------------------------------
   // Base Functions
@@ -163,14 +153,14 @@ module.exports = class DashboardCtrl extends BaseCtrl {
   // -------------------------------------
 
   getDashboardSharing(dashboard) {
-    return this.appliance.getDashboardSharing(dashboard.id);
+    return this.process(this.appliance.getDashboardSharing(dashboard.id), 'dashboard sharing');
   }
 
 	patchDashboardSharing(dashboard, sharing) {
-		return this.appliance.patchDashboardSharing(dashboard.id, sharing);
+		return this.process(this.appliance.patchDashboardSharing(dashboard.id, sharing), 'dashboard sharing');
 	}
 
 	putDashboardSharing(dashboard, sharing) {
-		return this.appliance.putDashboardSharing(dashboard.id, sharing);
+		return this.process(this.appliance.putDashboardSharing(dashboard.id, sharing), 'dashboard sharing');
 	}
 }

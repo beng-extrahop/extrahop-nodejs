@@ -13,6 +13,10 @@ module.exports = class ActivityMapCtrl extends BaseCtrl {
     return activityMap ? new ActivityMap(this.getActivityMap(activityMap)) : new ActivityMapSet(this.getActivityMaps());
   }
 
+  getSharing(activityMap) {
+    return this.getActivityMapSharing(activityMap);
+  }
+
   create(data) {
     return this.postActivityMap(this.build(data));
   }
@@ -57,12 +61,12 @@ module.exports = class ActivityMapCtrl extends BaseCtrl {
   // Query Functions
   // -------------------------------------
 
-  postActivityMapQuery(activityMap, query) {
-    return this.process(this.appliance.postActivityMapQuery(activityMap.id, query), 'activity map query');
-  }
-
   postActivityMapsQuery(query) {
     return this.process(this.appliance.postActivityMapsQuery(query), 'activity maps query');
+  }
+
+  postActivityMapQuery(activityMap, query) {
+    return this.process(this.appliance.postActivityMapQuery(activityMap.id, query), 'activity map query');
   }
 
   // -------------------------------------

@@ -5,7 +5,9 @@ const Request = require('../../models/_http/Request.model');
 const { Icons } = require('../../constants/Global.constants');
 
 const ActivityGroupCtrl = require('../../controllers/ActivityGroup.controller');
+const ActivityMapCtrl = require('../../controllers/ActivityMap.controller');
 const AlertCtrl = require('../../controllers/Alert.controller');
+const AnalysisPriorityCtrl = require('../../controllers/AnalysisPriority.controller');
 const CustomDeviceCtrl = require('../../controllers/CustomDevice.controller');
 const DashboardCtrl = require('../../controllers/Dashboard.controller');
 const DeviceCtrl = require('../../controllers/Device.controller');
@@ -47,8 +49,16 @@ module.exports = class Appliance extends BaseObject {
     return new ActivityGroupCtrl(this);
   }
 
+  activityMaps() {
+    return new ActivityMapCtrl(this);
+  }
+
   alerts() {
     return new AlertCtrl(this);
+  }
+
+  analysisPriority() {
+    return new AnalysisPriorityCtrl(this);
   }
 
   customDevices() {

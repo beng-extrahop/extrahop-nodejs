@@ -13,6 +13,10 @@ module.exports = class CustomDeviceCtrl extends BaseCtrl {
     return customDevice ? new CustomDevice(this.getCustomDevice(customDevice)) : new CustomDeviceSet(this.getCustomDevices());
   }
 
+  getCriteria(customDevice) {
+    return this.getCustomDeviceCriteria(customDevice);
+  }
+
   create(data) {
     return this.postCustomDevice(this.build(data));
   }

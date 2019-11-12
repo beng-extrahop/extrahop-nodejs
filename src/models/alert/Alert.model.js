@@ -3,7 +3,7 @@
 const BaseObject = require('../../models/_base/BaseObject.model');
 
 module.exports = class Alert extends BaseObject {
-  constructor(alert) {
+  constructor(alert = {}) {
     super();
     this.id = alert.id;
     this.description = alert.description;
