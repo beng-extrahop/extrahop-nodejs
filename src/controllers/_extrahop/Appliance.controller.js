@@ -1,6 +1,6 @@
 // Appliance.controller.js
 
-const BaseCtrl = require('../controllers/BaseCtrl.controller');
+const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
 const ApplianceSet = require('../models/appliance/ApplianceSet.model');
 const { Config, Icons, Strings } = require('../constants/Global.constants');
 

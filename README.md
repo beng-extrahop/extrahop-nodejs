@@ -63,22 +63,22 @@ const config = [
 
 #### Single Appliance
 ```js
-const eca = new Extrahop(config[0].appliances[0]); // provide { hostname, apikey }
+const eca = new Extrahop(config[0].appliances[0]); // provide Appliance: { hostname, apikey, type }
 ```
 
 #### Multiple Appliances
 ```js
-const appliances = new Extrahop(config[0].appliances); // provide Array[{ hostname, apikey }]
+const appliances = new Extrahop(config[0].appliances); // provide ApplianceSet: Array[{ Appliance... }]
 ```
 
 #### Single Environment
 ```js
-const environment = new Extrahop(config.environments[0]); // provide { name, appliances: Array[{ hostname, apikey }] }
+const environment = new Extrahop(config.environments[0]); // provide Environment: { name, appliances }
 ```
 
 #### Multiple Environments
 ```js
-const environments = new Extrahop(config); // provide Array[{ name, appliances: Array[{ hostname, apikey }] }]
+const environments = new Extrahop(config); // provide EnvironmentSet: Array[{ Environment... }]
 ```
 
 #### From File
@@ -89,23 +89,21 @@ const config = require('./config.json');
 const extrahop = new Extrahop(config);
 ```
 
-### Usage
-
 ### Activity Groups
 #### Find
 ```js
-const activityGroups = eca.activityGroups().find();
+const activityGroups = eca.activityGroups().get();
 
 activityGroups.forEach(activityGroup => {
   const dashboards = eca.activityGroups().getDashboards(activityGroup);
-  dashboard.forEach(dashboard => dashboard.print());
+  dashboards.forEach(dashboard => dashboard.print());
 });
 ```
 
 ### Activity Maps
 #### Find
 ```js
-const activityMaps = eca.activityMaps().find();
+const activityMaps = eca.activityMaps().get();
 
 activityMaps.forEach(activityMap => {
   activityMap.print();
@@ -115,7 +113,7 @@ activityMaps.forEach(activityMap => {
 ### Alerts
 #### Find
 ```js
-const alerts = eca.alerts().find();
+const alerts = eca.alerts().get();
 
 alerts.forEach(alert => {
   alert.print());
@@ -125,7 +123,7 @@ alerts.forEach(alert => {
 ### Custom Devices
 #### Find
 ```js
-const customDevices = eca.customDevices().find();
+const customDevices = eca.customDevices().get();
 
 customDevices.forEach(customDevice => {
   customDevice.print());
@@ -135,7 +133,7 @@ customDevices.forEach(customDevice => {
 ### Dashboards
 #### Find
 ```js
-const dashboards = eca.dashboards().find();
+const dashboards = eca.dashboards().get();
 
 dashboards.forEach(dashboard => {
   dashboard.print());
@@ -145,7 +143,7 @@ dashboards.forEach(dashboard => {
 ### Devices
 #### Find
 ```js
-const devices = eca.devices().find();
+const devices = eca.devices().get();
 
 devices.forEach(device => {
   device.print());
@@ -155,7 +153,7 @@ devices.forEach(device => {
 ### Device Groups
 #### Find
 ```js
-const deviceGroups = eca.deviceGroups().find();
+const deviceGroups = eca.deviceGroups().get();
 
 deviceGroups.forEach(deviceGroup => {
   deviceGroup.print());
@@ -186,7 +184,7 @@ eca.records().saveToCSV(search);
 
 #### Triggers
 ```js
-const triggers = eca.triggers().find();
+const triggers = eca.triggers().get();
 
 triggers.forEach(trigger => {
   trigger.print());

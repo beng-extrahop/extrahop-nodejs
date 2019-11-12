@@ -1,30 +1,25 @@
 // ActivityGroup.controller.js
 
-const BaseCtrl = require('../controllers/BaseCtrl.controller');
+const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const ActivityGroup = require('../models/activityGroup/ActivityGroup.model');
 const ActivityGroupSet = require('../models/activityGroup/ActivityGroupSet.model');
 const DashboardSet = require('../models/dashboard/DashboardSet.model');
-
-//const Strings = require('../constants/ActivityGroup.constants');
 
 module.exports = class ActivityGroupCtrl extends BaseCtrl {
   constructor(appliance) {
     super(appliance);
   }
 
-  // -------------------------------------
-  // Global Search
-  // -------------------------------------
-
-  get(params = {}) {
-    return new ActivityGroupSet(this.filter(this.getActivityGroups(), params) || []);
+  get() {
+    return new ActivityGroupSet(this.getActivityGroups());
   }
 
   getDashboards(activityGroup) {
-    return new DashboardSet(this.getActivityGroupDashboards(activityGroup) || []);
+    return new DashboardSet(this.getActivityGroupDashboards(activityGroup));
   }
 
   // -------------------------------------
-  // API Functions
+  // Base Functions
   // -------------------------------------
 
   getActivityGroups() {
@@ -32,6 +27,6 @@ module.exports = class ActivityGroupCtrl extends BaseCtrl {
   }
 
   getActivityGroupDashboards(activityGroup) {
-    return this.process(this.appliance.getActivityGroupDashboards(activityGroup.id), 'related dashboards');
+    return this.process(this.appliance.getActivityGroupDashboards(activityGroup.id), 'activity group dashboards');
   }
 }

@@ -1,6 +1,6 @@
 // Device.controller.js
 
-const BaseCtrl = require('../controllers/BaseCtrl.controller');
+const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
 const DeviceSet = require('../models/device/DeviceSet.model');
 const DeviceSearch = require('../models/device/DeviceSearch.model');
 

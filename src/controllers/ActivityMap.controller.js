@@ -1,37 +1,83 @@
 // ActivityMap.controller.js
 
-const BaseCtrl = require('../controllers/BaseCtrl.controller');
+const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const ActivityMap = require('../models/activityMap/ActivityMap.model');
 const ActivityMapSet = require('../models/activityMap/ActivityMapSet.model');
-const DashboardSet = require('../models/dashboard/DashboardSet.model');
-
-//const Strings = require('../constants/ActivityMap.constants');
 
 module.exports = class ActivityMapCtrl extends BaseCtrl {
   constructor(appliance) {
     super(appliance);
   }
 
-  // -------------------------------------
-  // Global Search
-  // -------------------------------------
-
-  find(params = {}) {
-    return new ActivityMapSet(this.filter(this.getActivityMaps(), params) || []);
+  get(activityMap) {
+    return activityMap ? new ActivityMap(this.getActivityMap(activityMap)) : new ActivityMapSet(this.getActivityMaps());
   }
 
-  findDashboards(activityMap) {
-    return new DashboardSet(this.getActivityMapDashboards(activityMap) || []);
+  create(data) {
+    return this.postActivityMap(this.build(data));
+  }
+
+  update(activityMap, data) {
+    return this.patchActivityMap(activityMap, data);
+  }
+
+  delete(activityMap) {
+    return this.deleteActivityMap(activityMap);
+  }
+
+  build(data) {
+    return new ActivityMap(data);
   }
 
   // -------------------------------------
-  // API Functions
+  // Base Functions
   // -------------------------------------
 
   getActivityMaps() {
-    return this.process(this.appliance.getActivityMaps(), 'activity groups');
+    return this.process(this.appliance.getActivityMaps(), 'activity maps');
   }
 
-  getActivityMapDashboards(activityMap) {
-    return this.process(this.appliance.getActivityMapDashboards(activityMap.id), 'related dashboards');
+  getActivityMap(activityMap) {
+    return this.process(this.appliance.getActivityMap(activityMap.id), 'activity map');
+  }
+
+  postActivityMap(activityMap) {
+    return this.process(this.appliance.postActivityMap(activityMap), 'activity map');
+  }
+
+  deleteActivityMap(activityMap) {
+    return this.process(this.appliance.deleteActivityMap(activityMap.id), 'activity map');
+  }
+
+  patchActivityMap(activityMap, data) {
+    return this.process(this.appliance.patchActivityMap(activityMap.id, data), 'activity map');
+  }
+
+  // -------------------------------------
+  // Query Functions
+  // -------------------------------------
+
+  postActivityMapQuery(activityMap, query) {
+    return this.process(this.appliance.postActivityMapQuery(activityMap.id, query), 'activity map query');
+  }
+
+  postActivityMapsQuery(query) {
+    return this.process(this.appliance.postActivityMapsQuery(query), 'activity maps query');
+  }
+
+  // -------------------------------------
+  // Sharing Functions
+  // -------------------------------------
+
+  getActivityMapSharing(activityMap) {
+    return this.process(this.appliance.getActivityMapSharing(activityMap.id), 'activity map');
+  }
+
+  patchActivityMapSharing(activityMap, sharing) {
+    return this.process(this.appliance.patchActivityMapSharing(activityMap.id, sharing), 'activity map sharing');
+  }
+
+  putActivityMapSharing(activityMap, sharing) {
+    return this.process(this.appliance.putActivityMapSharing(activityMap.id, sharing), 'activity map sharing');
   }
 }

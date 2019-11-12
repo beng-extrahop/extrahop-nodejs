@@ -1,6 +1,7 @@
 // Dashboard.controller.js
 
-const BaseCtrl = require('../controllers/BaseCtrl.controller');
+const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const Dashboard = require('../models/dashboard/Dashboard.model');
 const DashboardSet = require('../models/dashboard/DashboardSet.model');
 const Strings = require('../constants/Global.constants');
 
@@ -9,121 +10,65 @@ module.exports = class DashboardCtrl extends BaseCtrl {
 		super(appliance);
 	}
 
-  // -------------------------------------
-  // Get Dashboards
-  // -------------------------------------
+  get(dashboard) {
+    return dashboard ? new Dashboard(this.getDashboard(dashboard)) : new DashboardSet(this.getDashboards());
+  }
 
-	findAll() {
-		return this.find(null);
-	}
+  getSharing(dashboard) {
+    return this.getDashboardSharing(dashboard);
+  }
 
-	findByAuthor(username, filter = 'equals') {
-		return this.find({'author': username}, filter);
-	}
+  create(data) {
+    return this.postDashboard(this.build(data));
+  }
 
-	findById(id, filter = 'equals') {
-		return this.find({'id': id}, filter);
-	}
+  update(dashboard, data) {
+    return this.patchDashboard(dashboard, data);
+  }
 
-	findByName(username, filter = 'equals') {
-		return this.find({'name': username}, filter);
-	}
+  delete(dashboard) {
+    return this.deleteDashboard(dashboard);
+  }
 
-	findByOwner(username, filter = 'equals') {
-		return this.find({'owner': username}, filter);
-	}
-
-	findByType(type, filter = 'equals') {
-		return this.find({'type': type}, filter);
-	}
-
-	find(criteria, filter) {
-		let dashboards = this.appliance.getDashboards().data;
-
-		if ( !dashboards || dashboards.length == 0 ) {
-			console.info(`No dashboards found on ${this.appliance.hostname}...`);
-			return new DashboardSet([]);
-		}
-		else if ( !criteria || criteria === null ) {
-			console.info(`Retrieving all dashboards from ${this.appliance.hostname}...`);
-			return new DashboardSet(dashboards.slice(-3));
-		}
-
-		const [ key, value ] = [ Object.keys(criteria)[0], Object.values(criteria)[0] ];
-
-		const isMatch = function(dashboard, key, value, filter) {
-			switch (Strings.Search.Filters.indexOf(filter)) {
-				case 0:
-					return !!dashboard[key] && dashboard[key] == value;
-				case 1:
-					return !!dashboard[key] && dashboard[key].includes(value);
-				case 2:
-					return !!dashboard[key] && dashboard[key].startsWith(value);
-				case 3:
-					return !!dashboard[key] && dashboard[key].endsWith(value);
-				default:
-					return false;
-			}
-		}
-
-      let results = [];
-		console.info(`Retrieving dashboards with '${key}' ${filter} '${value}'...`);
-
-		dashboards.forEach(function(dashboard) {
-			if ( isMatch(dashboard, key, value, filter) ) {
-				results.push(dashboard);
-			}
-		});
-
-		console.info(`Found ${results.length} dashboards. Ready to update...\n`);
-		return new DashboardSet(results);
-	}
-
-
-	// -------------------------------------
-	// Get Dashboards
-	// -------------------------------------
-
-	getDashboards() {
-		return new DashboardSet(this.process(this.appliance.getDashboards(), 'dashboards'));
-	}
-
-	getDashboardSharing(dashboard) {
-		return this.appliance.getDashboardSharing(dashboard.id);
-	}
+  build(data) {
+    return new Dashboard(data);
+  }
 
   // -------------------------------------
   // Modify Dashboards
   // -------------------------------------
 
-	transferOwnership(dashboard, owner, index = 0) {
-		let request = this.patchDashboard(dashboard.id, {'owner': owner});
-		console.info(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Transferred ownership of ${dashboard.name} from '${dashboard.owner}' to '${owner}'`);
+	transferOwnership(dashboard, owner) {
+		return this.patchDashboard(dashboard.id, { owner: owner });
 	}
 
-	updateAuthor(dashboard, author, index = 0) {
-		let request = this.patchDashboard(dashboard.id, {'author': author});
-		console.info(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Updating author of ${dashboard.name} from '${dashboard.author}' to '${author}'`);
+	makePublic(dashboard) {
+		return this.patchDashboardSharing(dashboard.id, { anyone: 'viewer' });
 	}
 
-	makePublic(dashboard, index = 0) {
-		let request = this.patchDashboardSharing(dashboard.id, {[Strings.Dashboard.Sharing.Anyone]: 'viewer'});
-		console.info(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Update ${dashboard.name} viewing to public (ID: ${dashboard.id})`);
-	}
-
-	makePrivate(dashboard, index = 0) {
-		let request = this.patchDashboardSharing(dashboard.id, {[Strings.Dashboard.Sharing.Anyone]: null});
-		console.info(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Update ${dashboard.name} viewing to private (ID: ${dashboard.id})`);
-	}
-
-	delete(dashboard, index = 0) {
-		let request = this.deleteDashboard(dashboard.id);
-		console.info(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Deleted ${dashboard.name} (ID: ${dashboard.id})`);
+	makePrivate(dashboard) {
+		return this.patchDashboardSharing(dashboard.id, { anyone: null });
 	}
 
   // -------------------------------------
-  // Dashboard Sharing - Groups
+  // Dashboard Sharing
   // -------------------------------------
+
+  updateSharing(dashboard, { anyone, groups, users }) {
+    return this.patchDashboardSharing(dashboard, { anyone, groups, users });
+  }
+
+  addAnyone(dashboard, username, permission) {
+    return this.patchDashboardSharing(dashboard, { anyone: 'viewer' });
+  }
+
+  addUser(dashboard, username, permission) {
+    return this.patchDashboardSharing(dashboard, { users: { [username]: permission } });
+  }
+
+  addGroup(dashboard, group, permission) {
+    return this.updateSharing(dashboard, { groups: { [group.id]: permission } });
+  }
 
 	addGroupView(dashboard, group) {
 		return this.addGroup(dashboard, group, 'viewer');
@@ -133,32 +78,24 @@ module.exports = class DashboardCtrl extends BaseCtrl {
 		return this.addGroup(dashboard, group, 'editor');
 	}
 
-	addGroup(dashboard, group, permission) {
-		return this.patchDashboardSharing(dashboard.id, {[Strings.Dashboard.Sharing.Groups]: { [group]: permission }});
-	}
-
 	removeGroup(dashboard, group) {
-		return this.patchDashboardSharing(dashboard.id, {[Strings.Dashboard.Sharing.Groups]: { [group]: null }});
-	}
-
-	addGroups(dashboard, groups) {
-		return this.patchDashboardSharing(dashboard.id, {[Strings.Dashboard.Sharing.Groups]: groups});
+		return this.patchDashboardSharing(dashboard.id, { groups: { [group]: null }});
 	}
 
 	removeGroups(dashboard, groups) {
 		groups = groups.reduce((map, group) => { map[group] = null; return map; }, {});
-		return this.patchDashboardSharing(dashboard.id, {[Strings.Dashboard.Sharing.Groups]: groups});
+		return this.patchDashboardSharing(dashboard.id, { groups: groups});
 	}
 
 	removeAllGroups(dashboard) {
-		return this.patchDashboardSharing(dashboard.id, {[Strings.Dashboard.Sharing.Groups]: {}});
+		return this.patchDashboardSharing(dashboard.id, { groups: {}});
 	}
 
   // -------------------------------------
   // Share Dashboard - Users
   // -------------------------------------
 
-	addViewUser(dashboard, username, index = 0) {
+	addViewUser(dashboard, username) {
 		let request = this.addUser(dashboard, username, 'viewer');
 		console.info(`${index} - ${request.success ? 'SUCCESS' : 'ERROR'} - Add viewer '${username}' to ${dashboard.name} (ID: ${dashboard.id})`);
 	}
@@ -173,43 +110,67 @@ module.exports = class DashboardCtrl extends BaseCtrl {
 	}
 
 	addUser(dashboard, username, permission) {
-		return this.patchDashboardSharing(dashboard.id, {[Strings.Dashboard.Sharing.Users]: { [username]: permission }});
+		return this.patchDashboardSharing(dashboard.id, { users: { [username]: permission }});
 	}
 
 	removeUser(dashboard, user) {
-		return this.patchDashboardSharing(dashboard.id, {[Strings.Dashboard.Sharing.Users]: { [user]: null }});
+		return this.patchDashboardSharing(dashboard.id, { users: { [user]: null }});
 	}
 
 	addUsers(dashboard, userMap) {
-		return this.patchDashboardSharing(dashboard.id, {[Strings.Dashboard.Sharing.Users]: userMap});
+		return this.patchDashboardSharing(dashboard.id, { users: userMap});
 	}
 
 	removeUsers(dashboard, userList) {
 		const userMap = userList.reduce((map, user) => { map[user] = null; return map; }, {});
-		return this.patchDashboardSharing(dashboard.id, {[Strings.Dashboard.Sharing.Users]: userMap});
+		return this.patchDashboardSharing(dashboard.id, { users: userMap});
 	}
 
 	removeAllUsers(dashboard) {
-		return this.patchDashboardSharing(dashboard.id, {[Strings.Dashboard.Sharing.Users]: {}});
+		return this.patchDashboardSharing(dashboard.id, { users: {}});
 	}
 
   // -------------------------------------
-  // API Functions
+  // Base Functions
   // -------------------------------------
 
-	deleteDashboard(dashboard) {
-		return this.appliance.deleteDashboard(dashboard);
+  getDashboards() {
+    return this.process(this.appliance.getDashboards(), 'dashboards');
+  }
+
+  getDashboard(dashboard) {
+    return this.process(this.appliance.getDashboard(dashboard.id), 'dashboard');
+  }
+
+  deleteDashboard(dashboard) {
+    return this.process(this.appliance.deleteDashboard(dashboard.id), 'dashboard');
+  }
+
+  patchDashboard(dashboard, data) {
+    return this.process(this.appliance.patchDashboard(dashboard.id, data), 'dashboard');
+  }
+
+  // -------------------------------------
+  // Report Functions
+  // -------------------------------------
+
+  getDashboardReports(dashboard) {
+    return this.process(this.appliance.getDashboardReports(dashboard.id), 'dashboard reports');
+  }
+
+  // -------------------------------------
+  // Sharing Functions
+  // -------------------------------------
+
+  getDashboardSharing(dashboard) {
+    return this.appliance.getDashboardSharing(dashboard.id);
+  }
+
+	patchDashboardSharing(dashboard, sharing) {
+		return this.appliance.patchDashboardSharing(dashboard.id, sharing);
 	}
 
-	patchDashboard(dashboard, payload) {
-		return this.appliance.patchDashboard(dashboard, payload);
-	}
-
-	patchDashboardSharing(dashboard, payload = {}) {
-		return this.appliance.patchDashboardSharing(dashboard, payload);
-	}
-
-	putDashboardSharing(dashboard, payload = {}) {
-		return this.appliance.putDashboardSharing(dashboard, payload);
+	putDashboardSharing(dashboard, sharing) {
+		return this.appliance.putDashboardSharing(dashboard.id, sharing);
 	}
 }

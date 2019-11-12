@@ -1,6 +1,6 @@
 // Record.controller.js
 
-const BaseCtrl = require('../controllers/BaseCtrl.controller');
+const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
 const RecordSet = require('../models/record/RecordSet.model');
 const RecordSearch = require('../models/record/RecordSearch.model');
 const { Config, Icons } = require('../constants/Global.constants');

@@ -1,182 +1,72 @@
 // CustomDevice.controller.js
 
-const BaseCtrl = require('../controllers/BaseCtrl.controller');
+const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const CustomDevice = require('../models/customDevice/CustomDevice.model');
 const CustomDeviceSet = require('../models/customDevice/CustomDeviceSet.model');
-const Strings = require('../constants/CustomDevice.constants');
-
-const Search = require('../models/_search/Search.model');
-const SearchFilter = require('../models/_search/SearchFilter.model');
-const SearchFilterRuleSet = require('../models/_search/SearchFilterRuleSet.model');
 
 module.exports = class CustomDeviceCtrl extends BaseCtrl {
   constructor(appliance) {
     super(appliance);
   }
 
-  // -------------------------------------
-  // Search - Global
-  // -------------------------------------
+  get(customDevice) {
+    return customDevice ? new CustomDevice(this.getCustomDevice(customDevice)) : new CustomDeviceSet(this.getCustomDevices());
+  }
 
-  findAll(limit, offset, activeFrom, activeUntil) {
-    return this.find({ [Strings.Search.Types.Any]: undefined }, limit, offset, activeFrom, activeUntil);
+  create(data) {
+    return this.postCustomDevice(this.build(data));
+  }
+
+  update(customDevice, data) {
+    return this.patchCustomDevice(customDevice, data);
+  }
+
+  delete(customDevice) {
+    return this.deleteCustomDevice(customDevice);
+  }
+
+  build(data) {
+    return new CustomDevice(data);
   }
 
   // -------------------------------------
-  // Search - Predefined
-  // -------------------------------------
-
-  findByName(name, limit, offset, activeFrom, activeUntil) {
-    return this.find({ [Strings.Search.Types.Name]: name }, limit, offset, activeFrom, activeUntil);
-  }
-
-  findByExtrahopId(extrahopId, limit, offset, activeFrom, activeUntil) {
-    return this.find({ [Strings.Search.Types.ExtrahopId]: extrahopId }, limit, offset, activeFrom, activeUntil);
-  }
-
-  findByAuthor(author, limit, offset, activeFrom, activeUntil) {
-    return this.find({ [Strings.Search.Types.Author]: author }, limit, offset, activeFrom, activeUntil);
-  }
-
-  // -------------------------------------
-  // Search Functions - Base
-  // -------------------------------------
-
-  find(filter, limit, offset, activeFrom, activeUntil) {
-    const searchType = Object.keys(filter)[0];
-    const value = filter[searchType];
-
-    console.info(`Searching '${this.appliance.id}' for customDevices with query '?limit=${limit}&searchType=${searchType}${value ? '&value=' + value : ''}'`);
-
-    const getCustomDevices = this.appliance.getCustomDevices(searchType, value, limit, offset, activeFrom, activeUntil);
-    return new CustomDeviceSet(this.process(getCustomDevices, 'customDevices'));
-  }
-
-  search(field, operator, value, limit, offset, activeFrom, activeUntil) {
-    const searchFilter = new SearchFilter({
-      field: field,
-      operator: operator,
-      value: value,
-    });
-
-    const search = new Search({
-      filters: new SearchFilterRuleSet([searchFilter])
-    }, limit, offset, activeFrom, activeUntil);
-
-    search.print();
-
-    return new CustomDeviceSet(this.process(this.appliance.searchCustomDevices(search), 'customDevices'));
-  }
-
-  multiSearch(searchFilter, limit, offset, activeFrom, activeUntil) {
-    const searchFilters = searchFilter.filters.map(filter => new SearchFilter({
-      field: filter[0],
-      operator: filter[1],
-      value: filter[2]
-    }));
-
-    const search = new Search({
-      filters: new SearchFilterRuleSet(searchFilters),
-      operator: searchFilter.operator,
-    }, limit, offset, activeFrom, activeUntil);
-
-    search.print();
-
-    return new CustomDeviceSet(this.process(this.appliance.searchCustomDevices(search), 'customDevices'));
-  }
-
-  // -------------------------------------
-  // Edit CustomDevice
-  // -------------------------------------
-
-  enable(customDevice, skip = true) {
-    if (customDevice.disabled || !skip) {
-      customDevice.disabled = false;
-      return this.patchCustomDevice(customDevice.id, {
-        'disabled': customDevice.disabled
-      });
-    }
-  }
-
-  disable(customDevice, skip = true) {
-    if (!customDevice.disabled || !skip) {
-      customDevice.disabled = true;
-      return this.patchCustomDevice(customDevice.id, {
-        'disabled': customDevice.disabled
-      });
-    }
-  }
-
-  toggle(customDevice) {
-    return this.patchCustomDevice(customDevice.id, {
-      'disabled': !customDevice.disabled
-    });
-  }
-
-  // -------------------------------------
-  // Add Custom Device
-  // -------------------------------------
-
-  create(customDevice) {
-    return this.appliance.postCustomDevice(customDevice);
-  }
-
-  createCriteria(customDeviceID, criteria) {
-    return this.appliance.postCustomDeviceCriteria(customDeviceID, criteria);
-  }
-
-  update(customDeviceID, criteria) {
-    return this.appliance.patchCustomDevice(customDeviceID, criteria);
-  }
-
-  get(customDeviceID, includeCriteria) {
-      return this.appliance.getCustomDevice(customDeviceID, includeCriteria);
-  }
-
-  getCriteria(customDeviceID) {
-      return this.appliance.getCustomDeviceCriteria(customDeviceID);
-  }
-
-  delete(customDeviceID) {
-      return this.appliance.deleteCustomDevice(customDeviceID);
-  }
-
-  deleteCriteria(customDeviceID, customDeviceCriteriaID) {
-      return this.appliance.deleteCustomDeviceCriteria(customDeviceID, customDeviceCriteriaID);
-  }
-
-  // -------------------------------------
-  // API Functions
+  // Base Functions
   // -------------------------------------
 
   getCustomDevices() {
-    return this.appliance.getCustomDevices();
+    return this.process(this.appliance.getCustomDevices(), 'custom devices');
   }
 
-  getCustomDevice(customDeviceID, includeCriteria) {
-    return this.appliance.getCustomDevice(customDeviceID, includeCriteria);
+  getCustomDevice(customDevice) {
+    return this.process(this.appliance.getCustomDevice(customDevice.id), 'custom device');
   }
 
   postCustomDevice(customDevice) {
-    return this.appliance.postCustomDevice(customDevice);
+    return this.process(this.appliance.postCustomDevice(customDevice), 'custom device');
   }
 
-  deleteCustomDevice(customDeviceID) {
-    return this.appliance.postCustomDevice(customDeviceID);
+  deleteCustomDevice(id) {
+    return this.process(this.appliance.deleteCustomDevice(id), 'custom device');
   }
 
-  patchCustomDevice(customDeviceID, payload) {
-    return this.appliance.patchCustomDevice(customDeviceID, payload);
+  patchCustomDevice(customDevice, data) {
+    return this.process(this.appliance.patchCustomDevice(customDevice.id, data), 'custom device');
   }
 
-  getCustomDeviceCriteria(customDeviceID) {
-    return this.appliance.getCustomDeviceCriteria(customDeviceID);
+  // -------------------------------------
+  // Criteria Functions
+  // -------------------------------------
+
+  getCustomDeviceCriteria(customDevice) {
+    return this.process(this.appliance.getCustomDeviceCriteria(customDevice.id), 'custom device criteria');
   }
 
-  postCustomDeviceCriteria(customDeviceID, payload) {
-    return this.appliance.postCustomDeviceCriteria(customDeviceID, payload);
+  postCustomDeviceCriteria(customDevice, criteria) {
+    return this.process(this.appliance.postCustomDeviceCriteria(customDevice.id, criteria), 'custom device criteria');
   }
 
-  deleteCustomDeviceCriteria(customDeviceID, customDeviceCriteriaID) {
-    return this.appliance.deleteCustomDeviceCriteria(customDeviceID, customDeviceCriteriaID);
+  deleteCustomDeviceCriteria(customDevice, criteria) {
+    return this.process(this.appliance.deleteCustomDeviceCriteria(customDevice.id, criteria), 'custom device criteria');
   }
+
 }
