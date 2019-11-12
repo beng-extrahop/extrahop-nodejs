@@ -27,7 +27,7 @@ module.exports = class BaseObjectSet extends Array {
     const stream = fs.createWriteStream(Config.CSV_DIR + '/' + filename, { encoding: 'utf8' });
     const data = subkey ? this.map(obj => obj[subkey]) : this;
 
-    fastCSV.writeToStream(stream, data).on('error', err => console.error(err));
+    fastCSV.writeToStream(stream, data, { headers: true }).on('error', err => console.error(err));
   }
 
   generateId(params) {
