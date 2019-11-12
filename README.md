@@ -28,11 +28,42 @@ touch index.js
 node index.js
 ```
 
-### Configure
-#### Single Appliance
+### Import
 ```js
 const Extrahop = require('extrahop-nodejs');
+```
 
+### Config
+#### Structure
+Module accepts the following configuration, whole or in part:
+```json
+[
+  {
+    name: 'my-environment',
+    appliances: [
+      {
+        hostname: 'extrahop.domain.internal',
+        apikey: 'XXXXXXXXXXXXXX',
+        type: 'ECA'
+      },
+      {
+        hostname: 'eda01.domain.internal',
+        apikey: 'XXXXXXXXXXXXXX',
+        type: 'EDA'
+      },
+      {
+        hostname: 'eda02.domain.internal',
+        apikey: 'XXXXXXXXXXXXXX',
+        type: 'EDA'
+      }
+    ]
+  },
+  ...
+]
+```
+
+#### Single Appliance
+```js
 const config = {
   hostname: 'extrahop.domain.internal',
   apikey: 'XXXXXXXXXXXXXX',
@@ -44,74 +75,84 @@ const eca = new Extrahop(config);
 
 #### Multiple Appliances
 ```js
-const Extrahop = require('extrahop-nodejs');
+const config = [
+  {
+    hostname: 'extrahop.domain.internal',
+    apikey: 'XXXXXXXXXXXXXX',
+    type: 'ECA'
+  },
+  {
+    hostname: 'eda01.domain.internal',
+    apikey: 'XXXXXXXXXXXXXX',
+    type: 'EDA'
+  }
+  ...
+];
 
-const config = {
-  environments: [
-    {
-      name: 'my-environment',
-      appliances: [
-        {
-          hostname: 'extrahop.domain.internal',
-          apikey: 'XXXXXXXXXXXXXX',
-          type: 'ECA'
-        },
-        {
-          hostname: 'eda01.domain.internal',
-          apikey: 'XXXXXXXXXXXXXX',
-          type: 'EDA'
-        },
-        {
-          hostname: 'eda02.domain.internal',
-          apikey: 'XXXXXXXXXXXXXX',
-          type: 'EDA'
-        }
-      ]
-    }
-  ]
-};
-
-const extrahopEnv = new Extrahop(config);
+const appliances = new Extrahop(config);
 ```
 
-#### Environment
+#### Single Environment
 ```js
-const Extrahop = require('extrahop-nodejs');
-
 const config = {
-  environments: [
+  name: 'my-environment',
+  appliances: [
     {
-      name: 'my-environment',
-      appliances: [
-        {
-          hostname: 'extrahop.domain.internal',
-          apikey: 'XXXXXXXXXXXXXX',
-          type: 'ECA'
-        },
-        {
-          hostname: 'eda01.domain.internal',
-          apikey: 'XXXXXXXXXXXXXX',
-          type: 'EDA'
-        },
-        {
-          hostname: 'eda02.domain.internal',
-          apikey: 'XXXXXXXXXXXXXX',
-          type: 'EDA'
-        }
-      ]
+      hostname: 'extrahop.domain.internal',
+      apikey: 'XXXXXXXXXXXXXX',
+      type: 'ECA'
+    },
+    {
+      hostname: 'eda01.domain.internal',
+      apikey: 'XXXXXXXXXXXXXX',
+      type: 'EDA'
+    },
+    {
+      hostname: 'eda02.domain.internal',
+      apikey: 'XXXXXXXXXXXXXX',
+      type: 'EDA'
     }
   ]
 };
 
-const extrahopEnv = new Extrahop(config);
+const environment = new Extrahop(config);
 ```
 
-#### From Config File
+#### Single Environment
+```js
+const config = [
+  {
+    name: 'my-environment',
+    appliances: [
+      {
+        hostname: 'extrahop.domain.internal',
+        apikey: 'XXXXXXXXXXXXXX',
+        type: 'ECA'
+      },
+      {
+        hostname: 'eda01.domain.internal',
+        apikey: 'XXXXXXXXXXXXXX',
+        type: 'EDA'
+      },
+      {
+        hostname: 'eda02.domain.internal',
+        apikey: 'XXXXXXXXXXXXXX',
+        type: 'EDA'
+      }
+    ]
+  },
+  ...
+];
+
+const environments = new Extrahop(config);
+```
+
+#### From File
 ```js
 const Extrahop = require('extrahop-nodejs');
 const config = require('./config.json');
 
-const extrahopEnv = new Extrahop(config);
+const extrahop = new Extrahop(config);
 ```
 
 ### Usage
