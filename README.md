@@ -91,7 +91,8 @@ const extrahop = new Extrahop(config);
 
 ### Usage
 
-#### Activity Groups
+### Activity Groups
+#### Find
 ```js
 const activityGroups = eca.activityGroups().find();
 
@@ -101,7 +102,8 @@ activityGroups.forEach(activityGroup => {
 });
 ```
 
-#### Activity Maps
+### Activity Maps
+#### Find
 ```js
 const activityMaps = eca.activityMaps().find();
 
@@ -110,7 +112,8 @@ activityMaps.forEach(activityMap => {
 });
 ```
 
-#### Alerts
+### Alerts
+#### Find
 ```js
 const alerts = eca.alerts().find();
 
@@ -119,7 +122,8 @@ alerts.forEach(alert => {
 });
 ```
 
-#### Custom Devices
+### Custom Devices
+#### Find
 ```js
 const customDevices = eca.customDevices().find();
 
@@ -128,7 +132,8 @@ customDevices.forEach(customDevice => {
 });
 ```
 
-#### Dashboards
+### Dashboards
+#### Find
 ```js
 const dashboards = eca.dashboards().find();
 
@@ -137,7 +142,8 @@ dashboards.forEach(dashboard => {
 });
 ```
 
-#### Devices
+### Devices
+#### Find
 ```js
 const devices = eca.devices().find();
 
@@ -146,7 +152,8 @@ devices.forEach(device => {
 });
 ```
 
-#### Device Groups
+### Device Groups
+#### Find
 ```js
 const deviceGroups = eca.deviceGroups().find();
 
@@ -155,7 +162,7 @@ deviceGroups.forEach(deviceGroup => {
 });
 ```
 
-#### Licenses
+### Licenses
 ```js
 const license = eca.license();
 
