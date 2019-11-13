@@ -172,6 +172,25 @@ const apikey = eca.apikeys().get({ id: apikeyId });
 eca.apikeys().set(password);
 ````
 
+### Appliances
+#### Defaults
+```js
+// GET (all)
+const appliances = eca.appliances().get();
+
+// GET (single)
+const appliance = eca.appliances().get({ id: applianceId });
+
+// POST
+eca.appliances().connect(connection);
+
+// GET (cloud services)
+const cloudServices = eca.appliances().getCloudServices({ id: applianceId });
+
+// GET (product key)
+const productKey = eca.appliances().getProductKey({ id: applianceId });
+```
+
 ### Applications
 #### Defaults
 ```js

@@ -12,8 +12,8 @@ module.exports = class AnalysisPriorityCtrl extends BaseCtrl {
   // Defaults
   // -------------------------------------
 
-  get() {
-    return new AnalysisPriority(this.getAnalysisPriority());
+  get(appliance = this.appliance) {
+    return new AnalysisPriority(this.getAnalysisPriority(appliance));
   }
 
   getManager() {

@@ -9,6 +9,7 @@ const ActivityMapCtrl = require('../../controllers/ActivityMap.controller');
 const AlertCtrl = require('../../controllers/Alert.controller');
 const AnalysisPriorityCtrl = require('../../controllers/AnalysisPriority.controller');
 const ApikeyCtrl = require('../../controllers/Apikey.controller');
+const ApplianceCtrl = require('../../controllers/Appliance.controller');
 const ApplicationCtrl = require('../../controllers/Application.controller');
 const CustomDeviceCtrl = require('../../controllers/CustomDevice.controller');
 const DashboardCtrl = require('../../controllers/Dashboard.controller');
@@ -62,6 +63,10 @@ module.exports = class Appliance extends BaseObject {
 
   apikeys() {
     return new ApikeyCtrl(this);
+  }
+
+  appliances() {
+    return new ApplianceCtrl(this);
   }
 
   applications() {
@@ -308,15 +313,15 @@ module.exports = class Appliance extends BaseObject {
   // API
   // -------------------------------------
 
-  getApiKeys() {
+  getApikeys() {
     return this.request.get(`/apikeys`);
   }
 
-  getApiKey(keyId) {
+  getApikey(keyId) {
     return this.request.get(`/apikeys/${keyId}`);
   }
 
-  postApiKeys(payload) {
+  postApikeys(payload) {
     return this.request.post(`/apikeys`, payload);
   }
 
@@ -334,6 +339,14 @@ module.exports = class Appliance extends BaseObject {
 
   postAppliance(payload) {
     return this.request.post(`/appliances`, payload);
+  }
+
+  getApplianceCloudServices(applianceId) {
+    return this.request.get(`/appliances/${applianceId}/cloudservices`);
+  }
+
+  getApplianceProductKey(applianceId) {
+    return this.request.get(`/appliances/${applianceId}/productkey`);
   }
 
   // -------------------------------------
