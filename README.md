@@ -81,7 +81,7 @@ const environment = new Extrahop(config.environments[0]); // provide Environment
 const environments = new Extrahop(config); // provide EnvironmentSet: Array[{ Environment... }]
 ```
 
-#### From File
+#### Configure From File
 ```js
 const Extrahop = require('extrahop-nodejs');
 const config = require('./config.json');
@@ -90,81 +90,202 @@ const extrahop = new Extrahop(config);
 ```
 
 ### Activity Groups
-#### Find
+#### Defaults
 ```js
+// GET (multiple)
 const activityGroups = eca.activityGroups().get();
 
-activityGroups.forEach(activityGroup => {
-  const dashboards = eca.activityGroups().getDashboards(activityGroup);
-  dashboards.forEach(dashboard => dashboard.print());
-});
+// GET (single)
+const activityGroup = eca.activityGroups().get({ id: activityGroupId });
+
+// POST
+eca.activityGroups().post(data);
+
+// PATCH
+eca.activityGroups().patch(activityGroup, data);
+
+// PUT
+eca.activityGroups().put(activityGroup, data)
+
+// DELETE
+eca.activityGroups().delete(activityGroup)
 ```
 
 ### Activity Maps
-#### Find
+#### Defaults
 ```js
+// GET (multiple)
 const activityMaps = eca.activityMaps().get();
 
-activityMaps.forEach(activityMap => {
-  activityMap.print();
-});
+// GET (single)
+const activityMap = eca.activityMaps().get({ id: activityMapId });
+
+// POST
+eca.activityMaps().post(data);
+
+// PATCH
+eca.activityMaps().patch(activityMap, data);
+
+// PUT
+eca.activityMaps().put(activityMap, data)
+
+// DELETE
+eca.activityMaps().delete(activityMap)
 ```
 
 ### Alerts
-#### Find
+#### Defaults
 ```js
+// GET (multiple)
 const alerts = eca.alerts().get();
 
-alerts.forEach(alert => {
-  alert.print());
-});
+// GET (single)
+const alert = eca.alerts().get({ id: alertId });
+
+// POST
+eca.alerts().post(data);
+
+// PATCH
+eca.alerts().patch(alert, data);
+
+// PUT
+eca.alerts().put(alert, data)
+
+// DELETE
+eca.alerts().delete(alert)
 ```
 
-### Custom Devices
-#### Find
+### Analysis Priority
+#### Defaults
 ```js
+// GET (single)
+const analysisPriority = eca.analysisPriority().get();
+
+// PATCH
+eca.analysisPriority().patch(appliance, data);
+
+// DELETE
+eca.analysisPriority().delete(alert)
+```
+
+### API Keys
+#### Defaults
+```js
+// GET (multiple)
+const apikeys = eca.apikeys().get();
+
+// GET (single)
+const apikey = eca.apikeys().get({ id: apikeyId });
+
+// POST
+eca.apikeys().post(password);
+````
+
+### Custom Devices
+#### Defaults
+```js
+// GET (multiple)
 const customDevices = eca.customDevices().get();
 
-customDevices.forEach(customDevice => {
-  customDevice.print());
-});
+// GET (single)
+const customDevice = eca.customDevices().get({ id: customDeviceId });
+
+// POST
+eca.customDevices().post(data);
+
+// PATCH
+eca.customDevices().patch(customDevice, data);
+
+// PUT
+eca.customDevices().put(customDevice, data)
+
+// DELETE
+eca.customDevices().delete(customDevice)
 ```
 
 ### Dashboards
-#### Find
+#### Defaults
 ```js
+// GET (multiple)
 const dashboards = eca.dashboards().get();
 
-dashboards.forEach(dashboard => {
-  dashboard.print());
-});
+// GET (single)
+const dashboard = eca.dashboards().get({ id: dashboardId });
+
+// POST
+eca.dashboards().post(data);
+
+// PATCH
+eca.dashboards().patch(dashboard, data);
+
+// PUT
+eca.dashboards().put(dashboard, data)
+
+// DELETE
+eca.dashboards().delete(dashboard)
 ```
 
 ### Devices
-#### Find
+#### Defaults
 ```js
+// GET (multiple)
 const devices = eca.devices().get();
 
-devices.forEach(device => {
-  device.print());
-});
+// GET (single)
+const device = eca.devices().get({ id: deviceId });
+
+// POST
+eca.devices().post(data);
+
+// PATCH
+eca.devices().patch(device, data);
+
+// PUT
+eca.devices().put(device, data)
+
+// DELETE
+eca.devices().delete(device)
 ```
 
 ### Device Groups
-#### Find
+#### Defaults
 ```js
+// GET (multiple)
 const deviceGroups = eca.deviceGroups().get();
 
-deviceGroups.forEach(deviceGroup => {
-  deviceGroup.print());
-});
+// GET (single)
+const deviceGroup = eca.deviceGroups().get({ id: deviceGroupId });
+
+// POST
+eca.deviceGroups().post(data);
+
+// PATCH
+eca.deviceGroups().patch(deviceGroup, data);
+
+// PUT
+eca.deviceGroups().put(deviceGroup, data)
+
+// DELETE
+eca.deviceGroups().delete(deviceGroup)
 ```
 
-### Licenses
+### License
+#### Defaults
 ```js
-const license = eca.license();
+// GET
+const license = eca.license().get();
 
-license.print();
+// POST
+eca.license().post(data);
+
+// PATCH
+eca.license().patch(license, data);
+
+// PUT
+eca.license().put(license, data)
+
+// DELETE
+eca.license().delete(license)
 ```
 
 ### Records
@@ -182,11 +303,24 @@ const search = eca.records().search(params);
 eca.records().saveToCSV(search);
 ```
 
-#### Triggers
+### Triggers
+#### Defaults
 ```js
+// GET (multiple)
 const triggers = eca.triggers().get();
 
-triggers.forEach(trigger => {
-  trigger.print());
-});
+// GET (single)
+const trigger = eca.triggers().get({ id: triggerId });
+
+// POST
+eca.triggers().post(data);
+
+// PATCH
+eca.triggers().patch(trigger, data);
+
+// PUT
+eca.triggers().put(trigger, data)
+
+// DELETE
+eca.triggers().delete(trigger)
 ```
