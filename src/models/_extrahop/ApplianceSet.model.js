@@ -7,5 +7,6 @@ module.exports = class ApplianceSet extends BaseObjectSet {
   constructor(appliances = []) {
     super(appliances);
     appliances.forEach(appliance => this.push(new Appliance(appliance)));
+    console.log();
   }
 }

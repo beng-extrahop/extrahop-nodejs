@@ -34,7 +34,7 @@ module.exports = class Appliance extends BaseObject {
 
     if ( !getExtrahop.success ) {
       this.active = false;
-      console.warn(`${Icons.Warn} Error connecting to ${this.hostname}`);
+      console.warn(`${Icons.Warn} Connection to ${this.hostname} failed`);
       return;
     }
 
@@ -45,7 +45,7 @@ module.exports = class Appliance extends BaseObject {
 
     const getAppliance = (this.getAppliances().data || []).find(x => x.hostname == this.hostname);
 
-    if ( getAppliance.uuid == null ) {
+    if ( getAppliance == null ) {
       console.warn(`${Icons.Warn} Error populating appliance data from ${this.hostname}`);
       return;
     }
@@ -54,9 +54,7 @@ module.exports = class Appliance extends BaseObject {
 
     if ( this.host != this.hostname ) {
       console.warn(`${Icons.Warn} Hostname mismatch. Configured: ${this.host}, Retrieved: ${this.hostname}`);
-      return;
     }
-
   }
 
   // -------------------------------------

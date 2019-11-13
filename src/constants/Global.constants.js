@@ -14,6 +14,18 @@ module.exports = Object.freeze({
 		Warn: colors.yellow('[!]'),
 		Error: colors.red('[x]'),
 	},
+  Types: {
+    Command: 'ECA',
+    Discover: 'EDA',
+    Trace: 'ETA',
+    Explore: 'EXA',
+  },
+  Platforms: {
+    Command: 'ecm',
+    Discover: 'extrahop',
+    Trace: 'eta',
+    Explore: 'exa'
+  },
   Search: {
     Types: {
       Any: 'any',

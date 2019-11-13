@@ -2,7 +2,7 @@
 
 const BaseObject = require('../../models/_base/BaseObjectSet.model');
 const ApplianceSet = require('../../models/_extrahop/ApplianceSet.model');
-const { Platforms, Types } = require('../../constants/Appliance.constants');
+const { Icons, Platforms, Types } = require('../../constants/Global.constants');
 
 module.exports = class Environment extends BaseObject {
   constructor(environment = {}) {
@@ -13,11 +13,23 @@ module.exports = class Environment extends BaseObject {
 
   get({ type, platform, hostname }) {
     const appliances = this.appliances.filter(x => x.type == type || x.platform == platform);
-    return hostname ? appliances.find(x => x.hostname == hostname) : appliances;
+
+    if ( hostname ) {
+      return appliances.find(x => [x.hostname, x.host].includes(hostname));
+    }
+    else if ( type == 'ECA' ) {
+      if ( appliances.length > 1 ) {
+        console.warn(`${Icons.Warn} Multiple ECAs detected. Using ${appliances[0].hostname}`);
+      }
+      return appliances[0];
+    }
+    else {
+      return appliances;
+    }
   }
 
-  eca() {
-    return this.get({ type: 'ECA', platform: Platforms.Command })[0];
+  eca(hostname) {
+    return this.get({ type: 'ECA', platform: Platforms.Command, hostname });
   }
 
   eda(hostname) {

@@ -2,13 +2,15 @@
 
 const BaseObject = require('../../models/_base/BaseObject.model');
 const Response = require('../../models/_http/Response.model');
+const { Icons } = require('../../constants/Global.constants');
+
 const httpRequest = require('sync-request');
 
 module.exports = class Request extends BaseObject {
 
   constructor(hostname, apikey, params = {}) {
     super();
-    // this.hostname = hostname;
+    this.hostname = hostname;
     // this.apikey = apikey;
     this.url = params.url || `https://${hostname}/api/v1`;
     this.auth = `ExtraHop apikey=${apikey}`;
@@ -39,20 +41,20 @@ module.exports = class Request extends BaseObject {
     return Object.assign({}, params, { config, url: this.url + uri });
   }
 
-  send(request = {}) {
-    const { method, url, config } = request;
-    let response, data, error;
+  send({ method, url, config }) {
+    let request, data, error;
 
     try {
-      response = httpRequest(method, url, config);
-      data = JSON.parse(response.getBody('utf8'));
+      request = httpRequest(method, url, config);
+      data = JSON.parse(request.getBody('utf8'));
     }
-    catch (err) {
-      error = err;
-      console.error(error);
+    catch ({ headers, statusCode, body }) {
+      request = { headers, statusCode };
+      error = JSON.parse(body);
+      console.error(`${Icons.Error} Error: HTTP ${statusCode} - ${error.error_message} (${this.hostname})`);
     }
 
-    return new Response({ response, data, error });
+    return new Response({ request, data, error });
   }
 
   get(uri, query) {
