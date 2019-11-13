@@ -1,7 +1,7 @@
 // AnalysisPriority.controller.js
 
 const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
-const AnalysisPriority = require('../models/activityGroup/AnalysisPriority.model');
+const AnalysisPriority = require('../models/analysisPriority/AnalysisPriority.model');
 
 module.exports = class AnalysisPriorityCtrl extends BaseCtrl {
   constructor(appliance) {
