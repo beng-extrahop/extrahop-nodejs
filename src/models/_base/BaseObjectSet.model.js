@@ -1,8 +1,9 @@
 // BaseObjectSet.model.js
 
-const Utils = require('../../utils/BaseUtil.util.js');
 const { Config } = require('../../constants/Global.constants');
+const Utils = require('../../utils/BaseUtil.util.js');
 
+const { parse } = require('json2csv');
 const fastCSV = require('fast-csv');
 const fs = require('fs');
 
@@ -11,23 +12,30 @@ module.exports = class BaseObjectSet extends Array {
     super();
   }
 
-  toString({ format }) {
-    return format ? JSON.stringify(this, null, 2) : JSON.stringify(this);
+  toString({ format = true } = {}) {
+    return JSON.stringify(this, null, format ? 2 : null);
   }
 
   print() {
     this.forEach(baseObject => baseObject.print());
   }
 
-  toCSV(subkey, headers = true) {
-    return fastCSV.write((subkey ? this.map(obj => obj[subkey]) : this), { headers });
+  toCSV({ header = true, subkey } = {}) {
+    const data = subkey ? this.map(obj => obj[subkey]) : this;
+    const fields = Object.keys(data[0]);
+
+    return parse(data, { header, fields });
   }
 
-  writeToCSV(filename, subkey) {
+  printCSV(options = {}) {
+    console.info(this.toCSV(options));
+  }
+
+  writeToCSV(filename, subkey, headers = true) {
     const stream = fs.createWriteStream(Config.CSV_DIR + '/' + filename, { encoding: 'utf8' });
     const data = subkey ? this.map(obj => obj[subkey]) : this;
 
-    fastCSV.writeToStream(stream, data, { headers: true }).on('error', err => console.error(err));
+    fastCSV.writeToStream(stream, data, { headers }).on('error', err => console.error(err));
   }
 
   generateId(params) {

@@ -5,17 +5,23 @@ const Crypto = require('crypto');
 const buildQuery = (params = {}) => {
   const keys = Object.keys(params).filter(x => params[x] != null);
 
-  if ( !!keys.length ) {
+  if ( keys.length ) {
     return '?' + keys.map(key => `${key}=${encodeURIComponent(params[key])}`).join('&');
   }
 }
+
+const base = 16;
+
 const generateId = (params) => {
-  if ( !params ) {
-    return Date.now().toString(36);
-  }
-  else {
+  if ( params ) {
     return Crypto.createHash('md5').update(JSON.stringify(params), 'utf-8').digest('hex');
+  } else {
+    return Date.now().toString(base);
   }
 }
 
-module.exports = { buildQuery, generateId }
+const parseId = (id) => {
+  if ( id ) return parseInt(id, base);
+}
+
+module.exports = { buildQuery, generateId, parseId };
