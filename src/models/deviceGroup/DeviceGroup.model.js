@@ -4,7 +4,7 @@ const BaseObject = require('../../models/_base/BaseObject.model');
 
 module.exports = class DeviceGroup extends BaseObject {
   constructor(deviceGroup = {}) {
-    super();
+    super(deviceGroup);
     this.mod_time = deviceGroup.mod_time;
     this.description = deviceGroup.description;
     this.id = deviceGroup.id;

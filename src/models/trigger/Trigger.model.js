@@ -4,7 +4,7 @@ const BaseObject = require('../../models/_base/BaseObject.model');
 
 module.exports = class Trigger extends BaseObject {
   constructor(trigger = {}) {
-    super();
+    super(trigger);
     this.mod_time = trigger.mod_time;
     this.id = trigger.id;
     this.name = trigger.name;

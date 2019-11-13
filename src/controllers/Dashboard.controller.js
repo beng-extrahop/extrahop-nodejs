@@ -12,6 +12,10 @@ module.exports = class DashboardCtrl extends BaseCtrl {
 		super(appliance);
 	}
 
+  // -------------------------------------
+  // Defaults
+  // -------------------------------------
+
   get(dashboard) {
     return dashboard ? new Dashboard(this.getDashboard(dashboard)) : new DashboardSet(this.getDashboards());
   }

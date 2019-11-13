@@ -9,6 +9,10 @@ module.exports = class ActivityMapCtrl extends BaseCtrl {
     super(appliance);
   }
 
+  // -------------------------------------
+  // Defaults
+  // -------------------------------------
+
   get(activityMap) {
     return activityMap ? new ActivityMap(this.getActivityMap(activityMap)) : new ActivityMapSet(this.getActivityMaps());
   }

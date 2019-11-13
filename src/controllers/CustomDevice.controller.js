@@ -9,6 +9,10 @@ module.exports = class CustomDeviceCtrl extends BaseCtrl {
     super(appliance);
   }
 
+  // -------------------------------------
+  // Defaults
+  // -------------------------------------
+
   get(customDevice) {
     return customDevice ? new CustomDevice(this.getCustomDevice(customDevice)) : new CustomDeviceSet(this.getCustomDevices());
   }

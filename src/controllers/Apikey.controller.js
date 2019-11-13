@@ -9,6 +9,10 @@ module.exports = class ApikeyCtrl extends BaseCtrl {
 		super(appliance);
 	}
 
+  // -------------------------------------
+  // Defaults
+  // -------------------------------------
+
   get(apikey) {
     return apikey ? new Apikey(this.getApikey(apikey)) : new ApikeySet(this.getApikeys());
   }

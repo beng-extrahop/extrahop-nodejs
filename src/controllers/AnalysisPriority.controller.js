@@ -8,6 +8,10 @@ module.exports = class AnalysisPriorityCtrl extends BaseCtrl {
     super(appliance);
   }
 
+  // -------------------------------------
+  // Defaults
+  // -------------------------------------
+
   get() {
     return new AnalysisPriority(this.getAnalysisPriority());
   }
@@ -44,7 +48,7 @@ module.exports = class AnalysisPriorityCtrl extends BaseCtrl {
     return this.process(this.appliance.getAnalysisPriorityManager(appliance.id), 'analysis priority manager');
   }
 
-  patchAnalysisPriorityManager(appliance) {
-    return this.process(this.appliance.patchAnalysisPriorityManager({ manager: appliance.id }), 'analysis priority manager');
+  patchAnalysisPriorityManager(appliance, manager) {
+    return this.process(this.appliance.patchAnalysisPriorityManager(appliance.id, { manager: manager.id }), 'analysis priority manager');
   }
 }

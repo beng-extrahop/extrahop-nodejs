@@ -177,12 +177,12 @@ module.exports = class Appliance extends BaseObject {
     return this.request.post(`/alerts/${alertId}/applications`, payload);
   }
 
-  deleteAlertApplication(alertId, appId) {
-    return this.request.delete(`/alerts/${alertId}/applications/${appId}`);
+  deleteAlertApplication(alertId, applicationId) {
+    return this.request.delete(`/alerts/${alertId}/applications/${applicationId}`);
   }
 
-  postAlertApplication(alertId, appId) {
-    return this.request.post(`/alerts/${alertId}/applications/${appId}`);
+  postAlertApplication(alertId, applicationId) {
+    return this.request.post(`/alerts/${alertId}/applications/${applicationId}`);
   }
 
   getAlertDeviceGroups(alertId) {
@@ -273,19 +273,19 @@ module.exports = class Appliance extends BaseObject {
   // Analysis Priority
   // -------------------------------------
 
-  getAnalysisPriorityConfig(applianceId = 0) {
+  getAnalysisPriority(applianceId) {
     return this.request.get(`/analysispriority/config/${applianceId}`);
   }
 
-  putAnalysisPriorityConfig(payload, applianceId = 0) {
+  putAnalysisPriority(applianceId, payload) {
     return this.request.put(`/analysispriority/config/${applianceId}`, payload);
   }
 
-  getAnalysisPriorityManager(applianceId = 0) {
+  getAnalysisPriorityManager(applianceId) {
     return this.request.get(`/analysispriority/${applianceId}/manager`);
   }
 
-  patchAnalysisPriorityManager(payload, applianceId = 0) {
+  patchAnalysisPriorityManager(applianceId, payload) {
     return this.request.patch(`/analysispriority/${applianceId}/manager`, payload);
   }
 
@@ -325,92 +325,92 @@ module.exports = class Appliance extends BaseObject {
   // Applications
   // -------------------------------------
 
-  getApplications(activeFrom, activeUntil, limit, offset, searchType, value) {
-    return this.request.get(`/applications`, { activeFrom, activeUntil, limit, offset, searchType, value });
+  getApplications(active_from, active_until, limit, offset, searchType, value) {
+    return this.request.get(`/applications`, { active_from, active_until, limit, offset, searchType, value });
   }
 
-  getApplication(appId) {
-    return this.request.get(`/applications/${appId}`);
+  getApplication(applicationId) {
+    return this.request.get(`/applications/${applicationId}`);
   }
 
-  postApplication(appId, payload) {
-    return this.request.post(`/applications/${appId}`, payload);
+  postApplication(applicationId, payload) {
+    return this.request.post(`/applications/${applicationId}`, payload);
   }
 
-  patchApplication(appId, payload) {
-    return this.request.patch(`/applications/${appId}`, payload);
+  patchApplication(applicationId, payload) {
+    return this.request.patch(`/applications/${applicationId}`, payload);
   }
 
-  getApplicationActivity(appId) {
-    return this.request.get(`/applications/${appId}/activity`);
+  getApplicationActivity(applicationId) {
+    return this.request.get(`/applications/${applicationId}/activity`);
   }
 
-  getApplicationAlerts(appId) {
-    return this.request.get(`/applications/${appId}/alerts`);
+  getApplicationAlerts(applicationId) {
+    return this.request.get(`/applications/${applicationId}/alerts`);
   }
 
-  postApplicationAlerts(appId, payload) {
-    return this.request.post(`/applications/${appId}/alerts`, payload);
+  postApplicationAlerts(applicationId, payload) {
+    return this.request.post(`/applications/${applicationId}/alerts`, payload);
   }
 
-  deleteApplicationAlert(appId, alertId) {
-    return this.request.delete(`/applications/${appId}/alerts/${alertId}`);
+  deleteApplicationAlert(applicationId, alertId) {
+    return this.request.delete(`/applications/${applicationId}/alerts/${alertId}`);
   }
 
-  postApplicationAlert(appId, alertId) {
-    return this.request.post(`/applications/${appId}/alerts/${alertId}`);
+  postApplicationAlert(applicationId, alertId) {
+    return this.request.post(`/applications/${applicationId}/alerts/${alertId}`);
   }
 
-  getApplicationDashboards(appId) {
-    return this.request.get(`/applications/${appId}/dashboards`);
+  getApplicationDashboards(applicationId) {
+    return this.request.get(`/applications/${applicationId}/dashboards`);
   }
 
-  getApplicationFlexGrids(appId) {
-    return this.request.get(`/applications/${appId}/flexgrids`);
+  getApplicationFlexGrids(applicationId) {
+    return this.request.get(`/applications/${applicationId}/flexgrids`);
   }
 
-  postApplicationFlexGrids(appId, payload) {
-    return this.request.post(`/applications/${appId}/flexgrids`, payload);
+  postApplicationFlexGrids(applicationId, payload) {
+    return this.request.post(`/applications/${applicationId}/flexgrids`, payload);
   }
 
-  deleteApplicationFlexGrid(appId, flexGridId) {
-    return this.request.delete(`/applications/${appId}/flexgrids/${flexGridId}`);
+  deleteApplicationFlexGrid(applicationId, flexGridId) {
+    return this.request.delete(`/applications/${applicationId}/flexgrids/${flexGridId}`);
   }
 
-  postApplicationFlexGrid(appId, flexGridId) {
-    return this.request.post(`/applications/${appId}/flexgrids/${flexGridId}`);
+  postApplicationFlexGrid(applicationId, flexGridId) {
+    return this.request.post(`/applications/${applicationId}/flexgrids/${flexGridId}`);
   }
 
-  getApplicationGeomaps(appId) {
-    return this.request.get(`/applications/${appId}/geomaps`);
+  getApplicationGeomaps(applicationId) {
+    return this.request.get(`/applications/${applicationId}/geomaps`);
   }
 
-  postApplicationGeomaps(appId, payload) {
-    return this.request.post(`/applications/${appId}/geomaps`, payload);
+  postApplicationGeomaps(applicationId, payload) {
+    return this.request.post(`/applications/${applicationId}/geomaps`, payload);
   }
 
-  deleteApplicationGeomap(appId, geomapId) {
-    return this.request.delete(`/applications/${appId}/geomaps/${geomapId}`);
+  deleteApplicationGeomap(applicationId, geomapId) {
+    return this.request.delete(`/applications/${applicationId}/geomaps/${geomapId}`);
   }
 
-  postApplicationGeomap(appId, geomapId) {
-    return this.request.post(`/applications/${appId}/geomaps/${geomapId}`);
+  postApplicationGeomap(applicationId, geomapId) {
+    return this.request.post(`/applications/${applicationId}/geomaps/${geomapId}`);
   }
 
-  getApplicationPages(appId) {
-    return this.request.get(`/applications/${appId}/pages`);
+  getApplicationPages(applicationId) {
+    return this.request.get(`/applications/${applicationId}/pages`);
   }
 
-  postApplicationPages(appId, payload) {
-    return this.request.post(`/applications/${appId}/pages`, payload);
+  postApplicationPages(applicationId, payload) {
+    return this.request.post(`/applications/${applicationId}/pages`, payload);
   }
 
-  deleteApplicationPage(appId, pageId) {
-    return this.request.delete(`/applications/${appId}/pages/${pageId}`);
+  deleteApplicationPage(applicationId, pageId) {
+    return this.request.delete(`/applications/${applicationId}/pages/${pageId}`);
   }
 
-  postApplicationPage(appId, pageId) {
-    return this.request.post(`/applications/${appId}/pages/${pageId}`);
+  postApplicationPage(applicationId, pageId) {
+    return this.request.post(`/applications/${applicationId}/pages/${pageId}`);
   }
 
   // -------------------------------------
@@ -557,8 +557,8 @@ module.exports = class Appliance extends BaseObject {
   // Devices
   // -------------------------------------
 
-  getDevices(searchType, value, limit, offset, activeFrom, activeUntil) {
-    return this.request.get(`/devices`, { searchType, value, limit, offset, activeFrom, activeUntil });
+  getDevices(searchType, value, limit, offset, active_from, active_until) {
+    return this.request.get(`/devices`, { searchType, value, limit, offset, active_from, active_until });
   }
 
   postDeviceSearch(payload) {
@@ -737,8 +737,8 @@ module.exports = class Appliance extends BaseObject {
     return this.request.get(`/devicegroups/${deviceGroupId}/dashboards`);
   }
 
-  getDeviceGroupDevices(deviceGroupId, activeFrom, activeUntil, limit, offset) {
-    return this.request.get(`/devicegroups/${deviceGroupId}/devices`, { activeFrom, activeUntil, limit, offset });
+  getDeviceGroupDevices(deviceGroupId, active_from, active_until, limit, offset) {
+    return this.request.get(`/devicegroups/${deviceGroupId}/devices`, { active_from, active_until, limit, offset });
   }
 
   postDeviceGroupDevices(deviceGroupId, payload) {
@@ -933,12 +933,12 @@ module.exports = class Appliance extends BaseObject {
     return this.request.post(`/flexgrids/${flexGridId}/applications`, payload);
   }
 
-  deleteFlexGridApplication(flexGridId, appId) {
-    return this.request.delete(`/flexgrids/${flexGridId}/applications/${appId}`);
+  deleteFlexGridApplication(flexGridId, applicationId) {
+    return this.request.delete(`/flexgrids/${flexGridId}/applications/${applicationId}`);
   }
 
-  postFlexGridApplication(flexGridId, appId) {
-    return this.request.post(`/flexgrids/${flexGridId}/applications/${appId}`);
+  postFlexGridApplication(flexGridId, applicationId) {
+    return this.request.post(`/flexgrids/${flexGridId}/applications/${applicationId}`);
   }
 
   getFlexGridDeviceGroups(flexGridId) {
@@ -1005,12 +1005,12 @@ module.exports = class Appliance extends BaseObject {
     return this.request.post(`/geomaps/${geomapId}/applications`, payload);
   }
 
-  deleteGeomapApplication(geomapId, appId) {
-    return this.request.delete(`/geomaps/${geomapId}/applications/${appId}`);
+  deleteGeomapApplication(geomapId, applicationId) {
+    return this.request.delete(`/geomaps/${geomapId}/applications/${applicationId}`);
   }
 
-  postGeomapApplication(geomapId, appId) {
-    return this.request.post(`/geomaps/${geomapId}/applications/${appId}`);
+  postGeomapApplication(geomapId, applicationId) {
+    return this.request.post(`/geomaps/${geomapId}/applications/${applicationId}`);
   }
 
   getGeomapDeviceGroups(geomapId) {
@@ -1225,12 +1225,12 @@ module.exports = class Appliance extends BaseObject {
     return this.request.post(`/pages/${pageId}/applications`, payload);
   }
 
-  deletePageApplication(pageId, appId) {
-    return this.request.delete(`/pages/${pageId}/applications/${appId}`);
+  deletePageApplication(pageId, applicationId) {
+    return this.request.delete(`/pages/${pageId}/applications/${applicationId}`);
   }
 
-  postPageApplication(pageId, appId) {
-    return this.request.post(`/pages/${pageId}/applications/${appId}`);
+  postPageApplication(pageId, applicationId) {
+    return this.request.post(`/pages/${pageId}/applications/${applicationId}`);
   }
 
   getPageDeviceGroups(pageId) {
@@ -1297,9 +1297,9 @@ module.exports = class Appliance extends BaseObject {
     return this.request.post(`/records/search`, payload);
   }
 
-  //  -------------------------------------
-  //  Reports
-  //  -------------------------------------
+  // -------------------------------------
+  // Reports
+  // -------------------------------------
 
   getReports() {
     return this.request.get(`/reports`);
@@ -1350,8 +1350,8 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  //  Running Config
-  //  -------------------------------------
+  // Running Config
+  // -------------------------------------
 
   getRunningConfig(section) {
     return this.request.get(`/runningconfig`, { section });
@@ -1367,6 +1367,18 @@ module.exports = class Appliance extends BaseObject {
 
   getRunningConfigSaved() {
     return this.request.get(`/runningconfig/saved`);
+  }
+
+  // -------------------------------------
+  // Software
+  // -------------------------------------
+
+  getSoftwares() {
+    return this.request.get(`/software`);
+  }
+
+  getSoftware(softwareId) {
+    return this.request.get(`/software/${softwareId}`);
   }
 
   // -------------------------------------

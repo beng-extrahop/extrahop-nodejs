@@ -1,8 +1,17 @@
 // Device.controller.js
 
 const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const Device = require('../models/device/Device.model');
 const DeviceSet = require('../models/device/DeviceSet.model');
 const DeviceSearch = require('../models/device/DeviceSearch.model');
+const DeviceActivity = require('../models/device/DeviceActivity.model');
+
+const AlertSet = require('../models/alert/AlertSet.model');
+const DashboardSet = require('../models/dashboard/DashboardSet.model');
+const DeviceGroupSet = require('../models/deviceGroup/DeviceGroupSet.model');
+const SoftwareSet = require('../models/software/SoftwareSet.model');
+const TagSet = require('../models/tag/TagSet.model');
+const TriggerSet = require('../models/trigger/TriggerSet.model');
 
 const { Search, Config, Icons } = require('../constants/Global.constants');
 
@@ -12,7 +21,55 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Search - Predefined
+  // Defaults
+  // -------------------------------------
+
+  get(device) {
+    return device ? new Device(this.getDevice(device)) : new DeviceSet(this.getDevices());
+  }
+
+  getActivity(device) {
+    return new DeviceActivity(this.getDeviceActivity(device));
+  }
+
+  getAlerts(device) {
+    return new AlertSet(this.getDeviceAlerts(device));
+  }
+
+  getDashboards(device) {
+    return new DashboardSet(this.getDeviceDashboards(device));
+  }
+
+  getDeviceGroups(device) {
+    return new DeviceGroupSet(this.getDeviceDeviceGroups(device));
+  }
+
+  getSoftware(device) {
+    return new SoftwareSet(this.getDeviceSoftware(device));
+  }
+
+  getTags(device) {
+    return new TagSet(this.getDeviceTags(device));
+  }
+
+  getTriggers(device) {
+    return new TriggerSet(this.getDeviceTriggers(device));
+  }
+
+  search(options = {}) {
+    return new DeviceSet(this.searchDevices(new DeviceSearch(options)));
+  }
+
+  update(device, data) {
+    return this.patchDevice(device, data);
+  }
+
+  build(data) {
+    return new Device(data);
+  }
+
+  // -------------------------------------
+  // Find Functions
   // -------------------------------------
 
   find({ search_type, value } = {}) {
@@ -22,7 +79,7 @@ module.exports = class DeviceCtrl extends BaseCtrl {
     return new DeviceSet(this.process(getDevices, 'devices', { suppress: true }));
   }
 
-  findAny(options) {
+  findAny() {
     return this.find({ search_type: Search.Types.Any, value: undefined });
   }
 
@@ -71,7 +128,7 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Search - Custom
+  // Find Functions - Custom
   // -------------------------------------
 
   findCustom({ field, value } = {}) {
@@ -92,71 +149,151 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Search Functions
-  // -------------------------------------
-
-  search({ filter, limit, offset, active_from, active_until }) {
-    const search = new DeviceSearch({ filter, limit, offset, active_from, active_until });
-    return new DeviceSet(this.process(this.searchDevices(search), 'devices'));
-  }
-
-  // -------------------------------------
   // Update Functions
   // -------------------------------------
 
   setDescription(device, description) {
-    return this.patchDevice(device.id, { 'description': description });
+    return this.update(device, { 'description': description });
   }
 
   setCustomName(device, customName) {
-    return this.patchDevice(device.id, { 'custom_name': customName });
+    return this.update(device, { 'custom_name': customName });
   }
 
   setCustomType(device, customType) {
-    return this.patchDevice(device.id, { 'custom_type': customType });
+    return this.update(device, { 'custom_type': customType });
   }
 
   setRole(device, role) {
-    return this.patchDevice(device.id, { 'custom_type': role });
+    return this.update(device, { 'custom_type': role });
   }
 
   setVendor(device, vendor) {
-    return this.patchDevice(device.id, { 'vendor': vendor });
+    return this.update(device, { 'vendor': vendor });
   }
 
   // -------------------------------------
-  // API Functions
+  // Base Functions
   // -------------------------------------
 
-  getDevice(deviceId) {
-    return this.process(this.appliance.getDevice(deviceId), 'device');
+  getDevices() {
+    return this.process(this.appliance.getDevices(), 'devices');
   }
 
-  patchDevice(deviceId, payload) {
-    return this.process(this.appliance.patchDevice(deviceId, payload), 'device');
+  getDevice(device) {
+    return this.process(this.appliance.getDevice(device.id), 'device');
   }
 
-  postDevice(deviceId, payload) {
-    return this.process(this.appliance.postDevice(deviceId, payload), 'device');
+  searchDevices(search) {
+    return this.process(this.appliance.postDeviceSearch(search), 'devices');
   }
 
-  searchDevices(payload) {
-    return this.process(this.appliance.postDeviceSearch(payload), 'devices');
+  patchDevice(device, data) {
+    return this.process(this.appliance.patchDevice(device.id, data), 'device');
   }
 
-  putDevice(payload) {
-    return this.process(this.appliance.putDevice(payload), 'device');
+  // -------------------------------------
+  // Activity Functions
+  // -------------------------------------
+
+  getDeviceActivity(device) {
+    return this.process(this.appliance.getDeviceActivity(device.id), 'device activity');
   }
 
-  getDeviceTags(deviceId) {
-    return this.process(this.appliance.getDeviceTags(deviceId), 'device tags');
+  // -------------------------------------
+  // Alert Functions
+  // -------------------------------------
+
+  getDeviceAlerts(device) {
+    return this.process(this.appliance.getDeviceAlerts(device.id), 'device alerts');
   }
 
-  postDeviceTags(deviceId, payload) {
-    return this.process(this.appliance.postDeviceTags(deviceId, payload), 'device tags');
+  postDeviceAlerts(device, assign = [], unassign = []) {
+    return this.process(this.appliance.postDeviceAlerts(device.id, { assign, unassign }), 'device alerts');
   }
 
-  postDeviceTag(deviceId, tagID) {
-    return this.process(this.appliance.postDeviceTag(deviceId, tagID), 'device tag');
+  postDeviceAlert(device, alert) {
+    return this.process(this.appliance.postDeviceAlert(device.id, alert.id), 'device alert');
   }
+
+  deleteDeviceAlert(device, alert) {
+    return this.process(this.appliance.deleteDeviceAlert(device.id, alert.id), 'device alert');
+  }
+
+  // -------------------------------------
+  // Dashboard Functions
+  // -------------------------------------
+
+  getDeviceDashboards(device) {
+    return this.process(this.appliance.getDeviceDashboards(device.id), 'device dashboards');
+  }
+
+  // -------------------------------------
+  // DeviceGroup Functions
+  // -------------------------------------
+
+  getDeviceDeviceGroups(device) {
+    return this.process(this.appliance.getDeviceDeviceGroups(device.id), 'device deviceGroups');
+  }
+
+  postDeviceDeviceGroups(device, assign = [], unassign = []) {
+    return this.process(this.appliance.postDeviceDeviceGroups(device.id, { assign, unassign }), 'device deviceGroups');
+  }
+
+  postDeviceDeviceGroup(device, deviceGroup) {
+    return this.process(this.appliance.postDeviceDeviceGroup(device.id, deviceGroup.id), 'device deviceGroup');
+  }
+
+  deleteDeviceDeviceGroup(device, deviceGroup) {
+    return this.process(this.appliance.deleteDeviceDeviceGroup(device.id, deviceGroup.id), 'device deviceGroup');
+  }
+
+  // -------------------------------------
+  // Software Functions
+  // -------------------------------------
+
+  getDeviceSoftware(device) {
+    return this.process(this.appliance.getDeviceSoftware(device.id), 'device software');
+  }
+
+  // -------------------------------------
+  // Tag Functions
+  // -------------------------------------
+
+  getDeviceTags(device) {
+    return this.process(this.appliance.getDeviceTags(device.id), 'device tags');
+  }
+
+  postDeviceTags(device, assign = [], unassign = []) {
+    return this.process(this.appliance.postDeviceTags(device.id, { assign, unassign }), 'device tags');
+  }
+
+  postDeviceTag(device, tag) {
+    return this.process(this.appliance.postDeviceTag(device.id, tag.id), 'device tag');
+  }
+
+  deleteDeviceTag(device, tag) {
+    return this.process(this.appliance.deleteDeviceDeviceGroup(device.id, tag.id), 'device tag');
+  }
+
+  // -------------------------------------
+  // Trigger Functions
+  // -------------------------------------
+
+  getDeviceTriggers(device) {
+    return this.process(this.appliance.getDeviceTriggers(device.id), 'device triggers');
+  }
+
+  postDeviceTriggers(device, assign = [], unassign = []) {
+    return this.process(this.appliance.postDeviceTriggers(device.id, { assign, unassign }), 'device triggers');
+  }
+
+  postDeviceTrigger(device, trigger) {
+    return this.process(this.appliance.postDeviceTrigger(device.id, trigger.id), 'device trigger');
+  }
+
+  deleteDeviceTrigger(device, trigger) {
+    return this.process(this.appliance.deleteDeviceDeviceGroup(device.id, trigger.id), 'device trigger');
+  }
+
 }

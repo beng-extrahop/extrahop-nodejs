@@ -16,6 +16,10 @@ module.exports = class AlertCtrl extends BaseCtrl {
     super(appliance);
   }
 
+  // -------------------------------------
+  // Defaults
+  // -------------------------------------
+
   get(alert) {
     return alert ? new Alert(this.getAlert(alert)) : new AlertSet(this.getAlerts());
   }

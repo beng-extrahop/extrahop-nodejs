@@ -10,6 +10,10 @@ module.exports = class ActivityGroupCtrl extends BaseCtrl {
     super(appliance);
   }
 
+  // -------------------------------------
+  // Defaults
+  // -------------------------------------
+
   get() {
     return new ActivityGroupSet(this.getActivityGroups());
   }
