@@ -92,7 +92,7 @@ const extrahop = new Extrahop(config);
 ### Activity Groups
 #### Defaults
 ```js
-// GET (multiple)
+// GET (all)
 const activityGroups = eca.activityGroups().get();
 
 // GET (single)
@@ -114,7 +114,7 @@ eca.activityGroups().delete(activityGroup)
 ### Activity Maps
 #### Defaults
 ```js
-// GET (multiple)
+// GET (all)
 const activityMaps = eca.activityMaps().get();
 
 // GET (single)
@@ -136,7 +136,7 @@ eca.activityMaps().delete(activityMap)
 ### Alerts
 #### Defaults
 ```js
-// GET (multiple)
+// GET (all)
 const alerts = eca.alerts().get();
 
 // GET (single)
@@ -171,7 +171,7 @@ eca.analysisPriority().delete(alert)
 ### API Keys
 #### Defaults
 ```js
-// GET (multiple)
+// GET (all)
 const apikeys = eca.apikeys().get();
 
 // GET (single)
@@ -184,7 +184,7 @@ eca.apikeys().post(password);
 ### Custom Devices
 #### Defaults
 ```js
-// GET (multiple)
+// GET (all)
 const customDevices = eca.customDevices().get();
 
 // GET (single)
@@ -206,7 +206,7 @@ eca.customDevices().delete(customDevice)
 ### Dashboards
 #### Defaults
 ```js
-// GET (multiple)
+// GET (all)
 const dashboards = eca.dashboards().get();
 
 // GET (single)
@@ -228,7 +228,7 @@ eca.dashboards().delete(dashboard)
 ### Devices
 #### Defaults
 ```js
-// GET (multiple)
+// GET (all)
 const devices = eca.devices().get();
 
 // GET (single)
@@ -250,7 +250,7 @@ eca.devices().delete(device)
 ### Device Groups
 #### Defaults
 ```js
-// GET (multiple)
+// GET (all)
 const deviceGroups = eca.deviceGroups().get();
 
 // GET (single)
@@ -306,7 +306,7 @@ eca.records().saveToCSV(search);
 ### Triggers
 #### Defaults
 ```js
-// GET (multiple)
+// GET (all)
 const triggers = eca.triggers().get();
 
 // GET (single)
