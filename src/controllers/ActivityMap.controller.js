@@ -3,6 +3,8 @@
 const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
 const ActivityMap = require('../models/activityMap/ActivityMap.model');
 const ActivityMapSet = require('../models/activityMap/ActivityMapSet.model');
+const ActivityMapQuery = require('../models/activityMap/ActivityMapQuery.model');
+const ActivityMapSharing = require('../models/activityMap/ActivityMapSharing.model');
 
 module.exports = class ActivityMapCtrl extends BaseCtrl {
   constructor(appliance) {
@@ -18,11 +20,17 @@ module.exports = class ActivityMapCtrl extends BaseCtrl {
   }
 
   getSharing(activityMap) {
-    return this.getActivityMapSharing(activityMap);
+    return new ActivityMapSharing(this.getActivityMapSharing(activityMap));
   }
 
   create(data) {
     return this.postActivityMap(this.build(data));
+  }
+
+  query(data, activityMap) {
+    return activityMap ?
+        this.postActivityMapQuery(new ActivityMapQuery(data), activityMap)
+      : this.postActivityMapsQuery(new ActivityMapQuery(data));
   }
 
   update(activityMap, data) {

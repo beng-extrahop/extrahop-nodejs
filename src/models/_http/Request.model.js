@@ -8,15 +8,15 @@ module.exports = class Request extends BaseObject {
 
   constructor(hostname, apikey, params = {}) {
     super();
-    this.hostname = hostname;
-    this.apikey = apikey;
-    this.url = params.url || `https://${this.hostname}/api/v1`;
-    this.authHeader = `ExtraHop apikey=${this.apikey}`;
+    // this.hostname = hostname;
+    // this.apikey = apikey;
+    this.url = params.url || `https://${hostname}/api/v1`;
+    this.auth = `ExtraHop apikey=${apikey}`;
 
     this.config = {
       cache: params.cache           || 'file',
       gzip: params.gzip             || true,
-      timeout: params.timeout       || 3000,
+      timeout: params.timeout       || 5000,
       retry: params.retry           || true,
       retryDelay: params.retryDelay || 1000,
       maxRetries: params.maxRetries || 3
@@ -25,7 +25,7 @@ module.exports = class Request extends BaseObject {
 
   buildConfig({ query, body }) {
     const headers = {
-      'Authorization': this.authHeader,
+      'Authorization': this.auth,
       'Content-Length': body ? Buffer.byteLength(JSON.stringify(body)) : undefined
     };
 
