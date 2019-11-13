@@ -24,25 +24,39 @@ module.exports = class Appliance extends BaseObject {
   constructor(appliance = {}) {
     super(appliance);
     this.host = appliance.host || appliance.hostname;
+    this.hostname = this.host;
     this.apikey = appliance.apikey;
-    this.request = new Request(this.host, this.apikey);
-
-    this.name = appliance.name;
     this.type = appliance.type;
-    this.user = appliance.user;
-    this.active = !!this.getExtrahop().success;
 
-    if ( this.active ) {
-      console.info(`${Icons.Info} Connected to ${this.host}`);
-      const thisAppliance = this.getAppliances().data.find(x => x.hostname == this.host);
+    this.request = new Request(this.hostname, this.apikey);
 
-      if ( thisAppliance != null ) {
-        Object.keys(thisAppliance).forEach(key => this[key] = thisAppliance[key]);
-      }
+    const getExtrahop = this.getExtrahop();
+
+    if ( !getExtrahop.success ) {
+      this.active = false;
+      console.warn(`${Icons.Warn} Error connecting to ${this.hostname}`);
+      return;
     }
-    else {
-      console.info(`${Icons.Warn} Error connecting to ${this.host}`);
+
+    console.info(`${Icons.Info} Connected to ${this.hostname}`);
+
+    Object.keys(getExtrahop.data).forEach(key => this[key] = getExtrahop.data[key]);
+    this.name = appliance.name || getExtrahop.data.display_host;
+
+    const getAppliance = (this.getAppliances().data || []).find(x => x.hostname == this.hostname);
+
+    if ( getAppliance.uuid == null ) {
+      console.warn(`${Icons.Warn} Error populating appliance data from ${this.hostname}`);
+      return;
     }
+
+    Object.keys(getAppliance).forEach(key => this[key] = getAppliance[key]);
+
+    if ( this.host != this.hostname ) {
+      console.warn(`${Icons.Warn} Hostname mismatch. Configured: ${this.host}, Retrieved: ${this.hostname}`);
+      return;
+    }
+
   }
 
   // -------------------------------------

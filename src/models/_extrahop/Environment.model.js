@@ -9,33 +9,27 @@ module.exports = class Environment extends BaseObject {
     super();
     this.name = environment.name;
     this.appliances = new ApplianceSet(environment.appliances);
-    this.eca = this.getECA();
-
-    if ( this.appliances.length > 1 ) {
-      this.edas = this.getEDAs();
-      this.etas = this.getETAs();
-      this.exas = this.getEXAs();
-    }
   }
 
-  get(params = {}) {
-    const { key, value } = params;
-    return this.appliances.find(appliance => appliance[key] == value)
+  get({ type, platform, hostname }) {
+    const appliances = this.appliances.filter(x => x.type == type || x.platform == platform);
+    return hostname ? appliances.find(x => x.hostname == hostname) : appliances;
   }
 
-  getECA() {
-    return this.appliances.find(x => x.platform == Platforms.Command || x.type == Types.Command);
+  eca() {
+    return this.get({ type: 'ECA', platform: Platforms.Command })[0];
   }
 
-  getEDAs() {
-    return this.appliances.filter(x => x.platform == Platforms.Discover || x.type == Types.Discover);
+  eda(hostname) {
+    return this.get({ type: 'EDA', platform: Platforms.Discover, hostname });
   }
 
-  getEXAs() {
-    return this.appliances.filter(x => x.platform == Platforms.Explore || x.type == Types.Explore);
+  etas(hostname) {
+    return this.get({ type: 'ETA', platform: Platforms.Trace, hostname });
   }
 
-  getETAs() {
-    return this.appliances.filter(x => x.platform == Platforms.Trace || x.type == Types.Trace);
+  exa(hostname) {
+    return this.get({ type: 'EXA', platform: Platforms.Explore, hostname });
   }
+
 }
