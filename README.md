@@ -96,7 +96,7 @@ const extrahop = new Extrahop(config);
 const activityGroups = eca.activityGroups().get();
 
 // GET (single)
-const activityGroup = eca.activityGroups().get({ id: activityGroup.id });
+const activityGroup = eca.activityGroups().get({ id: activityGroupId });
 
 // POST
 eca.activityGroups().create(activityGroup);
@@ -115,7 +115,7 @@ eca.activityGroups().delete({ id: activityGroup.id })
 const activityMaps = eca.activityMaps().get();
 
 // GET (single)
-const activityMap = eca.activityMaps().get({ id: activityMap.id });
+const activityMap = eca.activityMaps().get({ id: activityMapId });
 
 // POST
 eca.activityMaps().create(activityMap);
@@ -134,7 +134,7 @@ eca.activityMaps().delete({ id: activityMap.id })
 const alerts = eca.alerts().get();
 
 // GET (single)
-const alert = eca.alerts().get({ id: alert.id });
+const alert = eca.alerts().get({ id: alertId });
 
 // POST
 eca.alerts().create(alert);
@@ -150,7 +150,7 @@ eca.alerts().delete({ id: alert.id })
 #### Defaults
 ```js
 // GET (single)
-const analysisPriority = eca.analysisPrioriapplianceData.get();
+const analysisPriority = eca.analysisPriority().get();
 
 // PATCH
 eca.analysisPriority().update({ id: appliance.id }, data);
@@ -166,10 +166,10 @@ eca.analysisPriority().delete({ id: alert.id })
 const apikeys = eca.apikeys().get();
 
 // GET (single)
-const apikey = eca.apikeys().get({ id: apikey.id });
+const apikey = eca.apikeys().get({ id: apikeyId });
 
 // POST
-eca.apikeys().postcreatesword);
+eca.apikeys().set(password);
 ````
 
 ### Applications
@@ -179,7 +179,7 @@ eca.apikeys().postcreatesword);
 const applications = eca.applications().get();
 
 // GET (single)
-const application = eca.applications().get({ id: application.id });
+const application = eca.applications().get({ id: applicationId });
 
 // POST
 eca.applications().create(application);
@@ -198,7 +198,7 @@ eca.applications().delete({ id: application.id })
 const customDevices = eca.customDevices().get();
 
 // GET (single)
-const customDevice = eca.customDevices().get({ id: customDevice.id });
+const customDevice = eca.customDevices().get({ id: customDeviceId });
 
 // POST
 eca.customDevices().create(customDevice);
@@ -217,7 +217,7 @@ eca.customDevices().delete({ id: customDevice.id })
 const dashboards = eca.dashboards().get();
 
 // GET (single)
-const dashboard = eca.dashboards().get({ id: dashboard.id });
+const dashboard = eca.dashboards().get({ id: dashboardId });
 
 // POST
 eca.dashboards().create(dashboard);
@@ -236,7 +236,7 @@ eca.dashboards().delete({ id: dashboard.id })
 const devices = eca.devices().get();
 
 // GET (single)
-const device = eca.devices().get({ id: device.id });
+const device = eca.devices().get({ id: deviceId });
 
 // POST
 eca.devices().create(device);
@@ -255,7 +255,7 @@ eca.devices().delete({ id: device.id })
 const deviceGroups = eca.deviceGroups().get();
 
 // GET (single)
-const deviceGroup = eca.deviceGroups().get({ id: deviceGroup.id });
+const deviceGroup = eca.deviceGroups().get({ id: deviceGroupId });
 
 // POST
 eca.deviceGroups().create(deviceGroup);
@@ -296,7 +296,7 @@ eca.records().saveToCSV(search);
 const softwares = eca.software().get();
 
 // GET (single)
-const software = eca.software().get({ id: software.id });
+const software = eca.software().get({ id: softwareId });
 ```
 
 ### Triggers
@@ -306,7 +306,7 @@ const software = eca.software().get({ id: software.id });
 const triggers = eca.triggers().get();
 
 // GET (single)
-const trigger = eca.triggers().get({ id: trigger.id });
+const trigger = eca.triggers().get({ id: triggerId });
 
 // POST
 eca.triggers().create(trigger);
