@@ -8,12 +8,15 @@ const ActivityGroupCtrl = require('../../controllers/ActivityGroup.controller');
 const ActivityMapCtrl = require('../../controllers/ActivityMap.controller');
 const AlertCtrl = require('../../controllers/Alert.controller');
 const AnalysisPriorityCtrl = require('../../controllers/AnalysisPriority.controller');
+const ApikeyCtrl = require('../../controllers/Apikey.controller');
+const ApplicationCtrl = require('../../controllers/Application.controller');
 const CustomDeviceCtrl = require('../../controllers/CustomDevice.controller');
 const DashboardCtrl = require('../../controllers/Dashboard.controller');
 const DeviceCtrl = require('../../controllers/Device.controller');
 const DeviceGroupCtrl = require('../../controllers/DeviceGroup.controller');
 const LicenseCtrl = require('../../controllers/License.controller');
 const RecordCtrl = require('../../controllers/Record.controller');
+const SoftwareCtrl = require('../../controllers/Software.controller');
 const TriggerCtrl = require('../../controllers/Trigger.controller');
 
 module.exports = class Appliance extends BaseObject {
@@ -57,6 +60,14 @@ module.exports = class Appliance extends BaseObject {
     return new AlertCtrl(this);
   }
 
+  apikeys() {
+    return new ApikeyCtrl(this);
+  }
+
+  applications() {
+    return new ApplicationCtrl(this);
+  }
+
   analysisPriority() {
     return new AnalysisPriorityCtrl(this);
   }
@@ -83,6 +94,10 @@ module.exports = class Appliance extends BaseObject {
 
   records() {
     return new RecordCtrl(this);
+  }
+
+  software() {
+    return new SoftwareCtrl(this);
   }
 
   triggers() {
