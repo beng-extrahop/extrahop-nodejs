@@ -97,15 +97,6 @@ const activityGroups = eca.activityGroups().get();
 
 // GET (single)
 const activityGroup = eca.activityGroups().get({ id: activityGroupId });
-
-// POST
-eca.activityGroups().create(activityGroup);
-
-// PATCH
-eca.activityGroups().update({ id: activityGroup.id }, data);
-
-// DELETE
-eca.activityGroups().delete({ id: activityGroup.id })
 ```
 
 ### Activity Maps
@@ -117,8 +108,17 @@ const activityMaps = eca.activityMaps().get();
 // GET (single)
 const activityMap = eca.activityMaps().get({ id: activityMapId });
 
+// GET
+const sharing = eca.activityMaps().getSharing({ id: activityMapId });
+
 // POST
 eca.activityMaps().create(activityMap);
+
+// POST (query all)
+eca.activityMaps().query(data);
+
+// POST (query single)
+eca.activityMaps().query(data, { id: activityMap.id })
 
 // PATCH
 eca.activityMaps().update({ id: activityMap.id }, data);
