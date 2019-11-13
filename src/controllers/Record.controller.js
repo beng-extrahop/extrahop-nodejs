@@ -3,6 +3,7 @@
 const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
 const RecordSet = require('../models/record/RecordSet.model');
 const RecordSearch = require('../models/record/RecordSearch.model');
+const Utils = require('../utils/BaseUtil.util.js');
 const { Config, Icons } = require('../constants/Global.constants');
 
 const Database = require('nedb');
@@ -64,7 +65,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
   }
 
   searchInit(search = {}) {
-    const searchId = this.utils.generateId();
+    const searchId = Utils.generateId();
     const getRecords = this.postRecordsSearch(search);
 
     return Object.assign(search, getRecords.data, { id: searchId })
@@ -73,26 +74,20 @@ module.exports = class RecordCtrl extends BaseCtrl {
   searchNext(cursor, contextTtl) {
     const getRecords = this.postRecordsCursor(cursor, contextTtl);
 
-    return getRecords.data? getRecords.data.records : [];
+    return getRecords.data ? getRecords.data.records : [];
   }
 
   // -------------------------------------
   // Utility Functions
   // -------------------------------------
 
-  parse(data = {}) {
-    return super.parse(data, '_source');
-  }
-
   printSearchInfo(search = {}) {
-    console.info();
     console.info(`------------------------------ SEARCH INFO ------------------------------------`);
     console.info(`- Search ID (local): ${search.id}`);
-    console.info(`- Search timestamp: ${parseInt(search.id, 36)}`);
+    console.info(`- Search timestamp: ${Utils.parseId(search.id)}`);
     console.info(`- Search types: ${search.types || 'any'}`);
     console.info(`- Search limit: ${search.limit}`);
     console.info(`- Search results: ${search.total}`);
-    console.info(`- Search context_ttl: ${search.context_ttl}`);
     console.info(`- Search from: ${new Date(search.from)}`);
     console.info(`- Search until: ${new Date(search.until)}`);
     console.info(`-------------------------------------------------------------------------------\n`);
@@ -103,7 +98,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // API Functions
+  // APIFunctions
   // -------------------------------------
 
   getRecordsCursor(cursor, contextTtl) {
@@ -118,11 +113,4 @@ module.exports = class RecordCtrl extends BaseCtrl {
     return this.appliance.postRecordsSearch(search);
   }
 
-}
-
-function sleep(ms) {
-  var start = new Date().getTime();
-  for ( var i = 0; i < 1e7; i++ ) {
-    if ( (new Date().getTime() - start) > ms ) break;
-  }
 }
