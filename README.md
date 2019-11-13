@@ -181,6 +181,28 @@ const apikey = eca.apikeys().get({ id: apikeyId });
 eca.apikeys().post(password);
 ````
 
+### Applications
+#### Defaults
+```js
+// GET (all)
+const applications = eca.applications().get();
+
+// GET (single)
+const application = eca.applications().get({ id: applicationId });
+
+// POST
+eca.applications().post(data);
+
+// PATCH
+eca.applications().patch(application, data);
+
+// PUT
+eca.applications().put(application, data)
+
+// DELETE
+eca.applications().delete(application)
+```
+
 ### Custom Devices
 #### Defaults
 ```js
@@ -301,6 +323,16 @@ const params = {
 
 const search = eca.records().search(params);
 eca.records().saveToCSV(search);
+```
+
+### Software
+#### Defaults
+```js
+// GET (all)
+const softwares = eca.softwares().get();
+
+// GET (single)
+const software = eca.softwares().get({ id: softwareId });
 ```
 
 ### Triggers
