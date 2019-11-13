@@ -8,12 +8,14 @@ const EnvironmentSet = require('./src/models/_extrahop/EnvironmentSet.model');
 module.exports = class Extrahop {
   constructor(config = {}) {
     // ApplianceSet or EnvironmentSet
-    if ( config instanceof Array ) {
+    if ( config.environments || config.appliances || config instanceof Array ) {
 
-      if ( config[0].hostname && config[0].apikey ) {
+      confg = config.environments || config.appliances || config[0];
+
+      if ( config.hostname && config.apikey ) {
         return new ApplianceSet(config);
       }
-      else if ( config[0].name && config[0].appliances ) {
+      else if ( config.name && config.appliances ) {
         return new EnvironmentSet(config);
       }
 
