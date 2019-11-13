@@ -6,10 +6,10 @@ module.exports = class Response extends BaseObject {
 
   constructor({ request, data, error }) {
     super();
-    this.headers = (request || {}).headers;
-    this.status = (request || {}).statusCode;
+    this.headers = request.headers;
+    this.status = request.statusCode;
     this.success = (this.status + '').startsWith('2');
-    this.data = data || [];
+    this.data = data;
     this.error = error;
   }
 }
