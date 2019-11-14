@@ -16,6 +16,7 @@ const DashboardCtrl = require('../../controllers/Dashboard.controller');
 const DeviceCtrl = require('../../controllers/Device.controller');
 const DeviceGroupCtrl = require('../../controllers/DeviceGroup.controller');
 const LicenseCtrl = require('../../controllers/License.controller');
+const MetricCtrl = require('../../controllers/Metric.controller');
 const RecordCtrl = require('../../controllers/Record.controller');
 const SoftwareCtrl = require('../../controllers/Software.controller');
 const TriggerCtrl = require('../../controllers/Trigger.controller');
@@ -107,6 +108,10 @@ module.exports = class Appliance extends BaseObject {
 
   license() {
     return new LicenseCtrl(this);
+  }
+
+  metrics() {
+    return new MetricCtrl(this);
   }
 
   records() {
@@ -1113,8 +1118,20 @@ module.exports = class Appliance extends BaseObject {
     return this.request.post(`/metrics`, payload);
   }
 
-  getMetricsNextXId(xId) {
-    return this.request.get(`/metrics/next/${xId}`);
+  postMetricSeach(payload) {
+    return this.postMetrics(payload);
+  }
+
+  postMetricsSeach(payload) {
+    return this.postMetrics(payload);
+  }
+
+  getMetricsNext(xid) {
+    return this.request.get(`/metrics/next/${xid}`);
+  }
+
+  getNextMetrics(xid) {
+    return this.getMetricsNext(xid);
   }
 
   postMetricsTotal(payload) {
@@ -1335,6 +1352,10 @@ module.exports = class Appliance extends BaseObject {
 
   postRecordsSearch(payload) {
     return this.request.post(`/records/search`, payload);
+  }
+
+  postRecordSearch(payload) {
+    return this.postRecordsSearch(payload);
   }
 
   // -------------------------------------

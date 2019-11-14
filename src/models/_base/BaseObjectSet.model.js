@@ -10,6 +10,7 @@ const fs = require('fs');
 module.exports = class BaseObjectSet extends Array {
   constructor(baseObjects = []) {
     super();
+    Object.setPrototypeOf(this, BaseObjectSet.prototype);
   }
 
   toString({ format = true } = {}) {
