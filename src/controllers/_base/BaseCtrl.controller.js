@@ -90,18 +90,20 @@ module.exports = class BaseCtrl {
     }
 
     if ( !results.success ) {
-      return this.printError(type);
+      this.printError(type);
+      return results.data;
     }
+    else {
+      const newResults = options.subkey ? results.data[options.subkey] : results.data;
+      const numResults = newResults instanceof Array ? (newResults || []).length : 1;
 
-    const newResults = options.subkey ? results.data[options.subkey] : results.data;
-    const numResults = newResults instanceof Array ? (newResults || []).length : 1;
+      if ( numResults == 0 ) {
+        this.printWarning(type);
+      } else {
+        this.printSuccess(numResults, type);
+      }
 
-    if ( numResults == 0 ) {
-      this.printWarning(type);
-    } else {
-      this.printSuccess(numResults, type);
+      return results.data;
     }
-
-    return results.data;
   }
 }

@@ -4,16 +4,15 @@ const BaseObject = require('../../models/_base/BaseObject.model');
 const Response = require('../../models/_http/Response.model');
 const { Icons } = require('../../constants/Global.constants');
 
-const httpRequest = require('sync-request');
+const SyncRequest = require('sync-request');
 
 module.exports = class Request extends BaseObject {
 
   constructor(hostname, apikey, params = {}) {
     super();
     this.hostname = hostname;
-    // this.apikey = apikey;
     this.url = params.url || `https://${hostname}/api/v1`;
-    this.auth = `ExtraHop apikey=${apikey}`;
+    this.headers = { Authorization: `ExtraHop apikey=${apikey}` };
 
     this.config = {
       cache: params.cache           || 'file',
@@ -25,60 +24,41 @@ module.exports = class Request extends BaseObject {
     };
   }
 
-  buildConfig({ query, body }) {
-    const headers = {
-      'Authorization': this.auth,
-      'Content-Length': body ? Buffer.byteLength(JSON.stringify(body)) : undefined
-    };
+  send({ method, uri, qs, json }) {
+    const headers = this.headers;
+    const config = Object.assign({ headers, qs, json }, this.config);
 
-    return Object.assign({}, this.config, { headers, qs: query, json: body });
-  }
-
-  buildRequest(params = {}) {
-    const { method, uri, query, body } = params;
-    const config = this.buildConfig({ query, body });
-
-    return Object.assign({}, params, { config, url: this.url + uri });
-  }
-
-  send({ method, url, config }) {
-    let request, data, error;
+    let response = {};
 
     try {
-      request = httpRequest(method, url, config);
-      data = JSON.parse(request.getBody('utf8') || {});
+      response = SyncRequest(method, this.url + uri, config);
+      response.data = JSON.parse(response.getBody('utf8'));
     }
-    catch ({ headers, statusCode, body }) {
-      request = { headers, statusCode };
-      error = JSON.parse(body || {});
-      console.error(`${Icons.Error} Error: HTTP ${err.statusCode} - ${error.error_message} (${this.hostname})`);
+    catch (err) {
+      response.error = err;
+      console.log(`${Icons.Error} ${err}`);
     }
 
-    return new Response({ request, data, error });
+    return new Response(response);
   }
 
   get(uri, query) {
-    const request = this.buildRequest({ method: 'GET', uri, query });
-    return this.send(request);
+    return this.send({ method: 'GET', uri, qs: query });
   }
 
   post(uri, body) {
-    const request = this.buildRequest({ method: 'POST', uri, body });
-    return this.send(request);
+    return this.send({ method: 'POST', uri, json: body });
   }
 
   patch(uri, body) {
-    const request = this.buildRequest({ method: 'PATCH', uri, body });
-    return this.send(request);
+    return this.send({ method: 'PATCH', uri, json: body });
   }
 
   put(uri, body) {
-    const request = this.buildRequest({ method: 'PUT', uri, body });
-    return this.send(request);
+    return this.send({ method: 'PUT', uri, json: body });
   }
 
   delete(uri, body) {
-    const request = this.buildRequest({ method: 'DELETE', uri, body });
-    return this.send(request);
+    return this.send({ method: 'DELETE', uri, json: body });
   }
 }
