@@ -66,10 +66,9 @@ module.exports = class MetricCtrl extends BaseCtrl {
 
   searchInit(search = {}) {
     const searchId = Utils.generateId();
-    console.log(JSON.stringify(search,null,2));
     const getMetrics = this.postMetricsSearch(search);
-    console.log(JSON.stringify(getMetrics,null,2));
-    return Object.assign(search, getMetrics.data.stats, { id: searchId })
+
+    return Object.assign(search, getMetrics, { id: searchId })
   }
 
   searchNext(xid) {
@@ -83,12 +82,11 @@ module.exports = class MetricCtrl extends BaseCtrl {
   // -------------------------------------
 
   printSearchInfo(search = {}) {
-    console.info(`------------------------------ SEARCH INFO ------------------------------------`);
+    console.info(`-------------------------- METRIC SEARCH INFO --------------------------------`);
     console.info(`- Search ID (local): ${search.id}`);
-    console.info(`- Search timestamp: ${Utils.parseId(search.id)}`);
-    console.info(`- Search types: ${search.types || 'any'}`);
-    console.info(`- Search limit: ${search.limit}`);
-    console.info(`- Search results: ${search.total}`);
+    console.info(`- Search timestamp: ${search.clock}`);
+    console.info(`- Search types: ${search.metric_category || 'any'}`);
+    console.info(`- Search results: ${search.stats.length}`);
     console.info(`- Search from: ${new Date(search.from)}`);
     console.info(`- Search until: ${new Date(search.until)}`);
     console.info(`-------------------------------------------------------------------------------\n`);
@@ -103,18 +101,18 @@ module.exports = class MetricCtrl extends BaseCtrl {
   // -------------------------------------
 
   postMetricsSearch(search) {
-    return this.appliance.postMetrics(search);
+    return this.process(this.appliance.postMetrics(search), 'metrics');
   }
 
   getNextMetrics(searchXid) {
-    return this.appliance.getNextMetrics(searchXid);
+    return this.process(this.appliance.getNextMetrics(searchXid), 'metrics');
   }
 
   postMetricsTotalSearch(search) {
-    return this.appliance.postMetricsTotal(search);
+    return this.process(this.appliance.postMetricsTotal(search), 'metrics');
   }
 
   postMetricsTotalByObjectSearch(search) {
-    return this.appliance.postMetricsTotalByObject(search);
+    return this.process(this.appliance.postMetricsTotalByObject(search), 'metrics');
   }
 }
