@@ -4,7 +4,7 @@ module.exports = {
         "es6": true,
         "node": true
     },
-    "extends": "plugin:vue/essential",
+    "extends": "eslint:recommended",
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -12,9 +12,6 @@ module.exports = {
     "parserOptions": {
         "ecmaVersion": 2018
     },
-    "plugins": [
-        "vue"
-    ],
     "rules": {
     }
 };
