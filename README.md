@@ -61,27 +61,24 @@ const config = [
 ];
 ```
 
-#### Single Appliance
+#### Example
 ```js
-const eca = new Extrahop(config[0].appliances[0]); // provide Appliance: { hostname, apikey, type }
+const Extrahop = require('extrahop-nodejs');
+
+// Single host: provide Appliance: { hostname, apikey, type }
+const eca = new Extrahop(config[0].appliances[0]); //
+
+// Multiple hosts: provide ApplianceSet: Array[{ ...Appliance }]
+const appliances = new Extrahop(config[0].appliances);
+
+// Single environment: provide Environment{ name, appliances; [...Appliance] }
+const environment = new Extrahop(config.environments[0]);
+
+// Multiple environments; provide EnvironmentSet: Array[{ ...Environment }]
+const environments = new Extrahop(config); //
 ```
 
-#### Multiple Appliances
-```js
-const appliances = new Extrahop(config[0].appliances); // provide ApplianceSet: Array[{ Appliance... }]
-```
-
-#### Single Environment
-```js
-const environment = new Extrahop(config.environments[0]); // provide Environment: { name, appliances }
-```
-
-#### Multiple Environments
-```js
-const environments = new Extrahop(config); // provide EnvironmentSet: Array[{ Environment... }]
-```
-
-#### Configure From File
+#### Example from File
 ```js
 const Extrahop = require('extrahop-nodejs');
 const config = require('./config.json');
@@ -210,6 +207,44 @@ eca.applications().update({ id: application.id }, data);
 eca.applications().delete({ id: application.id })
 ```
 
+### Audit Logs
+#### Defaults
+```js
+// GET (all)
+const auditLogs = eca.auditLogs().get();
+
+// GET (single)
+const auditLog = eca.auditLogs().get({ id: auditLogId });
+
+// POST
+eca.auditLogs().create(auditLog);
+
+// PATCH
+eca.auditLogs().update({ id: auditLog.id }, data);
+
+// DELETE
+eca.auditLogs().delete({ id: auditLog.id })
+```
+
+### Bundles
+#### Defaults
+```js
+// GET (all)
+const bundles = eca.bundles().get();
+
+// GET (single)
+const bundle = eca.bundles().get({ id: bundleId });
+
+// POST
+eca.bundles().create(bundle);
+
+// DELETE
+eca.bundles().delete({ id: bundle.id })
+
+// POST
+eca.bundles().apply({ id: bundle.id });
+```
+
 ### Custom Devices
 #### Defaults
 ```js
@@ -227,6 +262,28 @@ eca.customDevices().update({ id: customDevice.id }, data);
 
 // DELETE
 eca.customDevices().delete({ id: customDevice.id })
+```
+
+### Customizations
+#### Defaults
+```js
+// GET (all)
+const customizations = eca.customizations().get();
+
+// GET (single)
+const customization = eca.customizations().get({ id: customizationId });
+
+// POST (create backup)
+eca.customizations().backup(backupName);
+
+// POST (restore backup)
+eca.customizations().restore({ id: customization.id });
+
+// POST (download backup)
+eca.customizations().save({ id: customization.id });
+
+// DELETE
+eca.customizations().delete({ id: customization.id })
 ```
 
 ### Dashboards
