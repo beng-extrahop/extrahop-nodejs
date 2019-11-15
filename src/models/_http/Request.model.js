@@ -46,12 +46,12 @@ module.exports = class Request extends BaseObject {
 
     try {
       request = httpRequest(method, url, config);
-      data = JSON.parse(request.getBody('utf8'));
+      data = JSON.parse(request.getBody('utf8') || {});
     }
     catch ({ headers, statusCode, body }) {
       request = { headers, statusCode };
-      error = JSON.parse(body);
-      console.error(`${Icons.Error} Error: HTTP ${statusCode} - ${error.error_message} (${this.hostname})`);
+      error = JSON.parse(body || {});
+      console.error(`${Icons.Error} Error: HTTP ${err.statusCode} - ${error.error_message} (${this.hostname})`);
     }
 
     return new Response({ request, data, error });
