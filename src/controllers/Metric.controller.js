@@ -14,27 +14,6 @@ module.exports = class MetricCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Save Functions
-  // -------------------------------------
-
-  saveToCSV(search = {}) {
-    let offset = 0, limit = 10000;
-
-    search.db.find({}).exec(function (err, results) {
-      if ( err ) {
-        console.error(`${Icons.Error} ${err}`);
-      }
-      else if ( results.length == 0 ) {
-        console.warn(`${Icons.Warn} No results found in database.`);
-      }
-      else {
-        (new MetricSet(results)).writeToCSV({ filename: `metrics-${search.id}.csv` });
-        console.info(`${Icons.Success} Saved ${results.length} metrics to CSV: metrics-${search.id}.csv`);
-      }
-    });
-  }
-
-  // -------------------------------------
   // Search Functions
   // -------------------------------------
 
@@ -52,7 +31,7 @@ module.exports = class MetricCtrl extends BaseCtrl {
       db.insert(metrics);
 
       console.info(`[${++pageAt}/${numPages}] Processed ${(count += metrics.length)} results, awaiting next page...`);
-      metrics = this.searchNext(search.xid);
+      metrics = this.searchNext(search);
     }
 
     if ( count == search.total ) {
@@ -64,55 +43,90 @@ module.exports = class MetricCtrl extends BaseCtrl {
     return Object.assign(search, { db, metrics });
   }
 
-  searchInit(search = {}) {
+  searchInit(search) {
     const searchId = Utils.generateId();
-    const getMetrics = this.postMetricsSearch(search);
+    const getMetrics = this.get(search);
 
-    return Object.assign(search, getMetrics, { id: searchId })
+    return Object.assign(search, getMetrics, { id: searchId, total: getMetrics.stats.length })
   }
 
-  searchNext(xid) {
-    const getMetrics = this.getNextMetrics(xid);
+  searchNext(search) {
+    const getMetrics = this.getNext(search);
 
     return getMetrics.data ? getMetrics.data.stats : [];
   }
 
   // -------------------------------------
-  // Utility Functions
+  // Defaults
   // -------------------------------------
 
-  printSearchInfo(search = {}) {
-    console.info(`-------------------------- METRIC SEARCH INFO --------------------------------`);
-    console.info(`- Search ID (local): ${search.id}`);
-    console.info(`- Search timestamp: ${search.clock}`);
-    console.info(`- Search types: ${search.metric_category || 'any'}`);
-    console.info(`- Search results: ${search.stats.length}`);
-    console.info(`- Search from: ${new Date(search.from)}`);
-    console.info(`- Search until: ${new Date(search.until)}`);
-    console.info(`-------------------------------------------------------------------------------\n`);
+  get(search) {
+    return this.postMetrics(search);
   }
 
-  getPageCount(total = 1, limit = 1) {
-    return (total % limit) == 0 ? total / limit : Math.floor(total / limit) + 1;
+  getNext(search) {
+    return this.postMetrics(search);
+  }
+
+  total(search) {
+    return this.postMetricsTotal(search);
+  }
+
+  totalByObject(search) {
+    return this.postMetricsTotalByObject(search);
   }
 
   // -------------------------------------
   // API Functions
   // -------------------------------------
 
-  postMetricsSearch(search) {
+  postMetrics(search) {
     return this.process(this.appliance.postMetrics(search), 'metrics');
   }
 
-  getNextMetrics(searchXid) {
-    return this.process(this.appliance.getNextMetrics(searchXid), 'metrics');
+  getMetricsNext(search) {
+    return this.process(this.appliance.getNextMetrics(search.xid), 'metrics');
   }
 
-  postMetricsTotalSearch(search) {
+  postMetricsTotal(search) {
     return this.process(this.appliance.postMetricsTotal(search), 'metrics');
   }
 
-  postMetricsTotalByObjectSearch(search) {
+  postMetricsTotalByObject(search) {
     return this.process(this.appliance.postMetricsTotalByObject(search), 'metrics');
+  }
+
+  // -------------------------------------
+  // Utility Functions
+  // -------------------------------------
+
+  getPageCount(total = 1, limit = 1) {
+    return (total % limit) == 0 ? total / limit : Math.floor(total / limit) + 1;
+  }
+
+  printSearchInfo(search = {}) {
+    console.info(`-------------------------- METRIC SEARCH INFO --------------------------------`);
+    console.info(`- Search ID (local): ${search.id}`);
+    console.info(`- Search timestamp: ${search.clock}`);
+    console.info(`- Search types: ${search.metric_category || 'any'}`);
+    console.info(`- Search results: ${search.total}`);
+    console.info(`- Search from: ${new Date(search.from)}`);
+    console.info(`- Search until: ${new Date(search.until)}`);
+    console.info(`-------------------------------------------------------------------------------\n`);
+  }
+
+  saveToCSV(search = {}) {
+    search.db.find({}).exec(function (err, results) {
+      if ( err ) {
+        console.error(`${Icons.Error} ${err}`);
+      }
+      else if ( results.length == 0 ) {
+        console.warn(`${Icons.Warn} No results found in database.`);
+      }
+      else {
+        (new MetricSet(results)).writeToCSV({ filename: `metrics-${search.id}.csv` });
+        console.info(`${Icons.Success} Saved ${results.length} metrics to CSV: metrics-${search.id}.csv`);
+      }
+    });
   }
 }
