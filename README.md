@@ -68,13 +68,13 @@ const Extrahop = require('extrahop-nodejs');
 // Single host: provide Appliance: { hostname, apikey, type }
 const eca = new Extrahop(config[0].appliances[0]); //
 
-// Multiple hosts: provide ApplianceSet: Array[{ ...Appliance }]
+// Multiple hosts: provide ApplianceSet: Array[...Appliance]
 const appliances = new Extrahop(config[0].appliances);
 
-// Single environment: provide Environment{ name, appliances; [...Appliance] }
+// Single environment: provide Environment{ name, appliances: [...Appliance] }
 const environment = new Extrahop(config.environments[0]);
 
-// Multiple environments; provide EnvironmentSet: Array[{ ...Environment }]
+// Multiple environments; provide EnvironmentSet: Array[...Environment]
 const environments = new Extrahop(config); //
 ```
 
