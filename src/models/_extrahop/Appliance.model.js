@@ -13,6 +13,7 @@ const ApplianceCtrl = require('../../controllers/Appliance.controller');
 const ApplicationCtrl = require('../../controllers/Application.controller');
 const AuditLogCtrl = require('../../controllers/AuditLog.controller');
 const BundleCtrl = require('../../controllers/Bundle.controller');
+const CustomizationCtrl = require('../../controllers/Customization.controller');
 const CustomDeviceCtrl = require('../../controllers/CustomDevice.controller');
 const DashboardCtrl = require('../../controllers/Dashboard.controller');
 const DeviceCtrl = require('../../controllers/Device.controller');
@@ -98,6 +99,10 @@ module.exports = class Appliance extends BaseObject {
 
   bundles() {
     return new BundleCtrl(this);
+  }
+
+  customizations() {
+    return new CustomizationCtrl(this);
   }
 
   customDevices() {
