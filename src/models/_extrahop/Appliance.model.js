@@ -11,6 +11,7 @@ const AnalysisPriorityCtrl = require('../../controllers/AnalysisPriority.control
 const ApikeyCtrl = require('../../controllers/Apikey.controller');
 const ApplianceCtrl = require('../../controllers/Appliance.controller');
 const ApplicationCtrl = require('../../controllers/Application.controller');
+const AuditLogCtrl = require('../../controllers/AuditLog.controller');
 const CustomDeviceCtrl = require('../../controllers/CustomDevice.controller');
 const DashboardCtrl = require('../../controllers/Dashboard.controller');
 const DeviceCtrl = require('../../controllers/Device.controller');
@@ -74,6 +75,10 @@ module.exports = class Appliance extends BaseObject {
     return new AlertCtrl(this);
   }
 
+  analysisPriority() {
+    return new AnalysisPriorityCtrl(this);
+  }
+
   apikeys() {
     return new ApikeyCtrl(this);
   }
@@ -86,8 +91,8 @@ module.exports = class Appliance extends BaseObject {
     return new ApplicationCtrl(this);
   }
 
-  analysisPriority() {
-    return new AnalysisPriorityCtrl(this);
+  auditLogs() {
+    return new AuditLogCtrl(this);
   }
 
   customDevices() {
