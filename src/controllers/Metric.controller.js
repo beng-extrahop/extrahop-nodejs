@@ -97,7 +97,7 @@ module.exports = class MetricCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // APIFunctions
+  // API Functions
   // -------------------------------------
 
   postMetricsSearch(search) {

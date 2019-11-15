@@ -22,20 +22,20 @@ module.exports = class CustomizationCtrl extends BaseCtrl {
     return new CustomizationStatus(this.getCustomizationStatus());
   }
 
-  create(data) {
-    return this.postCustomization(this.build(data));
-  }
-
-  update(customization, data) {
-    return this.patchCustomization(customization, data);
-  }
-
   delete(customization) {
     return this.deleteCustomization(customization);
   }
 
-  apply(customization) {
+  backup(name) {
+    return this.postCustomization(name);
+  }
+
+  restore(customization) {
     return this.postCustomizationApply(customization);
+  }
+
+  save(customization) {
+    return this.postCustomizationDownload(customization);
   }
 
   // -------------------------------------
@@ -50,8 +50,8 @@ module.exports = class CustomizationCtrl extends BaseCtrl {
     return this.process(this.appliance.getCustomization(customization.id), 'customization');
   }
 
-  postCustomization(customization) {
-    return this.process(this.appliance.postCustomization(customization), 'customization');
+  postCustomization(name) {
+    return this.process(this.appliance.postCustomization({ name }), 'customization');
   }
 
   deleteCustomization(customization) {

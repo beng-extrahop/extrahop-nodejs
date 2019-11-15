@@ -54,7 +54,7 @@ module.exports = class BundleCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // APply Functions
+  // Apply Functions
   // -------------------------------------
 
   postBundleApply(bundle) {
