@@ -8,10 +8,6 @@ const fastCSV = require('fast-csv');
 const fs = require('fs');
 
 module.exports = class BaseObjectSet extends Array {
-  constructor(baseObjects = []) {
-    super();
-    Object.setPrototypeOf(this, BaseObjectSet.prototype);
-  }
 
   toString({ format = true } = {}) {
     return JSON.stringify(this, null, format ? 2 : null);
@@ -41,25 +37,5 @@ module.exports = class BaseObjectSet extends Array {
 
   generateId(params) {
     return Utils.generateId(params);
-  }
-
-  // -------------------------------------
-  // Array Defaults
-  // -------------------------------------
-
-  * [Symbol.iterator] () {
-    let position = 0;
-
-    while (position < this.length) {
-      if (position === this.length) {
-        return "Done!"
-      } else {
-        yield `${this[position++]} is the Object at position ${position}`;
-      }
-    }
-  }
-
-  static get [Symbol.species] () {
-    return Array;
   }
 }

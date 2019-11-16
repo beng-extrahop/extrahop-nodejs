@@ -17,7 +17,7 @@ module.exports = class DashboardCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(dashboard) {
-    return dashboard ? new Dashboard(this.getDashboard(dashboard)) : new DashboardSet(this.getDashboards());
+    return dashboard ? this.getDashboard(dashboard) : this.getDashboards();
   }
 
   getSharing(dashboard) {
@@ -129,11 +129,13 @@ module.exports = class DashboardCtrl extends BaseCtrl {
   // -------------------------------------
 
   getDashboards() {
-    return this.process(this.appliance.getDashboards(), 'dashboards');
+    const results = this.process(this.appliance.getDashboards(), 'dashboards');
+    return new DashboardSet(...results.map(x => new Dashboard(x)));
   }
 
   getDashboard(dashboard) {
-    return this.process(this.appliance.getDashboard(dashboard.id), 'dashboard');
+    const results = this.process(this.appliance.getDashboard(dashboard.id), 'dashboard');
+    return new Dashboard(results);
   }
 
   deleteDashboard(dashboard) {

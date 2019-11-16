@@ -4,7 +4,7 @@ const BaseObjectSet = require('../../models/_base/BaseObjectSet.model');
 const Software = require('../../models/software/Software.model');
 
 module.exports = class SoftwareSet extends BaseObjectSet {
-  constructor(softwares = []) {
+  constructor(...softwares) {
     super(softwares);
     softwares.forEach(software => this.push(new Software(software)));
   }
