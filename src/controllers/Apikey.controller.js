@@ -27,7 +27,7 @@ module.exports = class ApikeyCtrl extends BaseCtrl {
   // -------------------------------------
 
   getApikeys() {
-    return this.process(this.appliance.getApikeys(), 'API key');
+    return this.process(this.appliance.getApikeys(), 'API keys');
   }
 
   getApikey(apikey) {

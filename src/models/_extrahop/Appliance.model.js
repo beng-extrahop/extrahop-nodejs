@@ -94,7 +94,7 @@ module.exports = class Appliance extends BaseObject {
     return new ApplicationCtrl(this);
   }
 
-  auditLogs() {
+  auditLog() {
     return new AuditLogCtrl(this);
   }
 

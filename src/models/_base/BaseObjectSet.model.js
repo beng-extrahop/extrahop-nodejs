@@ -9,6 +9,10 @@ const fs = require('fs');
 
 module.exports = class BaseObjectSet extends Array {
 
+  constructor(...baseObjects) {
+    super(...baseObjects);
+  }
+
   toString({ format = true } = {}) {
     return JSON.stringify(this, null, format ? 2 : null);
   }

@@ -1,20 +1,32 @@
 // DeviceGroup.controller.js
 
+const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
 const DeviceGroup = require('../models/deviceGroup/DeviceGroup.model')
+const DeviceGroupSet = require('../models/deviceGroup/DeviceGroupSet.model')
 const Strings = require('../constants/Global.constants');
 
-module.exports = class DeviceGroupCtrl {
+module.exports = class DeviceGroupCtrl extends BaseCtrl {
 
 	constructor(appliance) {
-		this.appliance = appliance;
+    super(appliance);
 	}
+
+  // -------------------------------------
+  // Defaults
+  // -------------------------------------
+
+  get(deviceGroup) {
+    return deviceGroup ? new DeviceGroup(this.getAlert(deviceGroup)) : new DeviceGroupSet(...this.getDeviceGroups());
+  }
+
 
   // -------------------------------------
   // Get DeviceGroups
   // -------------------------------------
 
+
 	findAll() {
-		return this.appliance.getDeviceGroups();
+    return this.process(this.appliance.getDeviceGroups(), 'device group');
 	}
 
 	findById(id, filter = 'equals') {
@@ -111,30 +123,30 @@ module.exports = class DeviceGroupCtrl {
   // -------------------------------------
 
 	getDeviceGroup(deviceGroupID) {
-		return this.appliance.getDeviceGroup(deviceGroupID);
+    return this.process(this.appliance.getDeviceGroup(deviceGroupID), 'device group');
 	}
 
 	getDeviceGroups() {
-		return this.appliance.getDeviceGroups();
+    return this.process(this.appliance.getDeviceGroups(), 'device groups');
 	}
 
 	postDeviceGroup(deviceGroup) {
-		return this.appliance.postDeviceGroup(deviceGroup);
+    return this.process(this.appliance.postDeviceGroup(deviceGroup), 'device group');
 	}
 
 	deleteDeviceGroup(deviceGroupID) {
-		return this.appliance.postDeviceGroup(deviceGroupID);
+    return this.process(this.appliance.postDeviceGroup(deviceGroupID), 'device group');
 	}
 
 	patchDeviceGroup(deviceGroup, payload) {
-		return this.appliance.patchDeviceGroup(deviceGroup.id, payload);
+    return this.process(this.appliance.patchDeviceGroup(deviceGroup.id, payload), 'device group');
 	}
 
 	getDeviceGroupDevices(deviceGroupID) {
-		return this.appliance.getDeviceGroupDevices(deviceGroupID);
+    return this.process(this.appliance.getDeviceGroupDevices(deviceGroupID), 'device group devices');
 	}
 
 	postDeviceGroupDevice(deviceGroupID, deviceID) {
-			return this.appliance.postDeviceGroupDevice(deviceGroupID, deviceID);
+    return this.process(this.appliance.postDeviceGroupDevice(deviceGroupID, deviceID), 'device group devices');
 	}
 }

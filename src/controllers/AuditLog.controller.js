@@ -14,15 +14,15 @@ module.exports = class AuditLogCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(params) {
-    return new AuditLogSet(...this.getAuditLogs(params));
+    return new AuditLogSet(...this.getAuditLog(params));
   }
 
   // -------------------------------------
   // Base Functions
   // -------------------------------------
 
-  getAuditLogs(params = {}) {
-    return this.process(this.appliance.getAuditLogs(params), 'audit log');
+  getAuditLog(params = {}) {
+    return this.process(this.appliance.getAuditLog(params), 'audit logs');
   }
 
 }
