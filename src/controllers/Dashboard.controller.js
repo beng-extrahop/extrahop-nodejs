@@ -5,9 +5,9 @@ const Dashboard = require('../models/dashboard/Dashboard.model');
 const DashboardSet = require('../models/dashboard/DashboardSet.model');
 const DashboardSharing = require('../models/dashboard/DashboardSharing.model');
 const ReportSet = require('../models/report/ReportSet.model');
-const Strings = require('../constants/Global.constants');
 
 module.exports = class DashboardCtrl extends BaseCtrl {
+
 	constructor(appliance) {
 		super(appliance);
 	}
@@ -17,7 +17,7 @@ module.exports = class DashboardCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(dashboard) {
-    return dashboard ? this.getDashboard(dashboard) : this.getDashboards();
+    return dashboard ? new Dashboard(this.getDashboard(dashboard)) : new DashboardSet(...this.getDashboards());
   }
 
   getSharing(dashboard) {
@@ -25,7 +25,7 @@ module.exports = class DashboardCtrl extends BaseCtrl {
   }
 
   getReports(dashboard) {
-    return new ReportSet(this.getDashboardReports(dashboard));
+    return new ReportSet(...this.getDashboardReports(dashboard));
   }
 
   create(data) {
@@ -129,13 +129,11 @@ module.exports = class DashboardCtrl extends BaseCtrl {
   // -------------------------------------
 
   getDashboards() {
-    const results = this.process(this.appliance.getDashboards(), 'dashboards');
-    return new DashboardSet(...results.map(x => new Dashboard(x)));
+    return this.process(this.appliance.getDashboards(), 'dashboards').map(x => new Dashboard(x));
   }
 
   getDashboard(dashboard) {
-    const results = this.process(this.appliance.getDashboard(dashboard.id), 'dashboard');
-    return new Dashboard(results);
+    return this.process(this.appliance.getDashboard(dashboard.id), 'dashboard');
   }
 
   deleteDashboard(dashboard) {

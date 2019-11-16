@@ -1,11 +1,15 @@
-// Application.model.js
+// AnalysisPriority.model.js
 
 const BaseObject = require('../../models/_base/BaseObject.model');
 
-module.exports = class Application extends BaseObject {
-  constructor(application = {}) {
+module.exports = class AnalysisPriority extends BaseObject {
+
+  constructor(analysisPriority = {}) {
     super();
-    /* TODO */
-    Object.keys(application).forEach(key => this[key] = application[key]);
+    this.advanced_rules = analysisPriority.advanced_rules;
+    this.autofill_advanced = analysisPriority.autofill_advanced;
+    this.autofill_standard = analysisPriority.autofill_standard;
+    this.standard_rules = analysisPriority.standard_rules;
   }
+
 }

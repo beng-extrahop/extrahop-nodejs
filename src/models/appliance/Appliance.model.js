@@ -1,11 +1,11 @@
-// Application.model.js
+// Appliance.model.js
 
 const BaseObject = require('../../models/_base/BaseObject.model');
 
-module.exports = class Application extends BaseObject {
-  constructor(application = {}) {
+module.exports = class Appliance extends BaseObject {
+  constructor(appliance = {}) {
     super();
     /* TODO */
-    Object.keys(application).forEach(key => this[key] = application[key]);
+    Object.keys(appliance).forEach(key => this[key] = appliance[key]);
   }
 }

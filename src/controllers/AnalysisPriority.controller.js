@@ -2,8 +2,10 @@
 
 const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
 const AnalysisPriority = require('../models/analysisPriority/AnalysisPriority.model');
+const AnalysisPriorityManager = require('../models/analysisPriority/AnalysisPriorityManager.model');
 
 module.exports = class AnalysisPriorityCtrl extends BaseCtrl {
+
   constructor(appliance) {
     super(appliance);
   }
@@ -17,7 +19,7 @@ module.exports = class AnalysisPriorityCtrl extends BaseCtrl {
   }
 
   getManager() {
-    return this.getAnalysisPriorityManager();
+    return new AnalysisPriorityManager(this.getAnalysisPriorityManager());
   }
 
   update(appliance, data) {

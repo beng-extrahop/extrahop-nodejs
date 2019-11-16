@@ -5,6 +5,7 @@ const Bundle = require('../models/bundle/Bundle.model');
 const BundleSet = require('../models/bundle/BundleSet.model');
 
 module.exports = class BundleCtrl extends BaseCtrl {
+
 	constructor(appliance) {
 		super(appliance);
 	}
@@ -14,7 +15,7 @@ module.exports = class BundleCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(bundle) {
-    return bundle ? new Bundle(this.getBundle(bundle)) : new BundleSet(this.getBundles());
+    return bundle ? new Bundle(this.getBundle(bundle)) : new BundleSet(...this.getBundles());
   }
 
   create(data) {

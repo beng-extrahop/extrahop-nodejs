@@ -5,12 +5,13 @@ const Software = require('../models/software/Software.model');
 const SoftwareSet = require('../models/software/SoftwareSet.model');
 
 module.exports = class SoftwareCtrl extends BaseCtrl {
+
 	constructor(appliance) {
 		super(appliance);
 	}
 
   get(software) {
-    return software ? new Software(this.getSoftware(software)) : new SoftwareSet(this.getSoftwares());
+    return software ? new Software(this.getSoftware(software)) : new SoftwareSet(...this.getSoftwares());
   }
 
   // -------------------------------------

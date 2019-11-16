@@ -6,6 +6,7 @@ const CustomizationSet = require('../models/customization/CustomizationSet.model
 const CustomizationStatus = require('../models/customization/CustomizationStatus.model');
 
 module.exports = class CustomizationCtrl extends BaseCtrl {
+
 	constructor(appliance) {
 		super(appliance);
 	}
@@ -15,7 +16,7 @@ module.exports = class CustomizationCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(customization) {
-    return customization ? new Customization(this.getCustomization(customization)) : new CustomizationSet(this.getCustomizations());
+    return customization ? new Customization(this.getCustomization(customization)) : new CustomizationSet(...this.getCustomizations());
   }
 
   getStatus() {

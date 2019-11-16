@@ -6,15 +6,15 @@ const Environment = require('./src/models/_extrahop/Environment.model');
 const EnvironmentSet = require('./src/models/_extrahop/EnvironmentSet.model');
 
 module.exports = class Extrahop {
-  constructor(config = {}) {
 
+  constructor(config) {
     // ApplianceSet or EnvironmentSet
     if ( config instanceof Array ) {
       if ( config[0].hostname && config[0].apikey ) {
-        return config.length > 1 ? new ApplianceSet(config) : new Appliance(config[0]);
+        return config.length > 1 ? new ApplianceSet(...config) : new Appliance(config[0]);
       }
       else if ( config[0].name && config[0].appliances ) {
-        return config.length > 1 ? new EnvironmentSet(config) : new Environment(config[0]);
+        return config.length > 1 ? new EnvironmentSet(...config) : new Environment(config[0]);
       }
     }
 
@@ -27,6 +27,6 @@ module.exports = class Extrahop {
         return new Environment(config);
       }
     }
-
   }
+
 }

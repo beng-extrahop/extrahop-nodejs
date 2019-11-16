@@ -9,6 +9,7 @@ const { Config, Icons } = require('../constants/Global.constants');
 const Database = require('nedb');
 
 module.exports = class MetricCtrl extends BaseCtrl {
+
   constructor(appliance = {}) {
     super(appliance);
   }
@@ -61,11 +62,11 @@ module.exports = class MetricCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(search) {
-    return this.postMetrics(search);
+    return new MetricSet(...this.postMetrics(search));
   }
 
   getNext(search) {
-    return this.postMetrics(search);
+    return new MetricSet(...this.postMetrics(search));
   }
 
   total(search) {

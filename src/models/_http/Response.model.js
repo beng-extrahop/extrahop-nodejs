@@ -1,7 +1,6 @@
 // Response.model.js
 
 const BaseObject = require('../../models/_base/BaseObject.model');
-const { Icons } = require('../../constants/Global.constants');
 
 module.exports = class Response extends BaseObject {
   constructor(response = {}) {

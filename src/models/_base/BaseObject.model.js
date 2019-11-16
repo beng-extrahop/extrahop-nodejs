@@ -1,13 +1,12 @@
 // BaseObject.model.js
 
+const { Config } = require('../../constants/Global.constants');
+
 const { parse } = require('json2csv');
 const fastCSV = require('fast-csv');
 const fs = require('fs');
 
-module.exports = class BaseObject extends Object {
-  constructor(baseObject = {}) {
-    super();
-  }
+module.exports = class BaseObject {
 
   toString({ format = true } = {}) {
     return JSON.stringify(this, null, format ? 2 : null);

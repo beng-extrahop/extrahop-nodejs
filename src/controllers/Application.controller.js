@@ -8,12 +8,13 @@ const AlertSet = require('../models/alert/AlertSet.model');
 const DashboardSet = require('../models/dashboard/DashboardSet.model');
 
 module.exports = class ApplicationCtrl extends BaseCtrl {
+
   constructor(appliance) {
     super(appliance);
   }
 
   get(application) {
-    return application ? new Application(this.getApplication(application)) : new ApplicationSet(this.getApplications());
+    return application ? new Application(this.getApplication(application)) : new ApplicationSet(...this.getApplications());
   }
 
   getActivity(application) {
@@ -21,11 +22,11 @@ module.exports = class ApplicationCtrl extends BaseCtrl {
   }
 
   getAlerts(application) {
-    return new AlertSet(this.getApplicationAlerts(application));
+    return new AlertSet(...this.getApplicationAlerts(application));
   }
 
   getDashboards(application) {
-    return new DashboardSet(this.getApplicationDashboards(application));
+    return new DashboardSet(...this.getApplicationDashboards(application));
   }
 
   create(data) {

@@ -25,8 +25,9 @@ const SoftwareCtrl = require('../../controllers/Software.controller');
 const TriggerCtrl = require('../../controllers/Trigger.controller');
 
 module.exports = class Appliance extends BaseObject {
+
   constructor(appliance = {}) {
-    super(appliance);
+    super();
     this.host = appliance.host || appliance.hostname;
     this.hostname = this.host;
     this.apikey = appliance.apikey;
@@ -1708,4 +1709,5 @@ module.exports = class Appliance extends BaseObject {
   postWhitelistDevices(payload) {
     return this.request.post(`/whitelist/devices`, payload);
   }
+
 }

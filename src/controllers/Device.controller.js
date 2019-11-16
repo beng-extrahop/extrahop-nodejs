@@ -13,9 +13,8 @@ const SoftwareSet = require('../models/software/SoftwareSet.model');
 const TagSet = require('../models/tag/TagSet.model');
 const TriggerSet = require('../models/trigger/TriggerSet.model');
 
-const { Search, Config, Icons } = require('../constants/Global.constants');
-
 module.exports = class DeviceCtrl extends BaseCtrl {
+
   constructor(appliance) {
     super(appliance);
   }
@@ -25,7 +24,7 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(device) {
-    return device ? new Device(this.getDevice(device)) : new DeviceSet(this.getDevices());
+    return device ? new Device(this.getDevice(device)) : new DeviceSet(...this.getDevices());
   }
 
   getActivity(device) {
@@ -33,31 +32,31 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   getAlerts(device) {
-    return new AlertSet(this.getDeviceAlerts(device));
+    return new AlertSet(...this.getDeviceAlerts(device));
   }
 
   getDashboards(device) {
-    return new DashboardSet(this.getDeviceDashboards(device));
+    return new DashboardSet(...this.getDeviceDashboards(device));
   }
 
   getDeviceGroups(device) {
-    return new DeviceGroupSet(this.getDeviceDeviceGroups(device));
+    return new DeviceGroupSet(...this.getDeviceDeviceGroups(device));
   }
 
   getSoftware(device) {
-    return new SoftwareSet(this.getDeviceSoftware(device));
+    return new SoftwareSet(...this.getDeviceSoftware(device));
   }
 
   getTags(device) {
-    return new TagSet(this.getDeviceTags(device));
+    return new TagSet(...this.getDeviceTags(device));
   }
 
   getTriggers(device) {
-    return new TriggerSet(this.getDeviceTriggers(device));
+    return new TriggerSet(...this.getDeviceTriggers(device));
   }
 
   search(options = {}) {
-    return new DeviceSet(this.searchDevices(new DeviceSearch(options)));
+    return new DeviceSet(...this.searchDevices(new DeviceSearch(options)));
   }
 
   update(device, data) {

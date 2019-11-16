@@ -7,6 +7,7 @@ const ActivityMapQuery = require('../models/activityMap/ActivityMapQuery.model')
 const ActivityMapSharing = require('../models/activityMap/ActivityMapSharing.model');
 
 module.exports = class ActivityMapCtrl extends BaseCtrl {
+
   constructor(appliance) {
     super(appliance);
   }
@@ -16,7 +17,7 @@ module.exports = class ActivityMapCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(activityMap) {
-    return activityMap ? new ActivityMap(this.getActivityMap(activityMap)) : new ActivityMapSet(this.getActivityMaps());
+    return activityMap ? new ActivityMap(this.getActivityMap(activityMap)) : new ActivityMapSet(...this.getActivityMaps());
   }
 
   getSharing(activityMap) {
@@ -86,7 +87,7 @@ module.exports = class ActivityMapCtrl extends BaseCtrl {
   // -------------------------------------
 
   getActivityMapSharing(activityMap) {
-    return this.process(this.appliance.getActivityMapSharing(activityMap.id), 'activity map');
+    return new ActivityMapSharing(this.process(this.appliance.getActivityMapSharing(activityMap.id), 'activity map'));
   }
 
   patchActivityMapSharing(activityMap, sharing) {

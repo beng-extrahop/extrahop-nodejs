@@ -1,31 +1,34 @@
 // Environment.model.js
 
-const BaseObject = require('../../models/_base/BaseObjectSet.model');
+const BaseObject = require('../../models/_base/BaseObject.model');
+const Appliance = require('../../models/_extrahop/Appliance.model');
 const ApplianceSet = require('../../models/_extrahop/ApplianceSet.model');
-const { Icons, Platforms, Types } = require('../../constants/Global.constants');
+const { Icons, Platforms } = require('../../constants/Global.constants');
 
 module.exports = class Environment extends BaseObject {
+
   constructor(environment = {}) {
     super();
     this.name = environment.name;
-    this.appliances = new ApplianceSet(environment.appliances);
+    this.appliances = environment.appliances;
   }
 
   get({ type, platform, hostname }) {
-    const appliances = this.appliances.filter(x => x.type == type || x.platform == platform);
-
     if ( hostname ) {
-      return appliances.find(x => [x.hostname, x.host].includes(hostname));
+      return new ApplianceSet(...this.appliances.find(x => [x.hostname, x.host].includes(hostname)));
     }
-    else if ( type == 'ECA' ) {
-      if ( appliances.length > 1 ) {
-        console.warn(`${Icons.Warn} Multiple ECAs detected. Using ${appliances[0].hostname}`);
+
+    if ( type == 'ECA' ) {
+      const ecas = this.appliances.filter(x => x.type == type || x.platform == platform);
+
+      if (ecas.length > 1 ) {
+        console.warn(`${Icons.Warn} Multiple ECAs detected. Using host: ${ecas[0].hostname}`);
       }
-      return appliances[0];
+
+      return new Appliance(ecas[0]);
     }
-    else {
-      return appliances;
-    }
+
+    return new ApplianceSet(...this.appliances.filter(x => x.type == type || x.platform == platform));
   }
 
   eca(hostname) {

@@ -4,6 +4,7 @@ const Trigger = require('../models/trigger/Trigger.model')
 const Strings = require('../constants/Global.constants');
 
 module.exports = class TriggerCtrl {
+
 	constructor(appliance) {
 		this.appliance = appliance;
 	}

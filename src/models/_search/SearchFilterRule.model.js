@@ -3,6 +3,7 @@
 const BaseObject = require('../../models/_base/BaseObject.model');
 
 module.exports = class SearchFilterRule extends BaseObject {
+
   constructor(rule = {}) {
     super();
 
@@ -14,4 +15,5 @@ module.exports = class SearchFilterRule extends BaseObject {
     this.operator = operator;
     this.operand = useAsOperand.includes('~') ? { is_regex: true, value: useAsOperand } : useAsOperand;
   }
+
 }

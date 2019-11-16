@@ -5,6 +5,7 @@ const CustomDevice = require('../models/customDevice/CustomDevice.model');
 const CustomDeviceSet = require('../models/customDevice/CustomDeviceSet.model');
 
 module.exports = class CustomDeviceCtrl extends BaseCtrl {
+
   constructor(appliance) {
     super(appliance);
   }
@@ -14,7 +15,7 @@ module.exports = class CustomDeviceCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(customDevice) {
-    return customDevice ? new CustomDevice(this.getCustomDevice(customDevice)) : new CustomDeviceSet(this.getCustomDevices());
+    return customDevice ? new CustomDevice(this.getCustomDevice(customDevice)) : new CustomDeviceSet(...this.getCustomDevices());
   }
 
   getCriteria(customDevice) {

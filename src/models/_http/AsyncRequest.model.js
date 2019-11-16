@@ -4,10 +4,10 @@ const Response = require('../../models/_http/AxiosRsp.model');
 const Axios = require('axios');
 
 module.exports = class Request {
-  constructor(hostname, apikey, params) {
+  constructor(hostname, apikey, params = {}) {
     this.hostname = hostname;
     this.apikey = apikey;
-    this.url = `https://${hostname}/api/v1`;
+    this.url = params.url || `https://${hostname}/api/v1`;
     this.headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json; charset=UTF-8',

@@ -1,15 +1,16 @@
-// ApplicationSet.model.js
+// ApplianceSet.model.js
 
 const BaseObjectSet = require('../../models/_base/BaseObjectSet.model');
-const Application = require('../../models/application/Application.model');
+const Appliance = require('../../models/appliance/Appliance.model');
 
-module.exports = class ApplicationSet extends BaseObjectSet {
-  constructor(applications = []) {
-    super(applications);
-    applications.forEach(application => this.push(new Application(application)));
+module.exports = class ApplianceSet extends BaseObjectSet {
+
+  constructor(...appliances) {
+    super(...appliances.map(appliance => new Appliance(appliance)));
   }
 
-  writeToCSV({ filename = `applications-${this.generateId()}.csv`, subkey }) {
+  writeToCSV({ filename = `appliances-${this.generateId()}.csv`, subkey }) {
     super.writeToCSV({ filename, subkey });
   }
+
 }

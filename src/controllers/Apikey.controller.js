@@ -5,6 +5,7 @@ const Apikey = require('../models/apikey/Apikey.model');
 const ApikeySet = require('../models/apikey/ApikeySet.model');
 
 module.exports = class ApikeyCtrl extends BaseCtrl {
+
 	constructor(appliance) {
 		super(appliance);
 	}
@@ -14,7 +15,7 @@ module.exports = class ApikeyCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(apikey) {
-    return apikey ? new Apikey(this.getApikey(apikey)) : new ApikeySet(this.getApikeys());
+    return apikey ? new Apikey(this.getApikey(apikey)) : new ApikeySet(...this.getApikeys());
   }
 
   set(password) {

@@ -9,6 +9,7 @@ const { Config, Icons } = require('../constants/Global.constants');
 const Database = require('nedb');
 
 module.exports = class RecordCtrl extends BaseCtrl {
+
   constructor(appliance = {}) {
     super(appliance);
   }
