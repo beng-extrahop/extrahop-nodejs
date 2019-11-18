@@ -14,7 +14,7 @@ module.exports = class AnalysisPriorityCtrl extends BaseCtrl {
   // Defaults
   // -------------------------------------
 
-  get(appliance = this.appliance) {
+  get(appliance = { id: 0 }) {
     return new AnalysisPriority(this.getAnalysisPriority(appliance));
   }
 

@@ -15,7 +15,7 @@ module.exports = class Environment extends BaseObject {
 
   get({ type, platform, hostname }) {
     if ( hostname ) {
-      return new ApplianceSet(...this.appliances.find(x => [x.hostname, x.host].includes(hostname)));
+      return new Appliance(this.appliances.find(x => [x.hostname, x.host].includes(hostname)));
     }
 
     if ( type == 'ECA' ) {

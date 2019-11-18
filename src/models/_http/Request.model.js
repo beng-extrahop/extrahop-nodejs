@@ -32,13 +32,14 @@ module.exports = class Request extends BaseObject {
 
     try {
       response = SyncRequest(method, this.url + uri, config);
-      response.data = JSON.parse(response.getBody('utf8'));
+      response.data = response.getBody('utf8');
     }
     catch (err) {
       response.error = err;
       console.log(`${Icons.Error} ${err}`);
     }
 
+    response.method = method;
     return new Response(response);
   }
 

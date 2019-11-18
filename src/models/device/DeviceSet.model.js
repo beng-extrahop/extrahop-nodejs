@@ -9,8 +9,25 @@ module.exports = class DeviceSet extends BaseObjectSet {
     super(...devices.map(device => new Device(device)));
   }
 
+  with(filter = {}) {
+    return this.filter(device => Object.keys(filter).every(key => device[key] == filter[key]));
+  }
+
+  without(filter = {}) {
+    return this.filter(device => Object.keys(filter).every(key => device[key] != filter[key]));
+  }
+
+  withAny(filter = {}) {
+    return this.filter(device => Object.keys(filter).some(key => device[key] == filter[key]));
+  }
+
+  withoutAny(filter = {}) {
+    return this.filter(device => Object.keys(filter).some(key => device[key] != filter[key]));
+  }
+
   writeToCSV(options = {}) {
     const { filename = `devices-${this.generateId()}.csv`, subkey } = options;
     super.writeToCSV(filename, subkey);
   }
+
 }

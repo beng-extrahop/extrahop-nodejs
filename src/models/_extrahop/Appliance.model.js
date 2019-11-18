@@ -618,8 +618,8 @@ module.exports = class Appliance extends BaseObject {
   // Devices
   // -------------------------------------
 
-  getDevices(searchType, value, limit, offset, active_from, active_until) {
-    return this.request.get(`/devices`, { searchType, value, limit, offset, active_from, active_until });
+  getDevices({ search_type, value, limit, offset, active_from, active_until }) {
+    return this.request.get(`/devices`, { search_type, value, limit, offset, active_from, active_until });
   }
 
   postDeviceSearch(payload) {
