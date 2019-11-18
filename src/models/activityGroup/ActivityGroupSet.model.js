@@ -2,7 +2,6 @@
 
 const BaseObjectSet = require('../../models/_base/BaseObjectSet.model');
 const ActivityGroup = require('../../models/activityGroup/ActivityGroup.model');
-const ActivityGroupSet = require('../../models/activityGroup/ActivityGroupSet.model');
 
 module.exports = class ActivityGroupSet extends BaseObjectSet {
 
