@@ -125,7 +125,7 @@ eca.activityMaps().query(data, { id: activityMap.id })
 eca.activityMaps().update({ id: activityMap.id }, data);
 
 // DELETE
-eca.activityMaps().delete({ id: activityMap.id })
+eca.activityMaps().delete({ id: activityMap.id });
 ```
 
 ### Alerts
@@ -144,7 +144,7 @@ eca.alerts().create(alert);
 eca.alerts().update({ id: alert.id }, data);
 
 // DELETE
-eca.alerts().delete({ id: alert.id })
+eca.alerts().delete({ id: alert.id });
 ```
 
 ### Analysis Priority
@@ -157,7 +157,7 @@ const analysisPriority = eca.analysisPriority().get();
 eca.analysisPriority().update({ id: appliance.id }, data);
 
 // DELETE
-eca.analysisPriority().delete({ id: alert.id })
+eca.analysisPriority().delete({ id: alert.id });
 ```
 
 ### API Keys
@@ -208,7 +208,7 @@ eca.applications().create(application);
 eca.applications().update({ id: application.id }, data);
 
 // DELETE
-eca.applications().delete({ id: application.id })
+eca.applications().delete({ id: application.id });
 ```
 
 ### Audit Logs
@@ -227,7 +227,7 @@ eca.auditLogs().create(auditLog);
 eca.auditLogs().update({ id: auditLog.id }, data);
 
 // DELETE
-eca.auditLogs().delete({ id: auditLog.id })
+eca.auditLogs().delete({ id: auditLog.id });
 ```
 
 ### Bundles
@@ -243,7 +243,7 @@ const bundle = eca.bundles().get({ id: bundleId });
 eca.bundles().create(bundle);
 
 // DELETE
-eca.bundles().delete({ id: bundle.id })
+eca.bundles().delete({ id: bundle.id });
 
 // POST
 eca.bundles().apply({ id: bundle.id });
@@ -265,7 +265,7 @@ eca.customDevices().create(customDevice);
 eca.customDevices().update({ id: customDevice.id }, data);
 
 // DELETE
-eca.customDevices().delete({ id: customDevice.id })
+eca.customDevices().delete({ id: customDevice.id });
 ```
 
 ### Customizations
@@ -287,7 +287,7 @@ eca.customizations().restore({ id: customization.id });
 eca.customizations().save({ id: customization.id });
 
 // DELETE
-eca.customizations().delete({ id: customization.id })
+eca.customizations().delete({ id: customization.id });
 ```
 
 ### Dashboards
@@ -306,7 +306,7 @@ eca.dashboards().create(dashboard);
 eca.dashboards().update({ id: dashboard.id }, data);
 
 // DELETE
-eca.dashboards().delete({ id: dashboard.id })
+eca.dashboards().delete({ id: dashboard.id });
 ```
 
 ### Devices
@@ -325,7 +325,7 @@ eca.devices().create(device);
 eca.devices().update({ id: device.id }, data);
 
 // DELETE
-eca.devices().delete({ id: device.id })
+eca.devices().delete({ id: device.id });
 ```
 
 ### Device Groups
@@ -344,7 +344,7 @@ eca.deviceGroups().create(deviceGroup);
 eca.deviceGroups().update({ id: deviceGroup.id }, data);
 
 // DELETE
-eca.deviceGroups().delete({ id: deviceGroup.id })
+eca.deviceGroups().delete({ id: deviceGroup.id });
 ```
 
 ### License
@@ -358,14 +358,31 @@ const license = eca.license().get();
 
 #### Search & Save
 ```js
-const params = {
+const rules = {
+  'operator': 'or',
+  'rules': [
+    {
+      'field': 'name',
+      'operator': 'startswith',
+      'value': 'domain1'
+    },
+    {
+      'field': 'name',
+      'operator': '~',
+      'value': '^domain2'
+    }
+  ]
+};
+
+const filter = {
+  filter: rules,
   types: ['~ssl_open', '~ssl_close'], // default: any
   limit: 500, // default: 1000
   from: '-60m', // default: 30m
   until: '-30m', // default: now
 };
 
-const search = eca.records().search(params);
+const search = eca.records().store(filter);
 eca.records().saveToCSV(search);
 ```
 
@@ -395,5 +412,5 @@ eca.triggers().create(trigger);
 eca.triggers().update({ id: trigger.id }, data);
 
 // DELETE
-eca.triggers().delete({ id: trigger.id })
+eca.triggers().delete({ id: trigger.id });
 ```

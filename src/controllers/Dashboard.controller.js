@@ -17,28 +17,50 @@ module.exports = class DashboardCtrl extends BaseCtrl {
   }
 
   getSharing(dashboard = {}) {
-    return dashboard.id
-      ? new DashboardSharing(this.getDashboardSharing(dashboard))
-      : this.printError('GET', 'dashboard sharing', 'Valid object parameter ({ "id": dashboardId }) is required');
+    if ( !dashboard.id ) {
+      return this.printError('GET', 'dashboard sharing', 'Function parameter { "id": dashboardId } is required');
+    }
+
+    return new DashboardSharing(this.getDashboardSharing(dashboard));
   }
 
   getReports(dashboard) {
+    if ( !dashboard.id ) {
+      return this.printError('GET', 'dashboard reports', 'Function parameter { "id": dashboardId } is required');
+    }
+
     return new ReportSet(...this.getDashboardReports(dashboard));
   }
 
   create(data) {
+    if ( !data ) {
+      return this.printError('POST', 'dashboards', 'Function parameter { Dashboard } is required');
+    }
+
     return this.postDashboard(new Dashboard(data));
   }
 
   update(dashboard, data) {
+    if ( !dashboard.id ) {
+      return this.printError('PATCH', 'dashboards', 'Function parameter { "id": dashboardId } is required');
+    }
+
     return this.patchDashboard(dashboard, data);
   }
 
   updateSharing(dashboard, sharing) {
+    if ( !dashboard.id ) {
+      return this.printError('PATCH', 'dashboard sharing', 'Function parameter { "id": dashboardId } is required');
+    }
+
     return this.patchDashboardSharing(dashboard, sharing);
   }
 
   delete(dashboard) {
+    if ( !dashboard.id ) {
+      return this.printError('DELETE', 'dashboards', 'Function parameter { "id": dashboardId } is required');
+    }
+
     return this.deleteDashboard(dashboard);
   }
 

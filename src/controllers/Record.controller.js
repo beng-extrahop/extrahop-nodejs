@@ -10,6 +10,30 @@ const Utils = require('../utils/BaseUtil.util.js');
 module.exports = class RecordCtrl extends BaseCtrl {
 
   // -------------------------------------
+  // Defaults
+  // -------------------------------------
+
+  get(cursor, contextTtl) {
+    return this.appliance.getRecordsCursor(cursor, contextTtl);
+  }
+
+  search(searchFilter) {
+    return this.appliance.postRecordsSearch(searchFilter);
+  }
+
+  searchInit(search = {}) {
+    return Object.assign(search, this.postRecordsSearch(search).data, { id: Utils.generateId() });
+  }
+
+  searchNext(cursor, contextTtl) {
+    return (this.postRecordsCursor(cursor, contextTtl).data || { records: [] }).records;
+  }
+
+  store(searchFilter) {
+    return this.storeSearch(searchFilter);
+  }
+
+  // -------------------------------------
   // Save Functions
   // -------------------------------------
 
@@ -32,8 +56,8 @@ module.exports = class RecordCtrl extends BaseCtrl {
   // Search Functions
   // -------------------------------------
 
-  search(params = {}) {
-    const search = this.searchInit(new RecordSearch(params));
+  storeSearch(searchFilter = {}) {
+    const search = this.searchInit(new RecordSearch(searchFilter));
     const db = new Database({ filename: `${Config.DB_DIR}/records-${search.id}.db`, autoload: true });
 
     this.printSearchInfo(search);
@@ -57,17 +81,6 @@ module.exports = class RecordCtrl extends BaseCtrl {
     }
 
     return Object.assign(search, { db, records });
-  }
-
-  searchInit(search = {}) {
-    const searchId = Utils.generateId();
-    const getRecords = this.postRecordsSearch(search);
-
-    return Object.assign(search, getRecords.data, { id: searchId });
-  }
-
-  searchNext(cursor, contextTtl) {
-    return (this.postRecordsCursor(cursor, contextTtl).data || { records: [] }).records;
   }
 
   // -------------------------------------
