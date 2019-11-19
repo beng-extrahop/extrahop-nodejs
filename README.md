@@ -14,7 +14,7 @@ cd ./my-extrahop-cli
 
 Install package files:
 ```sh
-npm install extrahop-nodejs
+npm install --save extrahop-nodejs
 ```
 
 Create main JS file, data dirs:
@@ -57,12 +57,14 @@ const config = [
       }
     ]
   },
-  { ...Environment }
+  ...Environment
 ];
 ```
 
-#### Example
+#### Examples
 ```js
+// my-extrahop-cli/index.js
+
 const Extrahop = require('extrahop-nodejs');
 
 // Single host: provide Appliance: { hostname, apikey, type }
@@ -80,6 +82,8 @@ const environments = new Extrahop(config); //
 
 #### Example from File
 ```js
+// my-extrahop-cli/index.js
+
 const Extrahop = require('extrahop-nodejs');
 const config = require('./config.json');
 

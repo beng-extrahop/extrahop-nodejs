@@ -39,8 +39,11 @@ module.exports = class BaseCtrl {
     }
   }
 
-  printError(method, type) {
-    if (method === 'GET') {
+  printError(method, type, message) {
+    if ( message ) {
+      console.info(`${Icons.Error} Error: ${message} to ${method} ${type}`);
+    }
+    else if (method === 'GET') {
       console.info(`${Icons.Error} Error retrieving ${type} from ${this.appliance.host}`);
     }
     else if (method === 'POST') {

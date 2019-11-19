@@ -12,12 +12,14 @@ module.exports = class DashboardCtrl extends BaseCtrl {
   // Defaults
   // -------------------------------------
 
-  get(dashboard) {
-    return dashboard ? new Dashboard(this.getDashboard(dashboard)) : new DashboardSet(...this.getDashboards());
+  get(dashboard = {}) {
+    return dashboard.id ? new Dashboard(this.getDashboard(dashboard)) : new DashboardSet(...this.getDashboards());
   }
 
-  getSharing(dashboard) {
-    return new DashboardSharing(this.getDashboardSharing(dashboard));
+  getSharing(dashboard = {}) {
+    return dashboard.id
+      ? new DashboardSharing(this.getDashboardSharing(dashboard))
+      : this.printError('GET', 'dashboard sharing', 'Valid object parameter ({ "id": dashboardId }) is required');
   }
 
   getReports(dashboard) {
@@ -25,7 +27,7 @@ module.exports = class DashboardCtrl extends BaseCtrl {
   }
 
   create(data) {
-    return this.postDashboard(this.build(data));
+    return this.postDashboard(new Dashboard(data));
   }
 
   update(dashboard, data) {
@@ -38,10 +40,6 @@ module.exports = class DashboardCtrl extends BaseCtrl {
 
   delete(dashboard) {
     return this.deleteDashboard(dashboard);
-  }
-
-  build(data) {
-    return new Dashboard(data);
   }
 
   // -------------------------------------

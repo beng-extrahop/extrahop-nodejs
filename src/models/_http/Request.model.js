@@ -24,7 +24,7 @@ module.exports = class Request extends BaseObject {
   }
 
   send({ method, uri, qs, json }) {
-    const { headers } = this;
+    const headers = this.headers;
     const config = Object.assign({ headers, qs, json }, this.config);
 
     let response = {};

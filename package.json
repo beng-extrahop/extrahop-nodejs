@@ -15,6 +15,7 @@
   "devDependencies": {
     "eslint": "^5.16.0",
     "eslint-config-eslint": "^5.0.1",
+    "eslint-config-problems": "^3.0.1",
     "eslint-plugin-node": "^10.0.0"
   },
   "repository": {

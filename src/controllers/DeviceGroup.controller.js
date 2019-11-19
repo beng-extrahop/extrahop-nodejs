@@ -175,7 +175,7 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   // Device Functions
   // -------------------------------------
 
-  getDeviceGroupDevices(deviceGroup, params = {}) {
+  getDeviceGroupDevices(deviceGroup, params) {
     return this.process(this.appliance.getDeviceGroupDevices(deviceGroup.id, params), 'deviceGroup devices');
   }
 
