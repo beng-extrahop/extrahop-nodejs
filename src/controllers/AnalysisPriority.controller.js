@@ -5,6 +5,7 @@ const AnalysisPriority = require('../models/analysisPriority/AnalysisPriority.mo
 const AnalysisPriorityManager = require('../models/analysisPriority/AnalysisPriorityManager.model');
 
 module.exports = class AnalysisPriorityCtrl extends BaseCtrl {
+
   // -------------------------------------
   // Defaults
   // -------------------------------------
@@ -47,8 +48,7 @@ module.exports = class AnalysisPriorityCtrl extends BaseCtrl {
 
   patchAnalysisPriorityManager(appliance, manager) {
     return this.process(
-      this.appliance.patchAnalysisPriorityManager(appliance.id, { manager: manager.id }),
-      'analysis priority manager'
+      this.appliance.patchAnalysisPriorityManager(appliance.id, { manager: manager.id }), 'analysis priority manager'
     );
   }
 };

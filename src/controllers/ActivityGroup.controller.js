@@ -5,6 +5,7 @@ const ActivityGroupSet = require('../models/activityGroup/ActivityGroupSet.model
 const DashboardSet = require('../models/dashboard/DashboardSet.model');
 
 module.exports = class ActivityGroupCtrl extends BaseCtrl {
+
   // -------------------------------------
   // Defaults
   // -------------------------------------

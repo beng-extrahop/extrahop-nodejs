@@ -8,6 +8,7 @@ const AlertSet = require('../models/alert/AlertSet.model');
 const DashboardSet = require('../models/dashboard/DashboardSet.model');
 
 module.exports = class ApplicationCtrl extends BaseCtrl {
+
   // -------------------------------------
   // Defaults
   // -------------------------------------

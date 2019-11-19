@@ -7,6 +7,7 @@ const DashboardSharing = require('../models/dashboard/DashboardSharing.model');
 const ReportSet = require('../models/report/ReportSet.model');
 
 module.exports = class DashboardCtrl extends BaseCtrl {
+
   // -------------------------------------
   // Defaults
   // -------------------------------------

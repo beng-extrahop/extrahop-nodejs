@@ -5,6 +5,7 @@ const CustomDevice = require('../models/customDevice/CustomDevice.model');
 const CustomDeviceSet = require('../models/customDevice/CustomDeviceSet.model');
 
 module.exports = class CustomDeviceCtrl extends BaseCtrl {
+
   // -------------------------------------
   // Defaults
   // -------------------------------------

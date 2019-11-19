@@ -12,14 +12,12 @@ module.exports = class Request extends BaseObject {
     this.url = params.url || `https://${hostname}/api/v1`;
     this.headers = { Authorization: `ExtraHop apikey=${apikey}` };
 
-    this.config = {
-      cache: params.cache || 'file',
+    this.config = { cache: params.cache || 'file',
       gzip: params.gzip || true,
       timeout: params.timeout || 5000,
       retry: params.retry || true,
       retryDelay: params.retryDelay || 1000,
-      maxRetries: params.maxRetries || 3
-    };
+      maxRetries: params.maxRetries || 3 };
   }
 
   send({ method, uri, qs, json }) {
@@ -31,7 +29,8 @@ module.exports = class Request extends BaseObject {
     try {
       response = SyncRequest(method, this.url + uri, config);
       response.data = response.getBody('utf8');
-    } catch (err) {
+    }
+    catch (err) {
       response.error = err;
       console.log(`${Icons.Error} ${err}`);
     }

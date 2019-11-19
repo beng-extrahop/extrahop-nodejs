@@ -146,7 +146,7 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getActivityGroups() {
-    return this.request.get(`/activitygroups`);
+    return this.request.get('/activitygroups');
   }
 
   getActivityGroupDashboards(activityGroupId) {
@@ -158,15 +158,15 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getActivityMaps() {
-    return this.request.get(`/activitymaps`);
+    return this.request.get('/activitymaps');
   }
 
   postActivityMaps(payload) {
-    return this.request.post(`/activitymaps`, payload);
+    return this.request.post('/activitymaps', payload);
   }
 
   postActivityMapsQuery(payload) {
-    return this.request.post(`/activitymaps/query`, payload);
+    return this.request.post('/activitymaps/query', payload);
   }
 
   deleteActivityMap(activityMapId) {
@@ -202,11 +202,11 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getAlerts() {
-    return this.request.get(`/alerts`);
+    return this.request.get('/alerts');
   }
 
   postAlert(payload) {
-    return this.request.post(`/alerts`, payload);
+    return this.request.post('/alerts', payload);
   }
 
   deleteAlert(alertId) {
@@ -346,7 +346,7 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getApikeys() {
-    return this.request.get(`/apikeys`);
+    return this.request.get('/apikeys');
   }
 
   getApikey(keyId) {
@@ -354,7 +354,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   postApikeys(payload) {
-    return this.request.post(`/apikeys`, payload);
+    return this.request.post('/apikeys', payload);
   }
 
   // -------------------------------------
@@ -362,7 +362,7 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getAppliances() {
-    return this.request.get(`/appliances`);
+    return this.request.get('/appliances');
   }
 
   getAppliance(applianceId) {
@@ -370,7 +370,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   postAppliance(payload) {
-    return this.request.post(`/appliances`, payload);
+    return this.request.post('/appliances', payload);
   }
 
   getApplianceCloudServices(applianceId) {
@@ -386,7 +386,7 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getApplications(active_from, active_until, limit, offset, searchType, value) {
-    return this.request.get(`/applications`, { active_from, active_until, limit, offset, searchType, value });
+    return this.request.get('/applications', { active_from, active_until, limit, offset, searchType, value });
   }
 
   getApplication(applicationId) {
@@ -478,7 +478,7 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getAuditLog(limit, offset) {
-    return this.request.get(`/auditlog`, { limit, offset });
+    return this.request.get('/auditlog', { limit, offset });
   }
 
   // -------------------------------------
@@ -486,11 +486,11 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getBundles() {
-    return this.request.get(`/bundles`);
+    return this.request.get('/bundles');
   }
 
   postBundle(payload) {
-    return this.request.post(`/bundles`, payload);
+    return this.request.post('/bundles', payload);
   }
 
   deleteBundle(bundleId) {
@@ -510,11 +510,11 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getCustomDevices() {
-    return this.request.get(`/customdevices`);
+    return this.request.get('/customdevices');
   }
 
   postCustomDevice(payload) {
-    return this.request.post(`/customdevices`, payload);
+    return this.request.post('/customdevices', payload);
   }
 
   deleteCustomDevice(customDeviceId) {
@@ -550,15 +550,15 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getCustomizations() {
-    return this.request.get(`/customizations`);
+    return this.request.get('/customizations');
   }
 
   postCustomization(payload) {
-    return this.request.post(`/customizations`, payload);
+    return this.request.post('/customizations', payload);
   }
 
   getCustomizationsStatus() {
-    return this.request.get(`/customizations/status`);
+    return this.request.get('/customizations/status');
   }
 
   deleteCustomization(customizationId) {
@@ -582,7 +582,7 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getDashboards() {
-    return this.request.get(`/dashboards`);
+    return this.request.get('/dashboards');
   }
 
   deleteDashboard(dashboardId) {
@@ -618,11 +618,11 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getDevices({ search_type, value, limit, offset, active_from, active_until }) {
-    return this.request.get(`/devices`, { search_type, value, limit, offset, active_from, active_until });
+    return this.request.get('/devices', { search_type, value, limit, offset, active_from, active_until });
   }
 
   postDeviceSearch(payload) {
-    return this.request.post(`/devices/search`, payload);
+    return this.request.post('/devices/search', payload);
   }
 
   getDevice(deviceId) {
@@ -758,11 +758,11 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getDeviceGroups(since, all, name) {
-    return this.request.get(`/devicegroups`, { since, all, name });
+    return this.request.get('/devicegroups', { since, all, name });
   }
 
   postDeviceGroup(payload) {
-    return this.request.post(`/devicegroups`, payload);
+    return this.request.post('/devicegroups', payload);
   }
 
   deleteDeviceGroup(deviceGroupId) {
@@ -798,12 +798,10 @@ module.exports = class Appliance extends BaseObject {
   }
 
   getDeviceGroupDevices(deviceGroupId, active_from, active_until, limit, offset) {
-    return this.request.get(`/devicegroups/${deviceGroupId}/devices`, {
-      active_from,
+    return this.request.get(`/devicegroups/${deviceGroupId}/devices`, { active_from,
       active_until,
       limit,
-      offset
-    });
+      offset });
   }
 
   postDeviceGroupDevices(deviceGroupId, payload) {
@@ -903,11 +901,11 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getEmailGroups() {
-    return this.request.get(`/emailgroups`);
+    return this.request.get('/emailgroups');
   }
 
   postEmailGroup(payload) {
-    return this.request.post(`/emailgroups`, payload);
+    return this.request.post('/emailgroups', payload);
   }
 
   deleteEmailGroup(emailGroupId) {
@@ -927,11 +925,11 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getExclusionIntervals() {
-    return this.request.get(`/exclusionintervals`);
+    return this.request.get('/exclusionintervals');
   }
 
   postExclusionInterval(payload) {
-    return this.request.post(`/exclusionintervals`, payload);
+    return this.request.post('/exclusionintervals', payload);
   }
 
   deleteExclusionInterval(exclusionIntervalId) {
@@ -951,19 +949,19 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getExtrahop() {
-    return this.request.get(`/extrahop`);
+    return this.request.get('/extrahop');
   }
 
   getExtrahopIdrac() {
-    return this.request.get(`/extrahop/idrac`);
+    return this.request.get('/extrahop/idrac');
   }
 
   getExtrahopPlatform() {
-    return this.request.get(`/extrahop/platform`);
+    return this.request.get('/extrahop/platform');
   }
 
   getExtrahopProcesses() {
-    return this.request.get(`/extrahop/processes`);
+    return this.request.get('/extrahop/processes');
   }
 
   postExtrahopProcessRestart(processId) {
@@ -971,15 +969,15 @@ module.exports = class Appliance extends BaseObject {
   }
 
   postExtrahopSSLCert() {
-    return this.request.post(`/extrahop/sslcert`);
+    return this.request.post('/extrahop/sslcert');
   }
 
   putExtrahopSSLCert(payload) {
-    return this.request.put(`/extrahop/sslcert`, payload);
+    return this.request.put('/extrahop/sslcert', payload);
   }
 
   getExtrahopVersion() {
-    return this.request.get(`/extrahop/version`);
+    return this.request.get('/extrahop/version');
   }
 
   // -------------------------------------
@@ -987,7 +985,7 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getFlexGrids() {
-    return this.request.get(`/flexgrids`);
+    return this.request.get('/flexgrids');
   }
 
   getFlexGridApplications(flexGridId) {
@@ -1043,11 +1041,11 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getGeomaps() {
-    return this.request.get(`/geomaps`);
+    return this.request.get('/geomaps');
   }
 
   postGeomaps(payload) {
-    return this.request.post(`/geomaps`, payload);
+    return this.request.post('/geomaps', payload);
   }
 
   deleteGeomap(geomapId) {
@@ -1115,19 +1113,19 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getLicense() {
-    return this.request.get(`/license`);
+    return this.request.get('/license');
   }
 
   putLicense(payload) {
-    return this.request.put(`/license`, payload);
+    return this.request.put('/license', payload);
   }
 
   getLicenseProductKey() {
-    return this.request.get(`/license/productkey`);
+    return this.request.get('/license/productkey');
   }
 
   putLicenseProductKey(payload) {
-    return this.request.put(`/license/productkey`, payload);
+    return this.request.put('/license/productkey', payload);
   }
 
   // -------------------------------------
@@ -1135,7 +1133,7 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   postMetrics(payload) {
-    return this.request.post(`/metrics`, payload);
+    return this.request.post('/metrics', payload);
   }
 
   postMetricSeach(payload) {
@@ -1155,11 +1153,11 @@ module.exports = class Appliance extends BaseObject {
   }
 
   postMetricsTotal(payload) {
-    return this.request.post(`/metrics/total`, payload);
+    return this.request.post('/metrics/total', payload);
   }
 
   postMetricsTotalByObject(payload) {
-    return this.request.post(`/metrics/totalbyobject`, payload);
+    return this.request.post('/metrics/totalbyobject', payload);
   }
 
   // -------------------------------------
@@ -1167,7 +1165,7 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getNetworks() {
-    return this.request.get(`/networks`);
+    return this.request.get('/networks');
   }
 
   getNetwork(networkId) {
@@ -1219,11 +1217,11 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getNetworkLocalities() {
-    return this.request.get(`/networklocality`);
+    return this.request.get('/networklocality');
   }
 
   postNetworkLocality(payload) {
-    return this.request.post(`/networklocality`, payload);
+    return this.request.post('/networklocality', payload);
   }
 
   deleteNetworkLocality(networkLocalityId) {
@@ -1243,7 +1241,7 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getNodes() {
-    return this.request.get(`/nodes`);
+    return this.request.get('/nodes');
   }
 
   getNode(nodeId) {
@@ -1259,7 +1257,7 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getPacketCaptures() {
-    return this.request.get(`/packetcaptures`);
+    return this.request.get('/packetcaptures');
   }
 
   deletePacketCapture(packetCaptureId) {
@@ -1275,11 +1273,11 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getPages() {
-    return this.request.get(`/pages`);
+    return this.request.get('/pages');
   }
 
   postPages(payload) {
-    return this.request.post(`/pages`, payload);
+    return this.request.post('/pages', payload);
   }
 
   deletePage(pageId) {
@@ -1371,7 +1369,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   postRecordsSearch(payload) {
-    return this.request.post(`/records/search`, payload);
+    return this.request.post('/records/search', payload);
   }
 
   postRecordSearch(payload) {
@@ -1383,11 +1381,11 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getReports() {
-    return this.request.get(`/reports`);
+    return this.request.get('/reports');
   }
 
   postReport(payload) {
-    return this.request.post(`/reports`, payload);
+    return this.request.post('/reports', payload);
   }
 
   deleteReport(reportId) {
@@ -1435,19 +1433,19 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getRunningConfig(section) {
-    return this.request.get(`/runningconfig`, { section });
+    return this.request.get('/runningconfig', { section });
   }
 
   putRunningConfig(payload) {
-    return this.request.put(`/runningconfig`, payload);
+    return this.request.put('/runningconfig', payload);
   }
 
   postRunningConfigSave() {
-    return this.request.post(`/runningconfig/save`);
+    return this.request.post('/runningconfig/save');
   }
 
   getRunningConfigSaved() {
-    return this.request.get(`/runningconfig/saved`);
+    return this.request.get('/runningconfig/saved');
   }
 
   // -------------------------------------
@@ -1455,7 +1453,7 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getSoftwares() {
-    return this.request.get(`/software`);
+    return this.request.get('/software');
   }
 
   getSoftware(softwareId) {
@@ -1467,11 +1465,11 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getSslDecryptKeys() {
-    return this.request.get(`/ssldecryptkeys`);
+    return this.request.get('/ssldecryptkeys');
   }
 
   postSslDecryptKey(payload) {
-    return this.request.post(`/ssldecryptkeys`, payload);
+    return this.request.post('/ssldecryptkeys', payload);
   }
 
   deleteSslDecryptKey(sslDecryptKeyId) {
@@ -1503,11 +1501,11 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getSupportPacks() {
-    return this.request.get(`/supportpacks`);
+    return this.request.get('/supportpacks');
   }
 
   postSupportPackExecute() {
-    return this.request.post(`/supportpacks/execute`);
+    return this.request.post('/supportpacks/execute');
   }
 
   getSupportPackQueue(queueId) {
@@ -1523,11 +1521,11 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getTags() {
-    return this.request.get(`/tags`);
+    return this.request.get('/tags');
   }
 
   postTag(payload) {
-    return this.request.post(`/tags`, payload);
+    return this.request.post('/tags', payload);
   }
 
   deleteTag(tagId) {
@@ -1563,11 +1561,11 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getTriggers() {
-    return this.request.get(`/triggers`);
+    return this.request.get('/triggers');
   }
 
   postTrigger(payload) {
-    return this.request.post(`/triggers`, payload);
+    return this.request.post('/triggers', payload);
   }
 
   deleteTrigger(triggerId) {
@@ -1619,11 +1617,11 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getUsers() {
-    return this.request.get(`/users`);
+    return this.request.get('/users');
   }
 
   postUser(payload) {
-    return this.request.post(`/users`, payload);
+    return this.request.post('/users', payload);
   }
 
   deleteUser(user) {
@@ -1651,11 +1649,11 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getUserGroups() {
-    return this.request.get(`/usergroups`);
+    return this.request.get('/usergroups');
   }
 
   postUserGroupsRefresh() {
-    return this.request.post(`/usergroups/refresh`);
+    return this.request.post('/usergroups/refresh');
   }
 
   getUserGroup(userGroupId) {
@@ -1683,7 +1681,7 @@ module.exports = class Appliance extends BaseObject {
   // -------------------------------------
 
   getVlans() {
-    return this.request.get(`/vlans`);
+    return this.request.get('/vlans');
   }
 
   getVlan(vlanId) {
@@ -1707,10 +1705,10 @@ module.exports = class Appliance extends BaseObject {
   }
 
   getWhitelistsDevices() {
-    return this.request.get(`/whitelist/devices`);
+    return this.request.get('/whitelist/devices');
   }
 
   postWhitelistDevices(payload) {
-    return this.request.post(`/whitelist/devices`, payload);
+    return this.request.post('/whitelist/devices', payload);
   }
 };

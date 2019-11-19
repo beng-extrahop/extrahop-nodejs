@@ -10,6 +10,7 @@ const DeviceSet = require('../models/device/DeviceSet.model');
 const TriggerSet = require('../models/trigger/TriggerSet.model');
 
 module.exports = class DeviceGroupCtrl extends BaseCtrl {
+
   // -------------------------------------
   // Defaults
   // -------------------------------------

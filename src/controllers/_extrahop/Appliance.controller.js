@@ -18,9 +18,9 @@ module.exports = class ApplianceCtrl extends BaseCtrl {
       if (!this.appliances || this.appliances.length === 0) {
         throw new Error();
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.info(`${Icons.Error} No active hosts available. Exiting.\n`);
-      process.exit();
     }
   }
 

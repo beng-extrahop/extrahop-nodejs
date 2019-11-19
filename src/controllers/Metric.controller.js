@@ -8,6 +8,7 @@ const Utils = require('../utils/BaseUtil.util.js');
 const { Config, Icons } = require('../constants/Global.constants');
 
 module.exports = class MetricCtrl extends BaseCtrl {
+
   // -------------------------------------
   // Defaults
   // -------------------------------------
@@ -34,10 +35,8 @@ module.exports = class MetricCtrl extends BaseCtrl {
 
   search(params = {}) {
     const search = this.searchInit(new MetricSearch(params));
-    const db = new Database({
-      filename: `${Config.DB_DIR}/metrics-${search.id}.db`,
-      autoload: true
-    });
+    const db = new Database({ filename: `${Config.DB_DIR}/metrics-${search.id}.db`,
+      autoload: true });
 
     this.printSearchInfo(search);
 
@@ -56,7 +55,8 @@ module.exports = class MetricCtrl extends BaseCtrl {
 
     if (count == search.total) {
       console.info(`\n${Icons.Success} Committed ${count}/${search.total} results to DB: metrics-${search.id}.db`);
-    } else {
+    }
+    else {
       console.info(`\n${Icons.Warn} Committed ${count}/${search.total} metrics to DB: metrics-${search.id}.db`);
     }
 
@@ -105,23 +105,25 @@ module.exports = class MetricCtrl extends BaseCtrl {
   }
 
   printSearchInfo(search = {}) {
-    console.info(`-------------------------- METRIC SEARCH INFO --------------------------------`);
+    console.info('-------------------------- METRIC SEARCH INFO --------------------------------');
     console.info(`- Search ID (local): ${search.id}`);
     console.info(`- Search timestamp: ${search.clock}`);
     console.info(`- Search types: ${search.metric_category || 'any'}`);
     console.info(`- Search results: ${search.total}`);
     console.info(`- Search from: ${new Date(search.from)}`);
     console.info(`- Search until: ${new Date(search.until)}`);
-    console.info(`-------------------------------------------------------------------------------\n`);
+    console.info('-------------------------------------------------------------------------------\n');
   }
 
   saveToCSV(search = {}) {
     search.db.find({}).exec(function(err, results) {
       if (err) {
         console.error(`${Icons.Error} ${err}`);
-      } else if (results.length == 0) {
+      }
+      else if (results.length == 0) {
         console.warn(`${Icons.Warn} No results found in database.`);
-      } else {
+      }
+      else {
         new MetricSet(results).writeToCSV({ filename: `metrics-${search.id}.csv` });
         console.info(`${Icons.Success} Saved ${results.length} metrics to CSV: metrics-${search.id}.csv`);
       }

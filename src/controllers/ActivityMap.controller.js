@@ -7,12 +7,15 @@ const ActivityMapQuery = require('../models/activityMap/ActivityMapQuery.model')
 const ActivityMapSharing = require('../models/activityMap/ActivityMapSharing.model');
 
 module.exports = class ActivityMapCtrl extends BaseCtrl {
+
   // -------------------------------------
   // Defaults
   // -------------------------------------
 
   get(activityMap) {
-    return activityMap ? new ActivityMap(this.getActivityMap(activityMap)) : new ActivityMapSet(...this.getActivityMaps());
+    return activityMap
+      ? new ActivityMap(this.getActivityMap(activityMap))
+      : new ActivityMapSet(...this.getActivityMaps());
   }
 
   getSharing(activityMap) {

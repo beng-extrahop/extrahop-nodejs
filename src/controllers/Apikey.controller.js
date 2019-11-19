@@ -5,6 +5,7 @@ const Apikey = require('../models/apikey/Apikey.model');
 const ApikeySet = require('../models/apikey/ApikeySet.model');
 
 module.exports = class ApikeyCtrl extends BaseCtrl {
+
   // -------------------------------------
   // Defaults
   // -------------------------------------

@@ -15,6 +15,7 @@ const TriggerSet = require('../models/trigger/TriggerSet.model');
 const { Search } = require('../constants/Global.constants');
 
 module.exports = class DeviceCtrl extends BaseCtrl {
+
   // -------------------------------------
   // Defaults
   // -------------------------------------

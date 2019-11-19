@@ -12,6 +12,7 @@ const ExclusionIntervalSet = require('../models/exclusionInterval/ExclusionInter
 const NetworkSet = require('../models/network/NetworkSet.model');
 
 module.exports = class AlertCtrl extends BaseCtrl {
+
   // -------------------------------------
   // Defaults
   // -------------------------------------

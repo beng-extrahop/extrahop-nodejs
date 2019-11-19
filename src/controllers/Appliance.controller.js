@@ -8,6 +8,7 @@ const ApplianceCloudServices = require('../models/appliance/ApplianceCloudServic
 const ApplianceProductKey = require('../models/appliance/ApplianceProductKey.model');
 
 module.exports = class ApplianceCtrl extends BaseCtrl {
+
   // -------------------------------------
   // Defaults
   // -------------------------------------

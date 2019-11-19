@@ -5,6 +5,7 @@ const Software = require('../models/software/Software.model');
 const SoftwareSet = require('../models/software/SoftwareSet.model');
 
 module.exports = class SoftwareCtrl extends BaseCtrl {
+
   // -------------------------------------
   // Defaults
   // -------------------------------------

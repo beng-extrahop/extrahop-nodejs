@@ -5,6 +5,7 @@ const Bundle = require('../models/bundle/Bundle.model');
 const BundleSet = require('../models/bundle/BundleSet.model');
 
 module.exports = class BundleCtrl extends BaseCtrl {
+
   // -------------------------------------
   // Defaults
   // -------------------------------------

@@ -6,6 +6,7 @@ const CustomizationSet = require('../models/customization/CustomizationSet.model
 const CustomizationStatus = require('../models/customization/CustomizationStatus.model');
 
 module.exports = class CustomizationCtrl extends BaseCtrl {
+
   // -------------------------------------
   // Defaults
   // -------------------------------------

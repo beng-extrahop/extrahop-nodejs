@@ -16,9 +16,11 @@ module.exports = class RecordCtrl extends BaseCtrl {
     search.db.find({}).exec(function(err, results) {
       if (err) {
         console.error(`${Icons.Error} ${err}`);
-      } else if (results.length == 0) {
+      }
+      else if (results.length == 0) {
         console.warn(`${Icons.Warn} No results found in database.`);
-      } else {
+      }
+      else {
         new RecordSet(results).writeToCSV({ filename: `records-${search.id}.csv` });
         console.info(`${Icons.Success} Saved ${results.length} records to CSV: records-${search.id}.csv`);
       }
@@ -50,7 +52,8 @@ module.exports = class RecordCtrl extends BaseCtrl {
 
     if (count == search.total) {
       console.info(`\n${Icons.Success} Committed ${count}/${search.total} results to DB: records-${search.id}.db`);
-    } else {
+    }
+    else {
       console.info(`\n${Icons.Warn} Committed ${count}/${search.total} records to DB: records-${search.id}.db`);
     }
 
@@ -64,8 +67,8 @@ module.exports = class RecordCtrl extends BaseCtrl {
     return Object.assign(search, getRecords.data, { id: searchId });
   }
 
-  searchNext(cursor, contextTtl) {
-    const getRecords = this.postRecordsCursor(cursor, contextTtl);
+  searchNext(cursor, context_ttl) {
+    const getRecords = this.postRecordsCursor(cursor, context_ttl);
 
     return getRecords.data ? getRecords.data.records : [];
   }
@@ -75,7 +78,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
   // -------------------------------------
 
   printSearchInfo(search = {}) {
-    console.info(`------------------------------ SEARCH INFO ------------------------------------`);
+    console.info('------------------------------ SEARCH INFO ------------------------------------');
     console.info(`- Search ID (local): ${search.id}`);
     console.info(`- Search timestamp: ${Utils.parseId(search.id)}`);
     console.info(`- Search types: ${search.types || 'any'}`);
@@ -83,7 +86,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
     console.info(`- Search results: ${search.total}`);
     console.info(`- Search from: ${new Date(search.from)}`);
     console.info(`- Search until: ${new Date(search.until)}`);
-    console.info(`-------------------------------------------------------------------------------\n`);
+    console.info('-------------------------------------------------------------------------------\n');
   }
 
   getPageCount(total = 1, limit = 1) {
@@ -94,12 +97,12 @@ module.exports = class RecordCtrl extends BaseCtrl {
   // APIFunctions
   // -------------------------------------
 
-  getRecordsCursor(cursor, contextTtl) {
-    return this.appliance.getRecordsCursor(cursor, contextTtl);
+  getRecordsCursor(cursor, context_ttl) {
+    return this.appliance.getRecordsCursor(cursor, context_ttl);
   }
 
-  postRecordsCursor(cursor, contextTtl) {
-    return this.appliance.postRecordsCursor({ cursor }, contextTtl);
+  postRecordsCursor(cursor, context_ttl) {
+    return this.appliance.postRecordsCursor({ cursor }, context_ttl);
   }
 
   postRecordsSearch(search) {
