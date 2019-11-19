@@ -68,16 +68,10 @@ module.exports = class CustomDeviceCtrl extends BaseCtrl {
   }
 
   postCustomDeviceCriteria(customDevice, criteria) {
-    return this.process(
-      this.appliance.postCustomDeviceCriteria(customDevice.id, criteria),
-      'custom device criteria'
-    );
+    return this.process(this.appliance.postCustomDeviceCriteria(customDevice.id, criteria), 'custom device criteria');
   }
 
   deleteCustomDeviceCriteria(customDevice, criteria) {
-    return this.process(
-      this.appliance.deleteCustomDeviceCriteria(customDevice.id, criteria),
-      'custom device criteria'
-    );
+    return this.process(this.appliance.deleteCustomDeviceCriteria(customDevice.id, criteria), 'custom device criteria');
   }
 };

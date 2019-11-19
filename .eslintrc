@@ -26,7 +26,7 @@
       {
         "trailingComma": "none",
         "singleQuote": true,
-        "printWidth": 112,
+        "printWidth": 128,
         "tabWidth": 2,
         "quoteProps": "as-needed",
         "bracketSpacing": true,

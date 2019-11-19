@@ -12,9 +12,7 @@ module.exports = class ActivityMapCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(activityMap) {
-    return activityMap
-      ? new ActivityMap(this.getActivityMap(activityMap))
-      : new ActivityMapSet(...this.getActivityMaps());
+    return activityMap ? new ActivityMap(this.getActivityMap(activityMap)) : new ActivityMapSet(...this.getActivityMaps());
   }
 
   getSharing(activityMap) {
@@ -84,16 +82,11 @@ module.exports = class ActivityMapCtrl extends BaseCtrl {
   // -------------------------------------
 
   getActivityMapSharing(activityMap) {
-    return new ActivityMapSharing(
-      this.process(this.appliance.getActivityMapSharing(activityMap.id), 'activity map')
-    );
+    return new ActivityMapSharing(this.process(this.appliance.getActivityMapSharing(activityMap.id), 'activity map'));
   }
 
   patchActivityMapSharing(activityMap, sharing) {
-    return this.process(
-      this.appliance.patchActivityMapSharing(activityMap.id, sharing),
-      'activity map sharing'
-    );
+    return this.process(this.appliance.patchActivityMapSharing(activityMap.id, sharing), 'activity map sharing');
   }
 
   putActivityMapSharing(activityMap, sharing) {

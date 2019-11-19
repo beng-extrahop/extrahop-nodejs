@@ -97,10 +97,7 @@ module.exports = class AlertCtrl extends BaseCtrl {
   }
 
   postAlertApplications(alert, assign = [], unassign = []) {
-    return this.process(
-      this.appliance.postAlertApplications(alert.id, { assign, unassign }),
-      'alert applications​'
-    );
+    return this.process(this.appliance.postAlertApplications(alert.id, { assign, unassign }), 'alert applications​');
   }
 
   postAlertApplication(alert, application) {
@@ -140,10 +137,7 @@ module.exports = class AlertCtrl extends BaseCtrl {
   }
 
   postAlertDeviceGroups(alert, assign = [], unassign = []) {
-    return this.process(
-      this.appliance.postAlertDeviceGroups(alert.id, { assign, unassign }),
-      'alert device groups'
-    );
+    return this.process(this.appliance.postAlertDeviceGroups(alert.id, { assign, unassign }), 'alert device groups');
   }
 
   postAlertDeviceGroup(alert, deviceGroup) {
@@ -163,10 +157,7 @@ module.exports = class AlertCtrl extends BaseCtrl {
   }
 
   postAlertEmailGroups(alert, assign = [], unassign = []) {
-    return this.process(
-      this.appliance.postAlertEmailGroups(alert.id, { assign, unassign }),
-      'alert email groups'
-    );
+    return this.process(this.appliance.postAlertEmailGroups(alert.id, { assign, unassign }), 'alert email groups');
   }
 
   postAlertEmailGroup(alert, emailGroup) {
@@ -193,17 +184,11 @@ module.exports = class AlertCtrl extends BaseCtrl {
   }
 
   postAlertExclusionInterval(alert, exclusionInterval) {
-    return this.process(
-      this.appliance.postAlertExclusionInterval(alert.id, exclusionInterval.id),
-      'alert exclusion interval'
-    );
+    return this.process(this.appliance.postAlertExclusionInterval(alert.id, exclusionInterval.id), 'alert exclusion interval');
   }
 
   deleteAlertExclusionInterval(alert, exclusionInterval) {
-    return this.process(
-      this.appliance.deleteAlertApplications(alert.id, exclusionInterval.id),
-      'alert exclusion interval'
-    );
+    return this.process(this.appliance.deleteAlertApplications(alert.id, exclusionInterval.id), 'alert exclusion interval');
   }
 
   // -------------------------------------

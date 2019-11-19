@@ -22,22 +22,7 @@ module.exports = Object.freeze({
       'custom_name',
       'software'
     ],
-    Operators: [
-      '>',
-      '<',
-      '<=',
-      '>=',
-      '=',
-      '!=',
-      'startswith',
-      'and',
-      'or',
-      'not',
-      'exists',
-      'not_exists',
-      '~',
-      '!~'
-    ],
+    Operators: ['>', '<', '<=', '>=', '=', '!=', 'startswith', 'and', 'or', 'not', 'exists', 'not_exists', '~', '!~'],
     Types: {
       Any: 'any',
       Name: 'name',

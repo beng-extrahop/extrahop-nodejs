@@ -21,10 +21,8 @@ module.exports = class BaseCtrl {
   }
 
   printSuccess(method, type, count) {
-    if (method === 'GET')
-      console.info(`${Icons.Success} Retrieved ${count} ${type} from ${this.appliance.host}`);
-    else if (method == 'POST')
-      console.info(`${Icons.Success} Posted ${count} ${type} to ${this.appliance.host}`);
+    if (method === 'GET') console.info(`${Icons.Success} Retrieved ${count} ${type} from ${this.appliance.host}`);
+    else if (method == 'POST') console.info(`${Icons.Success} Posted ${count} ${type} to ${this.appliance.host}`);
     else if (method == 'PATCH') console.info(`${Icons.Info} Modified ${type} on ${this.appliance.host}`);
     else if (method == 'PATCH') console.info(`${Icons.Info} Updated ${type} on ${this.appliance.host}`);
     else if (method === 'DELETE') console.info(`${Icons.Warn} Deleted ${type} from ${this.appliance.host}`);
@@ -33,22 +31,17 @@ module.exports = class BaseCtrl {
   printError(method, type) {
     if (method === 'GET') console.info(`${Icons.Error} Error retrieving ${type} from ${this.appliance.host}`);
     else if (method == 'POST') console.info(`${Icons.Error} Error posting ${type} to ${this.appliance.host}`);
-    else if (method == 'PATCH')
-      console.info(`${Icons.Error} Error modifying ${type} on ${this.appliance.host}`);
+    else if (method == 'PATCH') console.info(`${Icons.Error} Error modifying ${type} on ${this.appliance.host}`);
     else if (method == 'PATCH') console.info(`${Icons.Error} Error updating ${type} on ${this.appliance.host}`);
-    else if (method === 'DELETE')
-      console.info(`${Icons.Error} Error deleting ${type} from ${this.appliance.host}`);
+    else if (method === 'DELETE') console.info(`${Icons.Error} Error deleting ${type} from ${this.appliance.host}`);
   }
 
   printWarning(method, type) {
     if (method === 'GET') console.info(`${Icons.Warn} Warning: retrieving ${type} from ${this.appliance.host}`);
     else if (method == 'POST') console.info(`${Icons.Warn} Warning: posting ${type} to ${this.appliance.host}`);
-    else if (method == 'PATCH')
-      console.info(`${Icons.Warn} Warning: modifying ${type} on ${this.appliance.host}`);
-    else if (method == 'PATCH')
-      console.info(`${Icons.Warn} Warning: updating ${type} on ${this.appliance.host}`);
-    else if (method === 'DELETE')
-      console.info(`${Icons.Warn} Warning: deleting ${type} from ${this.appliance.host}`);
+    else if (method == 'PATCH') console.info(`${Icons.Warn} Warning: modifying ${type} on ${this.appliance.host}`);
+    else if (method == 'PATCH') console.info(`${Icons.Warn} Warning: updating ${type} on ${this.appliance.host}`);
+    else if (method === 'DELETE') console.info(`${Icons.Warn} Warning: deleting ${type} from ${this.appliance.host}`);
   }
 
   // -------------------------------------

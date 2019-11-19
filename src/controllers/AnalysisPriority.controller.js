@@ -38,10 +38,7 @@ module.exports = class AnalysisPriorityCtrl extends BaseCtrl {
   }
 
   putAnalysisPriority(appliance, analysisPriority) {
-    return this.process(
-      this.appliance.putAnalysisPriority(appliance.id, analysisPriority),
-      'analysis priority'
-    );
+    return this.process(this.appliance.putAnalysisPriority(appliance.id, analysisPriority), 'analysis priority');
   }
 
   getAnalysisPriorityManager(appliance) {

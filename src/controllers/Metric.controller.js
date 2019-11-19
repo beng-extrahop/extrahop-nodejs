@@ -50,16 +50,12 @@ module.exports = class MetricCtrl extends BaseCtrl {
       // metrics = metrics.map(metric => this.parse(metric, '_source'));
       db.insert(metrics);
 
-      console.info(
-        `[${++pageAt}/${numPages}] Processed ${(count += metrics.length)} results, awaiting next page...`
-      );
+      console.info(`[${++pageAt}/${numPages}] Processed ${(count += metrics.length)} results, awaiting next page...`);
       metrics = this.searchNext(search);
     }
 
     if (count == search.total) {
-      console.info(
-        `\n${Icons.Success} Committed ${count}/${search.total} results to DB: metrics-${search.id}.db`
-      );
+      console.info(`\n${Icons.Success} Committed ${count}/${search.total} results to DB: metrics-${search.id}.db`);
     } else {
       console.info(`\n${Icons.Warn} Committed ${count}/${search.total} metrics to DB: metrics-${search.id}.db`);
     }

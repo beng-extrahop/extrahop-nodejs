@@ -133,17 +133,11 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   }
 
   patchDeviceGroup(deviceGroup, data) {
-    return this.process(
-      this.appliance.patchDeviceGroup(deviceGroup.id, data),
-      `deviceGroup (id: ${deviceGroup.id})`
-    );
+    return this.process(this.appliance.patchDeviceGroup(deviceGroup.id, data), `deviceGroup (id: ${deviceGroup.id})`);
   }
 
   deleteDeviceGroup(deviceGroup) {
-    return this.process(
-      this.appliance.deleteDeviceGroup(deviceGroup.id),
-      `deviceGroup (id: ${deviceGroup.id})`
-    );
+    return this.process(this.appliance.deleteDeviceGroup(deviceGroup.id), `deviceGroup (id: ${deviceGroup.id})`);
   }
 
   // -------------------------------------
@@ -155,10 +149,7 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   }
 
   postDeviceGroupAlerts(deviceGroup, { assign, unassign }) {
-    return this.process(
-      this.appliance.postDeviceGroupAlerts(deviceGroup.id, { assign, unassign }),
-      'deviceGroup alerts'
-    );
+    return this.process(this.appliance.postDeviceGroupAlerts(deviceGroup.id, { assign, unassign }), 'deviceGroup alerts');
   }
 
   postDeviceGroupAlert(deviceGroup, alert) {
@@ -186,10 +177,7 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   }
 
   postDeviceGroupDevices(deviceGroup, { assign, unassign }) {
-    return this.process(
-      this.appliance.postDeviceGroupDevices(deviceGroup.id, { assign, unassign }),
-      'deviceGroup devices'
-    );
+    return this.process(this.appliance.postDeviceGroupDevices(deviceGroup.id, { assign, unassign }), 'deviceGroup devices');
   }
 
   postDeviceGroupDevice(deviceGroup, device) {
@@ -197,10 +185,7 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   }
 
   deleteDeviceGroupDevice(deviceGroup, device) {
-    return this.process(
-      this.appliance.deleteDeviceGroupDevice(deviceGroup.id, device.id),
-      'deviceGroup device'
-    );
+    return this.process(this.appliance.deleteDeviceGroupDevice(deviceGroup.id, device.id), 'deviceGroup device');
   }
 
   // -------------------------------------
@@ -212,23 +197,14 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   }
 
   postDeviceGroupTriggers(deviceGroup, { assign, unassign }) {
-    return this.process(
-      this.appliance.postDeviceGroupTriggers(deviceGroup.id, { assign, unassign }),
-      'deviceGroup triggers'
-    );
+    return this.process(this.appliance.postDeviceGroupTriggers(deviceGroup.id, { assign, unassign }), 'deviceGroup triggers');
   }
 
   postDeviceGroupTrigger(deviceGroup, trigger) {
-    return this.process(
-      this.appliance.postDeviceGroupTrigger(deviceGroup.id, trigger.id),
-      'deviceGroup trigger'
-    );
+    return this.process(this.appliance.postDeviceGroupTrigger(deviceGroup.id, trigger.id), 'deviceGroup trigger');
   }
 
   deleteDeviceGroupTrigger(deviceGroup, trigger) {
-    return this.process(
-      this.appliance.deleteDeviceGroupDevice(deviceGroup.id, trigger.id),
-      'deviceGroup trigger'
-    );
+    return this.process(this.appliance.deleteDeviceGroupDevice(deviceGroup.id, trigger.id), 'deviceGroup trigger');
   }
 };

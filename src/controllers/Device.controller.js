@@ -268,10 +268,7 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   postDeviceDeviceGroups(device, { assign, unassign }) {
-    return this.process(
-      this.appliance.postDeviceDeviceGroups(device.id, { assign, unassign }),
-      'device deviceGroups'
-    );
+    return this.process(this.appliance.postDeviceDeviceGroups(device.id, { assign, unassign }), 'device deviceGroups');
   }
 
   postDeviceDeviceGroup(device, deviceGroup) {
@@ -279,10 +276,7 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   deleteDeviceDeviceGroup(device, deviceGroup) {
-    return this.process(
-      this.appliance.deleteDeviceDeviceGroup(device.id, deviceGroup.id),
-      'device deviceGroup'
-    );
+    return this.process(this.appliance.deleteDeviceDeviceGroup(device.id, deviceGroup.id), 'device device group');
   }
 
   // -------------------------------------

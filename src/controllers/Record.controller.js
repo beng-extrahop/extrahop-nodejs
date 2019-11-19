@@ -44,16 +44,12 @@ module.exports = class RecordCtrl extends BaseCtrl {
       records = records.map(record => this.parse(record, '_source'));
       db.insert(records);
 
-      console.info(
-        `[${++pageAt}/${numPages}] Processed ${(count += records.length)} results, awaiting next page...`
-      );
+      console.info(`[${++pageAt}/${numPages}] Processed ${(count += records.length)} results, awaiting next page...`);
       records = this.searchNext(search.cursor, search.context_ttl);
     }
 
     if (count == search.total) {
-      console.info(
-        `\n${Icons.Success} Committed ${count}/${search.total} results to DB: records-${search.id}.db`
-      );
+      console.info(`\n${Icons.Success} Committed ${count}/${search.total} results to DB: records-${search.id}.db`);
     } else {
       console.info(`\n${Icons.Warn} Committed ${count}/${search.total} records to DB: records-${search.id}.db`);
     }

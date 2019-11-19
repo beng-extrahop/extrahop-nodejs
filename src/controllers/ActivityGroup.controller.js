@@ -26,9 +26,6 @@ module.exports = class ActivityGroupCtrl extends BaseCtrl {
   }
 
   getActivityGroupDashboards(activityGroup) {
-    return this.process(
-      this.appliance.getActivityGroupDashboards(activityGroup.id),
-      'activity group dashboards'
-    );
+    return this.process(this.appliance.getActivityGroupDashboards(activityGroup.id), 'activity group dashboards');
   }
 };

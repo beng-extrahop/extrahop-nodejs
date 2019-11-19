@@ -13,9 +13,7 @@ module.exports = class ApplicationCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(application) {
-    return application
-      ? new Application(this.getApplication(application))
-      : new ApplicationSet(...this.getApplications());
+    return application ? new Application(this.getApplication(application)) : new ApplicationSet(...this.getApplications());
   }
 
   getActivity(application) {
@@ -79,10 +77,7 @@ module.exports = class ApplicationCtrl extends BaseCtrl {
   }
 
   postApplicationAlerts(application, assign = [], unassign = []) {
-    return this.process(
-      this.appliance.postApplicationAlerts(application.id, { assign, unassign }),
-      'application alerts'
-    );
+    return this.process(this.appliance.postApplicationAlerts(application.id, { assign, unassign }), 'application alerts');
   }
 
   postApplicationAlert(application, alert) {
