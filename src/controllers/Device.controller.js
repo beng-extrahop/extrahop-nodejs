@@ -117,7 +117,7 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   getByName(name) {
-    return this.get({ search_type: Search.Types.Name, value: name });
+    return this.get({ search_type: 'name', value: name });
   }
 
   getByDiscoveryId(discoveryId) {

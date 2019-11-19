@@ -1,8 +1,8 @@
 // Environment.model.js
 
 const BaseObject = require('../../models/_base/BaseObject.model');
-const Appliance = require('../../models/_extrahop/Appliance.model');
-const ApplianceSet = require('../../models/_extrahop/ApplianceSet.model');
+const Appliance = require('../../models/_app/Appliance.model');
+const ApplianceSet = require('../../models/_app/ApplianceSet.model');
 const { Icons, Platforms } = require('../../constants/Global.constants');
 
 module.exports = class Environment extends BaseObject {

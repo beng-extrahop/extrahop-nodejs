@@ -1,9 +1,9 @@
 // index.js
 
-const Appliance = require('./src/models/_extrahop/Appliance.model');
-const ApplianceSet = require('./src/models/_extrahop/ApplianceSet.model');
-const Environment = require('./src/models/_extrahop/Environment.model');
-const EnvironmentSet = require('./src/models/_extrahop/EnvironmentSet.model');
+const Appliance = require('./src/models/_app/Appliance.model');
+const ApplianceSet = require('./src/models/_app/ApplianceSet.model');
+const Environment = require('./src/models/_app/Environment.model');
+const EnvironmentSet = require('./src/models/_app/EnvironmentSet.model');
 
 module.exports = class Extrahop {
   constructor(config) {

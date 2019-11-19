@@ -9,6 +9,6 @@ module.exports = class RecordSet extends BaseObjectSet {
   }
 
   writeToCSV({ filename = `records-${this.generateId()}.csv`, subkey = '_source' }) {
-    super.writeToCSV({ filename, subkey });
+    super.writeToCSV({ filename, subkey, headers: true });
   }
 };

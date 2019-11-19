@@ -46,7 +46,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
         console.warn(`${Icons.Warn} No results found in database.`);
       }
       else {
-        new RecordSet(results).writeToCSV({ filename: `records-${search.id}.csv` });
+        new RecordSet(...results).writeToCSV(`records-${search.id}.csv`);
         console.info(`${Icons.Success} Saved ${results.length} records to CSV: records-${search.id}.csv`);
       }
     });
@@ -57,7 +57,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
   // -------------------------------------
 
   storeSearch(searchFilter = {}) {
-    const search = this.searchInit(new RecordSearch(searchFilter));
+    const search = this.searchInit(new RecordSearch(this.parseSearchFilter(searchFilter)));
     const db = new Database({ filename: `${Config.DB_DIR}/records-${search.id}.db`, autoload: true });
 
     this.printSearchInfo(search);
@@ -86,6 +86,33 @@ module.exports = class RecordCtrl extends BaseCtrl {
   // -------------------------------------
   // Utility Functions
   // -------------------------------------
+
+  parseSearchFilter(searchFilter = {}) {
+    if ( !searchFilter.filter.rules ) {
+      return searchFilter;
+    }
+
+    searchFilter.filter.rules.forEach(rule => {
+      if (!['server', 'client', 'device'].includes(rule.field)) {
+        return;
+      }
+
+      const deviceName = rule.value || rule.operand;
+
+      if (deviceName.startsWith('*')) {
+        const devices = this.appliance.devices.getByName(deviceName.replace('*', ''));
+
+        if ( devices.length > 0 ) {
+          console.log('Substituting discovery id for name:', rule.value, '=>', devices[0].discovery_id);
+          rule.operand = { type: 'device', value: devices[0].discovery_id };
+          delete rule.value;
+        }
+      }
+    });
+
+    console.log(JSON.stringify(searchFilter, null, 2));
+    return searchFilter;
+  }
 
   printSearchInfo(search = {}) {
     console.info('------------------------------ SEARCH INFO ------------------------------------');

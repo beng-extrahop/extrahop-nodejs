@@ -14,11 +14,27 @@ const NetworkSet = require('../models/network/NetworkSet.model');
 module.exports = class AlertCtrl extends BaseCtrl {
 
   // -------------------------------------
-  // Defaults
+  // Aliases
   // -------------------------------------
 
   get(alert) {
     return alert ? new Alert(this.getAlert(alert)) : new AlertSet(...this.getAlerts());
+  }
+
+  post(data) {
+    return this.postAlert(new Alert(data));
+  }
+
+  create(data) {
+    return this.post(data);
+  }
+
+  update(alert, data) {
+    return this.patchAlert(alert, data);
+  }
+
+  delete(alert) {
+    return this.deleteAlert(alert);
   }
 
   getApplications(alert) {
@@ -49,20 +65,113 @@ module.exports = class AlertCtrl extends BaseCtrl {
     return new AlertStatSet(...this.getAlertStats(alert));
   }
 
-  create(data) {
-    return this.postAlert(this.build(data));
+  assignApplications(alert, applications) {
+    if ( !applications )
+      return this.printError('assign', 'applications', 'Array[...applications] or { application } is required');
+
+    return applications instanceof Array
+      ? this.postAlertApplications(alert, { assign: applications })
+      : this.postAlertApplication(alert, applications);
   }
 
-  update(alert, data) {
-    return this.patchAlert(alert, data);
+  assignDevices(alert, devices) {
+    if ( !devices )
+      return this.printError('assign', 'devices', 'Array[...devices] or { device } is required');
+
+    return devices instanceof Array
+      ? this.postAlertDevices(alert, { assign: devices })
+      : this.postAlertDevice(alert, devices);
   }
 
-  delete(alert) {
-    return this.deleteAlert(alert);
+  assignDeviceGroups(alert, deviceGroups) {
+    if ( !deviceGroups )
+      return this.printError('assign', 'deviceGroups', 'Array[...deviceGroups] or { deviceGroup } is required');
+
+    return deviceGroups instanceof Array
+      ? this.postAlertDeviceGroups(alert, { assign: deviceGroups })
+      : this.postAlertDeviceGroup(alert, deviceGroups);
   }
 
-  build(data) {
-    return new Alert(data);
+  assignEmailGroups(alert, emailGroups) {
+    if ( !emailGroups )
+      return this.printError('assign', 'emailGroups', 'Array[...emailGroups] or { emailGroup } is required');
+
+    return emailGroups instanceof Array
+      ? this.postAlertEmailGroups(alert, { assign: emailGroups })
+      : this.postAlertEmailGroup(alert, emailGroups);
+  }
+
+  assignExclusionIntervals(alert, exclusionIntervals) {
+    if ( !exclusionIntervals )
+      return this.printError('assign', 'exclusionIntervals', 'Array[...exclusionIntervals] or { exclusionInterval } is required');
+
+    return exclusionIntervals instanceof Array
+      ? this.postAlertExclusionIntervals(alert, { assign: exclusionIntervals })
+      : this.postAlertExclusionInterval(alert, exclusionIntervals);
+  }
+
+  assignNetworks(alert, networks) {
+    if ( !networks )
+      return this.printError('assign', 'networks', 'Array[...networks] or { network } is required');
+
+    return networks instanceof Array
+      ? this.postAlertNetworks(alert, { assign: networks })
+      : this.postAlertNetwork(alert, networks);
+  }
+
+
+  unassignApplications(alert, applications) {
+    if ( !applications )
+      return this.printError('unassign', 'applications', 'Array[...applications] or { application } is required');
+
+    return applications instanceof Array
+      ? this.postAlertApplications(alert, { unassign: applications })
+      : this.deleteAlertApplication(alert, applications);
+  }
+
+  unassignDevices(alert, devices) {
+    if ( !devices )
+      return this.printError('unassign', 'devices', 'Array[...devices] or { device } is required');
+
+    return devices instanceof Array
+      ? this.postAlertDevices(alert, { unassign: devices })
+      : this.deleteAlertDevice(alert, devices);
+  }
+
+  unassignDeviceGroups(alert, deviceGroups) {
+    if ( !deviceGroups )
+      return this.printError('unassign', 'deviceGroups', 'Array[...deviceGroups] or { deviceGroup } is required');
+
+    return deviceGroups instanceof Array
+      ? this.postAlertDeviceGroups(alert, { unassign: deviceGroups })
+      : this.deleteAlertDeviceGroup(alert, deviceGroups);
+  }
+
+  unassignEmailGroups(alert, emailGroups) {
+    if ( !emailGroups )
+      return this.printError('unassign', 'emailGroups', 'Array[...emailGroups] or { emailGroup } is required');
+
+    return emailGroups instanceof Array
+      ? this.postAlertEmailGroups(alert, { unassign: emailGroups })
+      : this.deleteAlertEmailGroup(alert, emailGroups);
+  }
+
+  unassignExclusionIntervals(alert, exclusionIntervals) {
+    if ( !exclusionIntervals )
+      return this.printError('unassign', 'exclusionIntervals', 'Array[...exclusionIntervals] or { exclusionInterval } is required');
+
+    return exclusionIntervals instanceof Array
+      ? this.postAlertExclusionIntervals(alert, { unassign: exclusionIntervals })
+      : this.deleteAlertExclusionInterval(alert, exclusionIntervals);
+  }
+
+  unassignNetworks(alert, networks) {
+    if ( !networks )
+      return this.printError('unassign', 'networks', 'Array[...networks] or { network } is required');
+
+    return networks instanceof Array
+      ? this.postAlertNetworks(alert, { unassign: networks })
+      : this.deleteAlertNetwork(alert, networks);
   }
 
   // -------------------------------------

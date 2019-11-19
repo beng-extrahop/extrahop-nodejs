@@ -1,21 +1,21 @@
 // SearchFilterRule.model.js
 
-const BaseObject = require('../../models/_base/BaseObject.model');
-
-module.exports = class SearchFilterRule extends BaseObject {
-  constructor(rule = {}) {
-    super();
-
+module.exports = class SearchFilterRule {
+  constructor(rule) {
     if ( rule instanceof Array ) {
-      this.field = rule[0];
-      this.operator = rule[1];
-      this.operand = (rule[2] || '').includes('~') ? { is_regex: true, value: rule[2] } : rule[2];
+      const [ field, operator, value = '' ] = rule;
+
+      this.field = field;
+      this.operator = operator;
+      this.operand = value.includes('~') ? { is_regex: true, value } : value;
     }
     else {
-      const operandCheck = rule.operand || rule.value || '';
-      this.field = rule.field;
-      this.operator = rule.operator;
-      this.operand = operandCheck.includes('~') ? { is_regex: true, value: operandCheck } : operandCheck;
+      const { field, operator, operand, value } = rule;
+      const useAsOperand = value || operand || '';
+
+      this.field = field;
+      this.operator = operator;
+      this.operand = operator.includes('~') ? { is_regex: true, value: useAsOperand } : useAsOperand;
     }
   }
 };

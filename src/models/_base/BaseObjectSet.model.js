@@ -27,7 +27,7 @@ module.exports = class BaseObjectSet extends Array {
     console.info(this.toCSV(options));
   }
 
-  writeToCSV(filename, subkey, headers = true) {
+  writeToCSV({ filename, subkey, headers }) {
     const stream = fs.createWriteStream(`${Config.CSV_DIR}/${filename}`, { encoding: 'utf8' });
     const data = subkey ? this.map(obj => obj[subkey]) : this;
 
