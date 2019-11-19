@@ -30,23 +30,19 @@ module.exports = class ApplicationCtrl extends BaseCtrl {
   }
 
   create(data) {
-    return this.postApplication(this.build(data));
+    return this.postApplication(new Application(data));
   }
 
   update(application, data) {
     return this.patchApplication(application, data);
   }
 
-  build(data) {
-    return new Application(data);
-  }
-
   // -------------------------------------
   // Base Functions
   // -------------------------------------
 
-  getApplications() {
-    return this.process(this.appliance.getApplications(), 'applications');
+  getApplications(params = {}) {
+    return this.process(this.appliance.getApplications(params), 'applications');
   }
 
   getApplication(application) {

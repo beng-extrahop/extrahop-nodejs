@@ -3,7 +3,7 @@
 const Utils = require('../../utils/BaseUtil.util.js');
 const { Config, Icons } = require('../../constants/Global.constants');
 
-const Moment = require('moment-timezone');
+const moment = require('moment-timezone');
 
 module.exports = class BaseCtrl {
   constructor(appliance) {
@@ -13,8 +13,8 @@ module.exports = class BaseCtrl {
     this.dbPath = [Config.DATA_DIR, Config.DB_DIR].join('/');
   }
 
-  toString({ format }) {
-    return format ? JSON.stringify(this, null, 2) : JSON.stringify(this);
+  toString(config = {}) {
+    return JSON.stringify(this, null, (config.format ? 2 : null));
   }
 
   print(options = {}) {
@@ -25,13 +25,13 @@ module.exports = class BaseCtrl {
     if (method === 'GET') {
       console.info(`${Icons.Success} Retrieved ${count} ${type} from ${this.appliance.host}`);
     }
-    else if (method == 'POST') {
+    else if (method === 'POST') {
       console.info(`${Icons.Success} Posted ${count} ${type} to ${this.appliance.host}`);
     }
-    else if (method == 'PATCH') {
+    else if (method === 'PATCH') {
       console.info(`${Icons.Info} Modified ${type} on ${this.appliance.host}`);
     }
-    else if (method == 'PATCH') {
+    else if (method === 'PATCH') {
       console.info(`${Icons.Info} Updated ${type} on ${this.appliance.host}`);
     }
     else if (method === 'DELETE') {
@@ -43,13 +43,13 @@ module.exports = class BaseCtrl {
     if (method === 'GET') {
       console.info(`${Icons.Error} Error retrieving ${type} from ${this.appliance.host}`);
     }
-    else if (method == 'POST') {
+    else if (method === 'POST') {
       console.info(`${Icons.Error} Error posting ${type} to ${this.appliance.host}`);
     }
-    else if (method == 'PATCH') {
+    else if (method === 'PATCH') {
       console.info(`${Icons.Error} Error modifying ${type} on ${this.appliance.host}`);
     }
-    else if (method == 'PATCH') {
+    else if (method === 'PATCH') {
       console.info(`${Icons.Error} Error updating ${type} on ${this.appliance.host}`);
     }
     else if (method === 'DELETE') {
@@ -61,13 +61,13 @@ module.exports = class BaseCtrl {
     if (method === 'GET') {
       console.info(`${Icons.Warn} Warning: retrieving ${type} from ${this.appliance.host}`);
     }
-    else if (method == 'POST') {
+    else if (method === 'POST') {
       console.info(`${Icons.Warn} Warning: posting ${type} to ${this.appliance.host}`);
     }
-    else if (method == 'PATCH') {
+    else if (method === 'PATCH') {
       console.info(`${Icons.Warn} Warning: modifying ${type} on ${this.appliance.host}`);
     }
-    else if (method == 'PATCH') {
+    else if (method === 'PATCH') {
       console.info(`${Icons.Warn} Warning: updating ${type} on ${this.appliance.host}`);
     }
     else if (method === 'DELETE') {
@@ -81,8 +81,7 @@ module.exports = class BaseCtrl {
 
   filter(results = [], params = {}) {
     const [key] = Object.keys(params);
-
-    return results.filter(result => result[key] == params[key]);
+    return results.filter(result => result[key] === params[key]);
   }
 
   parse(data = {}, subkey) {
@@ -90,7 +89,7 @@ module.exports = class BaseCtrl {
 
     Object.keys(parseData).forEach(key => {
       if (key.includes('timestamp')) {
-        parseData[`${key}_fmt`] = Moment(parseData[key]).tz('America/New_York').format('YYYY-MM-DD HH:mm:ss');
+        parseData[`${key}_fmt`] = moment(parseData[key]).tz('America/New_York').format('YYYY-MM-DD HH:mm:ss');
       }
 
       if (parseData[key] instanceof Object) {
@@ -98,7 +97,7 @@ module.exports = class BaseCtrl {
       }
 
       if (parseData[key] instanceof Array) {
-        parseData[key] = parseData[key].length == 1 ? parseData[key][0] : parseData[key].join(',');
+        parseData[key] = parseData[key].length === 1 ? parseData[key][0] : parseData[key].join(',');
       }
     });
 
@@ -132,7 +131,8 @@ module.exports = class BaseCtrl {
       return results.data;
     }
 
-    let { method, data, success } = results;
+    let data = results.data;
+    const { method, success } = results;
     const count = data.length;
 
     if (['PATCH', 'PUT', 'DELETE'].includes(method)) {
@@ -151,13 +151,16 @@ module.exports = class BaseCtrl {
 
       data = options.subkey ? results.data[options.subkey] : results.data;
 
-      if ((data || []).length == 0) {
+      if ((data || []).length === 0) {
         this.printWarning(method, type);
       }
       else {
         this.printSuccess(method, type, count);
       }
+
       return results.data;
     }
+
+    return null;
   }
 };

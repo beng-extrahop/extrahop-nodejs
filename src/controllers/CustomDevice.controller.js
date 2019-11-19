@@ -21,7 +21,7 @@ module.exports = class CustomDeviceCtrl extends BaseCtrl {
   }
 
   create(data) {
-    return this.postCustomDevice(this.build(data));
+    return this.postCustomDevice(new CustomDevice(data));
   }
 
   update(customDevice, data) {
@@ -32,20 +32,16 @@ module.exports = class CustomDeviceCtrl extends BaseCtrl {
     return this.deleteCustomDevice(customDevice);
   }
 
-  build(data) {
-    return new CustomDevice(data);
-  }
-
   // -------------------------------------
   // Base Functions
   // -------------------------------------
 
-  getCustomDevices() {
-    return this.process(this.appliance.getCustomDevices(), 'custom devices');
+  getCustomDevices(params) {
+    return this.process(this.appliance.getCustomDevices(params), 'custom devices');
   }
 
-  getCustomDevice(customDevice) {
-    return this.process(this.appliance.getCustomDevice(customDevice.id), 'custom device');
+  getCustomDevice(customDevice, criteria) {
+    return this.process(this.appliance.getCustomDevice(customDevice.id, criteria), 'custom device');
   }
 
   postCustomDevice(customDevice) {

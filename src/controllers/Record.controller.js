@@ -18,7 +18,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
       if (err) {
         console.error(`${Icons.Error} ${err}`);
       }
-      else if (results.length == 0) {
+      else if (results.length === 0) {
         console.warn(`${Icons.Warn} No results found in database.`);
       }
       else {
@@ -38,8 +38,10 @@ module.exports = class RecordCtrl extends BaseCtrl {
 
     this.printSearchInfo(search);
 
-    let { records, total, limit } = search;
-    let numPages = this.getPageCount(total, limit), count = 0, pageAt = 0;
+    const numPages = this.getPageCount(search);
+    let records = search.records,
+      pageAt = 0,
+      count = 0;
 
     while (records && records.length > 0) {
       records = records.map(record => this.parse(record, '_source'));
@@ -49,7 +51,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
       records = this.searchNext(search.cursor, search.context_ttl);
     }
 
-    if (count == search.total) {
+    if (count === search.total) {
       console.info(`\n${Icons.Success} Committed ${count}/${search.total} results to DB: records-${search.id}.db`);
     }
     else {
@@ -66,8 +68,8 @@ module.exports = class RecordCtrl extends BaseCtrl {
     return Object.assign(search, getRecords.data, { id: searchId });
   }
 
-  searchNext(cursor, context_ttl) {
-    return (this.postRecordsCursor(cursor, context_ttl).data || { records: [] }).records;
+  searchNext(cursor, contextTtl) {
+    return (this.postRecordsCursor(cursor, contextTtl).data || { records: [] }).records;
   }
 
   // -------------------------------------
@@ -86,20 +88,21 @@ module.exports = class RecordCtrl extends BaseCtrl {
     console.info('-------------------------------------------------------------------------------\n');
   }
 
-  getPageCount(total = 1, limit = 1) {
-    return total % limit == 0 ? total / limit : Math.floor(total / limit) + 1;
+  getPageCount(search) {
+    const { total = 0, limit = 0 } = search;
+    return total % limit === 0 ? total / limit : Math.floor(total / limit) + 1;
   }
 
   // -------------------------------------
   // API Functions
   // -------------------------------------
 
-  getRecordsCursor(cursor, context_ttl) {
-    return this.appliance.getRecordsCursor(cursor, context_ttl);
+  getRecordsCursor(cursor, contextTtl) {
+    return this.appliance.getRecordsCursor(cursor, contextTtl);
   }
 
-  postRecordsCursor(cursor, context_ttl) {
-    return this.appliance.postRecordsCursor({ cursor }, context_ttl);
+  postRecordsCursor(cursor, contextTtl) {
+    return this.appliance.postRecordsCursor({ cursor }, contextTtl);
   }
 
   postRecordsSearch(search) {

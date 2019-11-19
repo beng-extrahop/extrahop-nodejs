@@ -9,6 +9,6 @@ module.exports = class EnvironmentSet extends BaseObjectSet {
   }
 
   getEnvironment(name) {
-    return this.find(environment => environment.name == name);
+    return this.find(environment => environment.name === name);
   }
 };

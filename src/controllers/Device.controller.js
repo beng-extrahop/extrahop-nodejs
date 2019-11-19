@@ -113,7 +113,7 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   // -------------------------------------
 
   getAll() {
-    return this.get({ search_type: 'any', value: undefined, limit: -1 });
+    return this.get({ search_type: 'any', limit: -1 });
   }
 
   getByName(name) {
@@ -168,12 +168,12 @@ module.exports = class DeviceCtrl extends BaseCtrl {
     return this.getAll().with({ id });
   }
 
-  getByExtrahopId(extrahop_id) {
-    return this.getAll().with({ extrahop_id });
+  getByExtrahopId(extrahopId) {
+    return this.getAll().with({ extrahop_id: extrahopId });
   }
 
-  getByParentId(parent_id) {
-    return this.getAll().with({ parent_id });
+  getByParentId(parentId) {
+    return this.getAll().with({ parent_id: parentId });
   }
 
   getCustom() {

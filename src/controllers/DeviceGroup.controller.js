@@ -100,17 +100,19 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   // -------------------------------------
 
   enable(deviceGroup, skip = true) {
-    if (deviceGroup.disabled || !skip) {
-      deviceGroup.disabled = false;
-      return this.patchDeviceGroup(deviceGroup, { disabled: deviceGroup.disabled });
+    if (!deviceGroup.disabled && skip) {
+      return null;
     }
+
+    return this.patchDeviceGroup(deviceGroup, { disabled: false });
   }
 
   disable(deviceGroup, skip = true) {
-    if (!deviceGroup.disabled || !skip) {
-      deviceGroup.disabled = true;
-      return this.patchDeviceGroup(deviceGroup, { disabled: deviceGroup.disabled });
+    if (deviceGroup.disabled && skip) {
+      return null;
     }
+
+    return this.patchDeviceGroup(deviceGroup, { disabled: true });
   }
 
   toggle(deviceGroup) {
@@ -173,8 +175,8 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   // Device Functions
   // -------------------------------------
 
-  getDeviceGroupDevices(deviceGroup) {
-    return this.process(this.appliance.getDeviceGroupDevices(deviceGroup.id), 'deviceGroup devices');
+  getDeviceGroupDevices(deviceGroup, params = {}) {
+    return this.process(this.appliance.getDeviceGroupDevices(deviceGroup.id, params), 'deviceGroup devices');
   }
 
   postDeviceGroupDevices(deviceGroup, { assign, unassign }) {

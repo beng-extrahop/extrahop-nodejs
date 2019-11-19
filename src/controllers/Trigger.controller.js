@@ -6,6 +6,11 @@ const TriggerSet = require('../models/trigger/TriggerSet.model');
 const Strings = require('../constants/Global.constants');
 
 module.exports = class TriggerCtrl extends BaseCtrl {
+
+  // -------------------------------------
+  // Defaults
+  // -------------------------------------
+
   get(trigger) {
     return trigger ? new Trigger(this.getTrigger(trigger)) : new TriggerSet(...this.getTriggers());
   }
@@ -47,17 +52,19 @@ module.exports = class TriggerCtrl extends BaseCtrl {
   // -------------------------------------
 
   enable(trigger, skip = true) {
-    if (trigger.disabled || !skip) {
-      trigger.disabled = false;
-      return this.patchTrigger(trigger, { disabled: trigger.disabled });
+    if (!trigger.disabled && skip) {
+      return null;
     }
+
+    return this.patchTrigger(trigger, { disabled: false });
   }
 
   disable(trigger, skip = true) {
-    if (!trigger.disabled || !skip) {
-      trigger.disabled = true;
-      return this.patchTrigger(trigger, { disabled: trigger.disabled });
+    if (trigger.disabled && skip) {
+      return null;
     }
+
+    return this.patchTrigger(trigger, { disabled: true });
   }
 
   toggle(trigger) {

@@ -35,8 +35,10 @@ module.exports = class MetricCtrl extends BaseCtrl {
 
   search(params = {}) {
     const search = this.searchInit(new MetricSearch(params));
-    const db = new Database({ filename: `${Config.DB_DIR}/metrics-${search.id}.db`,
-      autoload: true });
+    const db = new Database({
+      filename: `${Config.DB_DIR}/metrics-${search.id}.db`,
+      autoload: true
+    });
 
     this.printSearchInfo(search);
 
@@ -54,7 +56,7 @@ module.exports = class MetricCtrl extends BaseCtrl {
       metrics = this.searchNext(search);
     }
 
-    if (count == search.total) {
+    if (count === search.total) {
       console.info(`\n${Icons.Success} Committed ${count}/${search.total} results to DB: metrics-${search.id}.db`);
     }
     else {
@@ -102,7 +104,7 @@ module.exports = class MetricCtrl extends BaseCtrl {
   // -------------------------------------
 
   getPageCount(total = 1, limit = 1) {
-    return total % limit == 0 ? total / limit : Math.floor(total / limit) + 1;
+    return total % limit === 0 ? total / limit : Math.floor(total / limit) + 1;
   }
 
   printSearchInfo(search = {}) {
@@ -121,7 +123,7 @@ module.exports = class MetricCtrl extends BaseCtrl {
       if (err) {
         console.error(`${Icons.Error} ${err}`);
       }
-      else if (results.length == 0) {
+      else if (results.length === 0) {
         console.warn(`${Icons.Warn} No results found in database.`);
       }
       else {

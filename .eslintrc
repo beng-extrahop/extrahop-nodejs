@@ -5,7 +5,7 @@
     "node": true
   },
   "extends": [
-    "eslint:recommended",
+    "eslint",
     "plugin:node/recommended"
   ],
   "globals": {
@@ -16,32 +16,37 @@
     "ecmaVersion": 2018
   },
   "rules": {
-    "max-len": [
-      "error", { "code": 128, "ignoreTemplateLiterals": true, "ignoreTrailingComments": true }
-    ],
+    "strict": 0,
+    "max-len": [2, { "code": 128, "ignoreTemplateLiterals": true, "ignoreTrailingComments": true }],
     "padding-line-between-statements": [
-      "error",
-      { "blankLine": "always", "prev": "*", "next": ["return", "block-like", "function"] }
+      2,
+      { "blankLine": "always", "prev": "*", "next": ["block-like", "function"] },
+      { "blankLine": "always", "prev": "block-like", "next": ["return"] }
     ],
-    "indent": ["error", 2],
-    "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"],
+    "eqeqeq": [1, "always", {"null": "ignore"}],
+    "func-style": [2, "declaration", { "allowArrowFunctions": true }],
+    "no-underscore-dangle": 0,
+    "class-methods-use-this": [2, { "exceptMethods": ["build", "saveToCSV", "printSearchInfo", "getPageCount", "filter", "parse", "generateId"] }],
+    "camelcase": [1, { "properties": "never", "ignoreDestructuring": true, "allow": ["context_ttl"] }],
+    "indent": [2, 2],
+    "linebreak-style": [2, "unix"],
+    "quotes": [2, "single"],
+    "semi": [2, "always"],
     "brace-style": [2, "stroustrup", { "allowSingleLine": false }],
     "no-console": 0,
     "no-useless-constructor": 2,
-    "object-property-newline": ["error", { "allowAllPropertiesOnSameLine": true }],
-    "object-curly-spacing": ["error", "always"],
-    "object-curly-newline": ["error", { "multiline": true, "minProperties": 9, "consistent": true }],
-    "template-tag-spacing": ["error", "always"],
-    "node/exports-style": ["error", "module.exports"],
-    "node/file-extension-in-import": ["error", "always"],
-    "node/prefer-global/buffer": ["error", "always"],
-    "node/prefer-global/console": ["error", "always"],
-    "node/prefer-global/process": ["error", "always"],
-    "node/prefer-global/url-search-params": ["error", "always"],
-    "node/prefer-global/url": ["error", "always"],
-    "node/prefer-promises/dns": "error",
-    "node/prefer-promises/fs": "error"
+    "object-property-newline": [2, { "allowAllPropertiesOnSameLine": true }],
+    "object-curly-spacing": [2, "always"],
+    "object-curly-newline": [2, { "multiline": true, "minProperties": 9, "consistent": true }],
+    "template-tag-spacing": [2, "always"],
+    "node/exports-style": [2, "module.exports"],
+    "node/file-extension-in-import": [2, "always"],
+    "node/prefer-global/buffer": [2, "always"],
+    "node/prefer-global/console": [2, "always"],
+    "node/prefer-global/process": [2, "always"],
+    "node/prefer-global/url-search-params": [2, "always"],
+    "node/prefer-global/url": [2, "always"],
+    "node/prefer-promises/dns": 2,
+    "node/prefer-promises/fs": 2
   }
 }

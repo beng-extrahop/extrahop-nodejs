@@ -1,9 +1,10 @@
 // Request.model.js
 
-const SyncRequest = require('sync-request');
 const BaseObject = require('../../models/_base/BaseObject.model');
 const Response = require('../../models/_http/Response.model');
 const { Icons } = require('../../constants/Global.constants');
+
+const syncRequest = require('sync-request');
 
 module.exports = class Request extends BaseObject {
   constructor(hostname, apikey, params = {}) {
@@ -29,7 +30,7 @@ module.exports = class Request extends BaseObject {
     let response = {};
 
     try {
-      response = SyncRequest(method, this.url + uri, config);
+      response = syncRequest(method, this.url + uri, config);
       response.data = response.getBody('utf8');
     }
     catch (err) {

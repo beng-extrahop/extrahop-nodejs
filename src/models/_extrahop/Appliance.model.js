@@ -47,16 +47,16 @@ module.exports = class Appliance extends BaseObject {
     Object.keys(getExtrahop.data).forEach(key => (this[key] = getExtrahop.data[key]));
     this.name = appliance.name || getExtrahop.data.display_host;
 
-    const getAppliance = (this.getAppliances().data || []).find(x => x.hostname == this.hostname);
+    const getAppliance = (this.getAppliances().data || []).find(x => x.hostname === this.hostname);
 
-    if (getAppliance == null) {
+    if (getAppliance === null) {
       console.warn(`${Icons.Warn} Error populating appliance data from ${this.hostname}`);
       return;
     }
 
     Object.keys(getAppliance).forEach(key => (this[key] = getAppliance[key]));
 
-    if (this.host != this.hostname) {
+    if (this.host !== this.hostname) {
       console.warn(`${Icons.Warn} Hostname mismatch. Configured: ${this.host}, Retrieved: ${this.hostname}`);
     }
   }
@@ -385,7 +385,7 @@ module.exports = class Appliance extends BaseObject {
   // Applications
   // -------------------------------------
 
-  getApplications(active_from, active_until, limit, offset, searchType, value) {
+  getApplications({ active_from, active_until, limit, offset, searchType, value }) {
     return this.request.get('/applications', { active_from, active_until, limit, offset, searchType, value });
   }
 
@@ -509,8 +509,8 @@ module.exports = class Appliance extends BaseObject {
   // Custom Devices
   // -------------------------------------
 
-  getCustomDevices() {
-    return this.request.get('/customdevices');
+  getCustomDevices(params) {
+    return this.request.get('/customdevices', params);
   }
 
   postCustomDevice(payload) {
@@ -521,8 +521,8 @@ module.exports = class Appliance extends BaseObject {
     return this.request.delete(`/customdevices/${customDeviceId}`);
   }
 
-  getCustomDevice(customDeviceId, include_criteria) {
-    return this.request.get(`/customdevices/${customDeviceId}`, { include_criteria });
+  getCustomDevice(customDeviceId, criteria) {
+    return this.request.get(`/customdevices/${customDeviceId}`, { include_criteria: criteria });
   }
 
   patchCustomDevice(customDeviceId, payload) {
@@ -637,8 +637,8 @@ module.exports = class Appliance extends BaseObject {
     return this.request.get(`/devices/${deviceId}/activity`);
   }
 
-  getDeviceAlerts(deviceId, direct_assignments_only) {
-    return this.request.get(`/devices/${deviceId}/alerts`, { direct_assignments_only });
+  getDeviceAlerts(deviceId, criteria) {
+    return this.request.get(`/devices/${deviceId}/alerts`, { direct_assignments_only: criteria });
   }
 
   postDeviceAlerts(deviceId, payload) {
@@ -689,8 +689,8 @@ module.exports = class Appliance extends BaseObject {
     return this.request.post(`/devices/${deviceId}/flexgrids/${flexGridId}`);
   }
 
-  getDeviceGeomaps(deviceId, direct_assignments_only) {
-    return this.request.get(`/devices/${deviceId}/geomaps`, { direct_assignments_only });
+  getDeviceGeomaps(deviceId, criteria) {
+    return this.request.get(`/devices/${deviceId}/geomaps`, { direct_assignments_only: criteria });
   }
 
   postDeviceGeomaps(deviceId, payload) {
@@ -705,8 +705,8 @@ module.exports = class Appliance extends BaseObject {
     return this.request.post(`/devices/${deviceId}/geomaps/${geomapId}`);
   }
 
-  getDevicePages(deviceId, direct_assignments_only) {
-    return this.request.get(`/devices/${deviceId}/pages`, { direct_assignments_only });
+  getDevicePages(deviceId, criteria) {
+    return this.request.get(`/devices/${deviceId}/pages`, { direct_assignments_only: criteria });
   }
 
   postDevicePages(deviceId, payload) {
@@ -737,8 +737,8 @@ module.exports = class Appliance extends BaseObject {
     return this.request.post(`/devices/${deviceId}/tags/${tagId}`);
   }
 
-  getDeviceTriggers(deviceId, direct_assignments_only) {
-    return this.request.get(`/devices/${deviceId}/triggers`, { direct_assignments_only });
+  getDeviceTriggers(deviceId, criteria) {
+    return this.request.get(`/devices/${deviceId}/triggers`, { direct_assignments_only: criteria });
   }
 
   postDeviceTriggers(deviceId, payload) {
@@ -777,8 +777,8 @@ module.exports = class Appliance extends BaseObject {
     return this.request.patch(`/devicegroups/${deviceGroupId}`, payload);
   }
 
-  getDeviceGroupAlerts(deviceGroupId, direct_assignments_only) {
-    return this.request.get(`/devicegroups/${deviceGroupId}/alerts`, { direct_assignments_only });
+  getDeviceGroupAlerts(deviceGroupId, criteria) {
+    return this.request.get(`/devicegroups/${deviceGroupId}/alerts`, { direct_assignments_only: criteria });
   }
 
   postDeviceGroupAlerts(deviceGroupId, payload) {
@@ -797,11 +797,8 @@ module.exports = class Appliance extends BaseObject {
     return this.request.get(`/devicegroups/${deviceGroupId}/dashboards`);
   }
 
-  getDeviceGroupDevices(deviceGroupId, active_from, active_until, limit, offset) {
-    return this.request.get(`/devicegroups/${deviceGroupId}/devices`, { active_from,
-      active_until,
-      limit,
-      offset });
+  getDeviceGroupDevices(deviceGroupId, { active_from, active_until, limit, offset }) {
+    return this.request.get(`/devicegroups/${deviceGroupId}/devices`, { active_from, active_until, limit, offset });
   }
 
   postDeviceGroupDevices(deviceGroupId, payload) {
@@ -832,8 +829,8 @@ module.exports = class Appliance extends BaseObject {
     return this.request.post(`/devicegroups/${deviceGroupId}/flexgrids/${flexGridId}`);
   }
 
-  getDeviceGroupGeomaps(deviceGroupId, direct_assignments_only) {
-    return this.request.get(`/devicegroups/${deviceGroupId}/geomaps`, { direct_assignments_only });
+  getDeviceGroupGeomaps(deviceGroupId, criteria) {
+    return this.request.get(`/devicegroups/${deviceGroupId}/geomaps`, { direct_assignments_only: criteria });
   }
 
   postDeviceGroupGeomaps(deviceGroupId, payload) {
@@ -848,8 +845,8 @@ module.exports = class Appliance extends BaseObject {
     return this.request.post(`/devicegroups/${deviceGroupId}/geomaps/${geomapId}`);
   }
 
-  getDeviceGroupPages(deviceGroupId, direct_assignments_only) {
-    return this.request.get(`/devicegroups/${deviceGroupId}/pages`, { direct_assignments_only });
+  getDeviceGroupPages(deviceGroupId, criteria) {
+    return this.request.get(`/devicegroups/${deviceGroupId}/pages`, { direct_assignments_only: criteria });
   }
 
   postDeviceGroupPages(deviceGroupId, payload) {
@@ -880,8 +877,8 @@ module.exports = class Appliance extends BaseObject {
     return this.request.post(`/devicegroups/${deviceGroupId}/tags/${tagId}`);
   }
 
-  getDeviceGroupTriggers(deviceGroupId, direct_assignments_only) {
-    return this.request.get(`/devicegroups/${deviceGroupId}/triggers`, { direct_assignments_only });
+  getDeviceGroupTriggers(deviceGroupId, criteria) {
+    return this.request.get(`/devicegroups/${deviceGroupId}/triggers`, { direct_assignments_only: criteria });
   }
 
   postDeviceGroupTriggers(deviceGroupId, payload) {
@@ -1176,8 +1173,8 @@ module.exports = class Appliance extends BaseObject {
     return this.request.patch(`/networks/${networkId}`, payload);
   }
 
-  getNetworkAlerts(networkId, direct_assignments_only) {
-    return this.request.get(`/networks/${networkId}/alerts`, { direct_assignments_only });
+  getNetworkAlerts(networkId, criteria) {
+    return this.request.get(`/networks/${networkId}/alerts`, { direct_assignments_only: criteria });
   }
 
   postNetworkAlerts(networkId, payload) {
@@ -1192,8 +1189,8 @@ module.exports = class Appliance extends BaseObject {
     return this.request.post(`/networks/${networkId}/alerts/${alertId}`);
   }
 
-  getNetworkPages(networkId, direct_assignments_only) {
-    return this.request.get(`/networks/${networkId}/pages`, { direct_assignments_only });
+  getNetworkPages(networkId, criteria) {
+    return this.request.get(`/networks/${networkId}/pages`, { direct_assignments_only: criteria });
   }
 
   postNetworkPages(networkId, payload) {

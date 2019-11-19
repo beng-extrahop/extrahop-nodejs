@@ -17,8 +17,8 @@ module.exports = class Environment extends BaseObject {
       return new Appliance(this.appliances.find(x => [x.hostname, x.host].includes(hostname)));
     }
 
-    if (type == 'ECA') {
-      const ecas = this.appliances.filter(x => x.type == type || x.platform == platform);
+    if (type === 'ECA') {
+      const ecas = this.appliances.filter(x => x.type === type || x.platform === platform);
 
       if (ecas.length > 1) {
         console.warn(`${Icons.Warn} Multiple ECAs detected. Using host: ${ecas[0].hostname}`);
@@ -27,7 +27,7 @@ module.exports = class Environment extends BaseObject {
       return new Appliance(ecas[0]);
     }
 
-    return new ApplianceSet(...this.appliances.filter(x => x.type == type || x.platform == platform));
+    return new ApplianceSet(...this.appliances.filter(x => x.type === type || x.platform === platform));
   }
 
   eca(hostname) {
