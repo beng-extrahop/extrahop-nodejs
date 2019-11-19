@@ -68,7 +68,11 @@ const config = [
 const Extrahop = require('extrahop-nodejs');
 
 // Single host: provide Appliance: { hostname, apikey, type }
-const eca = new Extrahop(config[0].appliances[0]); //
+const eca = new Extrahop({
+  hostname: 'extrahop.domain.internal',
+  apikey: 'XXXXXXXXXXXXXX',
+  type: 'ECA'
+});
 
 // Multiple hosts: provide ApplianceSet: Array[...Appliance]
 const appliances = new Extrahop(config[0].appliances);
