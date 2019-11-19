@@ -11,4 +11,4 @@ module.exports = class Customization extends BaseObject {
     this.name = customization.name;
     this.recovered = customization.recovered;
   }
-}
+};

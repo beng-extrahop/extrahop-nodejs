@@ -9,4 +9,4 @@ module.exports = class CustomizationStatus extends BaseObject {
     this.last_attempt_time = customizationStatus.last_attempt_time;
     this.last_success_time = customizationStatus.last_success_time;
   }
-}
+};

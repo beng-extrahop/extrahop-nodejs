@@ -7,7 +7,6 @@ const fastCSV = require('fast-csv');
 const fs = require('fs');
 
 module.exports = class BaseObject {
-
   toString({ format = true } = {}) {
     return JSON.stringify(this, null, format ? 2 : null);
   }
@@ -28,10 +27,10 @@ module.exports = class BaseObject {
   }
 
   writeToCSV({ filename, subkey }) {
-    const stream = fs.createWriteStream(Config.CSV_DIR + '/' + filename, { encoding: 'utf8' });
+    const stream = fs.createWriteStream(`${Config.CSV_DIR}/${filename}`, { encoding: 'utf8' });
     const data = subkey ? this[subkey] : this;
 
     fastCSV.writeToStream(stream, data, { headers: true }).on('error', err => console.error(err));
     // fastCSV.write([this[subkey] || this], { headers }).pipe(fs.createWriteStream(filename));
   }
-}
+};

@@ -5,11 +5,6 @@ const Apikey = require('../models/apikey/Apikey.model');
 const ApikeySet = require('../models/apikey/ApikeySet.model');
 
 module.exports = class ApikeyCtrl extends BaseCtrl {
-
-	constructor(appliance) {
-		super(appliance);
-	}
-
   // -------------------------------------
   // Defaults
   // -------------------------------------
@@ -37,4 +32,4 @@ module.exports = class ApikeyCtrl extends BaseCtrl {
   postApikey(password) {
     return this.process(this.appliance.postApikey({ password }), 'API key');
   }
-}
+};

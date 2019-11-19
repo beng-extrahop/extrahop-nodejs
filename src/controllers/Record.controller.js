@@ -1,35 +1,25 @@
 // Record.controller.js
 
+const Database = require('nedb');
 const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
 const RecordSet = require('../models/record/RecordSet.model');
 const RecordSearch = require('../models/record/RecordSearch.model');
-const Utils = require('../utils/BaseUtil.util.js');
 const { Config, Icons } = require('../constants/Global.constants');
-
-const Database = require('nedb');
+const Utils = require('../utils/BaseUtil.util.js');
 
 module.exports = class RecordCtrl extends BaseCtrl {
-
-  constructor(appliance = {}) {
-    super(appliance);
-  }
-
   // -------------------------------------
   // Save Functions
   // -------------------------------------
 
   saveToCSV(search = {}) {
-    let offset = 0, limit = 10000;
-
-    search.db.find({}).exec(function (err, results) {
-      if ( err ) {
+    search.db.find({}).exec(function(err, results) {
+      if (err) {
         console.error(`${Icons.Error} ${err}`);
-      }
-      else if ( results.length == 0 ) {
+      } else if (results.length == 0) {
         console.warn(`${Icons.Warn} No results found in database.`);
-      }
-      else {
-        (new RecordSet(results)).writeToCSV({ filename: `records-${search.id}.csv` });
+      } else {
+        new RecordSet(results).writeToCSV({ filename: `records-${search.id}.csv` });
         console.info(`${Icons.Success} Saved ${results.length} records to CSV: records-${search.id}.csv`);
       }
     });
@@ -39,25 +29,31 @@ module.exports = class RecordCtrl extends BaseCtrl {
   // Search Functions
   // -------------------------------------
 
-  search(params = {}, options = {}) {
+  search(params = {}) {
     const search = this.searchInit(new RecordSearch(params));
     const db = new Database({ filename: `${Config.DB_DIR}/records-${search.id}.db`, autoload: true });
 
     this.printSearchInfo(search);
 
-    let records = search.records;
-    let count = 0, pageAt = 0, numPages = this.getPageCount(search.total, search.limit);
+    let { records } = search;
+    let count = 0;
+    let pageAt = 0;
+    const numPages = this.getPageCount(search.total, search.limit);
 
-    while ( records && records.length > 0 ) {
+    while (records && records.length > 0) {
       records = records.map(record => this.parse(record, '_source'));
       db.insert(records);
 
-      console.info(`[${++pageAt}/${numPages}] Processed ${(count += records.length)} results, awaiting next page...`);
+      console.info(
+        `[${++pageAt}/${numPages}] Processed ${(count += records.length)} results, awaiting next page...`
+      );
       records = this.searchNext(search.cursor, search.context_ttl);
     }
 
-    if ( count == search.total ) {
-      console.info(`\n${Icons.Success} Committed ${count}/${search.total} results to DB: records-${search.id}.db`);
+    if (count == search.total) {
+      console.info(
+        `\n${Icons.Success} Committed ${count}/${search.total} results to DB: records-${search.id}.db`
+      );
     } else {
       console.info(`\n${Icons.Warn} Committed ${count}/${search.total} records to DB: records-${search.id}.db`);
     }
@@ -69,7 +65,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
     const searchId = Utils.generateId();
     const getRecords = this.postRecordsSearch(search);
 
-    return Object.assign(search, getRecords.data, { id: searchId })
+    return Object.assign(search, getRecords.data, { id: searchId });
   }
 
   searchNext(cursor, contextTtl) {
@@ -95,7 +91,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
   }
 
   getPageCount(total = 1, limit = 1) {
-    return (total % limit) == 0 ? total / limit : Math.floor(total / limit) + 1;
+    return total % limit == 0 ? total / limit : Math.floor(total / limit) + 1;
   }
 
   // -------------------------------------
@@ -113,5 +109,4 @@ module.exports = class RecordCtrl extends BaseCtrl {
   postRecordsSearch(search) {
     return this.appliance.postRecordsSearch(search);
   }
-
-}
+};

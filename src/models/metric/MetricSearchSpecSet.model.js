@@ -8,4 +8,4 @@ module.exports = class MetricSearchSpecSet extends BaseObjectSet {
     super(metricSearchSpecs);
     metricSearchSpecs.forEach(metricSearchSpec => this.push(new MetricSearchSpec(metricSearchSpec)));
   }
-}
+};

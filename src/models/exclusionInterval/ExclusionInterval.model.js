@@ -6,6 +6,6 @@ module.exports = class ExclusionInterval extends BaseObject {
   constructor(exclusionInterval = {}) {
     super(exclusionInterval);
     /* TODO */
-    Object.keys(exclusionInterval).forEach(key => this[key] = exclusionInterval[key]);
+    Object.keys(exclusionInterval).forEach(key => (this[key] = exclusionInterval[key]));
   }
-}
+};

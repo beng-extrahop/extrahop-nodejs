@@ -10,4 +10,4 @@ module.exports = class Record extends BaseObject {
     this._score = record._score;
     this._source = record._source;
   }
-}
+};

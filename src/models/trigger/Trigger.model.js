@@ -18,4 +18,4 @@ module.exports = class Trigger extends BaseObject {
     this.apply_all = trigger.apply_all;
     this.hints = trigger.hints;
   }
-}
+};

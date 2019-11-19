@@ -14,4 +14,4 @@ module.exports = class DeviceGroup extends BaseObject {
     this.field = deviceGroup.field;
     this.value = deviceGroup.value;
   }
-}
+};

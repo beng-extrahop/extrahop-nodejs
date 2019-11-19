@@ -6,6 +6,6 @@ module.exports = class AlertStat extends BaseObject {
   constructor(alertStat = {}) {
     super();
     /* TODO */
-    Object.keys(alertStat).forEach(key => this[key] = alertStat[key]);
+    Object.keys(alertStat).forEach(key => (this[key] = alertStat[key]));
   }
-}
+};

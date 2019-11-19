@@ -9,4 +9,4 @@ module.exports = class Tag extends BaseObject {
     this.name = tag.name;
     this.mod_time = tag.mod_time;
   }
-}
+};

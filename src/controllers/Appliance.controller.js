@@ -8,10 +8,9 @@ const ApplianceCloudServices = require('../models/appliance/ApplianceCloudServic
 const ApplianceProductKey = require('../models/appliance/ApplianceProductKey.model');
 
 module.exports = class ApplianceCtrl extends BaseCtrl {
-
-  constructor(appliance) {
-    super(appliance);
-  }
+  // -------------------------------------
+  // Defaults
+  // -------------------------------------
 
   get(appliance) {
     return appliance ? new Appliance(this.getAppliance(appliance)) : new ApplianceSet(...this.getAppliances());
@@ -56,5 +55,4 @@ module.exports = class ApplianceCtrl extends BaseCtrl {
   getApplianceProductKey(appliance) {
     return this.process(this.appliance.getApplianceProductKey(appliance.id), 'appliance product key');
   }
-
-}
+};

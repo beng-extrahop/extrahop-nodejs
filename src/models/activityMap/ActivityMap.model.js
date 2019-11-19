@@ -11,4 +11,4 @@ module.exports = class ActivityMap extends BaseObject {
     this.id = this.oid;
     this.description = activityMap.description;
   }
-}
+};

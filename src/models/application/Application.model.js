@@ -6,6 +6,6 @@ module.exports = class Application extends BaseObject {
   constructor(application = {}) {
     super();
     /* TODO */
-    Object.keys(application).forEach(key => this[key] = application[key]);
+    Object.keys(application).forEach(key => (this[key] = application[key]));
   }
-}
+};

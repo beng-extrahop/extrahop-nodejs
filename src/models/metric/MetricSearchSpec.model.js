@@ -11,4 +11,4 @@ module.exports = class MetricSearchSpec extends BaseObject {
     this.name = name;
     this.percentiles = percentiles;
   }
-}
+};

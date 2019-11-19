@@ -4,7 +4,6 @@ const BaseObjectSet = require('../../models/_base/BaseObjectSet.model');
 const EmailGroup = require('../../models/emailGroup/EmailGroup.model');
 
 module.exports = class DeviceGroupSet extends BaseObjectSet {
-
   constructor(...emailGroups) {
     super(...emailGroups.map(emailGroup => new EmailGroup(emailGroup)));
   }
@@ -12,4 +11,4 @@ module.exports = class DeviceGroupSet extends BaseObjectSet {
   writeToCSV({ filename = `emailGroups-${this.generateId()}.csv`, subkey }) {
     super.writeToCSV({ filename, subkey });
   }
-}
+};

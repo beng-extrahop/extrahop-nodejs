@@ -1,7 +1,6 @@
 // Device.controller.js
 
 const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
-const Device = require('../models/device/Device.model');
 const DeviceSet = require('../models/device/DeviceSet.model');
 const DeviceSearch = require('../models/device/DeviceSearch.model');
 const DeviceActivity = require('../models/device/DeviceActivity.model');
@@ -16,11 +15,6 @@ const TriggerSet = require('../models/trigger/TriggerSet.model');
 const { Search } = require('../constants/Global.constants');
 
 module.exports = class DeviceCtrl extends BaseCtrl {
-
-  constructor(appliance) {
-    super(appliance);
-  }
-
   // -------------------------------------
   // Defaults
   // -------------------------------------
@@ -170,15 +164,15 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   // -------------------------------------
 
   getById(id) {
-    return this.getAll().with({ id: id });
+    return this.getAll().with({ id });
   }
 
   getByExtrahopId(extrahop_id) {
-    return this.getAll().with({ extrahop_id: extrahop_id });
+    return this.getAll().with({ extrahop_id });
   }
 
   getByParentId(parent_id) {
-    return this.getAll().with({ parent_id: parent_id });
+    return this.getAll().with({ parent_id });
   }
 
   getCustom() {
@@ -190,23 +184,23 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   // -------------------------------------
 
   setDescription(device, description) {
-    return this.update(device, { 'description': description });
+    return this.update(device, { description });
   }
 
   setCustomName(device, customName) {
-    return this.update(device, { 'custom_name': customName });
+    return this.update(device, { custom_name: customName });
   }
 
   setCustomType(device, customType) {
-    return this.update(device, { 'custom_type': customType });
+    return this.update(device, { custom_type: customType });
   }
 
   setRole(device, role) {
-    return this.update(device, { 'custom_type': role });
+    return this.update(device, { custom_type: role });
   }
 
   setVendor(device, vendor) {
-    return this.update(device, { 'vendor': vendor });
+    return this.update(device, { vendor });
   }
 
   // -------------------------------------
@@ -274,7 +268,10 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   postDeviceDeviceGroups(device, { assign, unassign }) {
-    return this.process(this.appliance.postDeviceDeviceGroups(device.id, { assign, unassign }), 'device deviceGroups');
+    return this.process(
+      this.appliance.postDeviceDeviceGroups(device.id, { assign, unassign }),
+      'device deviceGroups'
+    );
   }
 
   postDeviceDeviceGroup(device, deviceGroup) {
@@ -282,7 +279,10 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   deleteDeviceDeviceGroup(device, deviceGroup) {
-    return this.process(this.appliance.deleteDeviceDeviceGroup(device.id, deviceGroup.id), 'device deviceGroup');
+    return this.process(
+      this.appliance.deleteDeviceDeviceGroup(device.id, deviceGroup.id),
+      'device deviceGroup'
+    );
   }
 
   // -------------------------------------
@@ -332,5 +332,4 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   deleteDeviceTrigger(device, trigger) {
     return this.process(this.appliance.deleteDeviceDeviceGroup(device.id, trigger.id), 'device trigger');
   }
-
-}
+};

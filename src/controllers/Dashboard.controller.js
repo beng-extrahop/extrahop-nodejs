@@ -7,11 +7,6 @@ const DashboardSharing = require('../models/dashboard/DashboardSharing.model');
 const ReportSet = require('../models/report/ReportSet.model');
 
 module.exports = class DashboardCtrl extends BaseCtrl {
-
-	constructor(appliance) {
-		super(appliance);
-	}
-
   // -------------------------------------
   // Defaults
   // -------------------------------------
@@ -52,17 +47,17 @@ module.exports = class DashboardCtrl extends BaseCtrl {
   // Modify Dashboards
   // -------------------------------------
 
-	transferOwnership(dashboard, username) {
-		return this.update(dashboard, { owner: username });
-	}
+  transferOwnership(dashboard, username) {
+    return this.update(dashboard, { owner: username });
+  }
 
-	makePublic(dashboard) {
-		return this.addAnyoneView(dashboard);
-	}
+  makePublic(dashboard) {
+    return this.addAnyoneView(dashboard);
+  }
 
-	makePrivate(dashboard) {
-		return this.removeAnyone(dashboard);
-	}
+  makePrivate(dashboard) {
+    return this.removeAnyone(dashboard);
+  }
 
   // -------------------------------------
   // Anyone Sharing
@@ -160,11 +155,11 @@ module.exports = class DashboardCtrl extends BaseCtrl {
     return this.process(this.appliance.getDashboardSharing(dashboard.id), 'dashboard sharing');
   }
 
-	patchDashboardSharing(dashboard, sharing) {
-		return this.process(this.appliance.patchDashboardSharing(dashboard.id, sharing), 'dashboard sharing');
-	}
+  patchDashboardSharing(dashboard, sharing) {
+    return this.process(this.appliance.patchDashboardSharing(dashboard.id, sharing), 'dashboard sharing');
+  }
 
-	putDashboardSharing(dashboard, sharing) {
-		return this.process(this.appliance.putDashboardSharing(dashboard.id, sharing), 'dashboard sharing');
-	}
-}
+  putDashboardSharing(dashboard, sharing) {
+    return this.process(this.appliance.putDashboardSharing(dashboard.id, sharing), 'dashboard sharing');
+  }
+};

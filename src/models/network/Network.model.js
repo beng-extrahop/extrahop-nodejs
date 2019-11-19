@@ -6,6 +6,6 @@ module.exports = class Network extends BaseObject {
   constructor(network = {}) {
     super(network);
     /* TODO */
-    Object.keys(network).forEach(key => this[key] = network[key]);
+    Object.keys(network).forEach(key => (this[key] = network[key]));
   }
-}
+};

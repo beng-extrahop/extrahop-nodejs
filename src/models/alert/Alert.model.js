@@ -28,4 +28,4 @@ module.exports = class Alert extends BaseObject {
     this.refire_interval = alert.refire_interval;
     this.type = alert.type;
   }
-}
+};

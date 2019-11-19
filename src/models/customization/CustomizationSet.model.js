@@ -4,7 +4,6 @@ const BaseObjectSet = require('../../models/_base/BaseObjectSet.model');
 const Customization = require('../../models/customization/Customization.model');
 
 module.exports = class CustomizationSet extends BaseObjectSet {
-
   constructor(...customizations) {
     super(...customizations.map(customization => new Customization(customization)));
   }
@@ -12,4 +11,4 @@ module.exports = class CustomizationSet extends BaseObjectSet {
   writeToCSV({ filename = `customizations-${this.generateId()}.csv`, subkey }) {
     super.writeToCSV({ filename, subkey });
   }
-}
+};

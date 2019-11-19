@@ -3,6 +3,7 @@ examples/
 *.bkp*
 *.tmp*
 data/
+.backup/
 
 # Logs
 logs

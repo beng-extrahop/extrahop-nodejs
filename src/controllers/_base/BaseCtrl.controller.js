@@ -8,8 +8,8 @@ module.exports = class BaseCtrl {
   constructor(appliance = {}) {
     this.appliance = appliance;
     this.utils = Utils;
-    this.csvPath = [ Config.DATA_DIR, Config.CSV_DIR ].join('/');
-    this.dbPath = [ Config.DATA_DIR, Config.DB_DIR ].join('/');
+    this.csvPath = [Config.DATA_DIR, Config.CSV_DIR].join('/');
+    this.dbPath = [Config.DATA_DIR, Config.DB_DIR].join('/');
   }
 
   toString(options = {}) {
@@ -21,41 +21,33 @@ module.exports = class BaseCtrl {
   }
 
   printSuccess(method, type, count) {
-    if ( method === 'GET')
+    if (method === 'GET')
       console.info(`${Icons.Success} Retrieved ${count} ${type} from ${this.appliance.host}`);
-    else if ( method == 'POST' )
+    else if (method == 'POST')
       console.info(`${Icons.Success} Posted ${count} ${type} to ${this.appliance.host}`);
-    else if ( method == 'PATCH' )
-      console.info(`${Icons.Info} Modified ${type} on ${this.appliance.host}`);
-    else if ( method == 'PATCH' )
-      console.info(`${Icons.Info} Updated ${type} on ${this.appliance.host}`);
-    else if ( method === 'DELETE' )
-      console.info(`${Icons.Warn} Deleted ${type} from ${this.appliance.host}`);
+    else if (method == 'PATCH') console.info(`${Icons.Info} Modified ${type} on ${this.appliance.host}`);
+    else if (method == 'PATCH') console.info(`${Icons.Info} Updated ${type} on ${this.appliance.host}`);
+    else if (method === 'DELETE') console.info(`${Icons.Warn} Deleted ${type} from ${this.appliance.host}`);
   }
 
   printError(method, type) {
-    if ( method === 'GET')
-      console.info(`${Icons.Error} Error retrieving ${type} from ${this.appliance.host}`);
-    else if ( method == 'POST' )
-      console.info(`${Icons.Error} Error posting ${type} to ${this.appliance.host}`);
-    else if ( method == 'PATCH' )
+    if (method === 'GET') console.info(`${Icons.Error} Error retrieving ${type} from ${this.appliance.host}`);
+    else if (method == 'POST') console.info(`${Icons.Error} Error posting ${type} to ${this.appliance.host}`);
+    else if (method == 'PATCH')
       console.info(`${Icons.Error} Error modifying ${type} on ${this.appliance.host}`);
-    else if ( method == 'PATCH' )
-      console.info(`${Icons.Error} Error updating ${type} on ${this.appliance.host}`);
-    else if ( method === 'DELETE' )
+    else if (method == 'PATCH') console.info(`${Icons.Error} Error updating ${type} on ${this.appliance.host}`);
+    else if (method === 'DELETE')
       console.info(`${Icons.Error} Error deleting ${type} from ${this.appliance.host}`);
   }
 
   printWarning(method, type) {
-    if ( method === 'GET')
-      console.info(`${Icons.Warn} Warning: retrieving ${type} from ${this.appliance.host}`);
-    else if ( method == 'POST' )
-      console.info(`${Icons.Warn} Warning: posting ${type} to ${this.appliance.host}`);
-    else if ( method == 'PATCH' )
+    if (method === 'GET') console.info(`${Icons.Warn} Warning: retrieving ${type} from ${this.appliance.host}`);
+    else if (method == 'POST') console.info(`${Icons.Warn} Warning: posting ${type} to ${this.appliance.host}`);
+    else if (method == 'PATCH')
       console.info(`${Icons.Warn} Warning: modifying ${type} on ${this.appliance.host}`);
-    else if ( method == 'PATCH' )
+    else if (method == 'PATCH')
       console.info(`${Icons.Warn} Warning: updating ${type} on ${this.appliance.host}`);
-    else if ( method === 'DELETE' )
+    else if (method === 'DELETE')
       console.info(`${Icons.Warn} Warning: deleting ${type} from ${this.appliance.host}`);
   }
 
@@ -64,26 +56,28 @@ module.exports = class BaseCtrl {
   // -------------------------------------
 
   filter(results = [], params = {}) {
-    const [ key ] = Object.keys(params);
+    const [key] = Object.keys(params);
     return results.filter(result => result[key] == params[key]);
   }
 
   parse(data = {}, subkey) {
-    let parseData = data[subkey] || data;
+    const parseData = data[subkey] || data;
 
     Object.keys(parseData).forEach(key => {
-      if ( key.includes('timestamp') ) {
-        parseData[key + '_fmt'] = Moment(parseData[key]).tz('America/New_York').format('YYYY-MM-DD HH:mm:ss');
+      if (key.includes('timestamp')) {
+        parseData[`${key}_fmt`] = Moment(parseData[key])
+          .tz('America/New_York')
+          .format('YYYY-MM-DD HH:mm:ss');
       }
 
-      if ( parseData[key] instanceof Object ) {
+      if (parseData[key] instanceof Object) {
         parseData[key] = parseData[key].value;
       }
 
-      if ( parseData[key] instanceof Array ) {
+      if (parseData[key] instanceof Array) {
         parseData[key] = parseData[key].length == 1 ? parseData[key][0] : parseData[key].join(',');
       }
-    })
+    });
 
     // Object.keys(parseData).forEach(key => {
     //   if ( key === 'server' || key === 'client' ) {
@@ -107,26 +101,26 @@ module.exports = class BaseCtrl {
     //   }
     // });
 
-    return Object.assign(data, (subkey ? { [subkey]: parseData } : parseData));
+    return Object.assign(data, subkey ? { [subkey]: parseData } : parseData);
   }
 
   process(results = {}, type, options = {}) {
-    if ( options.suppress ) {
+    if (options.suppress) {
       return results.data;
     }
 
     let { method, data, success } = results;
-    let count = data.length;
+    const count = data.length;
 
-    if ( ['GET', 'POST'].includes(method) ) {
-      if ( !success ) {
+    if (['GET', 'POST'].includes(method)) {
+      if (!success) {
         this.printSuccess(method, type, count);
         return results.data;
       }
 
       data = options.subkey ? results.data[options.subkey] : results.data;
 
-      if ( (data || []).length == 0 ) {
+      if ((data || []).length == 0) {
         this.printWarning(method, type);
       } else {
         this.printSuccess(method, type, count);
@@ -134,21 +128,18 @@ module.exports = class BaseCtrl {
 
       return results.data;
     }
-    else if ( ['PATCH', 'PUT'].includes(method) ) {
-      if ( !success ) {
+    if (['PATCH', 'PUT'].includes(method)) {
+      if (!success) {
         this.printError(method, type);
-        return;
       } else {
         this.printSuccess(method, type);
       }
-    }
-    else if ( ['DELETE'].includes(method) ) {
-      if ( !success ) {
+    } else if (['DELETE'].includes(method)) {
+      if (!success) {
         this.printError(method, type);
-        return;
       } else {
         this.printSuccess(method, type);
       }
     }
   }
-}
+};

@@ -12,4 +12,4 @@ module.exports = class MetricSearch extends Search {
     this.object_ids = object_ids;
     this.object_type = object_type;
   }
-}
+};

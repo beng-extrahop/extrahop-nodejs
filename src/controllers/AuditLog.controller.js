@@ -4,11 +4,6 @@ const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
 const AuditLogSet = require('../models/auditLog/AuditLogSet.model');
 
 module.exports = class AuditLogCtrl extends BaseCtrl {
-
-	constructor(appliance) {
-		super(appliance);
-	}
-
   // -------------------------------------
   // Defaults
   // -------------------------------------
@@ -24,5 +19,4 @@ module.exports = class AuditLogCtrl extends BaseCtrl {
   getAuditLog(params = {}) {
     return this.process(this.appliance.getAuditLog(params), 'audit logs');
   }
-
-}
+};

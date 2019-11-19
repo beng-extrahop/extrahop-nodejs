@@ -6,4 +6,4 @@ module.exports = class DeviceSearch extends Search {
   constructor({ filter, limit, offset, active_from, active_until }) {
     super({ filter, limit, offset, active_from, active_until });
   }
-}
+};

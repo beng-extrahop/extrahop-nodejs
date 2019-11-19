@@ -9,4 +9,4 @@ module.exports = class EmailGroup extends BaseObject {
     this.description = emailGroup.description;
     this.name = emailGroup.name;
   }
-}
+};

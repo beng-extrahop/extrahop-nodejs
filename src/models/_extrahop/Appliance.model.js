@@ -25,7 +25,6 @@ const SoftwareCtrl = require('../../controllers/Software.controller');
 const TriggerCtrl = require('../../controllers/Trigger.controller');
 
 module.exports = class Appliance extends BaseObject {
-
   constructor(appliance = {}) {
     super();
     this.host = appliance.host || appliance.hostname;
@@ -37,7 +36,7 @@ module.exports = class Appliance extends BaseObject {
 
     const getExtrahop = this.getExtrahop();
 
-    if ( !getExtrahop.success ) {
+    if (!getExtrahop.success) {
       this.active = false;
       console.warn(`${Icons.Warn} Connection to ${this.hostname} failed`);
       return;
@@ -45,19 +44,19 @@ module.exports = class Appliance extends BaseObject {
 
     console.info(`${Icons.Info} Connected to ${this.hostname}`);
 
-    Object.keys(getExtrahop.data).forEach(key => this[key] = getExtrahop.data[key]);
+    Object.keys(getExtrahop.data).forEach(key => (this[key] = getExtrahop.data[key]));
     this.name = appliance.name || getExtrahop.data.display_host;
 
     const getAppliance = (this.getAppliances().data || []).find(x => x.hostname == this.hostname);
 
-    if ( getAppliance == null ) {
+    if (getAppliance == null) {
       console.warn(`${Icons.Warn} Error populating appliance data from ${this.hostname}`);
       return;
     }
 
-    Object.keys(getAppliance).forEach(key => this[key] = getAppliance[key]);
+    Object.keys(getAppliance).forEach(key => (this[key] = getAppliance[key]));
 
-    if ( this.host != this.hostname ) {
+    if (this.host != this.hostname) {
       console.warn(`${Icons.Warn} Hostname mismatch. Configured: ${this.host}, Retrieved: ${this.hostname}`);
     }
   }
@@ -799,7 +798,12 @@ module.exports = class Appliance extends BaseObject {
   }
 
   getDeviceGroupDevices(deviceGroupId, active_from, active_until, limit, offset) {
-    return this.request.get(`/devicegroups/${deviceGroupId}/devices`, { active_from, active_until, limit, offset });
+    return this.request.get(`/devicegroups/${deviceGroupId}/devices`, {
+      active_from,
+      active_until,
+      limit,
+      offset
+    });
   }
 
   postDeviceGroupDevices(deviceGroupId, payload) {
@@ -1709,5 +1713,4 @@ module.exports = class Appliance extends BaseObject {
   postWhitelistDevices(payload) {
     return this.request.post(`/whitelist/devices`, payload);
   }
-
-}
+};

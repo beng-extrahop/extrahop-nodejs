@@ -13,4 +13,4 @@ module.exports = class CustomDevice extends BaseObject {
     this.name = customDevice.name;
     this.disabled = customDevice.disabled;
   }
-}
+};

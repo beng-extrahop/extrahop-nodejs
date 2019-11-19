@@ -5,11 +5,6 @@ const Bundle = require('../models/bundle/Bundle.model');
 const BundleSet = require('../models/bundle/BundleSet.model');
 
 module.exports = class BundleCtrl extends BaseCtrl {
-
-	constructor(appliance) {
-		super(appliance);
-	}
-
   // -------------------------------------
   // Defaults
   // -------------------------------------
@@ -61,4 +56,4 @@ module.exports = class BundleCtrl extends BaseCtrl {
   postBundleApply(bundle) {
     return this.process(this.appliance.postBundleApply(bundle.id), 'bundle apply');
   }
-}
+};

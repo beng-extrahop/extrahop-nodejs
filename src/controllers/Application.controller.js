@@ -8,13 +8,14 @@ const AlertSet = require('../models/alert/AlertSet.model');
 const DashboardSet = require('../models/dashboard/DashboardSet.model');
 
 module.exports = class ApplicationCtrl extends BaseCtrl {
-
-  constructor(appliance) {
-    super(appliance);
-  }
+  // -------------------------------------
+  // Defaults
+  // -------------------------------------
 
   get(application) {
-    return application ? new Application(this.getApplication(application)) : new ApplicationSet(...this.getApplications());
+    return application
+      ? new Application(this.getApplication(application))
+      : new ApplicationSet(...this.getApplications());
   }
 
   getActivity(application) {
@@ -78,7 +79,10 @@ module.exports = class ApplicationCtrl extends BaseCtrl {
   }
 
   postApplicationAlerts(application, assign = [], unassign = []) {
-    return this.process(this.appliance.postApplicationAlerts(application.id, { assign, unassign }), 'application alerts');
+    return this.process(
+      this.appliance.postApplicationAlerts(application.id, { assign, unassign }),
+      'application alerts'
+    );
   }
 
   postApplicationAlert(application, alert) {
@@ -96,4 +100,4 @@ module.exports = class ApplicationCtrl extends BaseCtrl {
   getApplicationDashboards(application) {
     return this.process(this.appliance.getApplicationDashboards(application.id), 'application dashboards');
   }
-}
+};

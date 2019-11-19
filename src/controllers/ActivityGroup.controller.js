@@ -5,11 +5,6 @@ const ActivityGroupSet = require('../models/activityGroup/ActivityGroupSet.model
 const DashboardSet = require('../models/dashboard/DashboardSet.model');
 
 module.exports = class ActivityGroupCtrl extends BaseCtrl {
-
-  constructor(appliance) {
-    super(appliance);
-  }
-
   // -------------------------------------
   // Defaults
   // -------------------------------------
@@ -31,6 +26,9 @@ module.exports = class ActivityGroupCtrl extends BaseCtrl {
   }
 
   getActivityGroupDashboards(activityGroup) {
-    return this.process(this.appliance.getActivityGroupDashboards(activityGroup.id), 'activity group dashboards');
+    return this.process(
+      this.appliance.getActivityGroupDashboards(activityGroup.id),
+      'activity group dashboards'
+    );
   }
-}
+};

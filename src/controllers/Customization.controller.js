@@ -6,17 +6,14 @@ const CustomizationSet = require('../models/customization/CustomizationSet.model
 const CustomizationStatus = require('../models/customization/CustomizationStatus.model');
 
 module.exports = class CustomizationCtrl extends BaseCtrl {
-
-	constructor(appliance) {
-		super(appliance);
-	}
-
   // -------------------------------------
   // Defaults
   // -------------------------------------
 
   get(customization) {
-    return customization ? new Customization(this.getCustomization(customization)) : new CustomizationSet(...this.getCustomizations());
+    return customization
+      ? new Customization(this.getCustomization(customization))
+      : new CustomizationSet(...this.getCustomizations());
   }
 
   getStatus() {
@@ -82,4 +79,4 @@ module.exports = class CustomizationCtrl extends BaseCtrl {
   postCustomizationDownload(customization) {
     return this.process(this.appliance.postCustomizationDownload(customization.id), 'customization download');
   }
-}
+};

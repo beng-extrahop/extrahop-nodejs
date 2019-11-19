@@ -1,20 +1,11 @@
 // Trigger.controller.js
 
 const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
-const Trigger = require('../models/trigger/Trigger.model')
-const TriggerSet = require('../models/trigger/TriggerSet.model')
+const Trigger = require('../models/trigger/Trigger.model');
+const TriggerSet = require('../models/trigger/TriggerSet.model');
 const Strings = require('../constants/Global.constants');
 
 module.exports = class TriggerCtrl extends BaseCtrl {
-
-	constructor(appliance) {
-		super(appliance);
-	}
-
-  // -------------------------------------
-  // Defaults
-  // -------------------------------------
-
   get(trigger) {
     return trigger ? new Trigger(this.getTrigger(trigger)) : new TriggerSet(...this.getTriggers());
   }
@@ -22,97 +13,55 @@ module.exports = class TriggerCtrl extends BaseCtrl {
   // Get Triggers
   // -------------------------------------
 
-	findAll() {
-		return this.find(null);
-	}
+  findAll() {
+    return this.find(null);
+  }
 
-	findByAuthor(author, filter = 'equals') {
-		return this.find({'author': author}, Strings.Filters.indexOf(filter));
-	}
+  findByAuthor(author, filter = 'equals') {
+    return this.find({ author }, Strings.Filters.indexOf(filter));
+  }
 
-	findById(id, filter = 'equals') {
-		return this.find({'id': id}, Strings.Filters.indexOf(filter));
-	}
+  findById(id, filter = 'equals') {
+    return this.find({ id }, Strings.Filters.indexOf(filter));
+  }
 
-	findByName(name, filter = 'equals') {
-		return this.find({'name': name}, Strings.Filters.indexOf(filter));
-	}
+  findByName(name, filter = 'equals') {
+    return this.find({ name }, Strings.Filters.indexOf(filter));
+  }
 
-	findByOwner(username, filter = 'equals') {
-		return this.find({'owner': username}, Strings.Filters.indexOf(filter));
-	}
+  findByOwner(username, filter = 'equals') {
+    return this.find({ owner: username }, Strings.Filters.indexOf(filter));
+  }
 
-	findByType(type, filter = 'equals') {
-		return this.find({'type': type}, Strings.Filters.indexOf(filter));
-	}
+  findByType(type, filter = 'equals') {
+    return this.find({ type }, Strings.Filters.indexOf(filter));
+  }
 
-	findBy(property, filter = 'equals') {
-		return this.find(property, Strings.Filters.indexOf(filter));
-	}
-
-	find(criteria, filter) {
-		let triggers = this.appliance.getTriggers().data;
-
-		if ( !triggers || triggers.length == 0 ) {
-			console.info(`No triggers found on ${this.appliance.hostname}...`);
-			return [];
-		}
-		else if ( !criteria || criteria === null ) {
-			console.info(`Retrieving all triggers from ${this.appliance.hostname}...`);
-			return triggers.map(trigger => new Trigger(trigger));
-		}
-
-		const [ key, value ] = [ Object.keys(criteria)[0], Object.values(criteria)[0] ];
-		console.info(`\nRetrieving triggers where '${key}' ${Search.Filters[filter]} '${value}'`);
-
-		const isMatch = function(trigger, key, value, filter) {
-			switch (filter) {
-				case 0:
-					return !!trigger[key] && trigger[key] == value;
-				case 1:
-					return !!trigger[key] && trigger[key].includes(value);
-				case 2:
-					return !!trigger[key] && trigger[key].startsWith(value);
-				case 3:
-					return !!trigger[key] && trigger[key].endsWith(value);
-				default:
-					return false;
-			}
-		}
-
-		let results = [];
-
-		triggers.forEach(function(trigger) {
-			if ( isMatch(trigger, key, value, filter) ) {
-				results.push(new Trigger(trigger));
-			}
-		});
-
-		console.info(`Found ${results.length} triggers. Processing updates...\n`);
-		return results;
-	}
+  findBy(property, filter = 'equals') {
+    return this.find(property, Strings.Filters.indexOf(filter));
+  }
 
   // -------------------------------------
   // Edit Trigger
   // -------------------------------------
 
-	enable(trigger, skip = true) {
-		if ( trigger.disabled || !skip ) {
-			trigger.disabled = false;
-			return this.patchTrigger(trigger, { 'disabled': trigger.disabled });
-		}
-	}
+  enable(trigger, skip = true) {
+    if (trigger.disabled || !skip) {
+      trigger.disabled = false;
+      return this.patchTrigger(trigger, { disabled: trigger.disabled });
+    }
+  }
 
-	disable(trigger, skip = true) {
-		if ( !trigger.disabled || !skip ) {
-			trigger.disabled = true;
-			return this.patchTrigger(trigger, { 'disabled': trigger.disabled });
-		}
-	}
+  disable(trigger, skip = true) {
+    if (!trigger.disabled || !skip) {
+      trigger.disabled = true;
+      return this.patchTrigger(trigger, { disabled: trigger.disabled });
+    }
+  }
 
-	toggle(trigger) {
-		return this.patchTrigger(trigger, { 'disabled': !trigger.disabled });
-	}
+  toggle(trigger) {
+    return this.patchTrigger(trigger, { disabled: !trigger.disabled });
+  }
 
   // -------------------------------------
   // API Functions
@@ -126,7 +75,7 @@ module.exports = class TriggerCtrl extends BaseCtrl {
     return this.process(this.appliance.getTrigger(trigger.id), 'trigger');
   }
 
-	patchTrigger(trigger, payload) {
-		return this.appliance.patchTrigger(trigger.id, payload);
-	}
-}
+  patchTrigger(trigger, payload) {
+    return this.appliance.patchTrigger(trigger.id, payload);
+  }
+};

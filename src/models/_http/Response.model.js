@@ -13,4 +13,4 @@ module.exports = class Response extends BaseObject {
     this.data = JSON.parse(response.data || '{}');
     this.error = response.error;
   }
-}
+};

@@ -11,4 +11,4 @@ module.exports = class ActivityGroup extends BaseObject {
     this.id = this.oid;
     this.description = activityGroup.description;
   }
-}
+};

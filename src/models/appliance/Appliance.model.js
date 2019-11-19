@@ -6,6 +6,6 @@ module.exports = class Appliance extends BaseObject {
   constructor(appliance = {}) {
     super();
     /* TODO */
-    Object.keys(appliance).forEach(key => this[key] = appliance[key]);
+    Object.keys(appliance).forEach(key => (this[key] = appliance[key]));
   }
-}
+};

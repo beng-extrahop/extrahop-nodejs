@@ -34,4 +34,4 @@ module.exports = class Device extends BaseObject {
     this.analysis = device.analysis;
     this.on_watchlist = device.on_watchlist;
   }
-}
+};

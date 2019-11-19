@@ -1,21 +1,18 @@
 // ActivityGroup.controller.js
 
+const SyncRequest = require('sync-request');
 const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
-const Request = require('../models/_http/Request.model');
 const Response = require('../models/_http/Response.model');
 const { Icons } = require('../../constants/Global.constants');
 
-const SyncRequest = require('sync-request');
-
 module.exports = class RequestCtrl extends BaseCtrl {
-
   constructor(request) {
     super();
     this.request = request;
   }
 
   send({ method, uri, qs, json }) {
-    const headers = this.headers;
+    const { headers } = this;
     const config = Object.assign({ headers, qs, json }, this.config);
 
     let response = {};
@@ -23,8 +20,7 @@ module.exports = class RequestCtrl extends BaseCtrl {
     try {
       response = SyncRequest(method, this.url + uri, config);
       response.data = response.getBody('utf8');
-    }
-    catch (err) {
+    } catch (err) {
       response.error = err;
       console.log(`${Icons.Error} ${err}`);
     }
@@ -32,10 +28,6 @@ module.exports = class RequestCtrl extends BaseCtrl {
     response.method = method;
     return new Response(response);
   }
-
-  // -------------------------------------
-  // Defaults
-  // -------------------------------------
 
   get(uri, query) {
     return this.send({ method: 'GET', uri, qs: query });
@@ -56,5 +48,4 @@ module.exports = class RequestCtrl extends BaseCtrl {
   delete(uri, body) {
     return this.send({ method: 'DELETE', uri, json: body });
   }
-
-}
+};

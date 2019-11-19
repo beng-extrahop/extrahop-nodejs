@@ -11,4 +11,4 @@ module.exports = class Software extends BaseObject {
     this.software_type = software.software_type;
     this.version = software.version;
   }
-}
+};

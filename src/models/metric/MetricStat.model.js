@@ -10,4 +10,4 @@ module.exports = class MetricStat extends BaseObject {
     this.duration = metricStat.duration;
     this.values = metricStat.values;
   }
-}
+};

@@ -7,17 +7,14 @@ const ActivityMapQuery = require('../models/activityMap/ActivityMapQuery.model')
 const ActivityMapSharing = require('../models/activityMap/ActivityMapSharing.model');
 
 module.exports = class ActivityMapCtrl extends BaseCtrl {
-
-  constructor(appliance) {
-    super(appliance);
-  }
-
   // -------------------------------------
   // Defaults
   // -------------------------------------
 
   get(activityMap) {
-    return activityMap ? new ActivityMap(this.getActivityMap(activityMap)) : new ActivityMapSet(...this.getActivityMaps());
+    return activityMap
+      ? new ActivityMap(this.getActivityMap(activityMap))
+      : new ActivityMapSet(...this.getActivityMaps());
   }
 
   getSharing(activityMap) {
@@ -29,8 +26,8 @@ module.exports = class ActivityMapCtrl extends BaseCtrl {
   }
 
   query(data, activityMap) {
-    return activityMap ?
-        this.postActivityMapQuery(new ActivityMapQuery(data), activityMap)
+    return activityMap
+      ? this.postActivityMapQuery(new ActivityMapQuery(data), activityMap)
       : this.postActivityMapsQuery(new ActivityMapQuery(data));
   }
 
@@ -87,14 +84,19 @@ module.exports = class ActivityMapCtrl extends BaseCtrl {
   // -------------------------------------
 
   getActivityMapSharing(activityMap) {
-    return new ActivityMapSharing(this.process(this.appliance.getActivityMapSharing(activityMap.id), 'activity map'));
+    return new ActivityMapSharing(
+      this.process(this.appliance.getActivityMapSharing(activityMap.id), 'activity map')
+    );
   }
 
   patchActivityMapSharing(activityMap, sharing) {
-    return this.process(this.appliance.patchActivityMapSharing(activityMap.id, sharing), 'activity map sharing');
+    return this.process(
+      this.appliance.patchActivityMapSharing(activityMap.id, sharing),
+      'activity map sharing'
+    );
   }
 
   putActivityMapSharing(activityMap, sharing) {
     return this.process(this.appliance.putActivityMapSharing(activityMap.id, sharing), 'activity map sharing');
   }
-}
+};

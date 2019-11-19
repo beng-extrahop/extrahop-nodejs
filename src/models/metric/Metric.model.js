@@ -13,4 +13,4 @@ module.exports = class Metric extends BaseObject {
     this.from = metric.from;
     this.until = metric.until;
   }
-}
+};

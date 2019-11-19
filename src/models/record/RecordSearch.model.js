@@ -9,4 +9,4 @@ module.exports = class RecordSearch extends Search {
     this.sort = sort;
     this.context_ttl = contextTtl;
   }
-}
+};

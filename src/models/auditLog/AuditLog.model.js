@@ -10,4 +10,4 @@ module.exports = class AuditLog extends BaseObject {
     this.occur_time = auditLog.occur_time;
     this.time = auditLog.time;
   }
-}
+};

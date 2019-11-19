@@ -15,4 +15,4 @@ module.exports = class Dashboard extends BaseObject {
     this.short_code = dashboard.short_code;
     this.rights = dashboard.rights;
   }
-}
+};

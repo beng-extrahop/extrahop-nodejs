@@ -4,13 +4,12 @@ const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
 const License = require('../models/license/License.model');
 
 module.exports = class LicenseCtrl extends BaseCtrl {
-
-	constructor(appliance) {
-		super(appliance);
-	}
+  // -------------------------------------
+  // Defaults
+  // -------------------------------------
 
   get() {
-    return new License(this.getLicense())
+    return new License(this.getLicense());
   }
 
   // -------------------------------------
@@ -20,4 +19,4 @@ module.exports = class LicenseCtrl extends BaseCtrl {
   getLicense() {
     return this.process(this.appliance.getLicense(), 'license');
   }
-}
+};

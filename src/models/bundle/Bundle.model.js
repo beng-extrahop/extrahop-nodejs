@@ -12,4 +12,4 @@ module.exports = class Bundle extends BaseObject {
     this.mod_time = bundle.mod_time;
     this.name = bundle.name;
   }
-}
+};

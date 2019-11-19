@@ -9,4 +9,4 @@ module.exports = class ActivityMapSharing extends BaseObject {
     this.users = activityMapSharing.users;
     this.groups = activityMapSharing.groups;
   }
-}
+};

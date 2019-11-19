@@ -4,7 +4,6 @@ const BaseObject = require('../../models/_base/BaseObject.model');
 const SearchFilter = require('../../models/_search/SearchFilter.model');
 
 module.exports = class Search extends BaseObject {
-
   constructor(search = {}) {
     super();
     this.filter = !search.filter || search.filter.custom ? search.filter : new SearchFilter(search.filter);
@@ -15,5 +14,4 @@ module.exports = class Search extends BaseObject {
     this.active_from = search.active_from;
     this.active_until = search.active_until;
   }
-
-}
+};

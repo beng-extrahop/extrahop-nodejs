@@ -6,6 +6,6 @@ module.exports = class Report extends BaseObject {
   constructor(report = {}) {
     super(report);
     /* TODO */
-    Object.keys(report).forEach(key => this[key] = report[key]);
+    Object.keys(report).forEach(key => (this[key] = report[key]));
   }
-}
+};

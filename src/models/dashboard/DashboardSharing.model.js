@@ -9,4 +9,4 @@ module.exports = class DashboardSharing extends BaseObject {
     this.users = dashboardSharing.users;
     this.groups = dashboardSharing.groups;
   }
-}
+};

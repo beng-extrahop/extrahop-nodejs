@@ -12,4 +12,4 @@ module.exports = class Apikey extends BaseObject {
     this.user_id = apikey.user_id;
     this.username = apikey.username;
   }
-}
+};

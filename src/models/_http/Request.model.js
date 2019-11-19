@@ -1,13 +1,11 @@
 // Request.model.js
 
+const SyncRequest = require('sync-request');
 const BaseObject = require('../../models/_base/BaseObject.model');
 const Response = require('../../models/_http/Response.model');
 const { Icons } = require('../../constants/Global.constants');
 
-const SyncRequest = require('sync-request');
-
 module.exports = class Request extends BaseObject {
-
   constructor(hostname, apikey, params = {}) {
     super();
     this.hostname = hostname;
@@ -15,17 +13,17 @@ module.exports = class Request extends BaseObject {
     this.headers = { Authorization: `ExtraHop apikey=${apikey}` };
 
     this.config = {
-      cache: params.cache           || 'file',
-      gzip: params.gzip             || true,
-      timeout: params.timeout       || 5000,
-      retry: params.retry           || true,
+      cache: params.cache || 'file',
+      gzip: params.gzip || true,
+      timeout: params.timeout || 5000,
+      retry: params.retry || true,
       retryDelay: params.retryDelay || 1000,
       maxRetries: params.maxRetries || 3
     };
   }
 
   send({ method, uri, qs, json }) {
-    const headers = this.headers;
+    const { headers } = this;
     const config = Object.assign({ headers, qs, json }, this.config);
 
     let response = {};
@@ -33,8 +31,7 @@ module.exports = class Request extends BaseObject {
     try {
       response = SyncRequest(method, this.url + uri, config);
       response.data = response.getBody('utf8');
-    }
-    catch (err) {
+    } catch (err) {
       response.error = err;
       console.log(`${Icons.Error} ${err}`);
     }
@@ -62,4 +59,4 @@ module.exports = class Request extends BaseObject {
   delete(uri, body) {
     return this.send({ method: 'DELETE', uri, json: body });
   }
-}
+};
