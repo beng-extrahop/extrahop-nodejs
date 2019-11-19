@@ -24,8 +24,7 @@ module.exports = class DeviceSet extends BaseObjectSet {
     return this.filter(device => Object.keys(filter).some(key => device[key] != filter[key]));
   }
 
-  writeToCSV(options = {}) {
-    const { filename = `devices-${this.generateId()}.csv`, subkey } = options;
-    super.writeToCSV(filename, subkey);
+  writeToCSV({ filename = `devices-${this.generateId()}.csv`, subkey }) {
+    super.writeToCSV({ filename, subkey });
   }
 };

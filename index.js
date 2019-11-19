@@ -1,5 +1,7 @@
 // index.js
 
+'use strict';
+
 const Appliance = require('./src/models/_extrahop/Appliance.model');
 const ApplianceSet = require('./src/models/_extrahop/ApplianceSet.model');
 const Environment = require('./src/models/_extrahop/Environment.model');

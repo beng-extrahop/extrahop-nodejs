@@ -17,7 +17,11 @@
   },
   "rules": {
     "max-len": [
-      "error", { "code": 128, "ignoreTemplateLiterals": true }
+      "error", { "code": 128, "ignoreTemplateLiterals": true, "ignoreTrailingComments": true }
+    ],
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "*", "next": ["return", "block-like", "function"] }
     ],
     "indent": ["error", 2],
     "linebreak-style": ["error", "unix"],
@@ -26,13 +30,9 @@
     "brace-style": [2, "stroustrup", { "allowSingleLine": false }],
     "no-console": 0,
     "no-useless-constructor": 2,
+    "object-property-newline": ["error", { "allowAllPropertiesOnSameLine": true }],
     "object-curly-spacing": ["error", "always"],
-    "object-curly-newline": ["error", {
-      "ObjectExpression": "never",
-      "ObjectPattern": { "multiline": false, "minProperties": 9 },
-      "ImportDeclaration": "never",
-      "ExportDeclaration": { "multiline": false, "minProperties": 9 }
-    }],
+    "object-curly-newline": ["error", { "multiline": true, "minProperties": 9, "consistent": true }],
     "template-tag-spacing": ["error", "always"],
     "node/exports-style": ["error", "module.exports"],
     "node/file-extension-in-import": ["error", "always"],

@@ -8,12 +8,13 @@ const { Config, Icons } = require('../constants/Global.constants');
 const Utils = require('../utils/BaseUtil.util.js');
 
 module.exports = class RecordCtrl extends BaseCtrl {
+
   // -------------------------------------
   // Save Functions
   // -------------------------------------
 
   saveToCSV(search = {}) {
-    search.db.find({}).exec(function(err, results) {
+    search.db.find({}).exec((err, results) => {
       if (err) {
         console.error(`${Icons.Error} ${err}`);
       }
@@ -37,10 +38,8 @@ module.exports = class RecordCtrl extends BaseCtrl {
 
     this.printSearchInfo(search);
 
-    let { records } = search;
-    let count = 0;
-    let pageAt = 0;
-    const numPages = this.getPageCount(search.total, search.limit);
+    let { records, total, limit } = search;
+    let numPages = this.getPageCount(total, limit), count = 0, pageAt = 0;
 
     while (records && records.length > 0) {
       records = records.map(record => this.parse(record, '_source'));
@@ -68,9 +67,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
   }
 
   searchNext(cursor, context_ttl) {
-    const getRecords = this.postRecordsCursor(cursor, context_ttl);
-
-    return getRecords.data ? getRecords.data.records : [];
+    return (this.postRecordsCursor(cursor, context_ttl).data || { records: [] }).records;
   }
 
   // -------------------------------------
@@ -94,7 +91,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // APIFunctions
+  // API Functions
   // -------------------------------------
 
   getRecordsCursor(cursor, context_ttl) {

@@ -8,8 +8,7 @@ module.exports = class MetricSet extends BaseObjectSet {
     super(...metrics.map(metric => new Metric(metric)));
   }
 
-  writeToCSV(options = {}) {
-    const { filename = `devices-${this.generateId()}.csv`, subkey = '_source' } = options;
-    super.writeToCSV(filename, subkey);
+  writeToCSV({ filename = `metrics-${this.generateId()}.csv`, subkey }) {
+    super.writeToCSV({ filename, subkey });
   }
 };

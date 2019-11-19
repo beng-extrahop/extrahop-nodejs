@@ -31,6 +31,7 @@ module.exports = class BaseObject {
     const data = subkey ? this[subkey] : this;
 
     fastCSV.writeToStream(stream, data, { headers: true }).on('error', err => console.error(err));
+
     // fastCSV.write([this[subkey] || this], { headers }).pipe(fs.createWriteStream(filename));
   }
 };

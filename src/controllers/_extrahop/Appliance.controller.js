@@ -8,12 +8,8 @@ module.exports = class ApplianceCtrl extends BaseCtrl {
   init() {
     try {
       this.appliances = new ApplianceSet(
-        Config.hosts.filter(function(host) {
-          return host.enabled;
-        })
-      ).filter(function(appliance) {
-        return appliance.active;
-      });
+        Config.hosts.filter(host => host.enabled)
+      ).filter(appliance => appliance.active);
 
       if (!this.appliances || this.appliances.length === 0) {
         throw new Error();

@@ -46,6 +46,7 @@ module.exports = class MetricCtrl extends BaseCtrl {
     const numPages = this.getPageCount(search.total, search.limit);
 
     while (metrics && metrics.length > 0) {
+
       // metrics = metrics.map(metric => this.parse(metric, '_source'));
       db.insert(metrics);
 
@@ -116,7 +117,7 @@ module.exports = class MetricCtrl extends BaseCtrl {
   }
 
   saveToCSV(search = {}) {
-    search.db.find({}).exec(function(err, results) {
+    search.db.find({}).exec((err, results) => {
       if (err) {
         console.error(`${Icons.Error} ${err}`);
       }

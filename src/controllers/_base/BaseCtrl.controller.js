@@ -81,13 +81,14 @@ module.exports = class BaseCtrl {
 
   filter(results = [], params = {}) {
     const [key] = Object.keys(params);
-    return results.filter((result) => result[key] == params[key]);
+
+    return results.filter(result => result[key] == params[key]);
   }
 
   parse(data = {}, subkey) {
     const parseData = data[subkey] || data;
 
-    Object.keys(parseData).forEach((key) => {
+    Object.keys(parseData).forEach(key => {
       if (key.includes('timestamp')) {
         parseData[`${key}_fmt`] = Moment(parseData[key]).tz('America/New_York').format('YYYY-MM-DD HH:mm:ss');
       }
