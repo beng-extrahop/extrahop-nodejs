@@ -322,14 +322,8 @@ const devices = eca.devices().get();
 // GET (single)
 const device = eca.devices().get({ id: deviceId });
 
-// POST
-eca.devices().create(device);
-
 // PATCH
 eca.devices().update({ id: device.id }, data);
-
-// DELETE
-eca.devices().delete({ id: device.id });
 ```
 
 ### Device Groups

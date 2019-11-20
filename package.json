@@ -1,6 +1,6 @@
 {
   "name": "extrahop-nodejs",
-  "version": "1.3.32",
+  "version": "1.3.33",
   "description": "Wrapper for ExtraHop REST API",
   "main": "index.js",
   "dependencies": {
@@ -13,6 +13,9 @@
     "sync-request": "^6.1.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.2",
+    "babel-preset-es2015": "^6.24.1",
     "eslint": "^5.16.0",
     "eslint-config-eslint": "^5.0.1",
     "eslint-config-problems": "^3.0.1",
@@ -26,6 +29,9 @@
     "extrahop",
     "extrahop-nodejs"
   ],
+  "scripts": {
+    "babel": "npx babel src --out-dir lib --presets=es2015 --ignore 'src/**/*.bkp.js','src/**/*.test.js','src/**/*.bkp' --source-maps"
+  },
   "author": "Ben Gibson",
   "license": "ISC",
   "directories": {

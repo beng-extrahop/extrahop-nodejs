@@ -8,6 +8,7 @@ const fastCSV = require('fast-csv');
 const fs = require('fs');
 
 module.exports = class BaseObjectSet extends Array {
+
   toString(format = true) {
     return JSON.stringify(this, null, format ? 2 : null);
   }

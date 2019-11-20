@@ -4,6 +4,7 @@ const Database = require('nedb');
 const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
 const RecordSet = require('../models/record/RecordSet.model');
 const RecordSearch = require('../models/record/RecordSearch.model');
+
 const { Config, Icons } = require('../constants/Global.constants');
 const Utils = require('../utils/BaseUtil.util.js');
 
@@ -46,7 +47,9 @@ module.exports = class RecordCtrl extends BaseCtrl {
         console.warn(`${Icons.Warn} No results found in database.`);
       }
       else {
-        new RecordSet(...results).writeToCSV(`records-${search.id}.csv`);
+        const records = new RecordSet(...results);
+        console.log(records.slice(0,1));
+        records.writeToCSV(`records-${search.id}.csv`);
         console.info(`${Icons.Success} Saved ${results.length} records to CSV: records-${search.id}.csv`);
       }
     });
@@ -100,7 +103,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
       const deviceName = rule.value || rule.operand;
 
       if (deviceName.startsWith('*')) {
-        const devices = this.appliance.devices.getByName(deviceName.replace('*', ''));
+        const devices = this.appliance.devices().getByName(deviceName.replace('*', ''));
 
         if ( devices.length > 0 ) {
           console.log('Substituting discovery id for name:', rule.value, '=>', devices[0].discovery_id);
