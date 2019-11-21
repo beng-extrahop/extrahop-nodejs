@@ -32,6 +32,11 @@
   "scripts": {
     "babel": "npx babel src --out-dir lib --presets=es2015 --ignore 'src/**/*.bkp.js','src/**/*.test.js','src/**/*.bkp' --source-maps"
   },
+  "presets": ["@babel/preset-env", "@babel/preset-typescript"],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread"
+  ],
   "author": "Ben Gibson",
   "license": "ISC",
   "directories": {
