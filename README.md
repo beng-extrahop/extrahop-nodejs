@@ -1,40 +1,52 @@
-## extrahop-nodejs
+# extrahop-nodejs
 
-### Requirements:
+## Requirements
+
 - Node
 - npm
 
-### Install
+## Quick Start
+
+### Setup
 
 Create project directory:
+
 ```sh
 mkdir my-extrahop-cli
 cd ./my-extrahop-cli
 ```
 
-Install package files:
-```sh
-npm install --save extrahop-nodejs
-```
-
 Create main JS file, data dirs:
+
 ```sh
 mkdir -p data/{db,csv}
 touch index.js
 ```
 
+### Install
+
+```sh
+npm install --save extrahop-nodejs
+```
+
 ### Run
+
 ```js
 node index.js
 ```
 
 ### Import
+
 ```js
 const Extrahop = require('extrahop-nodejs');
 ```
 
+## Documentation
+
 ### Config
+
 Module accepts the following structure, either whole or in part:
+
 ```js
 const config = [
   {
@@ -61,7 +73,8 @@ const config = [
 ];
 ```
 
-#### Examples
+### Examples
+
 ```js
 // my-extrahop-cli/index.js
 
@@ -84,7 +97,8 @@ const environment = new Extrahop(config.environments[0]);
 const environments = new Extrahop(config); //
 ```
 
-#### Example from File
+### Example from File
+
 ```js
 // my-extrahop-cli/index.js
 
@@ -95,7 +109,9 @@ const extrahop = new Extrahop(config);
 ```
 
 ### Activity Groups
-#### Defaults
+
+#### Default
+
 ```js
 // GET (all)
 const activityGroups = eca.activityGroups().get();
@@ -105,7 +121,9 @@ const activityGroup = eca.activityGroups().get({ id: activityGroupId });
 ```
 
 ### Activity Maps
-#### Defaults
+
+#### Default
+
 ```js
 // GET (all)
 const activityMaps = eca.activityMaps().get();
@@ -117,7 +135,7 @@ const activityMap = eca.activityMaps().get({ id: activityMapId });
 const sharing = eca.activityMaps().getSharing({ id: activityMapId });
 
 // POST
-eca.activityMaps().create(activityMap);
+eca.activityMaps().post(activityMap);
 
 // POST (query all)
 eca.activityMaps().query(data);
@@ -133,7 +151,9 @@ eca.activityMaps().delete({ id: activityMap.id });
 ```
 
 ### Alerts
-#### Defaults
+
+#### Default
+
 ```js
 // GET (all)
 const alerts = eca.alerts().get();
@@ -142,7 +162,7 @@ const alerts = eca.alerts().get();
 const alert = eca.alerts().get({ id: alertId });
 
 // POST
-eca.alerts().create(alert);
+eca.alerts().post(alert);
 
 // PATCH
 eca.alerts().update({ id: alert.id }, data);
@@ -152,7 +172,9 @@ eca.alerts().delete({ id: alert.id });
 ```
 
 ### Analysis Priority
-#### Defaults
+
+#### Default
+
 ```js
 // GET (single)
 const analysisPriority = eca.analysisPriority().get();
@@ -165,7 +187,9 @@ eca.analysisPriority().delete({ id: alert.id });
 ```
 
 ### API Keys
-#### Defaults
+
+#### Default
+
 ```js
 // GET (all)
 const apikeys = eca.apikeys().get();
@@ -178,7 +202,9 @@ eca.apikeys().set(password);
 ````
 
 ### Appliances
-#### Defaults
+
+#### Default
+
 ```js
 // GET (all)
 const appliances = eca.appliances().get();
@@ -197,7 +223,9 @@ const productKey = eca.appliances().getProductKey({ id: applianceId });
 ```
 
 ### Applications
-#### Defaults
+
+#### Default
+
 ```js
 // GET (all)
 const applications = eca.applications().get();
@@ -206,7 +234,7 @@ const applications = eca.applications().get();
 const application = eca.applications().get({ id: applicationId });
 
 // POST
-eca.applications().create(application);
+eca.applications().post(application);
 
 // PATCH
 eca.applications().update({ id: application.id }, data);
@@ -216,7 +244,9 @@ eca.applications().delete({ id: application.id });
 ```
 
 ### Audit Logs
-#### Defaults
+
+#### Default
+
 ```js
 // GET (all)
 const auditLogs = eca.auditLogs().get();
@@ -225,7 +255,7 @@ const auditLogs = eca.auditLogs().get();
 const auditLog = eca.auditLogs().get({ id: auditLogId });
 
 // POST
-eca.auditLogs().create(auditLog);
+eca.auditLogs().post(auditLog);
 
 // PATCH
 eca.auditLogs().update({ id: auditLog.id }, data);
@@ -235,7 +265,9 @@ eca.auditLogs().delete({ id: auditLog.id });
 ```
 
 ### Bundles
-#### Defaults
+
+#### Default
+
 ```js
 // GET (all)
 const bundles = eca.bundles().get();
@@ -244,7 +276,7 @@ const bundles = eca.bundles().get();
 const bundle = eca.bundles().get({ id: bundleId });
 
 // POST
-eca.bundles().create(bundle);
+eca.bundles().post(bundle);
 
 // DELETE
 eca.bundles().delete({ id: bundle.id });
@@ -254,7 +286,9 @@ eca.bundles().apply({ id: bundle.id });
 ```
 
 ### Custom Devices
-#### Defaults
+
+#### Default
+
 ```js
 // GET (all)
 const customDevices = eca.customDevices().get();
@@ -263,7 +297,7 @@ const customDevices = eca.customDevices().get();
 const customDevice = eca.customDevices().get({ id: customDeviceId });
 
 // POST
-eca.customDevices().create(customDevice);
+eca.customDevices().post(customDevice);
 
 // PATCH
 eca.customDevices().update({ id: customDevice.id }, data);
@@ -273,7 +307,9 @@ eca.customDevices().delete({ id: customDevice.id });
 ```
 
 ### Customizations
-#### Defaults
+
+#### Default
+
 ```js
 // GET (all)
 const customizations = eca.customizations().get();
@@ -295,7 +331,9 @@ eca.customizations().delete({ id: customization.id });
 ```
 
 ### Dashboards
-#### Defaults
+
+#### Default
+
 ```js
 // GET (all)
 const dashboards = eca.dashboards().get();
@@ -304,7 +342,7 @@ const dashboards = eca.dashboards().get();
 const dashboard = eca.dashboards().get({ id: dashboardId });
 
 // POST
-eca.dashboards().create(dashboard);
+eca.dashboards().post(dashboard);
 
 // PATCH
 eca.dashboards().update({ id: dashboard.id }, data);
@@ -314,7 +352,9 @@ eca.dashboards().delete({ id: dashboard.id });
 ```
 
 ### Devices
-#### Defaults
+
+#### Default
+
 ```js
 // GET (all)
 const devices = eca.devices().get();
@@ -327,7 +367,9 @@ eca.devices().update({ id: device.id }, data);
 ```
 
 ### Device Groups
-#### Defaults
+
+#### Default
+
 ```js
 // GET (all)
 const deviceGroups = eca.deviceGroups().get();
@@ -336,7 +378,7 @@ const deviceGroups = eca.deviceGroups().get();
 const deviceGroup = eca.deviceGroups().get({ id: deviceGroupId });
 
 // POST
-eca.deviceGroups().create(deviceGroup);
+eca.deviceGroups().post(deviceGroup);
 
 // PATCH
 eca.deviceGroups().update({ id: deviceGroup.id }, data);
@@ -346,7 +388,9 @@ eca.deviceGroups().delete({ id: deviceGroup.id });
 ```
 
 ### License
-#### Defaults
+
+#### Default
+
 ```js
 // GET
 const license = eca.license().get();
@@ -354,7 +398,8 @@ const license = eca.license().get();
 
 ### Records
 
-#### Search & Save
+### Search & Save
+
 ```js
 const rules = {
   'operator': 'or',
@@ -385,7 +430,9 @@ eca.records().saveToCSV(search);
 ```
 
 ### Software
-#### Defaults
+
+#### Default
+
 ```js
 // GET (all)
 const softwares = eca.software().get();
@@ -395,7 +442,9 @@ const software = eca.software().get({ id: softwareId });
 ```
 
 ### Triggers
-#### Defaults
+
+#### Default
+
 ```js
 // GET (all)
 const triggers = eca.triggers().get();
@@ -404,7 +453,7 @@ const triggers = eca.triggers().get();
 const trigger = eca.triggers().get({ id: triggerId });
 
 // POST
-eca.triggers().create(trigger);
+eca.triggers().post(trigger);
 
 // PATCH
 eca.triggers().update({ id: trigger.id }, data);

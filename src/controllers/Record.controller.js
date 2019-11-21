@@ -47,9 +47,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
         console.warn(`${Icons.Warn} No results found in database.`);
       }
       else {
-        const records = new RecordSet(...results);
-        console.log(records.slice(0,1));
-        records.writeToCSV(`records-${search.id}.csv`);
+        (new RecordSet(...results)).writeToCSV(`records-${search.id}.csv`);
         console.info(`${Icons.Success} Saved ${results.length} records to CSV: records-${search.id}.csv`);
       }
     });
@@ -96,13 +94,9 @@ module.exports = class RecordCtrl extends BaseCtrl {
     }
 
     searchFilter.filter.rules.forEach(rule => {
-      if (!['server', 'client', 'device'].includes(rule.field)) {
-        return;
-      }
-
       const deviceName = rule.value || rule.operand;
 
-      if (deviceName.startsWith('*')) {
+      if (deviceName.startsWith('*') && ['server', 'client', 'device'].includes(rule.field)) {
         const devices = this.appliance.devices().getByName(deviceName.replace('*', ''));
 
         if ( devices.length > 0 ) {
