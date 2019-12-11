@@ -1,5 +1,7 @@
 // index.js
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 const Appliance = require('./src/models/_app/Appliance.model');
 const ApplianceSet = require('./src/models/_app/ApplianceSet.model');
 const Environment = require('./src/models/_app/Environment.model');
