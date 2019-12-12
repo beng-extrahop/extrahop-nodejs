@@ -16,9 +16,10 @@ mkdir my-extrahop-cli
 cd ./my-extrahop-cli
 ```
 
-Create main JS file, data dirs:
+Initialize project:
 
 ```sh
+npm init
 mkdir -p data/{db,csv}
 touch index.js
 ```
@@ -26,7 +27,7 @@ touch index.js
 ### Install
 
 ```sh
-npm install --save extrahop-nodejs
+npm install --save extrahop-nodejs@latest
 ```
 
 ### Run
@@ -43,12 +44,12 @@ const Extrahop = require('extrahop-nodejs');
 
 ## Documentation
 
-### Config
+### Config File
 
 Module accepts the following structure, either whole or in part:
 
 ```js
-const config = [
+[
   {
     name: 'my-environment',
     appliances: [
@@ -70,7 +71,7 @@ const config = [
     ]
   },
   ...Environment
-];
+]
 ```
 
 ### Examples
@@ -79,13 +80,20 @@ const config = [
 // my-extrahop-cli/index.js
 
 const Extrahop = require('extrahop-nodejs');
+const config = require('./config');
 
 // Single host: provide Appliance: { hostname, apikey, type }
+
+const eca = new Extrahop(config[0].appliances[0])
+
+// ...or simply:
+
 const eca = new Extrahop({
   hostname: 'extrahop.domain.internal',
   apikey: 'XXXXXXXXXXXXXX',
   type: 'ECA'
 });
+
 
 // Multiple hosts: provide ApplianceSet: Array[...Appliance]
 const appliances = new Extrahop(config[0].appliances);
@@ -103,9 +111,8 @@ const environments = new Extrahop(config); //
 // my-extrahop-cli/index.js
 
 const Extrahop = require('extrahop-nodejs');
-const config = require('./config.json');
 
-const extrahop = new Extrahop(config);
+const env = new Extrahop(config);
 ```
 
 ### Activity Groups
@@ -425,8 +432,8 @@ const filter = {
   until: '-30m', // default: now
 };
 
-const search = eca.records().store(filter);
-eca.records().saveToCSV(search);
+const search = eca.records().search(filter, { save: true });
+eca.records().toCSV(search);
 ```
 
 ### Software

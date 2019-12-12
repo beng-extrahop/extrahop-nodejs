@@ -18,27 +18,11 @@ module.exports = class RecordCtrl extends BaseCtrl {
     return this.appliance.getRecordsCursor(cursor, contextTtl);
   }
 
-  search(searchFilter) {
-    return this.appliance.postRecordsSearch(searchFilter);
-  }
-
-  searchInit(search = {}) {
-    return Object.assign(search, this.postRecordsSearch(search).data, { id: Utils.generateId() });
-  }
-
-  searchNext(cursor, contextTtl) {
-    return (this.postRecordsCursor(cursor, contextTtl).data || { records: [] }).records;
-  }
-
-  store(searchFilter) {
-    return this.storeSearch(searchFilter);
-  }
-
   // -------------------------------------
   // Save Functions
-  // -------------------------------------
+  // -------------------------------------             
 
-  saveToCSV(search = {}) {
+  toCSV(search = {}) {
     search.db.find({}).exec((err, results) => {
       if (err) {
         console.error(`${Icons.Error} ${err}`);
@@ -57,8 +41,13 @@ module.exports = class RecordCtrl extends BaseCtrl {
   // Search Functions
   // -------------------------------------
 
-  storeSearch(searchFilter = {}) {
-    const search = this.searchInit(new RecordSearch(this.parseSearchFilter(searchFilter)));
+  search(searchFilter = {}, options = {}) {
+    if ( !options.save) {
+      return this.appliance.postRecordsSearch(searchFilter);
+    }
+
+    //const search = this.searchInit(new RecordSearch(this.parseSearchFilter(searchFilter)));
+    const search = this.searchInit(new RecordSearch(searchFilter));
     const db = new Database({ filename: `${Config.DB_DIR}/records-${search.id}.db`, autoload: true });
 
     this.printSearchInfo(search);
@@ -84,6 +73,14 @@ module.exports = class RecordCtrl extends BaseCtrl {
     return Object.assign(search, { db, records });
   }
 
+  searchInit(search = {}) {
+    return Object.assign(search, this.postRecordsSearch(search).data, { id: Utils.generateId() });
+  }
+
+  searchNext(cursor, contextTtl) {
+    return (this.postRecordsCursor(cursor, contextTtl).data || { records: [] }).records;
+  }
+  
   // -------------------------------------
   // Utility Functions
   // -------------------------------------

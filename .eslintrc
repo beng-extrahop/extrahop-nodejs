@@ -23,7 +23,7 @@
     "padding-line-between-statements": [
       "error",
       { "blankLine": "always", "prev": "*", "next": ["block-like", "function"] },
-      { "blankLine": "always", "prev": "block-like", "next": ["return"] }
+      { "blankLine": "always", "prev": "block-like", "next": "*" }
     ],
     "eqeqeq": ["warn", "always", {"null": "ignore"}],
     "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
