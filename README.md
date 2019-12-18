@@ -45,32 +45,32 @@ const Extrahop = require('extrahop-nodejs');
 
 ### Config
 
-Module accepts the following structure, either whole or in part:
+Module accepts the following structure, either whole or in part and from file (using require) or variable.
+The examples section below demonstrates both inline and external file (config.json) methods.
 
-```js
-const config = [
+```json
+[
   {
-    name: 'my-environment',
-    appliances: [
+    "name": "my-environment",
+    "appliances": [
       {
-        hostname: 'extrahop.domain.internal',
-        apikey: 'XXXXXXXXXXXXXX',
-        type: 'ECA'
+        "hostname": "extrahop.domain.internal",
+        "apikey": "XXXXXXXXXXXXXX",
+        "type": "ECA"
       },
       {
-        hostname: 'eda01.domain.internal',
-        apikey: 'XXXXXXXXXXXXXX',
-        type: 'EDA'
+        "hostname": "eda01.domain.internal",
+        "apikey": "XXXXXXXXXXXXXX",
+        "type": "EDA"
       },
       {
-        hostname: 'eda02.domain.internal',
-        apikey: 'XXXXXXXXXXXXXX',
-        type: 'EDA'
-      }
+        "hostname": "eda02.domain.internal",
+        "apikey": "XXXXXXXXXXXXXX",
+        "type": "EDA"
+      },
     ]
-  },
-  ...Environment
-];
+  }
+]
 ```
 
 ### Examples
@@ -79,33 +79,23 @@ const config = [
 // my-extrahop-cli/index.js
 
 const Extrahop = require('extrahop-nodejs');
+const config = require('./config');
 
-// Single host: provide Appliance: { hostname, apikey, type }
+// Single host, provide Appliance: { hostname, apikey, type }
 const eca = new Extrahop({
   hostname: 'extrahop.domain.internal',
   apikey: 'XXXXXXXXXXXXXX',
   type: 'ECA'
 });
 
-// Multiple hosts: provide ApplianceSet: Array[...Appliance]
+// Multiple hosts, provide Appliances: [...Appliances]
 const appliances = new Extrahop(config[0].appliances);
 
-// Single environment: provide Environment{ name, appliances: [...Appliance] }
+// Single environment, provide Environment: { name, appliances: [...Appliances] }
 const environment = new Extrahop(config.environments[0]);
 
-// Multiple environments; provide EnvironmentSet: Array[...Environment]
+// Multiple environments, provide Environments: [...Environments]
 const environments = new Extrahop(config); //
-```
-
-### Example from File
-
-```js
-// my-extrahop-cli/index.js
-
-const Extrahop = require('extrahop-nodejs');
-const config = require('./config.json');
-
-const extrahop = new Extrahop(config);
 ```
 
 ### Activity Groups
