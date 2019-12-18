@@ -26,7 +26,7 @@ touch index.js
 ### Install
 
 ```sh
-npm install --save extrahop-nodejs
+npm install --save extrahop-nodejs@latest
 ```
 
 ### Run
