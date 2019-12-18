@@ -11,7 +11,7 @@ module.exports = class SoftwareCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(software) {
-    return software ? new Software(this.getSoftware(software)) : new SoftwareSet(...this.getSoftwares());
+    return software ? new Software(this.getSoftware(software)) : new SoftwareSet(this.getSoftwares());
   }
 
   // -------------------------------------

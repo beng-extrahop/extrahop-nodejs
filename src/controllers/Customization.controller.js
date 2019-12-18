@@ -14,7 +14,7 @@ module.exports = class CustomizationCtrl extends BaseCtrl {
   get(customization) {
     return customization
       ? new Customization(this.getCustomization(customization))
-      : new CustomizationSet(...this.getCustomizations());
+      : new CustomizationSet(this.getCustomizations());
   }
 
   getStatus() {

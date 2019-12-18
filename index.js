@@ -22,7 +22,7 @@ module.exports = class Extrahop {
     }
 
     // Appliance or Environment
-    if (config instanceof Object) {
+    else if ( config instanceof Object ) {
       if (config.hostname && config.apikey) {
         return new Appliance(config);
       }
@@ -30,6 +30,10 @@ module.exports = class Extrahop {
       if (config.name && config.appliances) {
         return new Environment(config);
       }
+    }
+
+    else {
+      console.error('No configuration provided or config file not found');
     }
   }
 };

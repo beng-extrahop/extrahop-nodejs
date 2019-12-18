@@ -14,11 +14,11 @@ module.exports = class MetricCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(search) {
-    return new MetricSet(...this.postMetrics(search));
+    return new MetricSet(this.postMetrics(search));
   }
 
   getNext(search) {
-    return new MetricSet(...this.postMetrics(search));
+    return new MetricSet(this.postMetrics(search));
   }
 
   total(search) {

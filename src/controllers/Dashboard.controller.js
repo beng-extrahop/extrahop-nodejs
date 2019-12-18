@@ -13,7 +13,7 @@ module.exports = class DashboardCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(dashboard = {}) {
-    return dashboard.id ? new Dashboard(this.getDashboard(dashboard)) : new DashboardSet(...this.getDashboards());
+    return dashboard.id ? new Dashboard(this.getDashboard(dashboard)) : new DashboardSet(this.getDashboards());
   }
 
   getSharing(dashboard = {}) {
@@ -29,7 +29,7 @@ module.exports = class DashboardCtrl extends BaseCtrl {
       return this.printError('GET', 'dashboard reports', 'Function parameter { "id": dashboardId } is required');
     }
 
-    return new ReportSet(...this.getDashboardReports(dashboard));
+    return new ReportSet(this.getDashboardReports(dashboard));
   }
 
   create(data) {

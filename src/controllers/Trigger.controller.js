@@ -12,7 +12,7 @@ module.exports = class TriggerCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(trigger) {
-    return trigger ? new Trigger(this.getTrigger(trigger)) : new TriggerSet(...this.getTriggers());
+    return trigger ? new Trigger(this.getTrigger(trigger)) : new TriggerSet(this.getTriggers());
   }
 
   // -------------------------------------

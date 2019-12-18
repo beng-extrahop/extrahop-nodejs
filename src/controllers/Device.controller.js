@@ -21,11 +21,11 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(params = {}) {
-    return new DeviceSet(...this.getDevices(params));
+    return new DeviceSet(this.getDevices(params));
   }
 
   search(options = {}) {
-    return new DeviceSet(...this.searchDevices(new DeviceSearch(options)));
+    return new DeviceSet(this.searchDevices(new DeviceSearch(options)));
   }
 
   update(device, data) {
@@ -37,7 +37,7 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   getAlerts(device) {
-    return new AlertSet(...this.getDeviceAlerts(device));
+    return new AlertSet(this.getDeviceAlerts(device));
   }
 
   assignAlert(device, alert) {
@@ -57,11 +57,11 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   getDashboards(device) {
-    return new DashboardSet(...this.getDeviceDashboards(device));
+    return new DashboardSet(this.getDeviceDashboards(device));
   }
 
   getDeviceGroups(device) {
-    return new DeviceGroupSet(...this.getDeviceDeviceGroups(device));
+    return new DeviceGroupSet(this.getDeviceDeviceGroups(device));
   }
 
   assignDeviceGroup(device, deviceGroup) {
@@ -81,15 +81,15 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   getSoftware(device) {
-    return new SoftwareSet(...this.getDeviceSoftware(device));
+    return new SoftwareSet(this.getDeviceSoftware(device));
   }
 
   getTags(device) {
-    return new TagSet(...this.getDeviceTags(device));
+    return new TagSet(this.getDeviceTags(device));
   }
 
   getTriggers(device) {
-    return new TriggerSet(...this.getDeviceTriggers(device));
+    return new TriggerSet(this.getDeviceTriggers(device));
   }
 
   assignTrigger(device, trigger) {

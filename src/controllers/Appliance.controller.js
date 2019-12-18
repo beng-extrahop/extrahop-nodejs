@@ -14,7 +14,7 @@ module.exports = class ApplianceCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(appliance) {
-    return appliance ? new Appliance(this.getAppliance(appliance)) : new ApplianceSet(...this.getAppliances());
+    return appliance ? new Appliance(this.getAppliance(appliance)) : new ApplianceSet(this.getAppliances());
   }
 
   getCloudServices(appliance) {

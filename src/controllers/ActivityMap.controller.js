@@ -15,7 +15,7 @@ module.exports = class ActivityMapCtrl extends BaseCtrl {
   get(activityMap) {
     return activityMap
       ? new ActivityMap(this.getActivityMap(activityMap))
-      : new ActivityMapSet(...this.getActivityMaps());
+      : new ActivityMapSet(this.getActivityMaps());
   }
 
   getSharing(activityMap) {

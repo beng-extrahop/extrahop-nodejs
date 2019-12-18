@@ -16,7 +16,7 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(params = {}) {
-    return new DeviceGroupSet(...this.getDeviceGroups(params));
+    return new DeviceGroupSet(this.getDeviceGroups(params));
   }
 
   create(data) {
@@ -32,7 +32,7 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   }
 
   getAlerts(deviceGroup) {
-    return new AlertSet(...this.getDeviceGroupAlerts(deviceGroup));
+    return new AlertSet(this.getDeviceGroupAlerts(deviceGroup));
   }
 
   assignAlert(deviceGroup, alert) {
@@ -52,11 +52,11 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   }
 
   getDashboards(deviceGroup) {
-    return new DashboardSet(...this.getDeviceGroupDashboards(deviceGroup));
+    return new DashboardSet(this.getDeviceGroupDashboards(deviceGroup));
   }
 
   getDevices(deviceGroup) {
-    return new DeviceSet(...this.getDeviceGroupDevices(deviceGroup));
+    return new DeviceSet(this.getDeviceGroupDevices(deviceGroup));
   }
 
   assignDevice(deviceGroup, device) {
@@ -76,7 +76,7 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   }
 
   getTriggers(deviceGroup) {
-    return new TriggerSet(...this.getDeviceGroupTriggers(deviceGroup));
+    return new TriggerSet(this.getDeviceGroupTriggers(deviceGroup));
   }
 
   assignTrigger(deviceGroup, trigger) {

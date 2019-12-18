@@ -18,7 +18,7 @@ module.exports = class AlertCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(alert) {
-    return alert ? new Alert(this.getAlert(alert)) : new AlertSet(...this.getAlerts());
+    return alert ? new Alert(this.getAlert(alert)) : new AlertSet(this.getAlerts());
   }
 
   post(data) {
@@ -38,31 +38,31 @@ module.exports = class AlertCtrl extends BaseCtrl {
   }
 
   getApplications(alert) {
-    return new ApplicationSet(...this.getAlertApplications(alert));
+    return new ApplicationSet(this.getAlertApplications(alert));
   }
 
   getDevices(alert) {
-    return new DeviceSet(...this.getAlertDevices(alert));
+    return new DeviceSet(this.getAlertDevices(alert));
   }
 
   getDeviceGroups(alert) {
-    return new DeviceGroupSet(...this.getAlertDeviceGroups(alert));
+    return new DeviceGroupSet(this.getAlertDeviceGroups(alert));
   }
 
   getEmailGroups(alert) {
-    return new EmailGroupSet(...this.getAlertEmailGroups(alert));
+    return new EmailGroupSet(this.getAlertEmailGroups(alert));
   }
 
   getExclusionIntervals(alert) {
-    return new ExclusionIntervalSet(...this.getAlertExclusionIntervals(alert));
+    return new ExclusionIntervalSet(this.getAlertExclusionIntervals(alert));
   }
 
   getNetworks(alert) {
-    return new NetworkSet(...this.getAlertNetworks(alert));
+    return new NetworkSet(this.getAlertNetworks(alert));
   }
 
   getStats(alert) {
-    return new AlertStatSet(...this.getAlertStats(alert));
+    return new AlertStatSet(this.getAlertStats(alert));
   }
 
   assignApplications(alert, applications) {

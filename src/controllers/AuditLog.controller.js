@@ -10,7 +10,7 @@ module.exports = class AuditLogCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(params) {
-    return new AuditLogSet(...this.getAuditLog(params));
+    return new AuditLogSet(this.getAuditLog(params));
   }
 
   // -------------------------------------

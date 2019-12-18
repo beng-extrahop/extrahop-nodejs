@@ -11,7 +11,7 @@ module.exports = class ApikeyCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(apikey) {
-    return apikey ? new Apikey(this.getApikey(apikey)) : new ApikeySet(...this.getApikeys());
+    return apikey ? new Apikey(this.getApikey(apikey)) : new ApikeySet(this.getApikeys());
   }
 
   set(password) {

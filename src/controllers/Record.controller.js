@@ -18,11 +18,23 @@ module.exports = class RecordCtrl extends BaseCtrl {
     return this.appliance.getRecordsCursor(cursor, contextTtl);
   }
 
+  search(searchFilter) {
+    return this.appliance.postRecordsSearch(searchFilter);
+  }
+
+  searchInit(search = {}) {
+    return Object.assign(search, this.postRecordsSearch(search).data, { id: Utils.generateId() });
+  }
+
+  searchNext(cursor, contextTtl) {
+    return (this.postRecordsCursor(cursor, contextTtl).data || { records: [] }).records;
+  }
+
   // -------------------------------------
   // Save Functions
-  // -------------------------------------             
+  // -------------------------------------
 
-  toCSV(search = {}) {
+  save(search = {}) {
     search.db.find({}).exec((err, results) => {
       if (err) {
         console.error(`${Icons.Error} ${err}`);
@@ -31,7 +43,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
         console.warn(`${Icons.Warn} No results found in database.`);
       }
       else {
-        (new RecordSet(...results)).writeToCSV(`records-${search.id}.csv`);
+        (new RecordSet(results)).writeToCSV(`records-${search.id}.csv`);
         console.info(`${Icons.Success} Saved ${results.length} records to CSV: records-${search.id}.csv`);
       }
     });
@@ -41,13 +53,8 @@ module.exports = class RecordCtrl extends BaseCtrl {
   // Search Functions
   // -------------------------------------
 
-  search(searchFilter = {}, options = {}) {
-    if ( !options.save) {
-      return this.appliance.postRecordsSearch(searchFilter);
-    }
-
-    //const search = this.searchInit(new RecordSearch(this.parseSearchFilter(searchFilter)));
-    const search = this.searchInit(new RecordSearch(searchFilter));
+  store(searchFilter = {}) {
+    const search = this.searchInit(new RecordSearch(this.parseSearchFilter(searchFilter)));
     const db = new Database({ filename: `${Config.DB_DIR}/records-${search.id}.db`, autoload: true });
 
     this.printSearchInfo(search);
@@ -73,20 +80,12 @@ module.exports = class RecordCtrl extends BaseCtrl {
     return Object.assign(search, { db, records });
   }
 
-  searchInit(search = {}) {
-    return Object.assign(search, this.postRecordsSearch(search).data, { id: Utils.generateId() });
-  }
-
-  searchNext(cursor, contextTtl) {
-    return (this.postRecordsCursor(cursor, contextTtl).data || { records: [] }).records;
-  }
-  
   // -------------------------------------
   // Utility Functions
   // -------------------------------------
 
   parseSearchFilter(searchFilter = {}) {
-    if ( !searchFilter.filter.rules ) {
+    if ( !searchFilter.filter || !searchFilter.filter.rules ) {
       return searchFilter;
     }
 

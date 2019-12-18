@@ -11,11 +11,11 @@ module.exports = class ActivityGroupCtrl extends BaseCtrl {
   // -------------------------------------
 
   get() {
-    return new ActivityGroupSet(...this.getActivityGroups());
+    return new ActivityGroupSet(this.getActivityGroups());
   }
 
   getDashboards(activityGroup) {
-    return new DashboardSet(...this.getActivityGroupDashboards(activityGroup));
+    return new DashboardSet(this.getActivityGroupDashboards(activityGroup));
   }
 
   // -------------------------------------
