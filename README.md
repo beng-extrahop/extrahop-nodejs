@@ -26,7 +26,7 @@ touch index.js
 ### Install
 
 ```sh
-npm install --save extrahop-nodejs@latest
+npm install --save extrahop-nodejs
 ```
 
 ### Run
@@ -38,7 +38,7 @@ node index.js
 ### Import
 
 ```js
-const Extrahop = require('extrahop-nodejs');
+let Extrahop = require('extrahop-nodejs');
 ```
 
 ## Documentation
@@ -54,17 +54,17 @@ The examples section below demonstrates both inline and external file (config.js
     "name": "my-environment",
     "appliances": [
       {
-        "hostname": "extrahop.domain.internal",
+        "hostname": "extrahop.internal",
         "apikey": "XXXXXXXXXXXXXX",
         "type": "ECA"
       },
       {
-        "hostname": "eda01.domain.internal",
+        "hostname": "extrahop-eda-01.internal",
         "apikey": "XXXXXXXXXXXXXX",
         "type": "EDA"
       },
       {
-        "hostname": "eda02.domain.internal",
+        "hostname": "extrahop-eda-02.internal",
         "apikey": "XXXXXXXXXXXXXX",
         "type": "EDA"
       },
@@ -75,50 +75,76 @@ The examples section below demonstrates both inline and external file (config.js
 
 ### Examples
 
+#### Configuration
+
 ```js
 // my-extrahop-cli/index.js
 
-const Extrahop = require('extrahop-nodejs');
-const config = require('./config');
+// Uncomment if using self-signed certs
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-// Single host, provide Appliance: { hostname, apikey, type }
-const eca = new Extrahop({
-  hostname: 'extrahop.domain.internal',
+const Extrahop = require('extrahop-nodejs');
+const config = require('./config.json');
+
+const extrahop = new Extrahop(config);
+
+const eca = extrahop.getECA();
+const edas = extrahop.getEDAs();
+
+```
+
+#### Configuration (without external config.json)
+
+```js
+// my-extrahop-cli/index.js
+
+// Uncomment if using self-signed certs
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
+const Extrahop = require('extrahop-nodejs');
+
+let eca = new Extrahop({
+  hostname: 'extrahop.internal',
   apikey: 'XXXXXXXXXXXXXX',
   type: 'ECA'
 });
 
-// Multiple hosts, provide Appliances: [...Appliances]
-const appliances = new Extrahop(config[0].appliances);
+let edas = new Extrahop([
+  {
+    hostname: 'extrahop-eda-01.internal',
+    apikey: 'XXXXXXXXXXXXXX',
+    type: 'EDA'
+  },
+  {
+    hostname: 'extrahop-eda-02.internal',
+    apikey: 'XXXXXXXXXXXXXX',
+    type: 'EDA'
+  }
+]);
 
-// Single environment, provide Environment: { name, appliances: [...Appliances] }
-const environment = new Extrahop(config.environments[0]);
-
-// Multiple environments, provide Environments: [...Environments]
-const environments = new Extrahop(config); //
 ```
 
 ### Activity Groups
 
 ```js
 // GET (all)
-const activityGroups = eca.activityGroups.get();
+let activityGroups = eca.activityGroups.get();
 
 // GET (single)
-const activityGroup = eca.activityGroups.get({ id: activityGroupId });
+let activityGroup = eca.activityGroups.get({ id: activityGroupId });
 ```
 
 ### Activity Maps
 
 ```js
 // GET (all)
-const activityMaps = eca.activityMaps.get();
+let activityMaps = eca.activityMaps.get();
 
 // GET (single)
-const activityMap = eca.activityMaps.get({ id: activityMapId });
+let activityMap = eca.activityMaps.get({ id: activityMapId });
 
 // GET
-const sharing = eca.activityMaps.getSharing({ id: activityMapId });
+let sharing = eca.activityMaps.getSharing({ id: activityMapId });
 
 // POST
 eca.activityMaps.post(activityMap);
@@ -140,10 +166,10 @@ eca.activityMaps.delete({ id: activityMap.id });
 
 ```js
 // GET (all)
-const alerts = eca.alerts.get();
+let alerts = eca.alerts.get();
 
 // GET (single)
-const alert = eca.alerts.get({ id: alertId });
+let alert = eca.alerts.get({ id: alertId });
 
 // POST
 eca.alerts.post(alert);
@@ -159,23 +185,23 @@ eca.alerts.delete({ id: alert.id });
 
 ```js
 // GET (single)
-const analysisPriority = eca.analysisPriority.get();
+let analysisPriority = eca.analysisPriority.get();
 
 // PATCH
-eca.analysisPriority.update({ id: appliance.id }, data);
+eca.analysisPriority.setManager({ id: appliance.id });
 
-// DELETE
-eca.analysisPriority.delete({ id: alert.id });
+// PUT
+eca.analysisPriority.create({ id: appliance.id });
 ```
 
 ### API Keys
 
 ```js
 // GET (all)
-const apikeys = eca.apikeys.get();
+let apikeys = eca.apikeys.get();
 
 // GET (single)
-const apikey = eca.apikeys.get({ id: apikeyId });
+let apikey = eca.apikeys.get({ id: apikeyId });
 
 // POST
 eca.apikeys.set(password);
@@ -185,29 +211,29 @@ eca.apikeys.set(password);
 
 ```js
 // GET (all)
-const appliances = eca.appliances.get();
+let appliances = eca.appliances.get();
 
 // GET (single)
-const appliance = eca.appliances.get({ id: applianceId });
+let appliance = eca.appliances.get({ id: applianceId });
 
 // POST
 eca.appliances.connect(connection);
 
 // GET (cloud services)
-const cloudServices = eca.appliances.getCloudServices({ id: applianceId });
+let cloudServices = eca.appliances.getCloudServices({ id: applianceId });
 
 // GET (product key)
-const productKey = eca.appliances.getProductKey({ id: applianceId });
+let productKey = eca.appliances.getProductKey({ id: applianceId });
 ```
 
 ### Applications
 
 ```js
 // GET (all)
-const applications = eca.applications.get();
+let applications = eca.applications.get();
 
 // GET (single)
-const application = eca.applications.get({ id: applicationId });
+let application = eca.applications.get({ id: applicationId });
 
 // POST
 eca.applications.post(application);
@@ -223,10 +249,10 @@ eca.applications.delete({ id: application.id });
 
 ```js
 // GET (all)
-const auditLogs = eca.auditLogs.get();
+let auditLogs = eca.auditLogs.get();
 
 // GET (single)
-const auditLog = eca.auditLogs.get({ id: auditLogId });
+let auditLog = eca.auditLogs.get({ id: auditLogId });
 
 // POST
 eca.auditLogs.post(auditLog);
@@ -242,10 +268,10 @@ eca.auditLogs.delete({ id: auditLog.id });
 
 ```js
 // GET (all)
-const bundles = eca.bundles.get();
+let bundles = eca.bundles.get();
 
 // GET (single)
-const bundle = eca.bundles.get({ id: bundleId });
+let bundle = eca.bundles.get({ id: bundleId });
 
 // POST
 eca.bundles.post(bundle);
@@ -261,10 +287,10 @@ eca.bundles.apply({ id: bundle.id });
 
 ```js
 // GET (all)
-const customDevices = eca.customDevices.get();
+let customDevices = eca.customDevices.get();
 
 // GET (single)
-const customDevice = eca.customDevices.get({ id: customDeviceId });
+let customDevice = eca.customDevices.get({ id: customDeviceId });
 
 // POST
 eca.customDevices.post(customDevice);
@@ -280,10 +306,10 @@ eca.customDevices.delete({ id: customDevice.id });
 
 ```js
 // GET (all)
-const customizations = eca.customizations.get();
+let customizations = eca.customizations.get();
 
 // GET (single)
-const customization = eca.customizations.get({ id: customizationId });
+let customization = eca.customizations.get({ id: customizationId });
 
 // POST (create backup)
 eca.customizations.backup(backupName);
@@ -302,10 +328,10 @@ eca.customizations.delete({ id: customization.id });
 
 ```js
 // GET (all)
-const dashboards = eca.dashboards.get();
+let dashboards = eca.dashboards.get();
 
 // GET (single)
-const dashboard = eca.dashboards.get({ id: dashboardId });
+let dashboard = eca.dashboards.get({ id: dashboardId });
 
 // POST
 eca.dashboards.post(dashboard);
@@ -321,10 +347,10 @@ eca.dashboards.delete({ id: dashboard.id });
 
 ```js
 // GET (all)
-const devices = eca.devices.get();
+let devices = eca.devices.get();
 
 // GET (single)
-const device = eca.devices.get({ id: deviceId });
+let device = eca.devices.get({ id: deviceId });
 
 // PATCH
 eca.devices.update({ id: device.id }, data);
@@ -334,10 +360,10 @@ eca.devices.update({ id: device.id }, data);
 
 ```js
 // GET (all)
-const deviceGroups = eca.deviceGroups.get();
+let deviceGroups = eca.deviceGroups.get();
 
 // GET (single)
-const deviceGroup = eca.deviceGroups.get({ id: deviceGroupId });
+let deviceGroup = eca.deviceGroups.get({ id: deviceGroupId });
 
 // POST
 eca.deviceGroups.post(deviceGroup);
@@ -353,7 +379,7 @@ eca.deviceGroups.delete({ id: deviceGroup.id });
 
 ```js
 // GET
-const license = eca.license.get();
+let license = eca.license.get();
 ```
 
 ### Records
@@ -361,7 +387,7 @@ const license = eca.license.get();
 ### Search & Save
 
 ```js
-const rules = {
+let rules = {
   'operator': 'or',
   'rules': [
     {
@@ -377,7 +403,7 @@ const rules = {
   ]
 };
 
-const filter = {
+let filter = {
   filter: rules,
   types: ['~ssl_open', '~ssl_close'], // default: any
   limit: 500, // default: 1000
@@ -386,7 +412,7 @@ const filter = {
 };
 
 // Save records to local NeDB file (./data/db)
-const search = eca.records.store(filter);
+let search = eca.records.store(filter);
 
 // Read from database and write to CSV (./data/csv)
 eca.records.save(search);
@@ -396,20 +422,20 @@ eca.records.save(search);
 
 ```js
 // GET (all)
-const softwares = eca.software.get();
+let software = eca.software.get();
 
 // GET (single)
-const software = eca.software.get({ id: softwareId });
+let software = eca.software.get({ id: softwareId });
 ```
 
 ### Triggers
 
 ```js
 // GET (all)
-const triggers = eca.triggers.get();
+let triggers = eca.triggers.get();
 
 // GET (single)
-const trigger = eca.triggers.get({ id: triggerId });
+let trigger = eca.triggers.get({ id: triggerId });
 
 // POST
 eca.triggers.post(trigger);
