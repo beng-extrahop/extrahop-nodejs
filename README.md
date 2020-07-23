@@ -9,36 +9,22 @@
 
 ### Setup
 
-Create project directory:
-
-```sh
-mkdir my-extrahop-cli
-cd ./my-extrahop-cli
-```
-
-Create main JS file, data dirs:
-
-```sh
-mkdir -p data/{db,csv}
-touch index.js
-```
-
-### Install
+In an empty directory...
 
 ```sh
 npm install --save extrahop-nodejs
+
+# Main script & config files
+touch index.js config.json
+
+# (Optional) Directories for data export
+mkdir -p data/{db,csv}
 ```
 
 ### Run
 
 ```js
 node index.js
-```
-
-### Import
-
-```js
-let Extrahop = require('extrahop-nodejs');
 ```
 
 ## Documentation
@@ -90,7 +76,6 @@ const extrahop = new Extrahop(config);
 
 const eca = extrahop.getECA();
 const edas = extrahop.getEDAs();
-
 ```
 
 #### Configuration (without external config.json)
@@ -103,13 +88,13 @@ const edas = extrahop.getEDAs();
 
 const Extrahop = require('extrahop-nodejs');
 
-let eca = new Extrahop({
+const eca = new Extrahop({
   hostname: 'extrahop.internal',
   apikey: 'XXXXXXXXXXXXXX',
   type: 'ECA'
 });
 
-let edas = new Extrahop([
+const edas = new Extrahop([
   {
     hostname: 'extrahop-eda-01.internal',
     apikey: 'XXXXXXXXXXXXXX',
@@ -121,7 +106,6 @@ let edas = new Extrahop([
     type: 'EDA'
   }
 ]);
-
 ```
 
 ### Activity Groups
