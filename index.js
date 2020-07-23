@@ -9,7 +9,6 @@ const EnvironmentSet = require('./src/models/_app/EnvironmentSet.model');
 
 module.exports = class Extrahop {
   constructor(config) {
-
     // ApplianceSet or EnvironmentSet
     if (config instanceof Array) {
       if (config[0].hostname && config[0].apikey) {
@@ -20,18 +19,15 @@ module.exports = class Extrahop {
         return config.length > 1 ? new EnvironmentSet(...config) : new Environment(config[0]);
       }
     }
-
-    // Appliance or Environment
-    else if ( config instanceof Object ) {
-      if (config.hostname && config.apikey) {
-        return new Appliance(config);
-      }
-
-      if (config.name && config.appliances) {
-        return new Environment(config);
-      }
+    // Appliance
+    else if (config.hostname && config.apikey) {
+      return new Appliance(config);
     }
-
+    // Environment
+    else if (config.name && config.appliances) {
+      return new Environment(config);
+    }
+    // Invalid config
     else {
       console.error('No configuration provided or config file not found');
     }
