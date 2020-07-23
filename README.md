@@ -100,8 +100,6 @@ const environments = new Extrahop(config); //
 
 ### Activity Groups
 
-#### Default
-
 ```js
 // GET (all)
 const activityGroups = eca.activityGroups.get();
@@ -111,8 +109,6 @@ const activityGroup = eca.activityGroups.get({ id: activityGroupId });
 ```
 
 ### Activity Maps
-
-#### Default
 
 ```js
 // GET (all)
@@ -142,8 +138,6 @@ eca.activityMaps.delete({ id: activityMap.id });
 
 ### Alerts
 
-#### Default
-
 ```js
 // GET (all)
 const alerts = eca.alerts.get();
@@ -163,8 +157,6 @@ eca.alerts.delete({ id: alert.id });
 
 ### Analysis Priority
 
-#### Default
-
 ```js
 // GET (single)
 const analysisPriority = eca.analysisPriority.get();
@@ -178,8 +170,6 @@ eca.analysisPriority.delete({ id: alert.id });
 
 ### API Keys
 
-#### Default
-
 ```js
 // GET (all)
 const apikeys = eca.apikeys.get();
@@ -192,8 +182,6 @@ eca.apikeys.set(password);
 ````
 
 ### Appliances
-
-#### Default
 
 ```js
 // GET (all)
@@ -214,8 +202,6 @@ const productKey = eca.appliances.getProductKey({ id: applianceId });
 
 ### Applications
 
-#### Default
-
 ```js
 // GET (all)
 const applications = eca.applications.get();
@@ -234,8 +220,6 @@ eca.applications.delete({ id: application.id });
 ```
 
 ### Audit Logs
-
-#### Default
 
 ```js
 // GET (all)
@@ -256,8 +240,6 @@ eca.auditLogs.delete({ id: auditLog.id });
 
 ### Bundles
 
-#### Default
-
 ```js
 // GET (all)
 const bundles = eca.bundles.get();
@@ -277,8 +259,6 @@ eca.bundles.apply({ id: bundle.id });
 
 ### Custom Devices
 
-#### Default
-
 ```js
 // GET (all)
 const customDevices = eca.customDevices.get();
@@ -297,8 +277,6 @@ eca.customDevices.delete({ id: customDevice.id });
 ```
 
 ### Customizations
-
-#### Default
 
 ```js
 // GET (all)
@@ -322,8 +300,6 @@ eca.customizations.delete({ id: customization.id });
 
 ### Dashboards
 
-#### Default
-
 ```js
 // GET (all)
 const dashboards = eca.dashboards.get();
@@ -343,8 +319,6 @@ eca.dashboards.delete({ id: dashboard.id });
 
 ### Devices
 
-#### Default
-
 ```js
 // GET (all)
 const devices = eca.devices.get();
@@ -357,8 +331,6 @@ eca.devices.update({ id: device.id }, data);
 ```
 
 ### Device Groups
-
-#### Default
 
 ```js
 // GET (all)
@@ -378,8 +350,6 @@ eca.deviceGroups.delete({ id: deviceGroup.id });
 ```
 
 ### License
-
-#### Default
 
 ```js
 // GET
@@ -424,8 +394,6 @@ eca.records.save(search);
 
 ### Software
 
-#### Default
-
 ```js
 // GET (all)
 const softwares = eca.software.get();
@@ -435,8 +403,6 @@ const software = eca.software.get({ id: softwareId });
 ```
 
 ### Triggers
-
-#### Default
 
 ```js
 // GET (all)
