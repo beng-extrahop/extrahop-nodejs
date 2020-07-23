@@ -104,10 +104,10 @@ const environments = new Extrahop(config); //
 
 ```js
 // GET (all)
-const activityGroups = eca.activityGroups().get();
+const activityGroups = eca.activityGroups.get();
 
 // GET (single)
-const activityGroup = eca.activityGroups().get({ id: activityGroupId });
+const activityGroup = eca.activityGroups.get({ id: activityGroupId });
 ```
 
 ### Activity Maps
@@ -116,28 +116,28 @@ const activityGroup = eca.activityGroups().get({ id: activityGroupId });
 
 ```js
 // GET (all)
-const activityMaps = eca.activityMaps().get();
+const activityMaps = eca.activityMaps.get();
 
 // GET (single)
-const activityMap = eca.activityMaps().get({ id: activityMapId });
+const activityMap = eca.activityMaps.get({ id: activityMapId });
 
 // GET
-const sharing = eca.activityMaps().getSharing({ id: activityMapId });
+const sharing = eca.activityMaps.getSharing({ id: activityMapId });
 
 // POST
-eca.activityMaps().post(activityMap);
+eca.activityMaps.post(activityMap);
 
 // POST (query all)
-eca.activityMaps().query(data);
+eca.activityMaps.query(data);
 
 // POST (query single)
-eca.activityMaps().query(data, { id: activityMap.id })
+eca.activityMaps.query(data, { id: activityMap.id })
 
 // PATCH
-eca.activityMaps().update({ id: activityMap.id }, data);
+eca.activityMaps.update({ id: activityMap.id }, data);
 
 // DELETE
-eca.activityMaps().delete({ id: activityMap.id });
+eca.activityMaps.delete({ id: activityMap.id });
 ```
 
 ### Alerts
@@ -146,19 +146,19 @@ eca.activityMaps().delete({ id: activityMap.id });
 
 ```js
 // GET (all)
-const alerts = eca.alerts().get();
+const alerts = eca.alerts.get();
 
 // GET (single)
-const alert = eca.alerts().get({ id: alertId });
+const alert = eca.alerts.get({ id: alertId });
 
 // POST
-eca.alerts().post(alert);
+eca.alerts.post(alert);
 
 // PATCH
-eca.alerts().update({ id: alert.id }, data);
+eca.alerts.update({ id: alert.id }, data);
 
 // DELETE
-eca.alerts().delete({ id: alert.id });
+eca.alerts.delete({ id: alert.id });
 ```
 
 ### Analysis Priority
@@ -167,13 +167,13 @@ eca.alerts().delete({ id: alert.id });
 
 ```js
 // GET (single)
-const analysisPriority = eca.analysisPriority().get();
+const analysisPriority = eca.analysisPriority.get();
 
 // PATCH
-eca.analysisPriority().update({ id: appliance.id }, data);
+eca.analysisPriority.update({ id: appliance.id }, data);
 
 // DELETE
-eca.analysisPriority().delete({ id: alert.id });
+eca.analysisPriority.delete({ id: alert.id });
 ```
 
 ### API Keys
@@ -182,13 +182,13 @@ eca.analysisPriority().delete({ id: alert.id });
 
 ```js
 // GET (all)
-const apikeys = eca.apikeys().get();
+const apikeys = eca.apikeys.get();
 
 // GET (single)
-const apikey = eca.apikeys().get({ id: apikeyId });
+const apikey = eca.apikeys.get({ id: apikeyId });
 
 // POST
-eca.apikeys().set(password);
+eca.apikeys.set(password);
 ````
 
 ### Appliances
@@ -197,19 +197,19 @@ eca.apikeys().set(password);
 
 ```js
 // GET (all)
-const appliances = eca.appliances().get();
+const appliances = eca.appliances.get();
 
 // GET (single)
-const appliance = eca.appliances().get({ id: applianceId });
+const appliance = eca.appliances.get({ id: applianceId });
 
 // POST
-eca.appliances().connect(connection);
+eca.appliances.connect(connection);
 
 // GET (cloud services)
-const cloudServices = eca.appliances().getCloudServices({ id: applianceId });
+const cloudServices = eca.appliances.getCloudServices({ id: applianceId });
 
 // GET (product key)
-const productKey = eca.appliances().getProductKey({ id: applianceId });
+const productKey = eca.appliances.getProductKey({ id: applianceId });
 ```
 
 ### Applications
@@ -218,19 +218,19 @@ const productKey = eca.appliances().getProductKey({ id: applianceId });
 
 ```js
 // GET (all)
-const applications = eca.applications().get();
+const applications = eca.applications.get();
 
 // GET (single)
-const application = eca.applications().get({ id: applicationId });
+const application = eca.applications.get({ id: applicationId });
 
 // POST
-eca.applications().post(application);
+eca.applications.post(application);
 
 // PATCH
-eca.applications().update({ id: application.id }, data);
+eca.applications.update({ id: application.id }, data);
 
 // DELETE
-eca.applications().delete({ id: application.id });
+eca.applications.delete({ id: application.id });
 ```
 
 ### Audit Logs
@@ -239,19 +239,19 @@ eca.applications().delete({ id: application.id });
 
 ```js
 // GET (all)
-const auditLogs = eca.auditLogs().get();
+const auditLogs = eca.auditLogs.get();
 
 // GET (single)
-const auditLog = eca.auditLogs().get({ id: auditLogId });
+const auditLog = eca.auditLogs.get({ id: auditLogId });
 
 // POST
-eca.auditLogs().post(auditLog);
+eca.auditLogs.post(auditLog);
 
 // PATCH
-eca.auditLogs().update({ id: auditLog.id }, data);
+eca.auditLogs.update({ id: auditLog.id }, data);
 
 // DELETE
-eca.auditLogs().delete({ id: auditLog.id });
+eca.auditLogs.delete({ id: auditLog.id });
 ```
 
 ### Bundles
@@ -260,19 +260,19 @@ eca.auditLogs().delete({ id: auditLog.id });
 
 ```js
 // GET (all)
-const bundles = eca.bundles().get();
+const bundles = eca.bundles.get();
 
 // GET (single)
-const bundle = eca.bundles().get({ id: bundleId });
+const bundle = eca.bundles.get({ id: bundleId });
 
 // POST
-eca.bundles().post(bundle);
+eca.bundles.post(bundle);
 
 // DELETE
-eca.bundles().delete({ id: bundle.id });
+eca.bundles.delete({ id: bundle.id });
 
 // POST
-eca.bundles().apply({ id: bundle.id });
+eca.bundles.apply({ id: bundle.id });
 ```
 
 ### Custom Devices
@@ -281,19 +281,19 @@ eca.bundles().apply({ id: bundle.id });
 
 ```js
 // GET (all)
-const customDevices = eca.customDevices().get();
+const customDevices = eca.customDevices.get();
 
 // GET (single)
-const customDevice = eca.customDevices().get({ id: customDeviceId });
+const customDevice = eca.customDevices.get({ id: customDeviceId });
 
 // POST
-eca.customDevices().post(customDevice);
+eca.customDevices.post(customDevice);
 
 // PATCH
-eca.customDevices().update({ id: customDevice.id }, data);
+eca.customDevices.update({ id: customDevice.id }, data);
 
 // DELETE
-eca.customDevices().delete({ id: customDevice.id });
+eca.customDevices.delete({ id: customDevice.id });
 ```
 
 ### Customizations
@@ -302,22 +302,22 @@ eca.customDevices().delete({ id: customDevice.id });
 
 ```js
 // GET (all)
-const customizations = eca.customizations().get();
+const customizations = eca.customizations.get();
 
 // GET (single)
-const customization = eca.customizations().get({ id: customizationId });
+const customization = eca.customizations.get({ id: customizationId });
 
 // POST (create backup)
-eca.customizations().backup(backupName);
+eca.customizations.backup(backupName);
 
 // POST (restore backup)
-eca.customizations().restore({ id: customization.id });
+eca.customizations.restore({ id: customization.id });
 
 // POST (download backup)
-eca.customizations().save({ id: customization.id });
+eca.customizations.save({ id: customization.id });
 
 // DELETE
-eca.customizations().delete({ id: customization.id });
+eca.customizations.delete({ id: customization.id });
 ```
 
 ### Dashboards
@@ -326,19 +326,19 @@ eca.customizations().delete({ id: customization.id });
 
 ```js
 // GET (all)
-const dashboards = eca.dashboards().get();
+const dashboards = eca.dashboards.get();
 
 // GET (single)
-const dashboard = eca.dashboards().get({ id: dashboardId });
+const dashboard = eca.dashboards.get({ id: dashboardId });
 
 // POST
-eca.dashboards().post(dashboard);
+eca.dashboards.post(dashboard);
 
 // PATCH
-eca.dashboards().update({ id: dashboard.id }, data);
+eca.dashboards.update({ id: dashboard.id }, data);
 
 // DELETE
-eca.dashboards().delete({ id: dashboard.id });
+eca.dashboards.delete({ id: dashboard.id });
 ```
 
 ### Devices
@@ -347,13 +347,13 @@ eca.dashboards().delete({ id: dashboard.id });
 
 ```js
 // GET (all)
-const devices = eca.devices().get();
+const devices = eca.devices.get();
 
 // GET (single)
-const device = eca.devices().get({ id: deviceId });
+const device = eca.devices.get({ id: deviceId });
 
 // PATCH
-eca.devices().update({ id: device.id }, data);
+eca.devices.update({ id: device.id }, data);
 ```
 
 ### Device Groups
@@ -362,19 +362,19 @@ eca.devices().update({ id: device.id }, data);
 
 ```js
 // GET (all)
-const deviceGroups = eca.deviceGroups().get();
+const deviceGroups = eca.deviceGroups.get();
 
 // GET (single)
-const deviceGroup = eca.deviceGroups().get({ id: deviceGroupId });
+const deviceGroup = eca.deviceGroups.get({ id: deviceGroupId });
 
 // POST
-eca.deviceGroups().post(deviceGroup);
+eca.deviceGroups.post(deviceGroup);
 
 // PATCH
-eca.deviceGroups().update({ id: deviceGroup.id }, data);
+eca.deviceGroups.update({ id: deviceGroup.id }, data);
 
 // DELETE
-eca.deviceGroups().delete({ id: deviceGroup.id });
+eca.deviceGroups.delete({ id: deviceGroup.id });
 ```
 
 ### License
@@ -383,7 +383,7 @@ eca.deviceGroups().delete({ id: deviceGroup.id });
 
 ```js
 // GET
-const license = eca.license().get();
+const license = eca.license.get();
 ```
 
 ### Records
@@ -416,10 +416,10 @@ const filter = {
 };
 
 // Save records to local NeDB file (./data/db)
-const search = eca.records().store(filter);
+const search = eca.records.store(filter);
 
 // Read from database and write to CSV (./data/csv)
-eca.records().save(search);
+eca.records.save(search);
 ```
 
 ### Software
@@ -428,10 +428,10 @@ eca.records().save(search);
 
 ```js
 // GET (all)
-const softwares = eca.software().get();
+const softwares = eca.software.get();
 
 // GET (single)
-const software = eca.software().get({ id: softwareId });
+const software = eca.software.get({ id: softwareId });
 ```
 
 ### Triggers
@@ -440,17 +440,17 @@ const software = eca.software().get({ id: softwareId });
 
 ```js
 // GET (all)
-const triggers = eca.triggers().get();
+const triggers = eca.triggers.get();
 
 // GET (single)
-const trigger = eca.triggers().get({ id: triggerId });
+const trigger = eca.triggers.get({ id: triggerId });
 
 // POST
-eca.triggers().post(trigger);
+eca.triggers.post(trigger);
 
 // PATCH
-eca.triggers().update({ id: trigger.id }, data);
+eca.triggers.update({ id: trigger.id }, data);
 
 // DELETE
-eca.triggers().delete({ id: trigger.id });
+eca.triggers.delete({ id: trigger.id });
 ```
