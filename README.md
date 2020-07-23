@@ -64,7 +64,6 @@ The examples section below demonstrates both inline and file-based methods.
 #### Configuration
 
 Using config.json file...
-Defaults
 ```js
 // index.js
 
@@ -79,7 +78,6 @@ const eca = extrahop.getECA();
 ```
 
 Using inline config...
-Defaults
 ```js
 // index.js
 
@@ -97,7 +95,6 @@ const eca = new Extrahop({
 
 ### Activity Groups
 
-Defaults
 ```js
 // GET (all)
 let activityGroups = eca.activityGroups.get();
@@ -108,7 +105,6 @@ let activityGroup = eca.activityGroups.get({ id: activityGroupId });
 
 ### Activity Maps
 
-Defaults
 ```js
 // GET (all)
 let activityMaps = eca.activityMaps.get();
@@ -137,7 +133,6 @@ eca.activityMaps.delete({ id: activityMap.id });
 
 ### Alerts
 
-Defaults
 ```js
 // GET (all)
 let alerts = eca.alerts.get();
@@ -157,7 +152,6 @@ eca.alerts.delete({ id: alert.id });
 
 ### Analysis Priority
 
-Defaults
 ```js
 // GET (single)
 let analysisPriority = eca.analysisPriority.get();
@@ -171,7 +165,6 @@ eca.analysisPriority.create({ id: appliance.id });
 
 ### API Keys
 
-Defaults
 ```js
 // GET (all)
 let apikeys = eca.apikeys.get();
@@ -185,7 +178,6 @@ eca.apikeys.set(password);
 
 ### Appliances
 
-Defaults
 ```js
 // GET (all)
 let appliances = eca.appliances.get();
@@ -205,7 +197,6 @@ let productKey = eca.appliances.getProductKey({ id: applianceId });
 
 ### Applications
 
-Defaults
 ```js
 // GET (all)
 let applications = eca.applications.get();
@@ -225,7 +216,6 @@ eca.applications.delete({ id: application.id });
 
 ### Audit Logs
 
-Defaults
 ```js
 // GET (all)
 let auditLogs = eca.auditLogs.get();
@@ -245,7 +235,6 @@ eca.auditLogs.delete({ id: auditLog.id });
 
 ### Bundles
 
-Defaults
 ```js
 // GET (all)
 let bundles = eca.bundles.get();
@@ -265,7 +254,6 @@ eca.bundles.apply({ id: bundle.id });
 
 ### Custom Devices
 
-Defaults
 ```js
 // GET (all)
 let customDevices = eca.customDevices.get();
@@ -285,7 +273,6 @@ eca.customDevices.delete({ id: customDevice.id });
 
 ### Customizations
 
-Defaults
 ```js
 // GET (all)
 let customizations = eca.customizations.get();
@@ -308,7 +295,6 @@ eca.customizations.delete({ id: customization.id });
 
 ### Dashboards
 
-Defaults
 ```js
 // GET (all)
 let dashboards = eca.dashboards.get();
@@ -328,7 +314,6 @@ eca.dashboards.delete({ id: dashboard.id });
 
 ### Devices
 
-Defaults
 ```js
 // GET (all)
 let devices = eca.devices.get();
@@ -342,7 +327,6 @@ eca.devices.update({ id: device.id }, data);
 
 ### Device Groups
 
-Defaults
 ```js
 // GET (all)
 let deviceGroups = eca.deviceGroups.get();
@@ -362,7 +346,6 @@ eca.deviceGroups.delete({ id: deviceGroup.id });
 
 ### License
 
-Defaults
 ```js
 // GET
 let license = eca.license.get();
@@ -406,7 +389,6 @@ eca.records.save(search);
 
 ### Software
 
-Defaults
 ```js
 // GET (all)
 let software = eca.software.get();
@@ -417,7 +399,6 @@ let software = eca.software.get({ id: softwareId });
 
 ### Triggers
 
-Defaults
 ```js
 // GET (all)
 let triggers = eca.triggers.get();
