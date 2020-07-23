@@ -13,9 +13,6 @@
     "sync-request": "^6.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.0",
-    "@babel/core": "^7.7.2",
-    "babel-preset-es2015": "^6.24.1",
     "eslint": "^5.16.0",
     "eslint-config-eslint": "^5.0.1",
     "eslint-config-problems": "^3.0.1",
@@ -32,7 +29,10 @@
   "scripts": {
     "babel": "npx babel src --out-dir lib --presets=es2015 --ignore 'src/**/*.bkp.js','src/**/*.test.js','src/**/*.bkp' --source-maps"
   },
-  "presets": ["@babel/preset-env", "@babel/preset-typescript"],
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-typescript"
+  ],
   "plugins": [
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-object-rest-spread"
