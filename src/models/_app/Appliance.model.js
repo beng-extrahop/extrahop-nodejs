@@ -2,7 +2,7 @@
 
 const BaseObject = require('../../models/_base/BaseObject.model');
 const Request = require('../../models/_http/Request.model');
-const { Icons } = require('../../constants/Global.constants');
+const Icons = require('../../constants/Global.constants').Icons;
 
 const ActivityGroupCtrl = require('../../controllers/ActivityGroup.controller');
 const ActivityMapCtrl = require('../../controllers/ActivityMap.controller');
@@ -28,11 +28,11 @@ module.exports = class Appliance extends BaseObject {
 
   constructor(appliance = {}) {
     super();
+
     this.host = appliance.host || appliance.hostname;
     this.hostname = this.host;
     this.apikey = appliance.apikey;
     this.type = appliance.type;
-
     this.request = new Request(this.hostname, this.apikey);
 
     const getExtrahop = this.getExtrahop();
@@ -63,69 +63,33 @@ module.exports = class Appliance extends BaseObject {
     if (this.host !== this.hostname) {
       console.warn(`${Icons.Warn} Hostname mismatch. Configured: ${this.host}, Retrieved: ${this.hostname}`);
     }
-  }
-  // -------------------------------------
-  // Controllers
-  // -------------------------------------
 
-  activityGroups() {
-    return new ActivityGroupCtrl(this);
-  }
-  activityMaps() {
-    return new ActivityMapCtrl(this);
-  }
-  alerts() {
-    return new AlertCtrl(this);
-  }
-  analysisPriority() {
-    return new AnalysisPriorityCtrl(this);
-  }
-  apikeys() {
-    return new ApikeyCtrl(this);
-  }
-  appliances() {
-    return new ApplianceCtrl(this);
-  }
-  applications() {
-    return new ApplicationCtrl(this);
-  }
-  auditLog() {
-    return new AuditLogCtrl(this);
-  }
-  bundles() {
-    return new BundleCtrl(this);
-  }
-  customizations() {
-    return new CustomizationCtrl(this);
-  }
-  customDevices() {
-    return new CustomDeviceCtrl(this);
-  }
-  dashboards() {
-    return new DashboardCtrl(this);
-  }
-  devices() {
-    return new DeviceCtrl(this);
-  }
-  deviceGroups() {
-    return new DeviceGroupCtrl(this);
-  }
-  license() {
-    return new LicenseCtrl(this);
-  }
-  metrics() {
-    return new MetricCtrl(this);
-  }
-  records() {
-    return new RecordCtrl(this);
-  }
-  software() {
-    return new SoftwareCtrl(this);
-  }
-  triggers() {
-    return new TriggerCtrl(this);
-  }
+    // -------------------------------------
+    // Controllers
+    // -------------------------------------
 
+    const config = { hostname: this.host, apikey: this.apikey };
+
+    this.activityGroups = new ActivityGroupCtrl(this);
+    this.activityMaps = new ActivityMapCtrl(this);
+    this.alerts = new AlertCtrl(this);
+    this.analysisPriority = new AnalysisPriorityCtrl(this);
+    this.apikeys = new ApikeyCtrl(this);
+    this.appliances = new ApplianceCtrl(this);
+    this.applications = new ApplicationCtrl(this);
+    this.auditLog = new AuditLogCtrl(this);
+    this.bundles = new BundleCtrl(this);
+    this.customizations = new CustomizationCtrl(this);
+    this.customDevices = new CustomDeviceCtrl(this);
+    this.dashboards = new DashboardCtrl(this);
+    this.devices = new DeviceCtrl(this);
+    this.deviceGroups = new DeviceGroupCtrl(this);
+    this.license = new LicenseCtrl(this);
+    this.metrics = new MetricCtrl(this);
+    this.records = new RecordCtrl(this);
+    this.software = new SoftwareCtrl(this);
+    this.triggers = new TriggerCtrl(this);
+  }
 
   // -------------------------------------
   // API: Activity Groups

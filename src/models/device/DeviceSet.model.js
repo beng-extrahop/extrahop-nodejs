@@ -5,8 +5,7 @@ const Device = require('../../models/device/Device.model');
 
 module.exports = class DeviceSet extends BaseObjectSet {
   constructor(devices = []) {
-    super();
-    devices.forEach(device => this.push(new Device(device)));
+    super(devices.map(device => new Device(device)));
   }
 
   with(filter = {}) {

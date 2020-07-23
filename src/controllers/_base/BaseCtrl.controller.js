@@ -1,16 +1,22 @@
 // BaseCtrl.controller.js
 
-const Utils = require('../../utils/BaseUtil.util.js');
-const { Config, Icons } = require('../../constants/Global.constants');
+const Config = require('../../constants/Global.constants').Config;
+const Icons = require('../../constants/Global.constants').Icons;
+const Request = require('../../models/_http/Request.model');
 
 const moment = require('moment-timezone');
 
 module.exports = class BaseCtrl {
   constructor(appliance) {
     this.appliance = appliance;
-    this.utils = Utils;
+
+    /**
+    this.hostname = config.hostname;
+    this.apikey = config.apikey;
+    this.request = new Request(this.hostname, this.apikey);
     this.csvPath = [Config.DATA_DIR, Config.CSV_DIR].join('/');
     this.dbPath = [Config.DATA_DIR, Config.DB_DIR].join('/');
+    **/
   }
 
   toString(config = {}) {

@@ -5,8 +5,7 @@ const ActivityGroup = require('../../models/activityGroup/ActivityGroup.model');
 
 module.exports = class ActivityGroupSet extends BaseObjectSet {
   constructor(activityGroups = []) {
-    super();
-    activityGroups.forEach(activityGroup => this.push(new ActivityGroup(activityGroup)));
+    super(activityGroups.map(activityGroup => new ActivityGroup(activityGroup)));
   }
 
   writeToCSV({ filename = `activityGroups-${this.generateId()}.csv`, subkey }) {

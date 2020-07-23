@@ -15,6 +15,10 @@ module.exports = class TriggerCtrl extends BaseCtrl {
     return trigger ? new Trigger(this.getTrigger(trigger)) : new TriggerSet(this.getTriggers());
   }
 
+  delete(trigger) {
+    return this.deleteTrigger(trigger);
+  }
+
   // -------------------------------------
   // Get Triggers
   // -------------------------------------
@@ -75,6 +79,28 @@ module.exports = class TriggerCtrl extends BaseCtrl {
   // API Functions
   // -------------------------------------
 
+  /**
+  getTriggers() {
+    return this.process(this.request.get('/triggers'), 'triggers');
+  }
+
+  getTrigger(trigger) {
+    return this.process(this.request.get(`/triggers/${trigger.id}`), 'trigger');
+  }
+
+  patchTrigger(trigger, payload) {
+    return this.process(this.request.patch(`/triggers/${trigger.id}`, payload));
+  }
+
+  postTrigger(payload) {
+    return this.process(this.request.post('/triggers', payload));
+  }
+
+  deleteTrigger(trigger) {
+    return this.process(this.request.delete(`/triggers/${trigger.id}`), 'trigger');
+  }
+  **/
+
   getTriggers() {
     return this.process(this.appliance.getTriggers(), 'triggers');
   }
@@ -84,6 +110,14 @@ module.exports = class TriggerCtrl extends BaseCtrl {
   }
 
   patchTrigger(trigger, payload) {
-    return this.appliance.patchTrigger(trigger.id, payload);
+    return this.process(this.appliance.patchTrigger(trigger.id, payload), 'trigger');
+  }
+
+  postTrigger(payload) {
+    return this.process(this.appliance.postTrigger(payload), 'trigger');
+  }
+
+  deleteTrigger(trigger) {
+    return this.process(this.appliance.deleteTrigger(trigger.id), 'trigger');
   }
 };

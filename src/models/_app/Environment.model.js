@@ -10,28 +10,49 @@ module.exports = class Environment extends BaseObject {
     super();
     this.name = environment.name;
     this.appliances = environment.appliances;
+    this.eca = this.getECA();
+    this.edas = this.getEDAs();
+    this.etas = this.getETAs();
+    this.exas = this.getEXAs();
   }
 
-  get({ type, platform, hostname }) {
+  get({ type, hostname }) {
     if (hostname) {
-      return new Appliance(this.appliances.find(x => [x.hostname, x.host].includes(hostname)));
+      return new Appliance(this.appliances.find(appliance => appliance.hostname === hostname));
     }
-
-    if (type === 'ECA') {
-      const ecas = this.appliances.filter(x => x.type === type || x.platform === platform);
-
-      if (ecas.length > 1) {
-        console.warn(`${Icons.Warn} Multiple ECAs detected. Using host: ${ecas[0].hostname}`);
-      }
-
-      return new Appliance(ecas[0]);
+    else if (type) {
+      return new ApplianceSet(this.appliances.filter(appliance => appliance.type === type));
     }
-
-    return new ApplianceSet(...this.appliances.filter(x => x.type === type || x.platform === platform));
+    else {
+      return new ApplianceSet(this.appliances);
+    }
   }
 
+  getECA() {
+    const ecas = this.get({ type: 'ECA' });
+
+    if (ecas.length > 1) {
+      console.warn(`${Icons.Warn} Multiple ECAs detected. Returning first found.`);
+    }
+
+    return ecas[0];
+  }
+
+  getEDAs() {
+    return this.get({ type: 'EDA' });
+  }
+
+  getETAs() {
+    return this.get({ type: 'ETA' });
+  }
+
+  getEXAs() {
+    return this.get({ type: 'EXA' });
+  }
+
+  /**
   eca(hostname) {
-    return this.get({ type: 'ECA', platform: Platforms.Command, hostname });
+    return this.get({ hostname });
   }
 
   eda(hostname) {
@@ -45,4 +66,5 @@ module.exports = class Environment extends BaseObject {
   exa(hostname) {
     return this.get({ type: 'EXA', platform: Platforms.Explore, hostname });
   }
+  **/
 };

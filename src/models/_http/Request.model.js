@@ -2,13 +2,14 @@
 
 const BaseObject = require('../../models/_base/BaseObject.model');
 const Response = require('../../models/_http/Response.model');
-const { Icons } = require('../../constants/Global.constants');
+const Icons = require('../../constants/Global.constants').Icons;
 
-const syncRequest = require('sync-request');
+const request = require('sync-request');
 
 module.exports = class Request extends BaseObject {
   constructor(hostname, apikey, params = {}) {
     super();
+
     this.hostname = hostname;
     this.url = params.url || `https://${hostname}/api/v1`;
     this.headers = { Authorization: `ExtraHop apikey=${apikey}` };
@@ -30,7 +31,7 @@ module.exports = class Request extends BaseObject {
     let response = {};
 
     try {
-      response = syncRequest(method, this.url + uri, config);
+      response = request(method, this.url + uri, config);
       response.data = response.getBody('utf8');
     }
     catch (err) {

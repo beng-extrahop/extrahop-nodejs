@@ -1,13 +1,17 @@
 // BaseObjectSet.model.js
 
 const Utils = require('../../utils/BaseUtil.util.js');
-const { Config } = require('../../constants/Global.constants');
+const Config = require('../../constants/Global.constants').Config;
 
-const { parse } = require('json2csv');
 const fastCSV = require('fast-csv');
 const fs = require('fs');
+const parse = require('json2csv').parse;
 
 module.exports = class BaseObjectSet extends Array {
+  constructor(baseObjects = []) {
+    super();
+    baseObjects.forEach(baseObject => this.push(baseObject));
+  }
 
   toString(format = true) {
     return JSON.stringify(this, null, format ? 2 : null);

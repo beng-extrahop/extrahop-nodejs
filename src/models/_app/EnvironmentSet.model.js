@@ -5,8 +5,7 @@ const Environment = require('../../models/_app/Environment.model');
 
 module.exports = class EnvironmentSet extends BaseObjectSet {
   constructor(environments = []) {
-    super();
-    environments.forEach(environment => this.push(new Environment(environment)));
+    super(environments.map(environment => new Environment(environment)));
   }
 
   getEnvironment(name) {
