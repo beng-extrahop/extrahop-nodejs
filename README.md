@@ -9,8 +9,7 @@
 
 ### Setup
 
-In an empty directory...
-
+In empty directory...
 ```sh
 npm install --save extrahop-nodejs
 
@@ -23,6 +22,7 @@ mkdir -p data/{db,csv}
 
 ### Run
 
+In project directory...
 ```js
 node index.js
 ```
@@ -31,8 +31,8 @@ node index.js
 
 ### Config
 
-Module accepts the following structure, either whole or in part and from file (using require) or variable.
-The examples section below demonstrates both inline and external file (config.json) methods.
+Module accepts the following structure, either whole or in part from either file or variable.
+The examples section below demonstrates both inline and file-based methods.
 
 ```json
 [
@@ -63,8 +63,10 @@ The examples section below demonstrates both inline and external file (config.js
 
 #### Configuration
 
+Using config.json file...
+Defaults
 ```js
-// my-extrahop-cli/index.js
+// index.js
 
 // Uncomment if using self-signed certs
 // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
@@ -73,15 +75,13 @@ const Extrahop = require('extrahop-nodejs');
 const config = require('./config.json');
 
 const extrahop = new Extrahop(config);
-
 const eca = extrahop.getECA();
-const edas = extrahop.getEDAs();
 ```
 
-#### Configuration (without external config.json)
-
+Using inline config...
+Defaults
 ```js
-// my-extrahop-cli/index.js
+// index.js
 
 // Uncomment if using self-signed certs
 // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
@@ -89,27 +89,15 @@ const edas = extrahop.getEDAs();
 const Extrahop = require('extrahop-nodejs');
 
 const eca = new Extrahop({
-  hostname: 'extrahop.internal',
-  apikey: 'XXXXXXXXXXXXXX',
-  type: 'ECA'
+  "hostname": "extrahop.internal",
+  "apikey": "XXXXXXXXXXXXXX",
+  "type": "ECA"
 });
-
-const edas = new Extrahop([
-  {
-    hostname: 'extrahop-eda-01.internal',
-    apikey: 'XXXXXXXXXXXXXX',
-    type: 'EDA'
-  },
-  {
-    hostname: 'extrahop-eda-02.internal',
-    apikey: 'XXXXXXXXXXXXXX',
-    type: 'EDA'
-  }
-]);
 ```
 
 ### Activity Groups
 
+Defaults
 ```js
 // GET (all)
 let activityGroups = eca.activityGroups.get();
@@ -120,6 +108,7 @@ let activityGroup = eca.activityGroups.get({ id: activityGroupId });
 
 ### Activity Maps
 
+Defaults
 ```js
 // GET (all)
 let activityMaps = eca.activityMaps.get();
@@ -148,6 +137,7 @@ eca.activityMaps.delete({ id: activityMap.id });
 
 ### Alerts
 
+Defaults
 ```js
 // GET (all)
 let alerts = eca.alerts.get();
@@ -167,6 +157,7 @@ eca.alerts.delete({ id: alert.id });
 
 ### Analysis Priority
 
+Defaults
 ```js
 // GET (single)
 let analysisPriority = eca.analysisPriority.get();
@@ -180,6 +171,7 @@ eca.analysisPriority.create({ id: appliance.id });
 
 ### API Keys
 
+Defaults
 ```js
 // GET (all)
 let apikeys = eca.apikeys.get();
@@ -193,6 +185,7 @@ eca.apikeys.set(password);
 
 ### Appliances
 
+Defaults
 ```js
 // GET (all)
 let appliances = eca.appliances.get();
@@ -212,6 +205,7 @@ let productKey = eca.appliances.getProductKey({ id: applianceId });
 
 ### Applications
 
+Defaults
 ```js
 // GET (all)
 let applications = eca.applications.get();
@@ -231,6 +225,7 @@ eca.applications.delete({ id: application.id });
 
 ### Audit Logs
 
+Defaults
 ```js
 // GET (all)
 let auditLogs = eca.auditLogs.get();
@@ -250,6 +245,7 @@ eca.auditLogs.delete({ id: auditLog.id });
 
 ### Bundles
 
+Defaults
 ```js
 // GET (all)
 let bundles = eca.bundles.get();
@@ -269,6 +265,7 @@ eca.bundles.apply({ id: bundle.id });
 
 ### Custom Devices
 
+Defaults
 ```js
 // GET (all)
 let customDevices = eca.customDevices.get();
@@ -288,6 +285,7 @@ eca.customDevices.delete({ id: customDevice.id });
 
 ### Customizations
 
+Defaults
 ```js
 // GET (all)
 let customizations = eca.customizations.get();
@@ -310,6 +308,7 @@ eca.customizations.delete({ id: customization.id });
 
 ### Dashboards
 
+Defaults
 ```js
 // GET (all)
 let dashboards = eca.dashboards.get();
@@ -329,6 +328,7 @@ eca.dashboards.delete({ id: dashboard.id });
 
 ### Devices
 
+Defaults
 ```js
 // GET (all)
 let devices = eca.devices.get();
@@ -342,6 +342,7 @@ eca.devices.update({ id: device.id }, data);
 
 ### Device Groups
 
+Defaults
 ```js
 // GET (all)
 let deviceGroups = eca.deviceGroups.get();
@@ -361,6 +362,7 @@ eca.deviceGroups.delete({ id: deviceGroup.id });
 
 ### License
 
+Defaults
 ```js
 // GET
 let license = eca.license.get();
@@ -404,6 +406,7 @@ eca.records.save(search);
 
 ### Software
 
+Defaults
 ```js
 // GET (all)
 let software = eca.software.get();
@@ -414,6 +417,7 @@ let software = eca.software.get({ id: softwareId });
 
 ### Triggers
 
+Defaults
 ```js
 // GET (all)
 let triggers = eca.triggers.get();
