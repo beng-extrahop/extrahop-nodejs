@@ -31,9 +31,7 @@ node index.js
 
 ### Config
 
-Module accepts the following structure, either whole or in part from either file or variable.
-The examples section below demonstrates both inline and file-based methods.
-
+Module accepts the following structure, either whole or in part
 ```json
 [
   {
