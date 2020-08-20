@@ -1,12 +1,12 @@
 // MetricSet.model.js
 
-const BaseObjectSet = require('../../models/_base/BaseObjectSet.model');
-const Metric = require('../../models/metric/Metric.model');
+const BaseObjectSet = require('../_base/BaseObjectSet.model');
+const Metric = require('./Metric.model');
 
 module.exports = class MetricSet extends BaseObjectSet {
   constructor(metrics = []) {
     super();
-    metrics.forEach(metric => this.push(new Metric(metric)));
+    metrics.forEach((metric) => this.push(new Metric(metric)));
   }
 
   writeToCSV({ filename = `metrics-${this.generateId()}.csv`, subkey }) {

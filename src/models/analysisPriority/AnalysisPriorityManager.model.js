@@ -1,10 +1,10 @@
 // AnalysisPriorityManager.model.js
 
-const BaseObject = require('../../models/_base/BaseObject.model');
+const BaseObject = require('../_base/BaseObject.model');
 
 module.exports = class AnalysisPriorityManager extends BaseObject {
   constructor(analysisPriorityManager = {}) {
     super();
-    this.manager = analysisPriorityManager.manager;
+    Object.keys(analysisPriorityManager).forEach((key) => this[key] = analysisPriorityManager[key]);
   }
 };

@@ -1,16 +1,12 @@
 // Metric.model.js
 
-const BaseObject = require('../../models/_base/BaseObject.model');
-const MetricStatSet = require('../../models/metric/MetricStatSet.model');
+const BaseObject = require('../_base/BaseObject.model');
+const MetricStatSet = require('./MetricStatSet.model');
 
 module.exports = class Metric extends BaseObject {
   constructor(metric = {}) {
-    super(metric);
+    super();
+    Object.keys(deviceGroup).forEach((key) => this[key] = deviceGroup[key]);
     this.stats = new MetricStatSet(metric.stats);
-    this.cycle = metric.cycle;
-    this.node_id = metric.node_id;
-    this.clock = metric.clock;
-    this.from = metric.from;
-    this.until = metric.until;
   }
 };

@@ -1,6 +1,6 @@
 // SearchFilter.model.js
 
-const SearchFilterRuleSet = require('../../models/_search/SearchFilterRuleSet.model');
+const SearchFilterRuleSet = require('./SearchFilterRuleSet.model');
 
 module.exports = class SearchFilter {
   constructor(searchFilter = {}) {

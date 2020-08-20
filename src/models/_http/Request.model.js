@@ -1,10 +1,9 @@
 // Request.model.js
 
-const BaseObject = require('../../models/_base/BaseObject.model');
-const Response = require('../../models/_http/Response.model');
-const Icons = require('../../constants/Global.constants').Icons;
-
 const request = require('sync-request');
+const BaseObject = require('../_base/BaseObject.model');
+const Response = require('./Response.model');
+const { Icons } = require('../../constants/Global.constants');
 
 module.exports = class Request extends BaseObject {
   constructor(hostname, apikey, params = {}) {
@@ -20,21 +19,24 @@ module.exports = class Request extends BaseObject {
       timeout: params.timeout || 5000,
       retry: params.retry || true,
       retryDelay: params.retryDelay || 1000,
-      maxRetries: params.maxRetries || 3
+      maxRetries: params.maxRetries || 3,
     };
   }
 
-  send({ method, uri, qs, json }) {
-    const headers = this.headers;
-    const config = Object.assign({ headers, qs, json }, this.config);
+  send({
+    method, uri, qs, json,
+  }) {
+    const { headers } = this;
+    const config = {
+      headers, qs, json, ...this.config,
+    };
 
     let response = {};
 
     try {
       response = request(method, this.url + uri, config);
       response.data = response.getBody('utf8');
-    }
-    catch (err) {
+    } catch (err) {
       response.error = err;
       console.log(`${Icons.Error} ${err}`);
     }

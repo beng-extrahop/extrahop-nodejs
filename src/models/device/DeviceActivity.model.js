@@ -1,12 +1,10 @@
 // DeviceActivity.model.js
 
-const BaseObject = require('../../models/_base/BaseObject.model');
+const BaseObject = require('../_base/BaseObject.model');
 
 module.exports = class DeviceActivity extends BaseObject {
   constructor(deviceActivity = {}) {
-    super(deviceActivity);
-
-    /* TODO */
-    Object.keys(deviceActivity).forEach(key => (this[key] = deviceActivity[key]));
+    super();
+    Object.keys(deviceActivity).forEach((key) => this[key] = deviceActivity[key]);
   }
 };

@@ -1,12 +1,10 @@
 // DashboardSharing.model.js
 
-const BaseObject = require('../../models/_base/BaseObject.model');
+const BaseObject = require('../_base/BaseObject.model');
 
 module.exports = class DashboardSharing extends BaseObject {
   constructor(dashboardSharing = {}) {
-    super(dashboardSharing);
-    this.anyone = dashboardSharing.anyone;
-    this.users = dashboardSharing.users;
-    this.groups = dashboardSharing.groups;
+    super();
+    Object.keys(dashboardSharing).forEach((key) => this[key] = dashboardSharing[key]);
   }
 };

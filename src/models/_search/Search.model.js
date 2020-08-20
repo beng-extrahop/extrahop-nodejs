@@ -1,7 +1,7 @@
 // Search.model.js
 
-const BaseObject = require('../../models/_base/BaseObject.model');
-const SearchFilter = require('../../models/_search/SearchFilter.model');
+const BaseObject = require('../_base/BaseObject.model');
+const SearchFilter = require('./SearchFilter.model');
 
 module.exports = class Search extends BaseObject {
   constructor(search = {}) {

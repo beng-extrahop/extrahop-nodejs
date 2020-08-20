@@ -1,13 +1,10 @@
 // Record.model.js
 
-const BaseObject = require('../../models/_base/BaseObject.model');
+const BaseObject = require('../_base/BaseObject.model');
 
 module.exports = class Record extends BaseObject {
   constructor(record = {}) {
-    super(record);
-    this._id = record._id;
-    this._index = record._index;
-    this._score = record._score;
-    this._source = record._source;
+    super();
+    Object.keys(record).forEach((key) => this[key] = record[key]);
   }
 };

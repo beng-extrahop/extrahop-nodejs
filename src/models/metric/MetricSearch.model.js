@@ -1,10 +1,12 @@
 // MetricSearch.model.js
 
-const Search = require('../../models/_search/Search.model');
-const MetricSearchSpecSet = require('../../models/metric/MetricSearchSpecSet.model');
+const Search = require('../_search/Search.model');
+const MetricSearchSpecSet = require('./MetricSearchSpecSet.model');
 
 module.exports = class MetricSearch extends Search {
-  constructor({ cycle, from, until, metric_category, metric_specs, object_ids, object_type }) {
+  constructor({
+    cycle, from, until, metric_category, metric_specs, object_ids, object_type,
+  }) {
     super({ from, until });
     this.cycle = cycle;
     this.metric_category = metric_category;
