@@ -1,19 +1,18 @@
 // CustomDevice.controller.js
 
-const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const BaseCtrl = require('./_base/BaseCtrl.controller');
 const CustomDevice = require('../models/customDevice/CustomDevice.model');
 const CustomDeviceSet = require('../models/customDevice/CustomDeviceSet.model');
 
 module.exports = class CustomDeviceCtrl extends BaseCtrl {
-
   // -------------------------------------
   // Defaults
   // -------------------------------------
 
-  get(customDevice) {
+  get(customDevice, params = { include_criteria: true }) {
     return customDevice
-      ? new CustomDevice(this.getCustomDevice(customDevice))
-      : new CustomDeviceSet(this.getCustomDevices());
+      ? new CustomDevice(this.getCustomDevice(customDevice, params))
+      : new CustomDeviceSet(this.getCustomDevices(params));
   }
 
   getCriteria(customDevice) {
@@ -40,8 +39,8 @@ module.exports = class CustomDeviceCtrl extends BaseCtrl {
     return this.process(this.appliance.getCustomDevices(params), 'custom devices');
   }
 
-  getCustomDevice(customDevice, criteria) {
-    return this.process(this.appliance.getCustomDevice(customDevice.id, criteria), 'custom device');
+  getCustomDevice(customDevice, params) {
+    return this.process(this.appliance.getCustomDevice(customDevice.id, params), 'custom device');
   }
 
   postCustomDevice(customDevice) {
