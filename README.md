@@ -85,9 +85,9 @@ Using inline config...
 const Extrahop = require('extrahop-nodejs');
 
 const eca = new Extrahop({
-  "hostname": "extrahop.internal",
-  "apikey": "XXXXXXXXXXXXXX",
-  "type": "ECA"
+  hostname: 'extrahop.internal',
+  apikey: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+  type: 'ECA'
 });
 ```
 
@@ -114,7 +114,7 @@ let activityMap = eca.activityMaps.get({ id: activityMapId });
 let sharing = eca.activityMaps.getSharing({ id: activityMapId });
 
 // POST
-eca.activityMaps.post(activityMap);
+eca.activityMaps.create(activityMap);
 
 // POST (query all)
 eca.activityMaps.query(data);
@@ -139,7 +139,7 @@ let alerts = eca.alerts.get();
 let alert = eca.alerts.get({ id: alertId });
 
 // POST
-eca.alerts.post(alert);
+eca.alerts.create(alert);
 
 // PATCH
 eca.alerts.update({ id: alert.id }, data);
@@ -203,7 +203,7 @@ let applications = eca.applications.get();
 let application = eca.applications.get({ id: applicationId });
 
 // POST
-eca.applications.post(application);
+eca.applications.create(application);
 
 // PATCH
 eca.applications.update({ id: application.id }, data);
@@ -222,7 +222,7 @@ let auditLogs = eca.auditLogs.get();
 let auditLog = eca.auditLogs.get({ id: auditLogId });
 
 // POST
-eca.auditLogs.post(auditLog);
+eca.auditLogs.create(auditLog);
 
 // PATCH
 eca.auditLogs.update({ id: auditLog.id }, data);
@@ -241,7 +241,7 @@ let bundles = eca.bundles.get();
 let bundle = eca.bundles.get({ id: bundleId });
 
 // POST
-eca.bundles.post(bundle);
+eca.bundles.create(bundle);
 
 // DELETE
 eca.bundles.delete({ id: bundle.id });
@@ -260,7 +260,7 @@ let customDevices = eca.customDevices.get();
 let customDevice = eca.customDevices.get({ id: customDeviceId });
 
 // POST
-eca.customDevices.post(customDevice);
+eca.customDevices.create(customDevice);
 
 // PATCH
 eca.customDevices.update({ id: customDevice.id }, data);
@@ -301,7 +301,7 @@ let dashboards = eca.dashboards.get();
 let dashboard = eca.dashboards.get({ id: dashboardId });
 
 // POST
-eca.dashboards.post(dashboard);
+eca.dashboards.create(dashboard);
 
 // PATCH
 eca.dashboards.update({ id: dashboard.id }, data);
@@ -333,7 +333,7 @@ let deviceGroups = eca.deviceGroups.get();
 let deviceGroup = eca.deviceGroups.get({ id: deviceGroupId });
 
 // POST
-eca.deviceGroups.post(deviceGroup);
+eca.deviceGroups.create(deviceGroup);
 
 // PATCH
 eca.deviceGroups.update({ id: deviceGroup.id }, data);
@@ -405,7 +405,7 @@ let triggers = eca.triggers.get();
 let trigger = eca.triggers.get({ id: triggerId });
 
 // POST
-eca.triggers.post(trigger);
+eca.triggers.create(trigger);
 
 // PATCH
 eca.triggers.update({ id: trigger.id }, data);
