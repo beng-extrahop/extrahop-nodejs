@@ -4,9 +4,13 @@ const Appliance = require('./src/models/_app/Appliance.model');
 const ApplianceSet = require('./src/models/_app/ApplianceSet.model');
 const Environment = require('./src/models/_app/Environment.model');
 const EnvironmentSet = require('./src/models/_app/EnvironmentSet.model');
+const { Banner } = require('./src/constants/Global.constants');
 
 module.exports = class Extrahop {
   constructor(config) {
+    // Check for quiet console mode
+    if (!config.quiet) console.log(Banner);
+
     // ApplianceSet or EnvironmentSet
     if (config instanceof Array) {
       if (config[0].hostname && config[0].apikey) {
