@@ -1,8 +1,8 @@
 // Appliance.model.js
 
-const BaseObject = require('../../models/_base/BaseObject.model');
-const Request = require('../../models/_http/Request.model');
-const Icons = require('../../constants/Global.constants').Icons;
+const BaseObject = require('../_base/BaseObject.model');
+const Request = require('../_http/Request.model');
+const { Icons } = require('../../constants/Global.constants');
 
 const ActivityGroupCtrl = require('../../controllers/ActivityGroup.controller');
 const ActivityMapCtrl = require('../../controllers/ActivityMap.controller');
@@ -12,6 +12,7 @@ const ApikeyCtrl = require('../../controllers/Apikey.controller');
 const ApplianceCtrl = require('../../controllers/Appliance.controller');
 const ApplicationCtrl = require('../../controllers/Application.controller');
 const AuditLogCtrl = require('../../controllers/AuditLog.controller');
+const AuthCtrl = require('../../controllers/Auth.controller');
 const BundleCtrl = require('../../controllers/Bundle.controller');
 const CustomizationCtrl = require('../../controllers/Customization.controller');
 const CustomDeviceCtrl = require('../../controllers/CustomDevice.controller');
@@ -25,40 +26,35 @@ const SoftwareCtrl = require('../../controllers/Software.controller');
 const TriggerCtrl = require('../../controllers/Trigger.controller');
 
 module.exports = class Appliance extends BaseObject {
-
   constructor(appliance = {}) {
     super();
 
-    this.host = appliance.host || appliance.hostname;
-    this.hostname = this.host;
+    this.hostname = appliance.hostname;
+    this.host = appliance.hostname;
     this.apikey = appliance.apikey;
     this.type = appliance.type;
     this.request = new Request(this.hostname, this.apikey);
 
     const getExtrahop = this.getExtrahop();
 
-    if (!getExtrahop.success) {
+    if (getExtrahop.success) {
+      console.info(`${Icons.Info} Connected to ${this.hostname}`);
+    } else {
       this.active = false;
       return console.warn(`${Icons.Warn} Connection to ${this.hostname} failed`);
     }
 
-    console.info(`${Icons.Info} Connected to ${this.hostname}`);
-
-    Object.keys(getExtrahop.data).forEach(key => {
-      this[key] = getExtrahop.data[key];
-    });
+    Object.keys(getExtrahop.data).forEach((key) => { this[key] = getExtrahop.data[key]; });
 
     this.name = this.display_host;
 
-    const getAppliance = (this.getAppliances().data || []).find(x => x.hostname === this.hostname);
+    const getAppliance = (this.getAppliances().data || []).find((x) => x.hostname === this.hostname);
 
     if (getAppliance == null) {
-      return console.warn(`${Icons.Warn} Error populating appliance data from ${this.hostname}`);
+      console.warn(`${Icons.Warn} Error populating appliance data from ${this.hostname}`);
     }
 
-    Object.keys(getAppliance).forEach(key => {
-      this[key] = getAppliance[key];
-    });
+    Object.keys(getAppliance).forEach((key) => { this[key] = getAppliance[key]; });
 
     if (this.host !== this.hostname) {
       console.warn(`${Icons.Warn} Hostname mismatch. Configured: ${this.host}, Retrieved: ${this.hostname}`);
@@ -68,7 +64,7 @@ module.exports = class Appliance extends BaseObject {
     // Controllers
     // -------------------------------------
 
-    const config = { hostname: this.host, apikey: this.apikey };
+    // const config = { hostname: this.host, apikey: this.apikey };
 
     this.activityGroups = new ActivityGroupCtrl(this);
     this.activityMaps = new ActivityMapCtrl(this);
@@ -78,6 +74,7 @@ module.exports = class Appliance extends BaseObject {
     this.appliances = new ApplianceCtrl(this);
     this.applications = new ApplicationCtrl(this);
     this.auditLog = new AuditLogCtrl(this);
+    this.auth = new AuthCtrl(this);
     this.bundles = new BundleCtrl(this);
     this.customizations = new CustomizationCtrl(this);
     this.customDevices = new CustomDeviceCtrl(this);
@@ -92,7 +89,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Activity Groups
+  // Activity Groups
   // -------------------------------------
 
   getActivityGroups() {
@@ -104,7 +101,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Activity Maps
+  // Activity Maps
   // -------------------------------------
 
   getActivityMaps() {
@@ -148,7 +145,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Alerts
+  // Alerts
   // -------------------------------------
 
   getAlerts() {
@@ -272,7 +269,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Analysis Priority
+  // Analysis Priority
   // -------------------------------------
 
   getAnalysisPriority(applianceId) {
@@ -292,7 +289,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: API
+  // API Keys
   // -------------------------------------
 
   getApikeys() {
@@ -308,7 +305,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Appliances
+  // Appliances
   // -------------------------------------
 
   getAppliances() {
@@ -332,11 +329,15 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Applications
+  // Applications
   // -------------------------------------
 
-  getApplications({ active_from, active_until, limit, offset, searchType, value }) {
-    return this.request.get('/applications', { active_from, active_until, limit, offset, searchType, value });
+  getApplications({
+    active_from, active_until, limit, offset, searchType, value,
+  }) {
+    return this.request.get('/applications', {
+      active_from, active_until, limit, offset, searchType, value,
+    });
   }
 
   getApplication(applicationId) {
@@ -424,7 +425,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Audit Log
+  // Audit Log
   // -------------------------------------
 
   getAuditLog(limit, offset) {
@@ -432,7 +433,43 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Bundles
+  // Auth
+  // -------------------------------------
+
+  getAuths() {
+    return this.request.get('/auth/identityproviders');
+  }
+
+  postAuth(payload) {
+    return this.request.post('/auth/identityproviders', payload);
+  }
+
+  deleteAuth(authId) {
+    return this.request.delete(`/auth/identityproviders/${authId}`);
+  }
+
+  getAuth(authId) {
+    return this.request.get(`/auth/identityproviders/${authId}`);
+  }
+
+  patchAuth(authId, payload) {
+    return this.request.patch(`/auth/identityproviders/${authId}`, payload);
+  }
+
+  getAuthPrivileges(authId) {
+    return this.request.get(`/auth/identityproviders/${authId}/privileges`);
+  }
+
+  patchAuthPrivileges(authId, payload) {
+    return this.request.patch(`/auth/identityproviders/${authId}/privileges`, payload);
+  }
+
+  getAuthSamlSP() {
+    return this.request.get('/auth/samlsp');
+  }
+
+  // -------------------------------------
+  // Bundles
   // -------------------------------------
 
   getBundles() {
@@ -456,7 +493,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Custom Devices
+  // Custom Devices
   // -------------------------------------
 
   getCustomDevices(params) {
@@ -496,7 +533,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Customizations
+  // Customizations
   // -------------------------------------
 
   getCustomizations() {
@@ -528,7 +565,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Dashboards
+  // Dashboards
   // -------------------------------------
 
   getDashboards() {
@@ -564,11 +601,15 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Devices
+  // Devices
   // -------------------------------------
 
-  getDevices({ search_type, value, limit, offset, active_from, active_until }) {
-    return this.request.get('/devices', { search_type, value, limit, offset, active_from, active_until });
+  getDevices({
+    search_type, value, limit, offset, active_from, active_until,
+  }) {
+    return this.request.get('/devices', {
+      search_type, value, limit, offset, active_from, active_until,
+    });
   }
 
   postDeviceSearch(payload) {
@@ -704,7 +745,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Device Groups
+  // Device Groups
   // -------------------------------------
 
   getDeviceGroups(since, all, name) {
@@ -747,8 +788,12 @@ module.exports = class Appliance extends BaseObject {
     return this.request.get(`/devicegroups/${deviceGroupId}/dashboards`);
   }
 
-  getDeviceGroupDevices(deviceGroupId, { active_from, active_until, limit, offset }) {
-    return this.request.get(`/devicegroups/${deviceGroupId}/devices`, { active_from, active_until, limit, offset });
+  getDeviceGroupDevices(deviceGroupId, {
+    active_from, active_until, limit, offset,
+  }) {
+    return this.request.get(`/devicegroups/${deviceGroupId}/devices`, {
+      active_from, active_until, limit, offset,
+    });
   }
 
   postDeviceGroupDevices(deviceGroupId, payload) {
@@ -844,7 +889,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Email Groups
+  // Email Groups
   // -------------------------------------
 
   getEmailGroups() {
@@ -868,7 +913,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Exclusion Intervals
+  // Exclusion Intervals
   // -------------------------------------
 
   getExclusionIntervals() {
@@ -892,7 +937,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Extrahop
+  // Extrahop
   // -------------------------------------
 
   getExtrahop() {
@@ -928,7 +973,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Flex Grids
+  // Flex Grids
   // -------------------------------------
 
   getFlexGrids() {
@@ -984,7 +1029,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Geomaps
+  // Geomaps
   // -------------------------------------
 
   getGeomaps() {
@@ -1056,7 +1101,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: License
+  // License
   // -------------------------------------
 
   getLicense() {
@@ -1076,7 +1121,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Metrics
+  // Metrics
   // -------------------------------------
 
   postMetrics(payload) {
@@ -1108,7 +1153,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Networks
+  // Networks
   // -------------------------------------
 
   getNetworks() {
@@ -1160,7 +1205,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Network Locality Entry
+  // Network Locality Entry
   // -------------------------------------
 
   getNetworkLocalities() {
@@ -1184,7 +1229,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Nodes
+  // Nodes
   // -------------------------------------
 
   getNodes() {
@@ -1200,7 +1245,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Packet Captures
+  // Packet Captures
   // -------------------------------------
 
   getPacketCaptures() {
@@ -1216,7 +1261,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Pages
+  // Pages
   // -------------------------------------
 
   getPages() {
@@ -1304,7 +1349,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Record Logs
+  // Record Logs
   // -------------------------------------
 
   postRecordsCursor(payload, contextTtl) {
@@ -1324,7 +1369,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Reports
+  // Reports
   // -------------------------------------
 
   getReports() {
@@ -1376,7 +1421,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Running Config
+  // Running Config
   // -------------------------------------
 
   getRunningConfig(section) {
@@ -1396,7 +1441,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Software
+  // Software
   // -------------------------------------
 
   getSoftwares() {
@@ -1408,7 +1453,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: SSL Decrypt Keys
+  // SSL Decrypt Keys
   // -------------------------------------
 
   getSslDecryptKeys() {
@@ -1444,7 +1489,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Support Packs
+  // Support Packs
   // -------------------------------------
 
   getSupportPacks() {
@@ -1464,7 +1509,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Tags
+  // Tags
   // -------------------------------------
 
   getTags() {
@@ -1504,7 +1549,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Triggers
+  // Triggers
   // -------------------------------------
 
   getTriggers() {
@@ -1560,7 +1605,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Users
+  // Users
   // -------------------------------------
 
   getUsers() {
@@ -1592,7 +1637,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: User Groups
+  // User Groups
   // -------------------------------------
 
   getUserGroups() {
@@ -1624,7 +1669,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: VLANs
+  // VLANs
   // -------------------------------------
 
   getVlans() {
@@ -1640,7 +1685,7 @@ module.exports = class Appliance extends BaseObject {
   }
 
   // -------------------------------------
-  // API: Whitelist
+  // Whitelist
   // -------------------------------------
 
   deleteWhitelistDevice(deviceId) {

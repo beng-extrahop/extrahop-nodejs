@@ -1,11 +1,10 @@
 // Bundle.controller.js
 
-const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const BaseCtrl = require('./_base/BaseCtrl.controller');
 const Bundle = require('../models/bundle/Bundle.model');
 const BundleSet = require('../models/bundle/BundleSet.model');
 
 module.exports = class BundleCtrl extends BaseCtrl {
-
   // -------------------------------------
   // Defaults
   // -------------------------------------
@@ -49,10 +48,6 @@ module.exports = class BundleCtrl extends BaseCtrl {
   deleteBundle(id) {
     return this.process(this.appliance.deleteBundle(id), 'bundle');
   }
-
-  // -------------------------------------
-  // Apply Functions
-  // -------------------------------------
 
   postBundleApply(bundle) {
     return this.process(this.appliance.postBundleApply(bundle.id), 'bundle apply');
