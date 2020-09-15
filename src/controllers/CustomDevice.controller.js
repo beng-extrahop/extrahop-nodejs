@@ -3,6 +3,8 @@
 const BaseCtrl = require('./_base/BaseCtrl.controller');
 const CustomDevice = require('../models/customDevice/CustomDevice.model');
 const CustomDeviceSet = require('../models/customDevice/CustomDeviceSet.model');
+const CustomDeviceCriteria = require('../models/customDevice/CustomDeviceCriteria.model');
+const CustomDeviceCriteriaSet = require('../models/customDevice/CustomDeviceCriteriaSet.model');
 
 module.exports = class CustomDeviceCtrl extends BaseCtrl {
   // -------------------------------------
@@ -15,8 +17,10 @@ module.exports = class CustomDeviceCtrl extends BaseCtrl {
       : new CustomDeviceSet(this.getCustomDevices(params));
   }
 
-  getCriteria(customDevice) {
-    return this.getCustomDeviceCriteria(customDevice);
+  getCriteria(customDevice, criteria) {
+    return criteria
+      ? new CustomDeviceCriteria(this.getCustomDeviceCriteria(customDevice, criteria))
+      : new CustomDeviceCriteriaSet(this.getCustomDeviceCriterias(customDevice));
   }
 
   create(data) {
@@ -59,8 +63,8 @@ module.exports = class CustomDeviceCtrl extends BaseCtrl {
   // Criteria Functions
   // -------------------------------------
 
-  getCustomDeviceCriteria(customDevice) {
-    return this.process(this.appliance.getCustomDeviceCriteria(customDevice.id), 'custom device criteria');
+  getCustomDeviceCriterias(customDevice) {
+    return this.process(this.appliance.getCustomDeviceCriterias(customDevice.id), 'custom device criteria');
   }
 
   postCustomDeviceCriteria(customDevice, criteria) {
@@ -69,5 +73,9 @@ module.exports = class CustomDeviceCtrl extends BaseCtrl {
 
   deleteCustomDeviceCriteria(customDevice, criteria) {
     return this.process(this.appliance.deleteCustomDeviceCriteria(customDevice.id, criteria), 'custom device criteria');
+  }
+
+  getCustomDeviceCriteria(customDevice, criteria) {
+    return this.process(this.appliance.getCustomDeviceCriteria(customDevice.id, criteria.id), 'custom device criteria');
   }
 };

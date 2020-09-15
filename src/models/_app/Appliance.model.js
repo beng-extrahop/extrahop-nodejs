@@ -516,7 +516,7 @@ module.exports = class Appliance extends BaseObject {
     return this.request.patch(`/customdevices/${customDeviceId}`, payload);
   }
 
-  getCustomDeviceCriteria(customDeviceId) {
+  getCustomDeviceCriterias(customDeviceId) {
     return this.request.get(`/customdevices/${customDeviceId}/criteria`);
   }
 
@@ -528,7 +528,7 @@ module.exports = class Appliance extends BaseObject {
     return this.request.delete(`/customdevices/${customDeviceId}/criteria/${criteriaId}`);
   }
 
-  getCustomDeviceCriterion(customDeviceId, criteriaId) {
+  getCustomDeviceCriteria(customDeviceId, criteriaId) {
     return this.request.get(`/customdevices/${customDeviceId}/criteria/${criteriaId}`);
   }
 
