@@ -7,9 +7,11 @@ const EnvironmentSet = require('./src/models/_app/EnvironmentSet.model');
 const { Banner } = require('./src/constants/Global.constants');
 
 module.exports = class Extrahop {
-  constructor(config) {
-    // Check for quiet console mode
-    if (!config.quiet) console.log(Banner);
+  constructor(config, params = {}) {
+    // Check for quiet output mode
+    if (!params.quiet) {
+      console.log(Banner);
+    }
 
     // ApplianceSet or EnvironmentSet
     if (config instanceof Array) {
@@ -22,12 +24,12 @@ module.exports = class Extrahop {
       }
     }
 
-    // Appliance
+    // Check for Appliance
     else if (config.hostname && config.apikey) {
       return new Appliance(config);
     }
 
-    // Environment
+    // Check for Environment
     else if (config.name && config.appliances) {
       return new Environment(config);
     }

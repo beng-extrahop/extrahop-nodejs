@@ -1,8 +1,8 @@
 // Environment.model.js
 
-const BaseObject = require('../../models/_base/BaseObject.model');
-const Appliance = require('../../models/_app/Appliance.model');
-const ApplianceSet = require('../../models/_app/ApplianceSet.model');
+const BaseObject = require('../_base/BaseObject.model');
+const Appliance = require('./Appliance.model');
+const ApplianceSet = require('./ApplianceSet.model');
 const { Icons, Platforms } = require('../../constants/Global.constants');
 
 module.exports = class Environment extends BaseObject {
@@ -12,27 +12,27 @@ module.exports = class Environment extends BaseObject {
     this.appliances = environment.appliances;
     this.eca = this.getECA();
     this.edas = this.getEDAs();
+    this.eda = this.edas.length === 1 ? this.edas[0] : undefined;
     this.etas = this.getETAs();
     this.exas = this.getEXAs();
   }
 
   get({ type, hostname }) {
     if (hostname) {
-      return new Appliance(this.appliances.find(appliance => appliance.hostname === hostname));
+      return new Appliance(this.appliances.find((appliance) => appliance.hostname === hostname));
     }
-    else if (type) {
-      return new ApplianceSet(this.appliances.filter(appliance => appliance.type === type));
+    if (type) {
+      return new ApplianceSet(this.appliances.filter((appliance) => appliance.type === type));
     }
-    else {
-      return new ApplianceSet(this.appliances);
-    }
+
+    return new ApplianceSet(this.appliances);
   }
 
   getECA() {
     const ecas = this.get({ type: 'ECA' });
 
     if (ecas.length > 1) {
-      console.warn(`${Icons.Warn} Multiple ECAs detected. Returning first found.`);
+      console.warn(`${Icons.Warn} Multiple ECA config entries detected. Returning first in list.`);
     }
 
     return ecas[0];
@@ -66,5 +66,5 @@ module.exports = class Environment extends BaseObject {
   exa(hostname) {
     return this.get({ type: 'EXA', platform: Platforms.Explore, hostname });
   }
-  **/
+  * */
 };
