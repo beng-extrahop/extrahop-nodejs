@@ -3,6 +3,7 @@
 const BaseCtrl = require('./_base/BaseCtrl.controller');
 const Auth = require('../models/auth/Auth.model');
 const AuthSet = require('../models/auth/AuthSet.model');
+const AuthSaml = require('../models/auth/AuthSaml.model');
 
 module.exports = class AuthCtrl extends BaseCtrl {
   // -------------------------------------
@@ -33,8 +34,8 @@ module.exports = class AuthCtrl extends BaseCtrl {
     return this.patchAuthPrivileges(auth, data);
   }
 
-  getSamlSP() {
-    return this.getAuthSamlSP();
+  getSaml() {
+    return new AuthSaml(this.getAuthSaml());
   }
 
   // -------------------------------------
@@ -69,7 +70,7 @@ module.exports = class AuthCtrl extends BaseCtrl {
     return this.process(this.appliance.patchAuthPrivileges(auth, data), 'auth privileges');
   }
 
-  getAuthSamlSP() {
+  getAuthSaml() {
     return this.process(this.appliance.getAuthSamlSP(), 'auth SAML service provider');
   }
 };

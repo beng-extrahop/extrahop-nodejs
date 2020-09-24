@@ -1,6 +1,6 @@
 // Request.model.js
 
-const request = require('sync-request');
+const SyncRequest = require('sync-request');
 const BaseObject = require('../_base/BaseObject.model');
 const Response = require('./Response.model');
 const { Icons } = require('../../constants/Global.constants');
@@ -15,7 +15,7 @@ module.exports = class Request extends BaseObject {
 
     this.config = {
       cache: params.cache || 'file',
-      gzip: params.gzip || true,
+      gzip: params.gzip || false,
       timeout: params.timeout || 5000,
       retry: params.retry || true,
       retryDelay: params.retryDelay || 1000,
@@ -23,27 +23,24 @@ module.exports = class Request extends BaseObject {
     };
   }
 
-  send({
-    method, uri, qs, json,
-  }) {
-    const { headers } = this;
-    const config = {
-      headers, qs, json, ...this.config,
-    };
-
+  send(request) {
     let response = {};
 
     try {
-      response = request(method, this.url + uri, config);
+      response = SyncRequest(request.method, this.url + request.uri, {
+        headers: this.headers,
+        qs: request.qs,
+        json: request.json,
+        ...this.config,
+      });
+
       response.data = response.getBody('utf8');
     } catch (err) {
       response.error = err;
       console.log(`${Icons.Error} ${err}`);
     }
-
-    response.method = method;
-
-    return new Response(response);
+    console.log(new Response({ ...response, method: request.method }));
+    return new Response({ ...response, method: request.method });
   }
 
   get(uri, query) {

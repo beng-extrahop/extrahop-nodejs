@@ -1,7 +1,7 @@
 // Record.controller.js
 
 const Database = require('nedb');
-const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const BaseCtrl = require('./_base/BaseCtrl.controller');
 const RecordSet = require('../models/record/RecordSet.model');
 const RecordSearch = require('../models/record/RecordSearch.model');
 
@@ -9,7 +9,6 @@ const { Config, Icons } = require('../constants/Global.constants');
 const Utils = require('../utils/BaseUtil.util.js');
 
 module.exports = class RecordCtrl extends BaseCtrl {
-
   // -------------------------------------
   // Defaults
   // -------------------------------------
@@ -38,11 +37,9 @@ module.exports = class RecordCtrl extends BaseCtrl {
     search.db.find({}).exec((err, results) => {
       if (err) {
         console.error(`${Icons.Error} ${err}`);
-      }
-      else if (results.length === 0) {
+      } else if (results.length === 0) {
         console.warn(`${Icons.Warn} No results found in database.`);
-      }
-      else {
+      } else {
         (new RecordSet(results)).writeToCSV(`records-${search.id}.csv`);
         console.info(`${Icons.Success} Saved ${results.length} records to CSV: records-${search.id}.csv`);
       }
@@ -60,10 +57,12 @@ module.exports = class RecordCtrl extends BaseCtrl {
     this.printSearchInfo(search);
 
     const numPages = this.getPageCount(search);
-    let records = search.records, pageAt = 0, count = 0;
+    let { records } = search;
+    let pageAt = 0;
+    let count = 0;
 
     while (records && records.length > 0) {
-      records = records.map(record => this.parse(record, '_source'));
+      records = records.map((record) => this.parse(record, '_source'));
       db.insert(records);
 
       console.info(`[${++pageAt}/${numPages}] Processed ${(count += records.length)} results, awaiting next page...`);
@@ -72,8 +71,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
 
     if (count === search.total) {
       console.info(`\n${Icons.Success} Committed ${count}/${search.total} results to DB: records-${search.id}.db`);
-    }
-    else {
+    } else {
       console.info(`\n${Icons.Warn} Committed ${count}/${search.total} records to DB: records-${search.id}.db`);
     }
 
@@ -85,17 +83,17 @@ module.exports = class RecordCtrl extends BaseCtrl {
   // -------------------------------------
 
   parseSearchFilter(searchFilter = {}) {
-    if ( !searchFilter.filter || !searchFilter.filter.rules ) {
+    if (!searchFilter.filter || !searchFilter.filter.rules) {
       return searchFilter;
     }
 
-    searchFilter.filter.rules.forEach(rule => {
+    searchFilter.filter.rules.forEach((rule) => {
       const deviceName = rule.value || rule.operand;
 
       if (deviceName.startsWith('*') && ['server', 'client', 'device'].includes(rule.field)) {
         const devices = this.appliance.devices().getByName(deviceName.replace('*', ''));
 
-        if ( devices.length > 0 ) {
+        if (devices.length > 0) {
           console.log('Substituting discovery id for name:', rule.value, '=>', devices[0].discovery_id);
           rule.operand = { type: 'device', value: devices[0].discovery_id };
           delete rule.value;

@@ -1,13 +1,12 @@
 // Dashboard.controller.js
 
-const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const BaseCtrl = require('./_base/BaseCtrl.controller');
 const Dashboard = require('../models/dashboard/Dashboard.model');
 const DashboardSet = require('../models/dashboard/DashboardSet.model');
 const DashboardSharing = require('../models/dashboard/DashboardSharing.model');
 const ReportSet = require('../models/report/ReportSet.model');
 
 module.exports = class DashboardCtrl extends BaseCtrl {
-
   // -------------------------------------
   // Defaults
   // -------------------------------------
@@ -17,50 +16,26 @@ module.exports = class DashboardCtrl extends BaseCtrl {
   }
 
   getSharing(dashboard = {}) {
-    if ( !dashboard.id ) {
-      return this.printError('GET', 'dashboard sharing', 'Function parameter { "id": dashboardId } is required');
-    }
-
     return new DashboardSharing(this.getDashboardSharing(dashboard));
   }
 
   getReports(dashboard) {
-    if ( !dashboard.id ) {
-      return this.printError('GET', 'dashboard reports', 'Function parameter { "id": dashboardId } is required');
-    }
-
     return new ReportSet(this.getDashboardReports(dashboard));
   }
 
   create(data) {
-    if ( !data ) {
-      return this.printError('POST', 'dashboards', 'Function parameter { Dashboard } is required');
-    }
-
     return this.postDashboard(new Dashboard(data));
   }
 
   update(dashboard, data) {
-    if ( !dashboard.id ) {
-      return this.printError('PATCH', 'dashboards', 'Function parameter { "id": dashboardId } is required');
-    }
-
     return this.patchDashboard(dashboard, data);
   }
 
   updateSharing(dashboard, sharing) {
-    if ( !dashboard.id ) {
-      return this.printError('PATCH', 'dashboard sharing', 'Function parameter { "id": dashboardId } is required');
-    }
-
     return this.patchDashboardSharing(dashboard, sharing);
   }
 
   delete(dashboard) {
-    if ( !dashboard.id ) {
-      return this.printError('DELETE', 'dashboards', 'Function parameter { "id": dashboardId } is required');
-    }
-
     return this.deleteDashboard(dashboard);
   }
 
@@ -145,7 +120,7 @@ module.exports = class DashboardCtrl extends BaseCtrl {
   // -------------------------------------
 
   getDashboards() {
-    return this.process(this.appliance.getDashboards(), 'dashboards').map(x => new Dashboard(x));
+    return this.process(this.appliance.getDashboards(), 'dashboards').map((x) => new Dashboard(x));
   }
 
   getDashboard(dashboard) {

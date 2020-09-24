@@ -1,12 +1,11 @@
 // Customization.controller.js
 
-const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const BaseCtrl = require('./_base/BaseCtrl.controller');
 const Customization = require('../models/customization/Customization.model');
 const CustomizationSet = require('../models/customization/CustomizationSet.model');
 const CustomizationStatus = require('../models/customization/CustomizationStatus.model');
 
 module.exports = class CustomizationCtrl extends BaseCtrl {
-
   // -------------------------------------
   // Defaults
   // -------------------------------------

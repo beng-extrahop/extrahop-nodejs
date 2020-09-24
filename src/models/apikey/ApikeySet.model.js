@@ -5,11 +5,6 @@ const Apikey = require('./Apikey.model');
 
 module.exports = class ApikeySet extends BaseObjectSet {
   constructor(apikeys = []) {
-    super();
-    apikeys.forEach((apikey) => this.push(new Apikey(apikey)));
-  }
-
-  writeToCSV({ filename = `apikeys-${this.generateId()}.csv`, subkey }) {
-    super.writeToCSV({ filename, subkey });
+    super(Array.from(apikeys).map((apikey) => new Apikey(apikey)));
   }
 };

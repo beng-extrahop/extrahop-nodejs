@@ -4,29 +4,6 @@ const BaseObject = require('../_base/BaseObject.model');
 const Request = require('../_http/Request.model');
 const { Icons } = require('../../constants/Global.constants');
 
-const ActivityGroupCtrl = require('../../controllers/ActivityGroup.controller');
-const ActivityMapCtrl = require('../../controllers/ActivityMap.controller');
-const AlertCtrl = require('../../controllers/Alert.controller');
-const AnalysisPriorityCtrl = require('../../controllers/AnalysisPriority.controller');
-const ApikeyCtrl = require('../../controllers/Apikey.controller');
-const ApplianceCtrl = require('../../controllers/Appliance.controller');
-const ApplicationCtrl = require('../../controllers/Application.controller');
-const AuditLogCtrl = require('../../controllers/AuditLog.controller');
-const AuthCtrl = require('../../controllers/Auth.controller');
-const BundleCtrl = require('../../controllers/Bundle.controller');
-const CustomizationCtrl = require('../../controllers/Customization.controller');
-const CustomDeviceCtrl = require('../../controllers/CustomDevice.controller');
-const DashboardCtrl = require('../../controllers/Dashboard.controller');
-const DeviceCtrl = require('../../controllers/Device.controller');
-const DeviceGroupCtrl = require('../../controllers/DeviceGroup.controller');
-const LicenseCtrl = require('../../controllers/License.controller');
-const NetworkCtrl = require('../../controllers/Network.controller');
-const NetworkLocalityCtrl = require('../../controllers/NetworkLocality.controller');
-const MetricCtrl = require('../../controllers/Metric.controller');
-const RecordCtrl = require('../../controllers/Record.controller');
-const SoftwareCtrl = require('../../controllers/Software.controller');
-const TriggerCtrl = require('../../controllers/Trigger.controller');
-
 module.exports = class Appliance extends BaseObject {
   constructor(appliance = {}) {
     super();
@@ -66,30 +43,33 @@ module.exports = class Appliance extends BaseObject {
     // Controllers
     // -------------------------------------
 
-    // const config = { hostname: this.host, apikey: this.apikey };
-
-    this.activityGroups = new ActivityGroupCtrl(this);
-    this.activityMaps = new ActivityMapCtrl(this);
-    this.alerts = new AlertCtrl(this);
-    this.analysisPriority = new AnalysisPriorityCtrl(this);
-    this.apikeys = new ApikeyCtrl(this);
-    this.appliances = new ApplianceCtrl(this);
-    this.applications = new ApplicationCtrl(this);
-    this.auditLog = new AuditLogCtrl(this);
-    this.auth = new AuthCtrl(this);
-    this.bundles = new BundleCtrl(this);
-    this.customizations = new CustomizationCtrl(this);
-    this.customDevices = new CustomDeviceCtrl(this);
-    this.dashboards = new DashboardCtrl(this);
-    this.devices = new DeviceCtrl(this);
-    this.deviceGroups = new DeviceGroupCtrl(this);
-    this.license = new LicenseCtrl(this);
-    this.metrics = new MetricCtrl(this);
-    this.networks = new NetworkCtrl(this);
-    this.networkLocalities = new NetworkLocalityCtrl(this);
-    this.records = new RecordCtrl(this);
-    this.software = new SoftwareCtrl(this);
-    this.triggers = new TriggerCtrl(this);
+    this.activityGroups = new (require('../../controllers/ActivityGroup.controller'))(this);
+    this.activityMaps = new (require('../../controllers/ActivityMap.controller'))(this);
+    this.alerts = new (require('../../controllers/Alert.controller'))(this);
+    this.analysisPriorities = new (require('../../controllers/AnalysisPriority.controller'))(this);
+    this.apikeys = new (require('../../controllers/Apikey.controller'))(this);
+    this.appliances = new (require('../../controllers/Appliance.controller'))(this);
+    this.applications = new (require('../../controllers/Application.controller'))(this);
+    this.auditLogs = new (require('../../controllers/AuditLog.controller'))(this);
+    this.auth = new (require('../../controllers/Auth.controller'))(this);
+    this.bundles = new (require('../../controllers/Bundle.controller'))(this);
+    this.customizations = new (require('../../controllers/Customization.controller'))(this);
+    this.customDevices = new (require('../../controllers/CustomDevice.controller'))(this);
+    this.dashboards = new (require('../../controllers/Dashboard.controller'))(this);
+    this.devices = new (require('../../controllers/Device.controller'))(this);
+    this.deviceGroups = new (require('../../controllers/DeviceGroup.controller'))(this);
+    this.emailGroups = new (require('../../controllers/EmailGroup.controller'))(this);
+    this.exclusionIntervals = new (require('../../controllers/ExclusionInterval.controller'))(this);
+    this.license = new (require('../../controllers/License.controller'))(this);
+    this.metrics = new (require('../../controllers/Metric.controller'))(this);
+    this.networks = new (require('../../controllers/Network.controller'))(this);
+    this.networkLocalities = new (require('../../controllers/NetworkLocality.controller'))(this);
+    this.nodes = new (require('../../controllers/Node.controller'))(this);
+    this.records = new (require('../../controllers/Record.controller'))(this);
+    this.reports = new (require('../../controllers/Report.controller'))(this);
+    this.software = new (require('../../controllers/Software.controller'))(this);
+    this.tags = new (require('../../controllers/Tag.controller'))(this);
+    this.triggers = new (require('../../controllers/Trigger.controller'))(this);
   }
 
   // -------------------------------------
@@ -548,7 +528,7 @@ module.exports = class Appliance extends BaseObject {
     return this.request.post('/customizations', payload);
   }
 
-  getCustomizationsStatus() {
+  getCustomizationStatus() {
     return this.request.get('/customizations/status');
   }
 

@@ -7,7 +7,7 @@ const { Config } = require('../../constants/Global.constants');
 const Utils = require('../../utils/BaseUtil.util.js');
 
 module.exports = class BaseObjectSet extends Array {
-  constructor(baseObjects = []) {
+  constructor(baseObjects) {
     super();
     baseObjects.forEach((baseObject) => this.push(baseObject));
   }

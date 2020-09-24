@@ -10,9 +10,7 @@ module.exports = class NetworkCtrl extends BaseCtrl {
   // -------------------------------------
 
   get(network) {
-    return network
-      ? new Network(this.getNetwork(network))
-      : new NetworkSet(this.getNetworks());
+    return network ? new Network(this.getNetwork(network)) : new NetworkSet(this.getNetworks());
   }
 
   update(network, data) {

@@ -1,6 +1,6 @@
 // Appliance.controller.js
 
-const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const BaseCtrl = require('./_base/BaseCtrl.controller');
 const Appliance = require('../models/appliance/Appliance.model');
 const ApplianceSet = require('../models/appliance/ApplianceSet.model');
 const ApplianceConnection = require('../models/appliance/ApplianceConnection.model');
@@ -8,13 +8,14 @@ const ApplianceCloudServices = require('../models/appliance/ApplianceCloudServic
 const ApplianceProductKey = require('../models/appliance/ApplianceProductKey.model');
 
 module.exports = class ApplianceCtrl extends BaseCtrl {
-
   // -------------------------------------
   // Defaults
   // -------------------------------------
 
   get(appliance) {
-    return appliance ? new Appliance(this.getAppliance(appliance)) : new ApplianceSet(this.getAppliances());
+    return appliance
+      ? new Appliance(this.getAppliance(appliance))
+      : new ApplianceSet(Array.from(this.getAppliances()));
   }
 
   getCloudServices(appliance) {
@@ -22,7 +23,7 @@ module.exports = class ApplianceCtrl extends BaseCtrl {
   }
 
   getProductKey(appliance) {
-    return new ApplianceProductKey(this.getProductKey(appliance));
+    return new ApplianceProductKey(this.getApplianceProductKey(appliance));
   }
 
   connect(data) {

@@ -9,8 +9,8 @@ module.exports = class Response extends BaseObject {
     this.method = response.method;
     this.headers = response.headers;
     this.status = response.statusCode || 0;
-    this.success = (this.status > 0 && this.status < 400);
-    this.data = JSON.parse(response.data || '{}');
-    this.error = response.error;
+    this.success = (this.status < 400);
+    this.error = response.error || undefined;
+    this.data = this.success ? JSON.parse(response.data) : {};
   }
 };

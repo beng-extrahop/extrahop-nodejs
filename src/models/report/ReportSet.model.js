@@ -1,15 +1,10 @@
 // ReportSet.model.js
 
-const BaseObjectSet = require('../../models/_base/BaseObjectSet.model');
-const Report = require('../../models/report/Report.model');
+const BaseObjectSet = require('../_base/BaseObjectSet.model');
+const Report = require('./Report.model');
 
 module.exports = class ReportSet extends BaseObjectSet {
   constructor(reports = []) {
-    super();
-    reports.forEach(report => this.push(new Report(report)));
-  }
-
-  writeToCSV({ filename = `reports-${this.generateId()}.csv`, subkey }) {
-    super.writeToCSV({ filename, subkey });
+    super(Array.from(reports).map((report) => new Report(report)));
   }
 };

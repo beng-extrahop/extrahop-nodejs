@@ -1,12 +1,11 @@
 // Trigger.controller.js
 
-const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const BaseCtrl = require('./_base/BaseCtrl.controller');
 const Trigger = require('../models/trigger/Trigger.model');
 const TriggerSet = require('../models/trigger/TriggerSet.model');
 const Strings = require('../constants/Global.constants');
 
 module.exports = class TriggerCtrl extends BaseCtrl {
-
   // -------------------------------------
   // Defaults
   // -------------------------------------
@@ -76,30 +75,8 @@ module.exports = class TriggerCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // API Functions
+  // Base Functions
   // -------------------------------------
-
-  /**
-  getTriggers() {
-    return this.process(this.request.get('/triggers'), 'triggers');
-  }
-
-  getTrigger(trigger) {
-    return this.process(this.request.get(`/triggers/${trigger.id}`), 'trigger');
-  }
-
-  patchTrigger(trigger, payload) {
-    return this.process(this.request.patch(`/triggers/${trigger.id}`, payload));
-  }
-
-  postTrigger(payload) {
-    return this.process(this.request.post('/triggers', payload));
-  }
-
-  deleteTrigger(trigger) {
-    return this.process(this.request.delete(`/triggers/${trigger.id}`), 'trigger');
-  }
-  **/
 
   getTriggers() {
     return this.process(this.appliance.getTriggers(), 'triggers');

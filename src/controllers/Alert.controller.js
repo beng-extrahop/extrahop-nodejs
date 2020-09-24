@@ -1,6 +1,6 @@
 // Alert.controller.js
 
-const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const BaseCtrl = require('./_base/BaseCtrl.controller');
 const Alert = require('../models/alert/Alert.model');
 const AlertSet = require('../models/alert/AlertSet.model');
 const AlertStatSet = require('../models/alert/AlertStatSet.model');
@@ -12,7 +12,6 @@ const ExclusionIntervalSet = require('../models/exclusionInterval/ExclusionInter
 const NetworkSet = require('../models/network/NetworkSet.model');
 
 module.exports = class AlertCtrl extends BaseCtrl {
-
   // -------------------------------------
   // Aliases
   // -------------------------------------
@@ -66,8 +65,7 @@ module.exports = class AlertCtrl extends BaseCtrl {
   }
 
   assignApplications(alert, applications) {
-    if ( !applications )
-      return this.printError('assign', 'applications', 'Array[...applications] or { application } is required');
+    if (!applications) return this.printError('assign', 'applications', 'Array[...applications] or { application } is required');
 
     return applications instanceof Array
       ? this.postAlertApplications(alert, { assign: applications })
@@ -75,8 +73,7 @@ module.exports = class AlertCtrl extends BaseCtrl {
   }
 
   assignDevices(alert, devices) {
-    if ( !devices )
-      return this.printError('assign', 'devices', 'Array[...devices] or { device } is required');
+    if (!devices) return this.printError('assign', 'devices', 'Array[...devices] or { device } is required');
 
     return devices instanceof Array
       ? this.postAlertDevices(alert, { assign: devices })
@@ -84,8 +81,7 @@ module.exports = class AlertCtrl extends BaseCtrl {
   }
 
   assignDeviceGroups(alert, deviceGroups) {
-    if ( !deviceGroups )
-      return this.printError('assign', 'deviceGroups', 'Array[...deviceGroups] or { deviceGroup } is required');
+    if (!deviceGroups) return this.printError('assign', 'deviceGroups', 'Array[...deviceGroups] or { deviceGroup } is required');
 
     return deviceGroups instanceof Array
       ? this.postAlertDeviceGroups(alert, { assign: deviceGroups })
@@ -93,8 +89,7 @@ module.exports = class AlertCtrl extends BaseCtrl {
   }
 
   assignEmailGroups(alert, emailGroups) {
-    if ( !emailGroups )
-      return this.printError('assign', 'emailGroups', 'Array[...emailGroups] or { emailGroup } is required');
+    if (!emailGroups) return this.printError('assign', 'emailGroups', 'Array[...emailGroups] or { emailGroup } is required');
 
     return emailGroups instanceof Array
       ? this.postAlertEmailGroups(alert, { assign: emailGroups })
@@ -102,8 +97,7 @@ module.exports = class AlertCtrl extends BaseCtrl {
   }
 
   assignExclusionIntervals(alert, exclusionIntervals) {
-    if ( !exclusionIntervals )
-      return this.printError('assign', 'exclusionIntervals', 'Array[...exclusionIntervals] or { exclusionInterval } is required');
+    if (!exclusionIntervals) return this.printError('assign', 'exclusionIntervals', 'Array[...exclusionIntervals] or { exclusionInterval } is required');
 
     return exclusionIntervals instanceof Array
       ? this.postAlertExclusionIntervals(alert, { assign: exclusionIntervals })
@@ -111,18 +105,15 @@ module.exports = class AlertCtrl extends BaseCtrl {
   }
 
   assignNetworks(alert, networks) {
-    if ( !networks )
-      return this.printError('assign', 'networks', 'Array[...networks] or { network } is required');
+    if (!networks) return this.printError('assign', 'networks', 'Array[...networks] or { network } is required');
 
     return networks instanceof Array
       ? this.postAlertNetworks(alert, { assign: networks })
       : this.postAlertNetwork(alert, networks);
   }
 
-
   unassignApplications(alert, applications) {
-    if ( !applications )
-      return this.printError('unassign', 'applications', 'Array[...applications] or { application } is required');
+    if (!applications) return this.printError('unassign', 'applications', 'Array[...applications] or { application } is required');
 
     return applications instanceof Array
       ? this.postAlertApplications(alert, { unassign: applications })
@@ -130,8 +121,7 @@ module.exports = class AlertCtrl extends BaseCtrl {
   }
 
   unassignDevices(alert, devices) {
-    if ( !devices )
-      return this.printError('unassign', 'devices', 'Array[...devices] or { device } is required');
+    if (!devices) return this.printError('unassign', 'devices', 'Array[...devices] or { device } is required');
 
     return devices instanceof Array
       ? this.postAlertDevices(alert, { unassign: devices })
@@ -139,8 +129,7 @@ module.exports = class AlertCtrl extends BaseCtrl {
   }
 
   unassignDeviceGroups(alert, deviceGroups) {
-    if ( !deviceGroups )
-      return this.printError('unassign', 'deviceGroups', 'Array[...deviceGroups] or { deviceGroup } is required');
+    if (!deviceGroups) return this.printError('unassign', 'deviceGroups', 'Array[...deviceGroups] or { deviceGroup } is required');
 
     return deviceGroups instanceof Array
       ? this.postAlertDeviceGroups(alert, { unassign: deviceGroups })
@@ -148,8 +137,7 @@ module.exports = class AlertCtrl extends BaseCtrl {
   }
 
   unassignEmailGroups(alert, emailGroups) {
-    if ( !emailGroups )
-      return this.printError('unassign', 'emailGroups', 'Array[...emailGroups] or { emailGroup } is required');
+    if (!emailGroups) return this.printError('unassign', 'emailGroups', 'Array[...emailGroups] or { emailGroup } is required');
 
     return emailGroups instanceof Array
       ? this.postAlertEmailGroups(alert, { unassign: emailGroups })
@@ -157,8 +145,7 @@ module.exports = class AlertCtrl extends BaseCtrl {
   }
 
   unassignExclusionIntervals(alert, exclusionIntervals) {
-    if ( !exclusionIntervals )
-      return this.printError('unassign', 'exclusionIntervals', 'Array[...exclusionIntervals] or { exclusionInterval } is required');
+    if (!exclusionIntervals) return this.printError('unassign', 'exclusionIntervals', 'Array[...exclusionIntervals] or { exclusionInterval } is required');
 
     return exclusionIntervals instanceof Array
       ? this.postAlertExclusionIntervals(alert, { unassign: exclusionIntervals })
@@ -166,8 +153,7 @@ module.exports = class AlertCtrl extends BaseCtrl {
   }
 
   unassignNetworks(alert, networks) {
-    if ( !networks )
-      return this.printError('unassign', 'networks', 'Array[...networks] or { network } is required');
+    if (!networks) return this.printError('unassign', 'networks', 'Array[...networks] or { network } is required');
 
     return networks instanceof Array
       ? this.postAlertNetworks(alert, { unassign: networks })
@@ -289,7 +275,7 @@ module.exports = class AlertCtrl extends BaseCtrl {
   postAlertExclusionIntervals(alert, assign = [], unassign = []) {
     return this.process(
       this.appliance.postAlertExclusionIntervals(alert.id, { assign, unassign }),
-      'alert exclusion intervals'
+      'alert exclusion intervals',
     );
   }
 

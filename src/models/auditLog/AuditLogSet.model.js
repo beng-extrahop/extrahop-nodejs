@@ -5,11 +5,6 @@ const AuditLog = require('./AuditLog.model');
 
 module.exports = class AuditLogSet extends BaseObjectSet {
   constructor(auditLogs = []) {
-    super();
-    auditLogs.forEach((auditLog) => this.push(new AuditLog(auditLog)));
-  }
-
-  writeToCSV({ filename = `auditLogs-${this.generateId()}.csv`, subkey }) {
-    super.writeToCSV({ filename, subkey });
+    super(Array.from(auditLogs).map((auditLog) => new AuditLog(auditLog)));
   }
 };

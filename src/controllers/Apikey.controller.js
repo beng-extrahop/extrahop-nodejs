@@ -1,11 +1,10 @@
 // Apikey.controller.js
 
-const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const BaseCtrl = require('./_base/BaseCtrl.controller');
 const Apikey = require('../models/apikey/Apikey.model');
 const ApikeySet = require('../models/apikey/ApikeySet.model');
 
 module.exports = class ApikeyCtrl extends BaseCtrl {
-
   // -------------------------------------
   // Defaults
   // -------------------------------------

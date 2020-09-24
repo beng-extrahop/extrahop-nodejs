@@ -5,7 +5,6 @@ const MetricStat = require('./MetricStat.model');
 
 module.exports = class MetricStatSet extends BaseObjectSet {
   constructor(metricStats = []) {
-    super();
-    metricStats.forEach((metricStat) => this.push(new MetricStat(metricStat)));
+    super(Array.from(metricStats).map((metricStat) => new MetricStat(metricStat)));
   }
 };

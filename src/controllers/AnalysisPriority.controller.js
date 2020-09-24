@@ -1,21 +1,20 @@
 // AnalysisPriority.controller.js
 
-const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const BaseCtrl = require('./_base/BaseCtrl.controller');
 const AnalysisPriority = require('../models/analysisPriority/AnalysisPriority.model');
 const AnalysisPriorityManager = require('../models/analysisPriority/AnalysisPriorityManager.model');
 
 module.exports = class AnalysisPriorityCtrl extends BaseCtrl {
-
   // -------------------------------------
   // Defaults
   // -------------------------------------
 
-  get(appliance = { id: 0 }) {
+  get(appliance) {
     return new AnalysisPriority(this.getAnalysisPriority(appliance));
   }
 
-  getManager() {
-    return new AnalysisPriorityManager(this.getAnalysisPriorityManager());
+  getManager(appliance) {
+    return new AnalysisPriorityManager(this.getAnalysisPriorityManager(appliance));
   }
 
   update(appliance, data) {
@@ -48,7 +47,7 @@ module.exports = class AnalysisPriorityCtrl extends BaseCtrl {
 
   patchAnalysisPriorityManager(appliance, manager) {
     return this.process(
-      this.appliance.patchAnalysisPriorityManager(appliance.id, { manager: manager.id }), 'analysis priority manager'
+      this.appliance.patchAnalysisPriorityManager(appliance.id, { manager: manager.id }), 'analysis priority manager',
     );
   }
 };

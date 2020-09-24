@@ -1,11 +1,10 @@
 // ActivityGroup.controller.js
 
-const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const BaseCtrl = require('./_base/BaseCtrl.controller');
 const ActivityGroupSet = require('../models/activityGroup/ActivityGroupSet.model');
 const DashboardSet = require('../models/dashboard/DashboardSet.model');
 
 module.exports = class ActivityGroupCtrl extends BaseCtrl {
-
   // -------------------------------------
   // Defaults
   // -------------------------------------

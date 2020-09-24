@@ -1,10 +1,9 @@
 // AuditLog.controller.js
 
-const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const BaseCtrl = require('./_base/BaseCtrl.controller');
 const AuditLogSet = require('../models/auditLog/AuditLogSet.model');
 
 module.exports = class AuditLogCtrl extends BaseCtrl {
-
   // -------------------------------------
   // Defaults
   // -------------------------------------

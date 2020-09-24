@@ -1,10 +1,9 @@
 // BaseCtrl.controller.js
 
-const Config = require('../../constants/Global.constants').Config;
-const Icons = require('../../constants/Global.constants').Icons;
-const Request = require('../../models/_http/Request.model');
-
 const moment = require('moment-timezone');
+const { Config } = require('../../constants/Global.constants');
+const { Icons } = require('../../constants/Global.constants');
+const Request = require('../../models/_http/Request.model');
 
 module.exports = class BaseCtrl {
   constructor(appliance) {
@@ -16,7 +15,7 @@ module.exports = class BaseCtrl {
     this.request = new Request(this.hostname, this.apikey);
     this.csvPath = [Config.DATA_DIR, Config.CSV_DIR].join('/');
     this.dbPath = [Config.DATA_DIR, Config.DB_DIR].join('/');
-    **/
+    * */
   }
 
   toString(config = {}) {
@@ -27,41 +26,36 @@ module.exports = class BaseCtrl {
     console.info(this.toString(options));
   }
 
-  printSuccess(method, type, count) {
+  printSuccess(method, type, count = 1) {
+    if (count == 1 && (type || '').endsWith('s') && !(type || '').endsWith('status')) {
+      type = type.substring(0, type.length - 1);
+    }
+
     if (method === 'GET') {
       console.info(`${Icons.Success} Retrieved ${count} ${type} from ${this.appliance.host}`);
-    }
-    else if (method === 'POST') {
+    } else if (method === 'POST') {
       console.info(`${Icons.Success} Posted ${count} ${type} to ${this.appliance.host}`);
-    }
-    else if (method === 'PATCH') {
+    } else if (method === 'PATCH') {
       console.info(`${Icons.Info} Modified ${type} on ${this.appliance.host}`);
-    }
-    else if (method === 'PATCH') {
+    } else if (method === 'PATCH') {
       console.info(`${Icons.Info} Updated ${type} on ${this.appliance.host}`);
-    }
-    else if (method === 'DELETE') {
+    } else if (method === 'DELETE') {
       console.info(`${Icons.Warn} Deleted ${type} from ${this.appliance.host}`);
     }
   }
 
   printError(method, type, message) {
-    if ( message ) {
+    if (message) {
       console.info(`${Icons.Error} Error: ${message} to ${method} ${type}`);
-    }
-    else if (method === 'GET') {
+    } else if (method === 'GET') {
       console.info(`${Icons.Error} Error retrieving ${type} from ${this.appliance.host}`);
-    }
-    else if (method === 'POST') {
+    } else if (method === 'POST') {
       console.info(`${Icons.Error} Error posting ${type} to ${this.appliance.host}`);
-    }
-    else if (method === 'PATCH') {
+    } else if (method === 'PATCH') {
       console.info(`${Icons.Error} Error modifying ${type} on ${this.appliance.host}`);
-    }
-    else if (method === 'PATCH') {
+    } else if (method === 'PATCH') {
       console.info(`${Icons.Error} Error updating ${type} on ${this.appliance.host}`);
-    }
-    else if (method === 'DELETE') {
+    } else if (method === 'DELETE') {
       console.info(`${Icons.Error} Error deleting ${type} from ${this.appliance.host}`);
     }
   }
@@ -69,17 +63,13 @@ module.exports = class BaseCtrl {
   printWarning(method, type) {
     if (method === 'GET') {
       console.info(`${Icons.Warn} Warning: retrieving ${type} from ${this.appliance.host}`);
-    }
-    else if (method === 'POST') {
+    } else if (method === 'POST') {
       console.info(`${Icons.Warn} Warning: posting ${type} to ${this.appliance.host}`);
-    }
-    else if (method === 'PATCH') {
+    } else if (method === 'PATCH') {
       console.info(`${Icons.Warn} Warning: modifying ${type} on ${this.appliance.host}`);
-    }
-    else if (method === 'PATCH') {
+    } else if (method === 'PATCH') {
       console.info(`${Icons.Warn} Warning: updating ${type} on ${this.appliance.host}`);
-    }
-    else if (method === 'DELETE') {
+    } else if (method === 'DELETE') {
       console.info(`${Icons.Warn} Warning: deleting ${type} from ${this.appliance.host}`);
     }
   }
@@ -90,13 +80,13 @@ module.exports = class BaseCtrl {
 
   filter(results = [], params = {}) {
     const [key] = Object.keys(params);
-    return results.filter(result => result[key] === params[key]);
+    return results.filter((result) => result[key] === params[key]);
   }
 
   parse(data = {}, subkey) {
     const parseData = data[subkey] || data;
 
-    Object.keys(parseData).forEach(key => {
+    Object.keys(parseData).forEach((key) => {
       if (key.includes('timestamp')) {
         parseData[`${key}_fmt`] = moment(parseData[key]).tz('America/New_York').format('YYYY-MM-DD HH:mm:ss');
       }
@@ -140,19 +130,17 @@ module.exports = class BaseCtrl {
       return results.data;
     }
 
-    let data = results.data;
+    let { data } = results;
     const { method, success } = results;
     const count = data.length;
 
     if (['PATCH', 'PUT', 'DELETE'].includes(method)) {
       if (!success) {
         this.printError(method, type);
-      }
-      else {
+      } else {
         this.printSuccess(method, type);
       }
-    }
-    else if (['GET', 'POST'].includes(method)) {
+    } else if (['GET', 'POST'].includes(method)) {
       if (!success) {
         this.printSuccess(method, type, count);
         return results.data;
@@ -162,8 +150,7 @@ module.exports = class BaseCtrl {
 
       if ((data || []).length === 0) {
         this.printWarning(method, type);
-      }
-      else {
+      } else {
         this.printSuccess(method, type, count);
       }
 

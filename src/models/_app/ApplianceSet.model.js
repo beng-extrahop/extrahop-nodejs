@@ -1,10 +1,10 @@
 // ApplianceSet.model.js
 
-const BaseObjectSet = require('../../models/_base/BaseObjectSet.model');
-const Appliance = require('../../models/_app/Appliance.model');
+const BaseObjectSet = require('../_base/BaseObjectSet.model');
+const Appliance = require('./Appliance.model');
 
 module.exports = class ApplianceSet extends BaseObjectSet {
   constructor(appliances = []) {
-    super(appliances.map(appliance => new Appliance(appliance)));
+    super(Array.from(appliances).map((appliance) => new Appliance(appliance)));
   }
 };

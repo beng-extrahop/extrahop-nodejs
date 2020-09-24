@@ -5,7 +5,6 @@ const SearchFilterRule = require('./SearchFilterRule.model');
 
 module.exports = class SearchFilterRuleSet extends BaseObjectSet {
   constructor(rules = []) {
-    super();
-    rules.forEach((rule) => this.push(new SearchFilterRule(rule)));
+    super(Array.from(rules).map((rule) => new SearchFilterRule(rule)));
   }
 };

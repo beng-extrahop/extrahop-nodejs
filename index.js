@@ -1,5 +1,6 @@
 // index.js
 
+const Swagger = require('./src/models/_http/Swagger.model');
 const Appliance = require('./src/models/_app/Appliance.model');
 const ApplianceSet = require('./src/models/_app/ApplianceSet.model');
 const Environment = require('./src/models/_app/Environment.model');
@@ -7,9 +8,9 @@ const EnvironmentSet = require('./src/models/_app/EnvironmentSet.model');
 const { Banner } = require('./src/constants/Global.constants');
 
 module.exports = class Extrahop {
-  constructor(config, params = {}) {
+  constructor(config, options = {}) {
     // Check for quiet output mode
-    if (!params.quiet) {
+    if (!options.quiet) {
       console.log(Banner);
     }
 
@@ -18,7 +19,6 @@ module.exports = class Extrahop {
       if (config[0].hostname && config[0].apikey) {
         return config.length > 1 ? new ApplianceSet(...config) : new Appliance(config[0]);
       }
-
       if (config[0].name && config[0].appliances) {
         return config.length > 1 ? new EnvironmentSet(...config) : new Environment(config[0]);
       }

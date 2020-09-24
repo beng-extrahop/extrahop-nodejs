@@ -1,6 +1,6 @@
 // DeviceGroup.controller.js
 
-const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const BaseCtrl = require('./_base/BaseCtrl.controller');
 const DeviceGroup = require('../models/deviceGroup/DeviceGroup.model');
 const DeviceGroupSet = require('../models/deviceGroup/DeviceGroupSet.model');
 
@@ -10,7 +10,6 @@ const DeviceSet = require('../models/device/DeviceSet.model');
 const TriggerSet = require('../models/trigger/TriggerSet.model');
 
 module.exports = class DeviceGroupCtrl extends BaseCtrl {
-
   // -------------------------------------
   // Defaults
   // -------------------------------------
@@ -40,7 +39,7 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   }
 
   assignAlerts(deviceGroup, alerts) {
-    return this.postDeviceGroupAlerts(deviceGroup, { assign: alerts.map(alert => alert.id) });
+    return this.postDeviceGroupAlerts(deviceGroup, { assign: alerts.map((alert) => alert.id) });
   }
 
   removeAlert(deviceGroup, alert) {
@@ -48,7 +47,7 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   }
 
   removeAlerts(deviceGroup, alerts) {
-    return this.postDeviceGroupAlerts(deviceGroup, { unassign: alerts.map(alert => alert.id) });
+    return this.postDeviceGroupAlerts(deviceGroup, { unassign: alerts.map((alert) => alert.id) });
   }
 
   getDashboards(deviceGroup) {
@@ -64,7 +63,7 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   }
 
   assignDevices(deviceGroup, devices) {
-    return this.postDeviceGroupDevices(deviceGroup, { assign: devices.map(device => device.id) });
+    return this.postDeviceGroupDevices(deviceGroup, { assign: devices.map((device) => device.id) });
   }
 
   removeDevice(deviceGroup, device) {
@@ -72,7 +71,7 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   }
 
   removeDevices(deviceGroup, devices) {
-    return this.postDeviceGroupDevices(deviceGroup, { unassign: devices.map(device => device.id) });
+    return this.postDeviceGroupDevices(deviceGroup, { unassign: devices.map((device) => device.id) });
   }
 
   getTriggers(deviceGroup) {
@@ -84,7 +83,7 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   }
 
   assignTriggers(deviceGroup, triggers) {
-    return this.postDeviceGroupTriggers(deviceGroup, { assign: triggers.map(trigger => trigger.id) });
+    return this.postDeviceGroupTriggers(deviceGroup, { assign: triggers.map((trigger) => trigger.id) });
   }
 
   removeTrigger(deviceGroup, trigger) {
@@ -92,7 +91,7 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   }
 
   removeTriggers(deviceGroup, triggers) {
-    return this.postDeviceGroupTriggers(deviceGroup, { unassign: triggers.map(trigger => trigger.id) });
+    return this.postDeviceGroupTriggers(deviceGroup, { unassign: triggers.map((trigger) => trigger.id) });
   }
 
   // -------------------------------------
@@ -124,23 +123,23 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   // -------------------------------------
 
   getDeviceGroups(params) {
-    return this.process(this.appliance.getDeviceGroups(params), 'deviceGroups');
+    return this.process(this.appliance.getDeviceGroups(params), 'device groups');
   }
 
   getDeviceGroup(deviceGroup) {
-    return this.process(this.appliance.getDeviceGroup(deviceGroup.id), 'deviceGroup');
+    return this.process(this.appliance.getDeviceGroup(deviceGroup.id), 'device group');
   }
 
   postDeviceGroup(deviceGroup) {
-    return this.process(this.appliance.postDeviceGroup(deviceGroup), 'deviceGroup');
+    return this.process(this.appliance.postDeviceGroup(deviceGroup), 'device group');
   }
 
   patchDeviceGroup(deviceGroup, data) {
-    return this.process(this.appliance.patchDeviceGroup(deviceGroup.id, data), `deviceGroup (id: ${deviceGroup.id})`);
+    return this.process(this.appliance.patchDeviceGroup(deviceGroup.id, data), `device group (id: ${deviceGroup.id})`);
   }
 
   deleteDeviceGroup(deviceGroup) {
-    return this.process(this.appliance.deleteDeviceGroup(deviceGroup.id), `deviceGroup (id: ${deviceGroup.id})`);
+    return this.process(this.appliance.deleteDeviceGroup(deviceGroup.id), `device group (id: ${deviceGroup.id})`);
   }
 
   // -------------------------------------
@@ -148,19 +147,19 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   // -------------------------------------
 
   getDeviceGroupAlerts(deviceGroup) {
-    return this.process(this.appliance.getDeviceGroupAlerts(deviceGroup.id), 'deviceGroup alerts');
+    return this.process(this.appliance.getDeviceGroupAlerts(deviceGroup.id), 'device group alerts');
   }
 
   postDeviceGroupAlerts(deviceGroup, { assign, unassign }) {
-    return this.process(this.appliance.postDeviceGroupAlerts(deviceGroup.id, { assign, unassign }), 'deviceGroup alerts');
+    return this.process(this.appliance.postDeviceGroupAlerts(deviceGroup.id, { assign, unassign }), 'device group alerts');
   }
 
   postDeviceGroupAlert(deviceGroup, alert) {
-    return this.process(this.appliance.postDeviceGroupAlert(deviceGroup.id, alert.id), 'deviceGroup alert');
+    return this.process(this.appliance.postDeviceGroupAlert(deviceGroup.id, alert.id), 'device group alert');
   }
 
   deleteDeviceGroupAlert(deviceGroup, alert) {
-    return this.process(this.appliance.deleteDeviceGroupAlert(deviceGroup.id, alert.id), 'deviceGroup alert');
+    return this.process(this.appliance.deleteDeviceGroupAlert(deviceGroup.id, alert.id), 'device group alert');
   }
 
   // -------------------------------------
@@ -168,7 +167,7 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   // -------------------------------------
 
   getDeviceGroupDashboards(deviceGroup) {
-    return this.process(this.appliance.getDeviceGroupDashboards(deviceGroup.id), 'deviceGroup dashboards');
+    return this.process(this.appliance.getDeviceGroupDashboards(deviceGroup.id), 'device group dashboards');
   }
 
   // -------------------------------------
@@ -176,19 +175,19 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   // -------------------------------------
 
   getDeviceGroupDevices(deviceGroup, params) {
-    return this.process(this.appliance.getDeviceGroupDevices(deviceGroup.id, params), 'deviceGroup devices');
+    return this.process(this.appliance.getDeviceGroupDevices(deviceGroup.id, params), 'device group devices');
   }
 
   postDeviceGroupDevices(deviceGroup, { assign, unassign }) {
-    return this.process(this.appliance.postDeviceGroupDevices(deviceGroup.id, { assign, unassign }), 'deviceGroup devices');
+    return this.process(this.appliance.postDeviceGroupDevices(deviceGroup.id, { assign, unassign }), 'device group devices');
   }
 
   postDeviceGroupDevice(deviceGroup, device) {
-    return this.process(this.appliance.postDeviceGroupDevice(deviceGroup.id, device.id), 'deviceGroup device');
+    return this.process(this.appliance.postDeviceGroupDevice(deviceGroup.id, device.id), 'device group device');
   }
 
   deleteDeviceGroupDevice(deviceGroup, device) {
-    return this.process(this.appliance.deleteDeviceGroupDevice(deviceGroup.id, device.id), 'deviceGroup device');
+    return this.process(this.appliance.deleteDeviceGroupDevice(deviceGroup.id, device.id), 'device group device');
   }
 
   // -------------------------------------
@@ -196,18 +195,18 @@ module.exports = class DeviceGroupCtrl extends BaseCtrl {
   // -------------------------------------
 
   getDeviceGroupTriggers(deviceGroup) {
-    return this.process(this.appliance.getDeviceGroupTriggers(deviceGroup.id), 'deviceGroup triggers');
+    return this.process(this.appliance.getDeviceGroupTriggers(deviceGroup.id), 'device group triggers');
   }
 
   postDeviceGroupTriggers(deviceGroup, { assign, unassign }) {
-    return this.process(this.appliance.postDeviceGroupTriggers(deviceGroup.id, { assign, unassign }), 'deviceGroup triggers');
+    return this.process(this.appliance.postDeviceGroupTriggers(deviceGroup.id, { assign, unassign }), 'device group triggers');
   }
 
   postDeviceGroupTrigger(deviceGroup, trigger) {
-    return this.process(this.appliance.postDeviceGroupTrigger(deviceGroup.id, trigger.id), 'deviceGroup trigger');
+    return this.process(this.appliance.postDeviceGroupTrigger(deviceGroup.id, trigger.id), 'device group trigger');
   }
 
   deleteDeviceGroupTrigger(deviceGroup, trigger) {
-    return this.process(this.appliance.deleteDeviceGroupDevice(deviceGroup.id, trigger.id), 'deviceGroup trigger');
+    return this.process(this.appliance.deleteDeviceGroupDevice(deviceGroup.id, trigger.id), 'device group trigger');
   }
 };

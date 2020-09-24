@@ -1,13 +1,12 @@
 // ActivityMap.controller.js
 
-const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const BaseCtrl = require('./_base/BaseCtrl.controller');
 const ActivityMap = require('../models/activityMap/ActivityMap.model');
 const ActivityMapSet = require('../models/activityMap/ActivityMapSet.model');
 const ActivityMapQuery = require('../models/activityMap/ActivityMapQuery.model');
 const ActivityMapSharing = require('../models/activityMap/ActivityMapSharing.model');
 
 module.exports = class ActivityMapCtrl extends BaseCtrl {
-
   // -------------------------------------
   // Defaults
   // -------------------------------------

@@ -1,9 +1,10 @@
-// DashboardSet.model.js
+// DashboardReportSet.model.js
 
 const BaseObjectSet = require('../_base/BaseObjectSet.model');
+const DashboardReport = require('./DashboardReport.model');
 
-module.exports = class DashboardSet extends BaseObjectSet {
-  writeToCSV({ filename = `dashboards-${this.generateId()}.csv`, subkey }) {
-    super.writeToCSV({ filename, subkey });
+module.exports = class DashboardReportSet extends BaseObjectSet {
+  constructor(dashboardReports = []) {
+    super(Array.from(dashboardReports).map((dashboardReport) => new DashboardReport(dashboardReport)));
   }
 };

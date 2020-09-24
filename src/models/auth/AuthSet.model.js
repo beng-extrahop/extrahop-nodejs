@@ -5,7 +5,6 @@ const Auth = require('./Auth.model');
 
 module.exports = class AuthSet extends BaseObjectSet {
   constructor(auths = []) {
-    super();
-    auths.forEach((auth) => this.push(new Auth(auth)));
+    super(Array.from(auths).map((auth) => new Auth(auth)));
   }
 };

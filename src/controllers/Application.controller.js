@@ -1,14 +1,14 @@
 // Application.controller.js
 
-const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const BaseCtrl = require('./_base/BaseCtrl.controller');
 const Application = require('../models/application/Application.model');
 const ApplicationSet = require('../models/application/ApplicationSet.model');
 const ApplicationActivity = require('../models/application/ApplicationActivity.model');
+const ApplicationActivitySet = require('../models/application/ApplicationActivitySet.model');
 const AlertSet = require('../models/alert/AlertSet.model');
 const DashboardSet = require('../models/dashboard/DashboardSet.model');
 
 module.exports = class ApplicationCtrl extends BaseCtrl {
-
   // -------------------------------------
   // Defaults
   // -------------------------------------
@@ -18,7 +18,7 @@ module.exports = class ApplicationCtrl extends BaseCtrl {
   }
 
   getActivity(application) {
-    return new ApplicationActivity(this.getApplicationActivity(application));
+    return new ApplicationActivitySet(this.getApplicationActivity(application));
   }
 
   getAlerts(application) {

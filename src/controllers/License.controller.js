@@ -1,10 +1,9 @@
 // License.controller.js
 
-const BaseCtrl = require('../controllers/_base/BaseCtrl.controller');
+const BaseCtrl = require('./_base/BaseCtrl.controller');
 const License = require('../models/license/License.model');
 
 module.exports = class LicenseCtrl extends BaseCtrl {
-
   // -------------------------------------
   // Defaults
   // -------------------------------------

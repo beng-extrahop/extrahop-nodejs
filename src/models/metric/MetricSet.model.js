@@ -5,11 +5,6 @@ const Metric = require('./Metric.model');
 
 module.exports = class MetricSet extends BaseObjectSet {
   constructor(metrics = []) {
-    super();
-    metrics.forEach((metric) => this.push(new Metric(metric)));
-  }
-
-  writeToCSV({ filename = `metrics-${this.generateId()}.csv`, subkey }) {
-    super.writeToCSV({ filename, subkey });
+    super(Array.from(metrics).map((metric) => new Metric(metric)));
   }
 };
