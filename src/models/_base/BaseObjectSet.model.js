@@ -1,10 +1,10 @@
 // BaseObjectSet.model.js
 
-const fastCSV = require('fast-csv');
 const fs = require('fs');
+const fastCSV = require('fast-csv');
 const { parse } = require('json2csv');
-const { Config } = require('../../constants/Global.constants');
 const Utils = require('../../utils/BaseUtil.util.js');
+const { Config } = require('../../constants/Global.constants');
 
 module.exports = class BaseObjectSet extends Array {
   constructor(baseObjects) {
@@ -12,8 +12,8 @@ module.exports = class BaseObjectSet extends Array {
     baseObjects.forEach((baseObject) => this.push(baseObject));
   }
 
-  toString(format = true) {
-    return JSON.stringify(this, null, format ? 2 : null);
+  toString() {
+    return JSON.stringify(this, null, 2);
   }
 
   print() {
