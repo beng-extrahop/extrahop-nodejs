@@ -4,9 +4,11 @@ const BaseCtrl = require('./_base/BaseCtrl.controller');
 const Tag = require('../models/tag/Tag.model');
 const TagSet = require('../models/tag/TagSet.model');
 
+const OBJECT_NAME = 'tag';
+
 module.exports = class TagCtrl extends BaseCtrl {
   // -------------------------------------
-  // Defaults
+  // Aliases
   // -------------------------------------
 
   get(tag) {
@@ -26,26 +28,26 @@ module.exports = class TagCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Base Functions
+  // Defaults
   // -------------------------------------
 
   getTags() {
-    return this.process(this.appliance.getTags(), 'tags');
+    return this.process(this.appliance.getTags(), OBJECT_NAME);
   }
 
   getTag(tag) {
-    return this.process(this.appliance.getTag(tag.id), 'tag');
+    return this.process(this.appliance.getTag(tag.id), OBJECT_NAME);
   }
 
   postTag(tag) {
-    return this.process(this.appliance.postTag(tag), 'tag');
+    return this.process(this.appliance.postTag(tag), OBJECT_NAME);
   }
 
   patchTag(tag, data) {
-    return this.process(this.appliance.patchTag(tag.id, data), `tag (id: ${tag.id})`);
+    return this.process(this.appliance.patchTag(tag.id, data), OBJECT_NAME);
   }
 
   deleteTag(tag) {
-    return this.process(this.appliance.deleteTag(tag.id), `tag (id: ${tag.id})`);
+    return this.process(this.appliance.deleteTag(tag.id), OBJECT_NAME);
   }
 };

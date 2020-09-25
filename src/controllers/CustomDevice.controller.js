@@ -6,12 +6,14 @@ const CustomDeviceSet = require('../models/customDevice/CustomDeviceSet.model');
 const CustomDeviceCriteria = require('../models/customDevice/CustomDeviceCriteria.model');
 const CustomDeviceCriteriaSet = require('../models/customDevice/CustomDeviceCriteriaSet.model');
 
+const OBJECT_NAME = 'custom device';
+
 module.exports = class CustomDeviceCtrl extends BaseCtrl {
   // -------------------------------------
-  // Defaults
+  // Aliases
   // -------------------------------------
 
-  get(customDevice, params = { include_criteria: true }) {
+  get(customDevice, params) {
     return customDevice
       ? new CustomDevice(this.getCustomDevice(customDevice, params))
       : new CustomDeviceSet(this.getCustomDevices(params));
@@ -36,46 +38,46 @@ module.exports = class CustomDeviceCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Base Functions
+  // Defaults
   // -------------------------------------
 
-  getCustomDevices(params) {
-    return this.process(this.appliance.getCustomDevices(params), 'custom devices');
+  getCustomDevices(params = { include_criteria: true }) {
+    return this.process(this.appliance.getCustomDevices(params), OBJECT_NAME);
   }
 
-  getCustomDevice(customDevice, params) {
-    return this.process(this.appliance.getCustomDevice(customDevice.id, params), 'custom device');
+  getCustomDevice(customDevice, params = { include_criteria: true }) {
+    return this.process(this.appliance.getCustomDevice(customDevice.id, params), OBJECT_NAME);
   }
 
   postCustomDevice(customDevice) {
-    return this.process(this.appliance.postCustomDevice(customDevice), 'custom device');
+    return this.process(this.appliance.postCustomDevice(customDevice), OBJECT_NAME);
   }
 
   deleteCustomDevice(id) {
-    return this.process(this.appliance.deleteCustomDevice(id), 'custom device');
+    return this.process(this.appliance.deleteCustomDevice(id), OBJECT_NAME);
   }
 
   patchCustomDevice(customDevice, data) {
-    return this.process(this.appliance.patchCustomDevice(customDevice.id, data), 'custom device');
+    return this.process(this.appliance.patchCustomDevice(customDevice.id, data), OBJECT_NAME);
   }
 
   // -------------------------------------
-  // Criteria Functions
+  // Criteria
   // -------------------------------------
 
   getCustomDeviceCriterias(customDevice) {
-    return this.process(this.appliance.getCustomDeviceCriterias(customDevice.id), 'custom device criteria');
+    return this.process(this.appliance.getCustomDeviceCriterias(customDevice.id), `${OBJECT_NAME} criteria`);
   }
 
   postCustomDeviceCriteria(customDevice, criteria) {
-    return this.process(this.appliance.postCustomDeviceCriteria(customDevice.id, criteria), 'custom device criteria');
+    return this.process(this.appliance.postCustomDeviceCriteria(customDevice.id, criteria), `${OBJECT_NAME} criteria`);
   }
 
   deleteCustomDeviceCriteria(customDevice, criteria) {
-    return this.process(this.appliance.deleteCustomDeviceCriteria(customDevice.id, criteria), 'custom device criteria');
+    return this.process(this.appliance.deleteCustomDeviceCriteria(customDevice.id, criteria), `${OBJECT_NAME} criteria`);
   }
 
   getCustomDeviceCriteria(customDevice, criteria) {
-    return this.process(this.appliance.getCustomDeviceCriteria(customDevice.id, criteria.id), 'custom device criteria');
+    return this.process(this.appliance.getCustomDeviceCriteria(customDevice.id, criteria.id), `${OBJECT_NAME} criteria`);
   }
 };

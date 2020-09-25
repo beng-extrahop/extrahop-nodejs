@@ -4,6 +4,8 @@ const BaseCtrl = require('./_base/BaseCtrl.controller');
 const Bundle = require('../models/bundle/Bundle.model');
 const BundleSet = require('../models/bundle/BundleSet.model');
 
+const OBJECT_NAME = 'bundle';
+
 module.exports = class BundleCtrl extends BaseCtrl {
   // -------------------------------------
   // Defaults
@@ -30,26 +32,26 @@ module.exports = class BundleCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Base Functions
+  // Base
   // -------------------------------------
 
   getBundles() {
-    return this.process(this.appliance.getBundles(), 'bundles');
+    return this.process(this.appliance.getBundles(), OBJECT_NAME);
   }
 
   getBundle(bundle) {
-    return this.process(this.appliance.getBundle(bundle.id), 'bundle');
+    return this.process(this.appliance.getBundle(bundle.id), OBJECT_NAME);
   }
 
   postBundle(bundle) {
-    return this.process(this.appliance.postBundle(bundle), 'bundle');
+    return this.process(this.appliance.postBundle(bundle), OBJECT_NAME);
   }
 
   deleteBundle(id) {
-    return this.process(this.appliance.deleteBundle(id), 'bundle');
+    return this.process(this.appliance.deleteBundle(id), OBJECT_NAME);
   }
 
   postBundleApply(bundle) {
-    return this.process(this.appliance.postBundleApply(bundle.id), 'bundle apply');
+    return this.process(this.appliance.postBundleApply(bundle.id), `${OBJECT_NAME} apply`);
   }
 };

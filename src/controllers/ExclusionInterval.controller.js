@@ -4,9 +4,11 @@ const BaseCtrl = require('./_base/BaseCtrl.controller');
 const ExclusionInterval = require('../models/exclusionInterval/ExclusionInterval.model');
 const ExclusionIntervalSet = require('../models/exclusionInterval/ExclusionIntervalSet.model');
 
+const OBJECT_NAME = 'exclusion interval';
+
 module.exports = class ExclusionIntervalCtrl extends BaseCtrl {
   // -------------------------------------
-  // Defaults
+  // Aliases
   // -------------------------------------
 
   get(params = {}) {
@@ -26,26 +28,26 @@ module.exports = class ExclusionIntervalCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Base Functions
+  // Defaults
   // -------------------------------------
 
   getExclusionIntervals(params) {
-    return this.process(this.appliance.getExclusionIntervals(params), 'exclusion intervals');
+    return this.process(this.appliance.getExclusionIntervals(params), OBJECT_NAME);
   }
 
   getExclusionInterval(exclusionInterval) {
-    return this.process(this.appliance.getExclusionInterval(exclusionInterval.id), 'exclusion interval');
+    return this.process(this.appliance.getExclusionInterval(exclusionInterval.id), OBJECT_NAME);
   }
 
   postExclusionInterval(exclusionInterval) {
-    return this.process(this.appliance.postExclusionInterval(exclusionInterval), 'exclusion interval');
+    return this.process(this.appliance.postExclusionInterval(exclusionInterval), OBJECT_NAME);
   }
 
   patchExclusionInterval(exclusionInterval, data) {
-    return this.process(this.appliance.patchExclusionInterval(exclusionInterval.id, data), `exclusionInterval (id: ${exclusionInterval.id})`);
+    return this.process(this.appliance.patchExclusionInterval(exclusionInterval.id, data), OBJECT_NAME);
   }
 
   deleteExclusionInterval(exclusionInterval) {
-    return this.process(this.appliance.deleteExclusionInterval(exclusionInterval.id), `exclusionInterval (id: ${exclusionInterval.id})`);
+    return this.process(this.appliance.deleteExclusionInterval(exclusionInterval.id), OBJECT_NAME);
   }
 };

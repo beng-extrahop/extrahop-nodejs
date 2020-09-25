@@ -4,9 +4,11 @@ const BaseCtrl = require('./_base/BaseCtrl.controller');
 const AnalysisPriority = require('../models/analysisPriority/AnalysisPriority.model');
 const AnalysisPriorityManager = require('../models/analysisPriority/AnalysisPriorityManager.model');
 
+const OBJECT_NAME = 'analysis priority';
+
 module.exports = class AnalysisPriorityCtrl extends BaseCtrl {
   // -------------------------------------
-  // Defaults
+  // Aliases
   // -------------------------------------
 
   get(appliance) {
@@ -30,24 +32,24 @@ module.exports = class AnalysisPriorityCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Base Functions
+  // Defaults
   // -------------------------------------
 
   getAnalysisPriority(appliance) {
-    return this.process(this.appliance.getAnalysisPriority(appliance.id), 'analysis priority');
+    return this.process(this.appliance.getAnalysisPriority(appliance.id), OBJECT_NAME);
   }
 
   putAnalysisPriority(appliance, analysisPriority) {
-    return this.process(this.appliance.putAnalysisPriority(appliance.id, analysisPriority), 'analysis priority');
+    return this.process(this.appliance.putAnalysisPriority(appliance.id, analysisPriority), OBJECT_NAME);
   }
 
   getAnalysisPriorityManager(appliance) {
-    return this.process(this.appliance.getAnalysisPriorityManager(appliance.id), 'analysis priority manager');
+    return this.process(this.appliance.getAnalysisPriorityManager(appliance.id), `${OBJECT_NAME} manager`);
   }
 
   patchAnalysisPriorityManager(appliance, manager) {
     return this.process(
-      this.appliance.patchAnalysisPriorityManager(appliance.id, { manager: manager.id }), 'analysis priority manager',
+      this.appliance.patchAnalysisPriorityManager(appliance.id, { manager: manager.id }), `${OBJECT_NAME} manager`,
     );
   }
 };

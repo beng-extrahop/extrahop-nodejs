@@ -8,13 +8,17 @@ const ApplicationActivitySet = require('../models/application/ApplicationActivit
 const AlertSet = require('../models/alert/AlertSet.model');
 const DashboardSet = require('../models/dashboard/DashboardSet.model');
 
+const OBJECT_NAME = 'application';
+
 module.exports = class ApplicationCtrl extends BaseCtrl {
   // -------------------------------------
-  // Defaults
+  // Aliases
   // -------------------------------------
 
   get(application) {
-    return application ? new Application(this.getApplication(application)) : new ApplicationSet(this.getApplications());
+    return application
+      ? new Application(this.getApplication(application))
+      : new ApplicationSet(this.getApplications());
   }
 
   getActivity(application) {
@@ -38,58 +42,58 @@ module.exports = class ApplicationCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Base Functions
+  // Defaults
   // -------------------------------------
 
   getApplications(params = {}) {
-    return this.process(this.appliance.getApplications(params), 'applications');
+    return this.process(this.appliance.getApplications(params), OBJECT_NAME);
   }
 
   getApplication(application) {
-    return this.process(this.appliance.getApplication(application.id), 'application');
+    return this.process(this.appliance.getApplication(application.id), OBJECT_NAME);
   }
 
   postApplication(application) {
-    return this.process(this.appliance.postApplication(application), 'application');
+    return this.process(this.appliance.postApplication(application), OBJECT_NAME);
   }
 
   patchApplication(application, data) {
-    return this.process(this.appliance.patchApplication(application.id, data), 'application');
+    return this.process(this.appliance.patchApplication(application.id, data), OBJECT_NAME);
   }
 
   // -------------------------------------
-  // Activity Functions
+  // Activity
   // -------------------------------------
 
   getApplicationActivity(application) {
-    return this.process(this.appliance.getApplicationActivity(application.id), 'application activity');
+    return this.process(this.appliance.getApplicationActivity(application.id), `${OBJECT_NAME} activity`);
   }
 
   // -------------------------------------
-  // Alert Functions
+  // Alerts
   // -------------------------------------
 
   getApplicationAlerts(application) {
-    return this.process(this.appliance.getApplicationAlerts(application.id), 'application alerts');
+    return this.process(this.appliance.getApplicationAlerts(application.id), `${OBJECT_NAME} alerts`);
   }
 
   postApplicationAlerts(application, assign = [], unassign = []) {
-    return this.process(this.appliance.postApplicationAlerts(application.id, { assign, unassign }), 'application alerts');
+    return this.process(this.appliance.postApplicationAlerts(application.id, { assign, unassign }), `${OBJECT_NAME} alerts`);
   }
 
   postApplicationAlert(application, alert) {
-    return this.process(this.appliance.postApplicationAlert(application.id, alert.id), 'application alert');
+    return this.process(this.appliance.postApplicationAlert(application.id, alert.id), `${OBJECT_NAME} alert`);
   }
 
   deleteApplicationAlert(application, alert) {
-    return this.process(this.appliance.deleteApplicationAlert(application.id, alert.id), 'application alert');
+    return this.process(this.appliance.deleteApplicationAlert(application.id, alert.id), `${OBJECT_NAME} alert`);
   }
 
   // -------------------------------------
-  // Dashboard Functions
+  // Dashboards
   // -------------------------------------
 
   getApplicationDashboards(application) {
-    return this.process(this.appliance.getApplicationDashboards(application.id), 'application dashboards');
+    return this.process(this.appliance.getApplicationDashboards(application.id), `${OBJECT_NAME} dashboards`);
   }
 };

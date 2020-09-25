@@ -5,9 +5,11 @@ const Customization = require('../models/customization/Customization.model');
 const CustomizationSet = require('../models/customization/CustomizationSet.model');
 const CustomizationStatus = require('../models/customization/CustomizationStatus.model');
 
+const OBJECT_NAME = 'customization';
+
 module.exports = class CustomizationCtrl extends BaseCtrl {
   // -------------------------------------
-  // Defaults
+  // Aliases
   // -------------------------------------
 
   get(customization) {
@@ -37,46 +39,46 @@ module.exports = class CustomizationCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Base Functions
+  // Defaults
   // -------------------------------------
 
   getCustomizations() {
-    return this.process(this.appliance.getCustomizations(), 'customizations');
+    return this.process(this.appliance.getCustomizations(), OBJECT_NAME);
   }
 
   getCustomization(customization) {
-    return this.process(this.appliance.getCustomization(customization.id), 'customization');
+    return this.process(this.appliance.getCustomization(customization.id), OBJECT_NAME);
   }
 
   postCustomization(name) {
-    return this.process(this.appliance.postCustomization({ name }), 'customization');
+    return this.process(this.appliance.postCustomization({ name }), OBJECT_NAME);
   }
 
   deleteCustomization(customization) {
-    return this.process(this.appliance.deleteCustomization(customization.id), 'customization');
+    return this.process(this.appliance.deleteCustomization(customization.id), OBJECT_NAME);
   }
 
   // -------------------------------------
-  // Status Functions
+  // Status
   // -------------------------------------
 
   getCustomizationStatus() {
-    return this.process(this.appliance.getCustomizationStatus(), 'customization status');
+    return this.process(this.appliance.getCustomizationStatus(), `${OBJECT_NAME} status`);
   }
 
   // -------------------------------------
-  // Apply Functions
+  // Apply
   // -------------------------------------
 
   postCustomizationApply(customization) {
-    return this.process(this.appliance.postCustomizationApply(customization.id), 'customization apply');
+    return this.process(this.appliance.postCustomizationApply(customization.id), OBJECT_NAME);
   }
 
   // -------------------------------------
-  // Download Functions
+  // Download
   // -------------------------------------
 
   postCustomizationDownload(customization) {
-    return this.process(this.appliance.postCustomizationDownload(customization.id), 'customization download');
+    return this.process(this.appliance.postCustomizationDownload(customization.id), OBJECT_NAME);
   }
 };

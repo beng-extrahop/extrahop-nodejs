@@ -26,9 +26,11 @@ module.exports = class BaseCtrl {
     console.info(this.toString(options));
   }
 
-  printSuccess(method, type, count = 1) {
-    if (count == 1 && (type || '').endsWith('s') && !(type || '').endsWith('status')) {
-      type = type.substring(0, type.length - 1);
+  printSuccess(method, type = '', count = 1) {
+    if (count > 1 && type.endsWith('y')) {
+      type = `${type.substring(0, type.length - 1)}ies`;
+    } else if (count > 1 && !type.endsWith('s')) {
+      type += 's';
     }
 
     if (method === 'GET') {
@@ -75,7 +77,7 @@ module.exports = class BaseCtrl {
   }
 
   // -------------------------------------
-  // Utility Functions
+  // Utility
   // -------------------------------------
 
   filter(results = [], params = {}) {
@@ -126,12 +128,7 @@ module.exports = class BaseCtrl {
   }
 
   process(results = {}, type, options = {}) {
-    if (options.suppress) {
-      return results.data;
-    }
-
-    let { data } = results;
-    const { method, success } = results;
+    let { data, method, success } = results;
     const count = data.length;
 
     if (['PATCH', 'PUT', 'DELETE'].includes(method)) {

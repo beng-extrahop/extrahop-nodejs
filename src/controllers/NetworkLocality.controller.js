@@ -4,9 +4,11 @@ const BaseCtrl = require('./_base/BaseCtrl.controller');
 const NetworkLocality = require('../models/networkLocality/NetworkLocality.model');
 const NetworkLocalitySet = require('../models/networkLocality/NetworkLocalitySet.model');
 
+const OBJECT_NAME = 'network locality';
+
 module.exports = class NetworkLocalityCtrl extends BaseCtrl {
   // -------------------------------------
-  // Defaults
+  // Aliases
   // -------------------------------------
 
   get(networkLocality) {
@@ -26,22 +28,22 @@ module.exports = class NetworkLocalityCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Base Functions
+  // Defaults
   // -------------------------------------
 
   getNetworkLocalities() {
-    return this.process(this.appliance.getNetworkLocalities(), 'network localities');
+    return this.process(this.appliance.getNetworkLocalities(), OBJECT_NAME);
   }
 
   getNetworkLocality(networkLocality) {
-    return this.process(this.appliance.getNetworkLocality(networkLocality.id), 'network locality');
+    return this.process(this.appliance.getNetworkLocality(networkLocality.id), OBJECT_NAME);
   }
 
   postNetworkLocality(networkLocality) {
-    return this.process(this.appliance.postNetworkLocality(networkLocality), 'network locality');
+    return this.process(this.appliance.postNetworkLocality(networkLocality), OBJECT_NAME);
   }
 
   deleteNetworkLocality(id) {
-    return this.process(this.appliance.deleteNetworkLocality(id), 'network locality');
+    return this.process(this.appliance.deleteNetworkLocality(id), OBJECT_NAME);
   }
 };

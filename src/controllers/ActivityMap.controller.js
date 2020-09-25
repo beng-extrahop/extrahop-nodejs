@@ -6,9 +6,11 @@ const ActivityMapSet = require('../models/activityMap/ActivityMapSet.model');
 const ActivityMapQuery = require('../models/activityMap/ActivityMapQuery.model');
 const ActivityMapSharing = require('../models/activityMap/ActivityMapSharing.model');
 
+const OBJECT_NAME = 'activity map';
+
 module.exports = class ActivityMapCtrl extends BaseCtrl {
   // -------------------------------------
-  // Defaults
+  // Aliases
   // -------------------------------------
 
   get(activityMap) {
@@ -44,54 +46,54 @@ module.exports = class ActivityMapCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Base Functions
+  // Defaults
   // -------------------------------------
 
   getActivityMaps() {
-    return this.process(this.appliance.getActivityMaps(), 'activity maps');
+    return this.process(this.appliance.getActivityMaps(), OBJECT_NAME);
   }
 
   getActivityMap(activityMap) {
-    return this.process(this.appliance.getActivityMap(activityMap.id), 'activity map');
+    return this.process(this.appliance.getActivityMap(activityMap.id), OBJECT_NAME);
   }
 
   postActivityMap(activityMap) {
-    return this.process(this.appliance.postActivityMap(activityMap), 'activity map');
+    return this.process(this.appliance.postActivityMap(activityMap), OBJECT_NAME);
   }
 
   deleteActivityMap(activityMap) {
-    return this.process(this.appliance.deleteActivityMap(activityMap.id), 'activity map');
+    return this.process(this.appliance.deleteActivityMap(activityMap.id), OBJECT_NAME);
   }
 
   patchActivityMap(activityMap, data) {
-    return this.process(this.appliance.patchActivityMap(activityMap.id, data), 'activity map');
+    return this.process(this.appliance.patchActivityMap(activityMap.id, data), OBJECT_NAME);
   }
 
   // -------------------------------------
-  // Query Functions
+  // Query
   // -------------------------------------
 
   postActivityMapsQuery(query) {
-    return this.process(this.appliance.postActivityMapsQuery(query), 'activity maps query');
+    return this.process(this.appliance.postActivityMapsQuery(query), `${OBJECT_NAME} query`);
   }
 
   postActivityMapQuery(activityMap, query) {
-    return this.process(this.appliance.postActivityMapQuery(activityMap.id, query), 'activity map query');
+    return this.process(this.appliance.postActivityMapQuery(activityMap.id, query), `${OBJECT_NAME} query`);
   }
 
   // -------------------------------------
-  // Sharing Functions
+  // Sharing
   // -------------------------------------
 
   getActivityMapSharing(activityMap) {
-    return new ActivityMapSharing(this.process(this.appliance.getActivityMapSharing(activityMap.id), 'activity map'));
+    return new ActivityMapSharing(this.process(this.appliance.getActivityMapSharing(activityMap.id), OBJECT_NAME));
   }
 
   patchActivityMapSharing(activityMap, sharing) {
-    return this.process(this.appliance.patchActivityMapSharing(activityMap.id, sharing), 'activity map sharing');
+    return this.process(this.appliance.patchActivityMapSharing(activityMap.id, sharing), `${OBJECT_NAME} sharing`);
   }
 
   putActivityMapSharing(activityMap, sharing) {
-    return this.process(this.appliance.putActivityMapSharing(activityMap.id, sharing), 'activity map sharing');
+    return this.process(this.appliance.putActivityMapSharing(activityMap.id, sharing), `${OBJECT_NAME} sharing`);
   }
 };

@@ -58,8 +58,8 @@ module.exports = class RecordCtrl extends BaseCtrl {
 
     const numPages = this.getPageCount(search);
     let { records } = search;
-    let pageAt = 0;
-    let count = 0;
+    const pageAt = 0;
+    const count = 0;
 
     while (records && records.length > 0) {
       records = records.map((record) => this.parse(record, '_source'));

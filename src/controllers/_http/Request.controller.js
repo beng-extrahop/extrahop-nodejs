@@ -1,7 +1,7 @@
 // ActivityGroup.controller.js
 
 const syncRequest = require('sync-request');
-const BaseCtrl = require('../../controllers/_base/BaseCtrl.controller');
+const BaseCtrl = require('../_base/BaseCtrl.controller');
 const Response = require('../../models/_http/Response.model');
 const { Icons } = require('../../constants/Global.constants');
 
@@ -11,19 +11,22 @@ module.exports = class RequestCtrl extends BaseCtrl {
     this.request = request;
   }
 
-  send({ method, uri, qs, json }) {
+  send({
+    method, uri, qs, json,
+  }) {
     const { headers } = this;
-    const config = Object.assign({ headers, qs, json }, this.config);
+    const config = {
+      headers, qs, json, ...this.config,
+    };
 
     let response = {};
 
     try {
       response = syncRequest(method, this.url + uri, config);
       response.data = response.getBody('utf8');
-    }
-    catch (err) {
+    } catch (err) {
       response.error = err;
-      console.log(`${Icons.Error} ${err}`);
+      //* console.log(`${Icons.Error} ${err}`);
     }
 
     response.method = method;

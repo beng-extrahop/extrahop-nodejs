@@ -11,6 +11,8 @@ const EmailGroupSet = require('../models/emailGroup/EmailGroupSet.model');
 const ExclusionIntervalSet = require('../models/exclusionInterval/ExclusionIntervalSet.model');
 const NetworkSet = require('../models/network/NetworkSet.model');
 
+const OBJECT_NAME = 'alert';
+
 module.exports = class AlertCtrl extends BaseCtrl {
   // -------------------------------------
   // Aliases
@@ -65,253 +67,226 @@ module.exports = class AlertCtrl extends BaseCtrl {
   }
 
   assignApplications(alert, applications) {
-    if (!applications) return this.printError('assign', 'applications', 'Array[...applications] or { application } is required');
-
-    return applications instanceof Array
-      ? this.postAlertApplications(alert, { assign: applications })
-      : this.postAlertApplication(alert, applications);
+    return Array.from(applications).length
+      ? this.postAlertApplication(alert, applications)
+      : this.postAlertApplications(alert, { assign: applications });
   }
 
   assignDevices(alert, devices) {
-    if (!devices) return this.printError('assign', 'devices', 'Array[...devices] or { device } is required');
-
-    return devices instanceof Array
-      ? this.postAlertDevices(alert, { assign: devices })
-      : this.postAlertDevice(alert, devices);
+    return Array.from(devices).length
+      ? this.postAlertDevice(alert, devices)
+      : this.postAlertDevices(alert, { assign: devices });
   }
 
   assignDeviceGroups(alert, deviceGroups) {
-    if (!deviceGroups) return this.printError('assign', 'deviceGroups', 'Array[...deviceGroups] or { deviceGroup } is required');
-
-    return deviceGroups instanceof Array
-      ? this.postAlertDeviceGroups(alert, { assign: deviceGroups })
-      : this.postAlertDeviceGroup(alert, deviceGroups);
+    return Array.from(deviceGroups).length
+      ? this.postAlertDeviceGroup(alert, deviceGroups)
+      : this.postAlertDeviceGroups(alert, { assign: deviceGroups });
   }
 
   assignEmailGroups(alert, emailGroups) {
-    if (!emailGroups) return this.printError('assign', 'emailGroups', 'Array[...emailGroups] or { emailGroup } is required');
-
-    return emailGroups instanceof Array
-      ? this.postAlertEmailGroups(alert, { assign: emailGroups })
-      : this.postAlertEmailGroup(alert, emailGroups);
+    return Array.from(emailGroups).length
+      ? this.postAlertEmailGroup(alert, emailGroups)
+      : this.postAlertEmailGroups(alert, { assign: emailGroups });
   }
 
   assignExclusionIntervals(alert, exclusionIntervals) {
-    if (!exclusionIntervals) return this.printError('assign', 'exclusionIntervals', 'Array[...exclusionIntervals] or { exclusionInterval } is required');
-
-    return exclusionIntervals instanceof Array
-      ? this.postAlertExclusionIntervals(alert, { assign: exclusionIntervals })
-      : this.postAlertExclusionInterval(alert, exclusionIntervals);
+    return Array.from(exclusionIntervals).length
+      ? this.postAlertExclusionInterval(alert, exclusionIntervals)
+      : this.postAlertExclusionIntervals(alert, { assign: exclusionIntervals });
   }
 
   assignNetworks(alert, networks) {
-    if (!networks) return this.printError('assign', 'networks', 'Array[...networks] or { network } is required');
-
-    return networks instanceof Array
-      ? this.postAlertNetworks(alert, { assign: networks })
-      : this.postAlertNetwork(alert, networks);
+    return Array.from(networks).length
+      ? this.postAlertNetwork(alert, networks)
+      : this.postAlertNetworks(alert, { assign: networks });
   }
 
   unassignApplications(alert, applications) {
-    if (!applications) return this.printError('unassign', 'applications', 'Array[...applications] or { application } is required');
-
-    return applications instanceof Array
-      ? this.postAlertApplications(alert, { unassign: applications })
-      : this.deleteAlertApplication(alert, applications);
+    return Array.from(applications).length
+      ? this.deleteAlertApplication(alert, applications)
+      : this.postAlertApplications(alert, { unassign: applications });
   }
 
   unassignDevices(alert, devices) {
-    if (!devices) return this.printError('unassign', 'devices', 'Array[...devices] or { device } is required');
-
-    return devices instanceof Array
-      ? this.postAlertDevices(alert, { unassign: devices })
-      : this.deleteAlertDevice(alert, devices);
+    return Array.from(devices).length
+      ? this.deleteAlertDevice(alert, devices)
+      : this.postAlertDevices(alert, { unassign: devices });
   }
 
   unassignDeviceGroups(alert, deviceGroups) {
-    if (!deviceGroups) return this.printError('unassign', 'deviceGroups', 'Array[...deviceGroups] or { deviceGroup } is required');
-
-    return deviceGroups instanceof Array
-      ? this.postAlertDeviceGroups(alert, { unassign: deviceGroups })
-      : this.deleteAlertDeviceGroup(alert, deviceGroups);
+    return Array.from(deviceGroups).length
+      ? this.deleteAlertDeviceGroup(alert, deviceGroups)
+      : this.postAlertDeviceGroups(alert, { unassign: deviceGroups });
   }
 
   unassignEmailGroups(alert, emailGroups) {
-    if (!emailGroups) return this.printError('unassign', 'emailGroups', 'Array[...emailGroups] or { emailGroup } is required');
-
-    return emailGroups instanceof Array
-      ? this.postAlertEmailGroups(alert, { unassign: emailGroups })
-      : this.deleteAlertEmailGroup(alert, emailGroups);
+    return Array.from(emailGroups).length
+      ? this.deleteAlertEmailGroup(alert, emailGroups)
+      : this.postAlertEmailGroups(alert, { unassign: emailGroups });
   }
 
   unassignExclusionIntervals(alert, exclusionIntervals) {
-    if (!exclusionIntervals) return this.printError('unassign', 'exclusionIntervals', 'Array[...exclusionIntervals] or { exclusionInterval } is required');
-
-    return exclusionIntervals instanceof Array
-      ? this.postAlertExclusionIntervals(alert, { unassign: exclusionIntervals })
-      : this.deleteAlertExclusionInterval(alert, exclusionIntervals);
+    return Array.from(exclusionIntervals).length
+      ? this.deleteAlertExclusionInterval(alert, exclusionIntervals)
+      : this.postAlertExclusionIntervals(alert, { unassign: exclusionIntervals });
   }
 
   unassignNetworks(alert, networks) {
-    if (!networks) return this.printError('unassign', 'networks', 'Array[...networks] or { network } is required');
-
-    return networks instanceof Array
-      ? this.postAlertNetworks(alert, { unassign: networks })
-      : this.deleteAlertNetwork(alert, networks);
+    return Array.from(networks).length
+      ? this.deleteAlertNetwork(alert, networks)
+      : this.postAlertNetworks(alert, { unassign: networks });
   }
 
   // -------------------------------------
-  // Base Functions
+  // Defaults
   // -------------------------------------
 
   getAlerts() {
-    return this.process(this.appliance.getAlerts(), 'alerts​');
+    return this.process(this.appliance.getAlerts(), OBJECT_NAME);
   }
 
   getAlert(alert) {
-    return this.process(this.appliance.getAlert(alert.id), 'alert');
+    return this.process(this.appliance.getAlert(alert.id), OBJECT_NAME);
   }
 
   postAlert(alert) {
-    return this.process(this.appliance.postAlert(alert), 'alert');
+    return this.process(this.appliance.postAlert(alert), OBJECT_NAME);
   }
 
   deleteAlert(alert) {
-    return this.process(this.appliance.deleteAlert(alert.id), 'alert');
+    return this.process(this.appliance.deleteAlert(alert.id), OBJECT_NAME);
   }
 
   patchAlert(alert, data) {
-    return this.process(this.appliance.patchAlert(alert.id, data), 'alert');
+    return this.process(this.appliance.patchAlert(alert.id, data), OBJECT_NAME);
   }
 
   // -------------------------------------
-  // Application Functions
+  // Applications
   // -------------------------------------
 
   getAlertApplications(alert) {
-    return this.process(this.appliance.getAlertApplications(alert.id), 'alert applications');
+    return this.process(this.appliance.getAlertApplications(alert.id), `${OBJECT_NAME} applications`);
   }
 
   postAlertApplications(alert, assign = [], unassign = []) {
-    return this.process(this.appliance.postAlertApplications(alert.id, { assign, unassign }), 'alert applications​');
+    return this.process(this.appliance.postAlertApplications(alert.id, { assign, unassign }), `${OBJECT_NAME} applications​`);
   }
 
   postAlertApplication(alert, application) {
-    return this.process(this.appliance.postAlertApplication(alert.id, application.id), 'alert application');
+    return this.process(this.appliance.postAlertApplication(alert.id, application.id), `${OBJECT_NAME} application`);
   }
 
   deleteAlertApplication(alert, application) {
-    return this.process(this.appliance.deleteAlertApplication(alert.id, application.id), 'alert application');
+    return this.process(this.appliance.deleteAlertApplication(alert.id, application.id), `${OBJECT_NAME} application`);
   }
 
   // -------------------------------------
-  // Device Functions
+  // Devices
   // -------------------------------------
 
   getAlertDevices(alert) {
-    return this.process(this.appliance.getAlertDevices(alert.id), 'alert devices');
+    return this.process(this.appliance.getAlertDevices(alert.id), `${OBJECT_NAME} devices`);
   }
 
   postAlertDevices(alert, assign = [], unassign = []) {
-    return this.process(this.appliance.postAlertDevices(alert.id, { assign, unassign }), 'alert devices');
+    return this.process(this.appliance.postAlertDevices(alert.id, { assign, unassign }), `${OBJECT_NAME} devices`);
   }
 
   postAlertDevice(alert, device) {
-    return this.process(this.appliance.postAlertDevice(alert.id, device.id), 'alert device');
+    return this.process(this.appliance.postAlertDevice(alert.id, device.id), `${OBJECT_NAME} device`);
   }
 
   deleteAlertDevice(alert, device) {
-    return this.process(this.appliance.deleteAlertApplications(alert.id, device.id), 'alert device');
+    return this.process(this.appliance.deleteAlertApplications(alert.id, device.id), `${OBJECT_NAME} device`);
   }
 
   // -------------------------------------
-  // DeviceGroup Functions
+  // DeviceGroups
   // -------------------------------------
 
   getAlertDeviceGroups(alert) {
-    return this.process(this.appliance.getAlertDeviceGroups(alert.id), 'alert device groups');
+    return this.process(this.appliance.getAlertDeviceGroups(alert.id), `${OBJECT_NAME} device groups`);
   }
 
   postAlertDeviceGroups(alert, assign = [], unassign = []) {
-    return this.process(this.appliance.postAlertDeviceGroups(alert.id, { assign, unassign }), 'alert device groups');
+    return this.process(this.appliance.postAlertDeviceGroups(alert.id, { assign, unassign }), `${OBJECT_NAME} device groups`);
   }
 
   postAlertDeviceGroup(alert, deviceGroup) {
-    return this.process(this.appliance.postAlertDeviceGroup(alert.id, deviceGroup.id), 'alert device group');
+    return this.process(this.appliance.postAlertDeviceGroup(alert.id, deviceGroup.id), `${OBJECT_NAME} device group`);
   }
 
   deleteAlertDeviceGroup(alert, deviceGroup) {
-    return this.process(this.appliance.deleteAlertDeviceGroup(alert.id, deviceGroup.id), 'alert device group');
+    return this.process(this.appliance.deleteAlertDeviceGroup(alert.id, deviceGroup.id), `${OBJECT_NAME} device group`);
   }
 
   // -------------------------------------
-  // EmailGroup Functions
+  // EmailGroups
   // -------------------------------------
 
   getAlertEmailGroups(alert) {
-    return this.process(this.appliance.getAlertEmailGroups(alert.id), 'alert email groups');
+    return this.process(this.appliance.getAlertEmailGroups(alert.id), `${OBJECT_NAME} email groups`);
   }
 
   postAlertEmailGroups(alert, assign = [], unassign = []) {
-    return this.process(this.appliance.postAlertEmailGroups(alert.id, { assign, unassign }), 'alert email groups');
+    return this.process(this.appliance.postAlertEmailGroups(alert.id, { assign, unassign }), `${OBJECT_NAME} email groups`);
   }
 
   postAlertEmailGroup(alert, emailGroup) {
-    return this.process(this.appliance.postAlertEmailGroup(alert.id, emailGroup.id), 'alert email group');
+    return this.process(this.appliance.postAlertEmailGroup(alert.id, emailGroup.id), `${OBJECT_NAME} email group`);
   }
 
   deleteAlertEmailGroup(alert, emailGroup) {
-    return this.process(this.appliance.deleteAlertApplications(alert.id, emailGroup.id), 'alert email group');
+    return this.process(this.appliance.deleteAlertApplications(alert.id, emailGroup.id), `${OBJECT_NAME} email group`);
   }
 
   // -------------------------------------
-  // ExclusionInterval Functions
+  // ExclusionIntervals
   // -------------------------------------
 
   getAlertExclusionIntervals(alert) {
-    return this.process(this.appliance.getAlertExclusionIntervals(alert.id), 'alert exclusion intervals');
+    return this.process(this.appliance.getAlertExclusionIntervals(alert.id), `${OBJECT_NAME} exclusion intervals`);
   }
 
   postAlertExclusionIntervals(alert, assign = [], unassign = []) {
-    return this.process(
-      this.appliance.postAlertExclusionIntervals(alert.id, { assign, unassign }),
-      'alert exclusion intervals',
-    );
+    return this.process(this.appliance.postAlertExclusionIntervals(alert.id, { assign, unassign }), `${OBJECT_NAME} exclusion intervals`);
   }
 
   postAlertExclusionInterval(alert, exclusionInterval) {
-    return this.process(this.appliance.postAlertExclusionInterval(alert.id, exclusionInterval.id), 'alert exclusion interval');
+    return this.process(this.appliance.postAlertExclusionInterval(alert.id, exclusionInterval.id), `${OBJECT_NAME} exclusion interval`);
   }
 
   deleteAlertExclusionInterval(alert, exclusionInterval) {
-    return this.process(this.appliance.deleteAlertApplications(alert.id, exclusionInterval.id), 'alert exclusion interval');
+    return this.process(this.appliance.deleteAlertApplications(alert.id, exclusionInterval.id), `${OBJECT_NAME} exclusion interval`);
   }
 
   // -------------------------------------
-  // Network Functions
+  // Networks
   // -------------------------------------
 
   getAlertNetworks(alert) {
-    return this.process(this.appliance.getAlertNetwork(alert.id), 'alert networks');
+    return this.process(this.appliance.getAlertNetwork(alert.id), `${OBJECT_NAME} networks`);
   }
 
   postAlertNetworks(alert, assign = [], unassign = []) {
-    return this.process(this.appliance.postAlertNetworks(alert.id, { assign, unassign }), 'alert networks');
+    return this.process(this.appliance.postAlertNetworks(alert.id, { assign, unassign }), `${OBJECT_NAME} networks`);
   }
 
   postAlertNetwork(alert, network) {
-    return this.process(this.appliance.postAlertNetwork(alert.id, network.id), 'alert network');
+    return this.process(this.appliance.postAlertNetwork(alert.id, network.id), `${OBJECT_NAME} network`);
   }
 
   deleteAlertNetwork(alert, network) {
-    return this.process(this.appliance.deleteAlertApplications(alert.id, network.id), 'alert network');
+    return this.process(this.appliance.deleteAlertApplications(alert.id, network.id), `${OBJECT_NAME} network`);
   }
 
   // -------------------------------------
-  // Stat Functions
+  // Stats
   // -------------------------------------
 
   getAlertStats(alert) {
-    return this.process(this.appliance.getAlertStats(alert.id), 'alert stats');
+    return this.process(this.appliance.getAlertStats(alert.id), `${OBJECT_NAME} stats`);
   }
 };

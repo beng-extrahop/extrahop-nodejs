@@ -7,9 +7,11 @@ const MetricSearch = require('../models/metric/MetricSearch.model');
 const Utils = require('../utils/BaseUtil.util.js');
 const { Config, Icons } = require('../constants/Global.constants');
 
+const OBJECT_NAME = 'metric';
+
 module.exports = class MetricCtrl extends BaseCtrl {
   // -------------------------------------
-  // Defaults
+  // Aliases
   // -------------------------------------
 
   get(search) {
@@ -29,7 +31,7 @@ module.exports = class MetricCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Search Functions
+  // Search
   // -------------------------------------
 
   search(params = {}) {
@@ -42,22 +44,22 @@ module.exports = class MetricCtrl extends BaseCtrl {
     this.printSearchInfo(search);
 
     let { metrics } = search;
-    let count = 0;
-    let pageAt = 0;
+    const count = 0;
+    const pageAt = 0;
     const numPages = this.getPageCount(search.total, search.limit);
 
     while (metrics && metrics.length > 0) {
       // metrics = metrics.map(metric => this.parse(metric, '_source'));
       db.insert(metrics);
 
-      console.info(`[${++pageAt}/${numPages}] Processed ${(count += metrics.length)} results, awaiting next page...`);
+      //* console.info(`[${++pageAt}/${numPages}] Processed ${(count += metrics.length)} results, awaiting next page...`);
       metrics = this.searchNext(search);
     }
 
     if (count === search.total) {
-      console.info(`\n${Icons.Success} Committed ${count}/${search.total} results to DB: metrics-${search.id}.db`);
+      //* console.info(`\n${Icons.Success} Committed ${count}/${search.total} results to DB: metrics-${search.id}.db`);
     } else {
-      console.info(`\n${Icons.Warn} Committed ${count}/${search.total} metrics to DB: metrics-${search.id}.db`);
+      //* console.info(`\n${Icons.Warn} Committed ${count}/${search.total} metrics to DB: metrics-${search.id}.db`);
     }
 
     return Object.assign(search, { db, metrics });
@@ -77,27 +79,27 @@ module.exports = class MetricCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // API Functions
+  // Defaults
   // -------------------------------------
 
   postMetrics(search) {
-    return this.process(this.appliance.postMetrics(search), 'metrics');
+    return this.process(this.appliance.postMetrics(search), OBJECT_NAME);
   }
 
   getMetricsNext(search) {
-    return this.process(this.appliance.getNextMetrics(search.xid), 'metrics');
+    return this.process(this.appliance.getNextMetrics(search.xid), OBJECT_NAME);
   }
 
   postMetricsTotal(search) {
-    return this.process(this.appliance.postMetricsTotal(search), 'metrics');
+    return this.process(this.appliance.postMetricsTotal(search), OBJECT_NAME);
   }
 
   postMetricsTotalByObject(search) {
-    return this.process(this.appliance.postMetricsTotalByObject(search), 'metrics');
+    return this.process(this.appliance.postMetricsTotalByObject(search), OBJECT_NAME);
   }
 
   // -------------------------------------
-  // Utility Functions
+  // Utility
   // -------------------------------------
 
   getPageCount(total = 1, limit = 1) {
@@ -118,12 +120,12 @@ module.exports = class MetricCtrl extends BaseCtrl {
   saveToCSV(search = {}) {
     search.db.find({}).exec((err, results) => {
       if (err) {
-        console.error(`${Icons.Error} ${err}`);
+        //* console.error(`${Icons.Error} ${err}`);
       } else if (results.length === 0) {
-        console.warn(`${Icons.Warn} No results found in database.`);
+        //* console.warn(`${Icons.Warn} No results found in database.`);
       } else {
         new MetricSet(results).writeToCSV({ filename: `metrics-${search.id}.csv` });
-        console.info(`${Icons.Success} Saved ${results.length} metrics to CSV: metrics-${search.id}.csv`);
+        //* console.info(`${Icons.Success} Saved ${results.length} metrics to CSV: metrics-${search.id}.csv`);
       }
     });
   }

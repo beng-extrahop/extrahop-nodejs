@@ -11,12 +11,13 @@ const DeviceActivitySet = require('../models/device/DeviceActivitySet.model');
 const SoftwareSet = require('../models/software/SoftwareSet.model');
 const TagSet = require('../models/tag/TagSet.model');
 const TriggerSet = require('../models/trigger/TriggerSet.model');
+const Strings = require('../constants/Global.constants');
 
-const { Search } = require('../constants/Global.constants');
+const OBJECT_NAME = 'device';
 
 module.exports = class DeviceCtrl extends BaseCtrl {
   // -------------------------------------
-  // Defaults
+  // Aliases
   // -------------------------------------
 
   get(params = {}) {
@@ -44,7 +45,7 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   assignAlerts(device, alerts) {
-    return this.postDeviceAlerts(device, { assign: alerts.map((alert) => alert.id) });
+    return this.postDeviceAlerts(device, { assign: alerts.map((alert) => alert.id || alert) });
   }
 
   removeAlert(device, alert) {
@@ -52,7 +53,7 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   removeAlerts(device, alerts) {
-    return this.postDeviceAlerts(device, { unassign: alerts.map((alert) => alert.id) });
+    return this.postDeviceAlerts(device, { unassign: alerts.map((alert) => alert.id || alert) });
   }
 
   getDashboards(device) {
@@ -68,7 +69,7 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   assignDeviceGroups(device, deviceGroups) {
-    return this.postDeviceDeviceGroups(device, { assign: deviceGroups.map((deviceGroup) => deviceGroup.id) });
+    return this.postDeviceDeviceGroups(device, { assign: deviceGroups.map((deviceGroup) => deviceGroup.id || deviceGroup) });
   }
 
   removeDeviceGroup(device, deviceGroup) {
@@ -76,7 +77,7 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   removeDeviceGroups(device, deviceGroups) {
-    return this.postDeviceDeviceGroups(device, { unassign: deviceGroups.map((deviceGroup) => deviceGroup.id) });
+    return this.postDeviceDeviceGroups(device, { unassign: deviceGroups.map((deviceGroup) => deviceGroup.id || deviceGroup) });
   }
 
   getSoftware(device) {
@@ -96,7 +97,7 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   assignTriggers(device, triggers) {
-    return this.postDeviceTriggers(device, { assign: triggers.map((trigger) => trigger.id) });
+    return this.postDeviceTriggers(device, { assign: triggers.map((trigger) => trigger.id || trigger) });
   }
 
   removeTrigger(device, trigger) {
@@ -104,11 +105,11 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   removeTriggers(device, triggers) {
-    return this.postDeviceTriggers(device, { unassign: triggers.map((trigger) => trigger.id) });
+    return this.postDeviceTriggers(device, { unassign: triggers.map((trigger) => trigger.id || trigger) });
   }
 
   // -------------------------------------
-  // Helper Functions - GET
+  // Utility: GET
   // -------------------------------------
 
   getAll() {
@@ -120,47 +121,47 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   getByDiscoveryId(discoveryId) {
-    return this.get({ search_type: Search.Types.DiscoveryId, value: discoveryId });
+    return this.get({ search_type: Strings.Search.Types.DiscoveryId, value: discoveryId });
   }
 
   getByIpAddress(ip) {
-    return this.get({ search_type: Search.Types.IpAddress, value: ip });
+    return this.get({ search_type: Strings.Search.Types.IpAddress, value: ip });
   }
 
   getByMacAddress(mac) {
-    return this.get({ search_type: Search.Types.MacAddress, value: mac });
+    return this.get({ search_type: Strings.Search.Types.MacAddress, value: mac });
   }
 
   getByVendor(vendor) {
-    return this.get({ search_type: Search.Types.Vendor, value: vendor });
+    return this.get({ search_type: Strings.Search.Types.Vendor, value: vendor });
   }
 
   getByType(type) {
-    return this.get({ search_type: Search.Types.Type, value: type });
+    return this.get({ search_type: Strings.Search.Types.Type, value: type });
   }
 
   getByTag(tag) {
-    return this.get({ search_type: Search.Types.Tag, value: tag });
+    return this.get({ search_type: Strings.Search.Types.Tag, value: tag });
   }
 
   getByActivity(activity) {
-    return this.get({ search_type: Search.Types.Activity, value: activity });
+    return this.get({ search_type: Strings.Search.Types.Activity, value: activity });
   }
 
   getByNode(node) {
-    return this.get({ search_type: Search.Types.Node, value: node });
+    return this.get({ search_type: Strings.Search.Types.Node, value: node });
   }
 
   getByVlan(vlan) {
-    return this.get({ search_type: Search.Types.Vlan, value: vlan });
+    return this.get({ search_type: Strings.Search.Types.Vlan, value: vlan });
   }
 
   getByDiscoverTime(discoverTime) {
-    return this.get({ search_type: Search.Types.DiscoverTime, value: discoverTime });
+    return this.get({ search_type: Strings.Search.Types.DiscoverTime, value: discoverTime });
   }
 
   // -------------------------------------
-  // Find Functions - Custom
+  // Utility: Custom
   // -------------------------------------
 
   getById(id) {
@@ -180,7 +181,7 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Update Functions
+  // Updates
   // -------------------------------------
 
   setDescription(device, description) {
@@ -204,126 +205,126 @@ module.exports = class DeviceCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Base Functions
+  // Defaults
   // -------------------------------------
 
   getDevices(params) {
-    return this.process(this.appliance.getDevices(params), 'devices');
+    return this.process(this.appliance.getDevices(params), OBJECT_NAME);
   }
 
   getDevice(device) {
-    return this.process(this.appliance.getDevice(device.id), 'device');
+    return this.process(this.appliance.getDevice(device.id), OBJECT_NAME);
   }
 
   searchDevices(search) {
-    return this.process(this.appliance.postDeviceSearch(search), 'devices');
+    return this.process(this.appliance.postDeviceSearch(search), OBJECT_NAME);
   }
 
   patchDevice(device, data) {
-    return this.process(this.appliance.patchDevice(device.id, data), `device (id: ${device.id})`);
+    return this.process(this.appliance.patchDevice(device.id, data), OBJECT_NAME);
   }
 
   // -------------------------------------
-  // Activity Functions
+  // Activities
   // -------------------------------------
 
   getDeviceActivity(device) {
-    return this.process(this.appliance.getDeviceActivity(device.id), 'device activities');
+    return this.process(this.appliance.getDeviceActivity(device.id), `${OBJECT_NAME} activity`);
   }
 
   // -------------------------------------
-  // Alert Functions
+  // Alerts
   // -------------------------------------
 
   getDeviceAlerts(device) {
-    return this.process(this.appliance.getDeviceAlerts(device.id), 'device alerts');
+    return this.process(this.appliance.getDeviceAlerts(device.id), `${OBJECT_NAME} alert`);
   }
 
   postDeviceAlerts(device, { assign, unassign }) {
-    return this.process(this.appliance.postDeviceAlerts(device.id, { assign, unassign }), 'device alerts');
+    return this.process(this.appliance.postDeviceAlerts(device.id, { assign, unassign }), `${OBJECT_NAME} alert`);
   }
 
   postDeviceAlert(device, alert) {
-    return this.process(this.appliance.postDeviceAlert(device.id, alert.id), 'device alert');
+    return this.process(this.appliance.postDeviceAlert(device.id, alert.id), `${OBJECT_NAME} alert`);
   }
 
   deleteDeviceAlert(device, alert) {
-    return this.process(this.appliance.deleteDeviceAlert(device.id, alert.id), 'device alert');
+    return this.process(this.appliance.deleteDeviceAlert(device.id, alert.id), `${OBJECT_NAME} alert`);
   }
 
   // -------------------------------------
-  // Dashboard Functions
+  // Dashboards
   // -------------------------------------
 
   getDeviceDashboards(device) {
-    return this.process(this.appliance.getDeviceDashboards(device.id), 'device dashboards');
+    return this.process(this.appliance.getDeviceDashboards(device.id), `${OBJECT_NAME} dashboard`);
   }
 
   // -------------------------------------
-  // DeviceGroup Functions
+  // Device Groups
   // -------------------------------------
 
   getDeviceDeviceGroups(device) {
-    return this.process(this.appliance.getDeviceDeviceGroups(device.id), 'device device_groups');
+    return this.process(this.appliance.getDeviceDeviceGroups(device.id), `${OBJECT_NAME} device_group`);
   }
 
   postDeviceDeviceGroups(device, { assign, unassign }) {
-    return this.process(this.appliance.postDeviceDeviceGroups(device.id, { assign, unassign }), 'device device_groups');
+    return this.process(this.appliance.postDeviceDeviceGroups(device.id, { assign, unassign }), `${OBJECT_NAME} device_group`);
   }
 
   postDeviceDeviceGroup(device, deviceGroup) {
-    return this.process(this.appliance.postDeviceDeviceGroup(device.id, deviceGroup.id), 'device device_group');
+    return this.process(this.appliance.postDeviceDeviceGroup(device.id, deviceGroup.id), `${OBJECT_NAME} device_group`);
   }
 
   deleteDeviceDeviceGroup(device, deviceGroup) {
-    return this.process(this.appliance.deleteDeviceDeviceGroup(device.id, deviceGroup.id), 'device device_group');
+    return this.process(this.appliance.deleteDeviceDeviceGroup(device.id, deviceGroup.id), `${OBJECT_NAME} device_group`);
   }
 
   // -------------------------------------
-  // Software Functions
+  // Software
   // -------------------------------------
 
   getDeviceSoftware(device) {
-    return this.process(this.appliance.getDeviceSoftware(device.id), 'device software');
+    return this.process(this.appliance.getDeviceSoftware(device.id), `${OBJECT_NAME} software`);
   }
 
   // -------------------------------------
-  // Tag Functions
+  // Tags
   // -------------------------------------
 
   getDeviceTags(device) {
-    return this.process(this.appliance.getDeviceTags(device.id), 'device tags');
+    return this.process(this.appliance.getDeviceTags(device.id), `${OBJECT_NAME} tag`);
   }
 
   postDeviceTags(device, { assign, unassign }) {
-    return this.process(this.appliance.postDeviceTags(device.id, { assign, unassign }), 'device tags');
+    return this.process(this.appliance.postDeviceTags(device.id, { assign, unassign }), `${OBJECT_NAME} tag`);
   }
 
   postDeviceTag(device, tag) {
-    return this.process(this.appliance.postDeviceTag(device.id, tag.id), 'device tag');
+    return this.process(this.appliance.postDeviceTag(device.id, tag.id), `${OBJECT_NAME} tag`);
   }
 
   deleteDeviceTag(device, tag) {
-    return this.process(this.appliance.deleteDeviceDeviceGroup(device.id, tag.id), 'device tag');
+    return this.process(this.appliance.deleteDeviceDeviceGroup(device.id, tag.id), `${OBJECT_NAME} tag`);
   }
 
   // -------------------------------------
-  // Trigger Functions
+  // Triggers
   // -------------------------------------
 
   getDeviceTriggers(device) {
-    return this.process(this.appliance.getDeviceTriggers(device.id), 'device triggers');
+    return this.process(this.appliance.getDeviceTriggers(device.id), `${OBJECT_NAME} trigger`);
   }
 
   postDeviceTriggers(device, { assign, unassign }) {
-    return this.process(this.appliance.postDeviceTriggers(device.id, { assign, unassign }), 'device triggers');
+    return this.process(this.appliance.postDeviceTriggers(device.id, { assign, unassign }), `${OBJECT_NAME} trigger`);
   }
 
   postDeviceTrigger(device, trigger) {
-    return this.process(this.appliance.postDeviceTrigger(device.id, trigger.id), 'device trigger');
+    return this.process(this.appliance.postDeviceTrigger(device.id, trigger.id), `${OBJECT_NAME} trigger`);
   }
 
   deleteDeviceTrigger(device, trigger) {
-    return this.process(this.appliance.deleteDeviceDeviceGroup(device.id, trigger.id), 'device trigger');
+    return this.process(this.appliance.deleteDeviceDeviceGroup(device.id, trigger.id), `${OBJECT_NAME} trigger`);
   }
 };

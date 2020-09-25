@@ -1,6 +1,6 @@
 // Appliance.controller.js
 
-const BaseCtrl = require('../../controllers/_base/BaseCtrl.controller');
+const BaseCtrl = require('../_base/BaseCtrl.controller');
 const ApplianceSet = require('../../models/appliance/ApplianceSet.model');
 const { Config, Icons, Strings } = require('../../constants/Global.constants');
 
@@ -8,15 +8,14 @@ module.exports = class ApplianceCtrl extends BaseCtrl {
   init() {
     try {
       this.appliances = new ApplianceSet(
-        Config.hosts.filter(host => host.enabled)
-      ).filter(appliance => appliance.active);
+        Config.hosts.filter((host) => host.enabled),
+      ).filter((appliance) => appliance.active);
 
       if (!this.appliances || this.appliances.length === 0) {
         throw new Error();
       }
-    }
-    catch (error) {
-      console.info(`${Icons.Error} No active hosts available. Exiting.\n`);
+    } catch (error) {
+      //* console.info(`${Icons.Error} No active hosts available. Exiting.\n`);
     }
   }
 

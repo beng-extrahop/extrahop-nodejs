@@ -5,6 +5,8 @@ const Trigger = require('../models/trigger/Trigger.model');
 const TriggerSet = require('../models/trigger/TriggerSet.model');
 const Strings = require('../constants/Global.constants');
 
+const OBJECT_NAME = 'trigger';
+
 module.exports = class TriggerCtrl extends BaseCtrl {
   // -------------------------------------
   // Defaults
@@ -79,22 +81,22 @@ module.exports = class TriggerCtrl extends BaseCtrl {
   // -------------------------------------
 
   getTriggers() {
-    return this.process(this.appliance.getTriggers(), 'triggers');
+    return this.process(this.appliance.getTriggers(), OBJECT_NAME);
   }
 
   getTrigger(trigger) {
-    return this.process(this.appliance.getTrigger(trigger.id), 'trigger');
+    return this.process(this.appliance.getTrigger(trigger.id), OBJECT_NAME);
   }
 
   patchTrigger(trigger, payload) {
-    return this.process(this.appliance.patchTrigger(trigger.id, payload), 'trigger');
+    return this.process(this.appliance.patchTrigger(trigger.id, payload), OBJECT_NAME);
   }
 
   postTrigger(payload) {
-    return this.process(this.appliance.postTrigger(payload), 'trigger');
+    return this.process(this.appliance.postTrigger(payload), OBJECT_NAME);
   }
 
   deleteTrigger(trigger) {
-    return this.process(this.appliance.deleteTrigger(trigger.id), 'trigger');
+    return this.process(this.appliance.deleteTrigger(trigger.id), OBJECT_NAME);
   }
 };

@@ -5,9 +5,11 @@ const Auth = require('../models/auth/Auth.model');
 const AuthSet = require('../models/auth/AuthSet.model');
 const AuthSaml = require('../models/auth/AuthSaml.model');
 
+const OBJECT_NAME = 'auth';
+
 module.exports = class AuthCtrl extends BaseCtrl {
   // -------------------------------------
-  // Defaults
+  // Aliases
   // -------------------------------------
 
   get(auth) {
@@ -36,41 +38,41 @@ module.exports = class AuthCtrl extends BaseCtrl {
 
   getSaml() {
     return new AuthSaml(this.getAuthSaml());
-  }
+  }baseObjects
 
   // -------------------------------------
-  // Base Functions
+  // Defaults
   // -------------------------------------
 
   getAuths() {
-    return this.process(this.appliance.getAuths(), 'auths');
+    return this.process(this.appliance.getAuths(), OBJECT_NAME);
   }
 
   getAuth(auth) {
-    return this.process(this.appliance.getAuth(auth.id), 'auth');
+    return this.process(this.appliance.getAuth(auth.id), OBJECT_NAME);
   }
 
   patchAuth(auth, data) {
-    return this.process(this.appliance.patchAuth(auth, data), 'auth');
+    return this.process(this.appliance.patchAuth(auth, data), OBJECT_NAME);
   }
 
   postAuth(auth) {
-    return this.process(this.appliance.postAuth(auth), 'auth');
+    return this.process(this.appliance.postAuth(auth), OBJECT_NAME);
   }
 
   deleteAuth(id) {
-    return this.process(this.appliance.deleteAuth(id), 'auth');
+    return this.process(this.appliance.deleteAuth(id), OBJECT_NAME);
   }
 
   getAuthPrivileges(auth) {
-    return this.process(this.appliance.getAuthPrivileges(auth.id), 'auth privileges');
+    return this.process(this.appliance.getAuthPrivileges(auth.id), `${OBJECT_NAME} privilege`);
   }
 
   patchAuthPrivileges(auth, data) {
-    return this.process(this.appliance.patchAuthPrivileges(auth, data), 'auth privileges');
+    return this.process(this.appliance.patchAuthPrivileges(auth, data), `${OBJECT_NAME} privilege`);
   }
 
   getAuthSaml() {
-    return this.process(this.appliance.getAuthSamlSP(), 'auth SAML service provider');
+    return this.process(this.appliance.getAuthSamlSP(), `${OBJECT_NAME} SAML service provider`);
   }
 };

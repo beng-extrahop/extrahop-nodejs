@@ -4,6 +4,8 @@ const BaseCtrl = require('./_base/BaseCtrl.controller');
 const Node = require('../models/node/Node.model');
 const NodeSet = require('../models/node/NodeSet.model');
 
+const OBJECT_NAME = 'node';
+
 module.exports = class NodeCtrl extends BaseCtrl {
   // -------------------------------------
   // Defaults
@@ -22,14 +24,14 @@ module.exports = class NodeCtrl extends BaseCtrl {
   // -------------------------------------
 
   getNodes() {
-    return this.process(this.appliance.getNodes(), 'nodes');
+    return this.process(this.appliance.getNodes(), OBJECT_NAME);
   }
 
   getNode(node) {
-    return this.process(this.appliance.getNode(node.id), 'node');
+    return this.process(this.appliance.getNode(node.id), OBJECT_NAME);
   }
 
   patchNode(node, data) {
-    return this.process(this.appliance.patchNode(node, data), 'node');
+    return this.process(this.appliance.patchNode(node, data), OBJECT_NAME);
   }
 };

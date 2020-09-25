@@ -1,16 +1,21 @@
 // ActivityGroup.controller.js
 
 const BaseCtrl = require('./_base/BaseCtrl.controller');
+const ActivityGroup = require('../models/activityGroup/ActivityGroup.model');
 const ActivityGroupSet = require('../models/activityGroup/ActivityGroupSet.model');
 const DashboardSet = require('../models/dashboard/DashboardSet.model');
 
+const OBJECT_NAME = 'activity group';
+
 module.exports = class ActivityGroupCtrl extends BaseCtrl {
   // -------------------------------------
-  // Defaults
+  // Aliases
   // -------------------------------------
 
-  get() {
-    return new ActivityGroupSet(this.getActivityGroups());
+  get(activityGroup) {
+    return activityGroup
+      ? new ActivityGroup(this.getActivityGroup(activityGroup))
+      : new ActivityGroupSet(this.getActivityGroups());
   }
 
   getDashboards(activityGroup) {
@@ -18,14 +23,18 @@ module.exports = class ActivityGroupCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Base Functions
+  // Defaults
   // -------------------------------------
 
   getActivityGroups() {
-    return this.process(this.appliance.getActivityGroups(), 'activity groups');
+    return this.process(this.appliance.getActivityGroups(), OBJECT_NAME);
+  }
+
+  getActivityGroup(activityGroup) {
+    return this.process(this.appliance.getActivityGroups().filter((x) => x.id == activityGroup.id), OBJECT_NAME);
   }
 
   getActivityGroupDashboards(activityGroup) {
-    return this.process(this.appliance.getActivityGroupDashboards(activityGroup.id), 'activity group dashboards');
+    return this.process(this.appliance.getActivityGroupDashboards(activityGroup.id), `${OBJECT_NAME} dashboards`);
   }
 };

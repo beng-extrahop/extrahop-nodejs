@@ -7,6 +7,8 @@ const ApplianceConnection = require('../models/appliance/ApplianceConnection.mod
 const ApplianceCloudServices = require('../models/appliance/ApplianceCloudServices.model');
 const ApplianceProductKey = require('../models/appliance/ApplianceProductKey.model');
 
+const OBJECT_NAME = 'appliance';
+
 module.exports = class ApplianceCtrl extends BaseCtrl {
   // -------------------------------------
   // Defaults
@@ -39,22 +41,22 @@ module.exports = class ApplianceCtrl extends BaseCtrl {
   // -------------------------------------
 
   getAppliances() {
-    return this.process(this.appliance.getAppliances(), 'appliances');
+    return this.process(this.appliance.getAppliances(), OBJECT_NAME);
   }
 
   getAppliance(appliance) {
-    return this.process(this.appliance.getAppliance(appliance.id), 'appliance');
+    return this.process(this.appliance.getAppliance(appliance.id), OBJECT_NAME);
   }
 
   postAppliance(connection) {
-    return this.process(this.appliance.postAppliance(connection), 'appliance connection');
+    return this.process(this.appliance.postAppliance(connection), `${OBJECT_NAME} connection`);
   }
 
   getApplianceCloudServices(appliance) {
-    return this.process(this.appliance.getApplianceCloudServices(appliance.id), 'appliance cloud services');
+    return this.process(this.appliance.getApplianceCloudServices(appliance.id), `${OBJECT_NAME} cloud services`);
   }
 
   getApplianceProductKey(appliance) {
-    return this.process(this.appliance.getApplianceProductKey(appliance.id), 'appliance product key');
+    return this.process(this.appliance.getApplianceProductKey(appliance.id), `${OBJECT_NAME} product key`);
   }
 };

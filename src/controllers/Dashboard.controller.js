@@ -6,16 +6,20 @@ const DashboardSet = require('../models/dashboard/DashboardSet.model');
 const DashboardSharing = require('../models/dashboard/DashboardSharing.model');
 const ReportSet = require('../models/report/ReportSet.model');
 
+const OBJECT_NAME = 'dashboard';
+
 module.exports = class DashboardCtrl extends BaseCtrl {
   // -------------------------------------
-  // Defaults
+  // Aliases
   // -------------------------------------
 
-  get(dashboard = {}) {
-    return dashboard.id ? new Dashboard(this.getDashboard(dashboard)) : new DashboardSet(this.getDashboards());
+  get(dashboard) {
+    return dashboard
+      ? new Dashboard(this.getDashboard(dashboard))
+      : new DashboardSet(this.getDashboards());
   }
 
-  getSharing(dashboard = {}) {
+  getSharing(dashboard) {
     return new DashboardSharing(this.getDashboardSharing(dashboard));
   }
 
@@ -39,8 +43,12 @@ module.exports = class DashboardCtrl extends BaseCtrl {
     return this.deleteDashboard(dashboard);
   }
 
+  build(data) {
+    return new ActivityMap(data);
+  }
+
   // -------------------------------------
-  // Modify Dashboards
+  // Utility
   // -------------------------------------
 
   transferOwnership(dashboard, username) {
@@ -56,7 +64,7 @@ module.exports = class DashboardCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Anyone Sharing
+  // Sharing: Anyone
   // -------------------------------------
 
   updateAnyoneSharing(dashboard, permission) {
@@ -76,7 +84,7 @@ module.exports = class DashboardCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // User Sharing
+  // Sharing: Users
   // -------------------------------------
 
   updateUserSharing(dashboard, username, permission) {
@@ -96,7 +104,7 @@ module.exports = class DashboardCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Group Sharing
+  // Sharing: Groups
   // -------------------------------------
 
   updateGroupSharing(dashboard, group, permission) {
@@ -116,46 +124,38 @@ module.exports = class DashboardCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Base Functions
+  // Defaults
   // -------------------------------------
 
   getDashboards() {
-    return this.process(this.appliance.getDashboards(), 'dashboards').map((x) => new Dashboard(x));
+    return this.process(this.appliance.getDashboards(), OBJECT_NAME);
   }
 
   getDashboard(dashboard) {
-    return this.process(this.appliance.getDashboard(dashboard.id), 'dashboard');
+    return this.process(this.appliance.getDashboard(dashboard.id), OBJECT_NAME);
   }
 
   deleteDashboard(dashboard) {
-    return this.process(this.appliance.deleteDashboard(dashboard.id), 'dashboard');
+    return this.process(this.appliance.deleteDashboard(dashboard.id), OBJECT_NAME);
   }
 
   patchDashboard(dashboard, data) {
-    return this.process(this.appliance.patchDashboard(dashboard.id, data), 'dashboard');
+    return this.process(this.appliance.patchDashboard(dashboard.id, data), OBJECT_NAME);
   }
-
-  // -------------------------------------
-  // Report Functions
-  // -------------------------------------
 
   getDashboardReports(dashboard) {
-    return this.process(this.appliance.getDashboardReports(dashboard.id), 'dashboard reports');
+    return this.process(this.appliance.getDashboardReports(dashboard.id), `${OBJECT_NAME} report`);
   }
 
-  // -------------------------------------
-  // Sharing Functions
-  // -------------------------------------
-
   getDashboardSharing(dashboard) {
-    return this.process(this.appliance.getDashboardSharing(dashboard.id), 'dashboard sharing');
+    return this.process(this.appliance.getDashboardSharing(dashboard.id), `${OBJECT_NAME} sharing`);
   }
 
   patchDashboardSharing(dashboard, sharing) {
-    return this.process(this.appliance.patchDashboardSharing(dashboard.id, sharing), 'dashboard sharing');
+    return this.process(this.appliance.patchDashboardSharing(dashboard.id, sharing), `${OBJECT_NAME} sharing`);
   }
 
   putDashboardSharing(dashboard, sharing) {
-    return this.process(this.appliance.putDashboardSharing(dashboard.id, sharing), 'dashboard sharing');
+    return this.process(this.appliance.putDashboardSharing(dashboard.id, sharing), `${OBJECT_NAME} sharing`);
   }
 };
