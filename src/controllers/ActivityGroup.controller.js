@@ -14,7 +14,7 @@ module.exports = class ActivityGroupCtrl extends BaseCtrl {
 
   get(activityGroup) {
     return activityGroup
-      ? new ActivityGroup(this.getActivityGroup(activityGroup))
+      ? new ActivityGroupSet(this.getActivityGroups()).find((x) => x.id == activityGroup.id)
       : new ActivityGroupSet(this.getActivityGroups());
   }
 
@@ -30,11 +30,7 @@ module.exports = class ActivityGroupCtrl extends BaseCtrl {
     return this.process(this.appliance.getActivityGroups(), OBJECT_NAME);
   }
 
-  getActivityGroup(activityGroup) {
-    return this.process(this.appliance.getActivityGroups().filter((x) => x.id == activityGroup.id), OBJECT_NAME);
-  }
-
   getActivityGroupDashboards(activityGroup) {
-    return this.process(this.appliance.getActivityGroupDashboards(activityGroup.id), `${OBJECT_NAME} dashboards`);
+    return this.process(this.appliance.getActivityGroupDashboards(activityGroup.id), `${OBJECT_NAME} dashboard`);
   }
 };

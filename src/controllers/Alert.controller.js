@@ -167,7 +167,7 @@ module.exports = class AlertCtrl extends BaseCtrl {
   // -------------------------------------
 
   getAlertApplications(alert) {
-    return this.process(this.appliance.getAlertApplications(alert.id), `${OBJECT_NAME} applications`);
+    return this.process(this.appliance.getAlertApplications(alert.id), `${OBJECT_NAME} application`);
   }
 
   postAlertApplications(alert, assign = [], unassign = []) {
@@ -187,11 +187,11 @@ module.exports = class AlertCtrl extends BaseCtrl {
   // -------------------------------------
 
   getAlertDevices(alert) {
-    return this.process(this.appliance.getAlertDevices(alert.id), `${OBJECT_NAME} devices`);
+    return this.process(this.appliance.getAlertDevices(alert.id), `${OBJECT_NAME} device`);
   }
 
   postAlertDevices(alert, assign = [], unassign = []) {
-    return this.process(this.appliance.postAlertDevices(alert.id, { assign, unassign }), `${OBJECT_NAME} devices`);
+    return this.process(this.appliance.postAlertDevices(alert.id, { assign, unassign }), `${OBJECT_NAME} device`);
   }
 
   postAlertDevice(alert, device) {
@@ -207,11 +207,11 @@ module.exports = class AlertCtrl extends BaseCtrl {
   // -------------------------------------
 
   getAlertDeviceGroups(alert) {
-    return this.process(this.appliance.getAlertDeviceGroups(alert.id), `${OBJECT_NAME} device groups`);
+    return this.process(this.appliance.getAlertDeviceGroups(alert.id), `${OBJECT_NAME} device group`);
   }
 
   postAlertDeviceGroups(alert, assign = [], unassign = []) {
-    return this.process(this.appliance.postAlertDeviceGroups(alert.id, { assign, unassign }), `${OBJECT_NAME} device groups`);
+    return this.process(this.appliance.postAlertDeviceGroups(alert.id, { assign, unassign }), `${OBJECT_NAME} device group`);
   }
 
   postAlertDeviceGroup(alert, deviceGroup) {
@@ -227,11 +227,11 @@ module.exports = class AlertCtrl extends BaseCtrl {
   // -------------------------------------
 
   getAlertEmailGroups(alert) {
-    return this.process(this.appliance.getAlertEmailGroups(alert.id), `${OBJECT_NAME} email groups`);
+    return this.process(this.appliance.getAlertEmailGroups(alert.id), `${OBJECT_NAME} email group`);
   }
 
   postAlertEmailGroups(alert, assign = [], unassign = []) {
-    return this.process(this.appliance.postAlertEmailGroups(alert.id, { assign, unassign }), `${OBJECT_NAME} email groups`);
+    return this.process(this.appliance.postAlertEmailGroups(alert.id, { assign, unassign }), `${OBJECT_NAME} email group`);
   }
 
   postAlertEmailGroup(alert, emailGroup) {
@@ -247,11 +247,11 @@ module.exports = class AlertCtrl extends BaseCtrl {
   // -------------------------------------
 
   getAlertExclusionIntervals(alert) {
-    return this.process(this.appliance.getAlertExclusionIntervals(alert.id), `${OBJECT_NAME} exclusion intervals`);
+    return this.process(this.appliance.getAlertExclusionIntervals(alert.id), `${OBJECT_NAME} exclusion interval`);
   }
 
   postAlertExclusionIntervals(alert, assign = [], unassign = []) {
-    return this.process(this.appliance.postAlertExclusionIntervals(alert.id, { assign, unassign }), `${OBJECT_NAME} exclusion intervals`);
+    return this.process(this.appliance.postAlertExclusionIntervals(alert.id, { assign, unassign }), `${OBJECT_NAME} exclusion interval`);
   }
 
   postAlertExclusionInterval(alert, exclusionInterval) {
@@ -267,11 +267,11 @@ module.exports = class AlertCtrl extends BaseCtrl {
   // -------------------------------------
 
   getAlertNetworks(alert) {
-    return this.process(this.appliance.getAlertNetwork(alert.id), `${OBJECT_NAME} networks`);
+    return this.process(this.appliance.getAlertNetwork(alert.id), `${OBJECT_NAME} network`);
   }
 
   postAlertNetworks(alert, assign = [], unassign = []) {
-    return this.process(this.appliance.postAlertNetworks(alert.id, { assign, unassign }), `${OBJECT_NAME} networks`);
+    return this.process(this.appliance.postAlertNetworks(alert.id, { assign, unassign }), `${OBJECT_NAME} network`);
   }
 
   postAlertNetwork(alert, network) {
@@ -287,6 +287,6 @@ module.exports = class AlertCtrl extends BaseCtrl {
   // -------------------------------------
 
   getAlertStats(alert) {
-    return this.process(this.appliance.getAlertStats(alert.id), `${OBJECT_NAME} stats`);
+    return this.process(this.appliance.getAlertStats(alert.id), `${OBJECT_NAME} stat`);
   }
 };

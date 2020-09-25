@@ -74,11 +74,11 @@ module.exports = class ApplicationCtrl extends BaseCtrl {
   // -------------------------------------
 
   getApplicationAlerts(application) {
-    return this.process(this.appliance.getApplicationAlerts(application.id), `${OBJECT_NAME} alerts`);
+    return this.process(this.appliance.getApplicationAlerts(application.id), `${OBJECT_NAME} alert`);
   }
 
   postApplicationAlerts(application, assign = [], unassign = []) {
-    return this.process(this.appliance.postApplicationAlerts(application.id, { assign, unassign }), `${OBJECT_NAME} alerts`);
+    return this.process(this.appliance.postApplicationAlerts(application.id, { assign, unassign }), `${OBJECT_NAME} alert`);
   }
 
   postApplicationAlert(application, alert) {
@@ -94,6 +94,6 @@ module.exports = class ApplicationCtrl extends BaseCtrl {
   // -------------------------------------
 
   getApplicationDashboards(application) {
-    return this.process(this.appliance.getApplicationDashboards(application.id), `${OBJECT_NAME} dashboards`);
+    return this.process(this.appliance.getApplicationDashboards(application.id), `${OBJECT_NAME} dashboard`);
   }
 };

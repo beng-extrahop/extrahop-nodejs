@@ -53,7 +53,7 @@ module.exports = class ApplianceCtrl extends BaseCtrl {
   }
 
   getApplianceCloudServices(appliance) {
-    return this.process(this.appliance.getApplianceCloudServices(appliance.id), `${OBJECT_NAME} cloud services`);
+    return this.process(this.appliance.getApplianceCloudServices(appliance.id), `${OBJECT_NAME} cloud service`);
   }
 
   getApplianceProductKey(appliance) {

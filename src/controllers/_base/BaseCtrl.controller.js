@@ -26,12 +26,9 @@ module.exports = class BaseCtrl {
     console.info(this.toString(options));
   }
 
-  printSuccess(method, type = '', count = 1) {
-    if (count > 1 && type.endsWith('y')) {
-      type = `${type.substring(0, type.length - 1)}ies`;
-    } else if (count > 1 && !type.endsWith('s')) {
-      type += 's';
-    }
+  printSuccess(method, type = '', count = 0) {
+    if (count > 1 && type.endsWith('y')) type = `${type.substring(0, type.length - 1)}ies`;
+    else if (count === 0 || (count > 1 && !type.endsWith('s'))) type += 's';
 
     if (method === 'GET') {
       console.info(`${Icons.Success} Retrieved ${count} ${type} from ${this.appliance.host}`);
@@ -63,6 +60,9 @@ module.exports = class BaseCtrl {
   }
 
   printWarning(method, type) {
+    if (type.endsWith('y')) type = `${type.substring(0, type.length - 1)}ies`;
+    else if (!type.endsWith('s')) type += 's';
+
     if (method === 'GET') {
       console.info(`${Icons.Warn} Warning: retrieving ${type} from ${this.appliance.host}`);
     } else if (method === 'POST') {
