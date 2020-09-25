@@ -10,9 +10,11 @@ const { Banner } = require('./src/constants/Global.constants');
 module.exports = class Extrahop {
   constructor(config, options = {}) {
     // Check for quiet output mode
-    if (!options.quiet) {
-      console.log(Banner);
+    if (options.quiet) {
+      process.env.LOG_LEVEL = 'error';
     }
+
+    //* console.log(Banner);
 
     // ApplianceSet or EnvironmentSet
     if (config instanceof Array) {
