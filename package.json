@@ -19,7 +19,8 @@
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1"
+    "eslint-plugin-promise": "^4.2.1",
+    "supertest": "^4.0.2"
   },
   "repository": {
     "type": "git",
@@ -30,16 +31,8 @@
     "extrahop-nodejs"
   ],
   "scripts": {
-    "babel": "npx babel src --out-dir lib --presets=es2015 --ignore 'src/**/*.bkp.js','src/**/*.test.js','src/**/*.bkp' --source-maps"
+    "test": "jest"
   },
-  "presets": [
-    "@babel/preset-env",
-    "@babel/preset-typescript"
-  ],
-  "plugins": [
-    "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-proposal-object-rest-spread"
-  ],
   "author": "Ben Gibson",
   "license": "ISC",
   "directories": {
