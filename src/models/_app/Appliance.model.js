@@ -17,10 +17,11 @@ module.exports = class Appliance extends BaseObject {
     const getExtrahop = this.getExtrahop();
 
     if (getExtrahop.success) {
-      console.info(`${Icons.Info} Connected to ${this.hostname}`);
+      //* console.info(`${Icons.Info} Connected to ${this.hostname}`);
     } else {
       this.active = false;
-      return console.warn(`${Icons.Warn} Connection to ${this.hostname} failed`);
+      //* console.warn(`${Icons.Warn} Connection to ${this.hostname} failed`);
+      return;
     }
 
     Object.keys(getExtrahop.data).forEach((key) => { this[key] = getExtrahop.data[key]; });
@@ -30,13 +31,13 @@ module.exports = class Appliance extends BaseObject {
     const getAppliance = (this.getAppliances().data || []).find((x) => x.hostname === this.hostname);
 
     if (getAppliance == null) {
-      console.warn(`${Icons.Warn} Error populating appliance data from ${this.hostname}`);
+      //* console.warn(`${Icons.Warn} Error populating appliance data from ${this.hostname}`);
     }
 
     Object.keys(getAppliance).forEach((key) => { this[key] = getAppliance[key]; });
 
     if (this.host !== this.hostname) {
-      console.warn(`${Icons.Warn} Hostname mismatch. Configured: ${this.host}, Retrieved: ${this.hostname}`);
+      //* console.warn(`${Icons.Warn} Hostname mismatch. Configured: ${this.host}, Retrieved: ${this.hostname}`);
     }
 
     // -------------------------------------

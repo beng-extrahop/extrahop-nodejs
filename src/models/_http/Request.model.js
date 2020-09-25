@@ -37,9 +37,9 @@ module.exports = class Request extends BaseObject {
       response.data = response.getBody('utf8');
     } catch (err) {
       response.error = err;
-      console.log(`${Icons.Error} ${err}`);
+      //* console.log(`${Icons.Error} ${err}`);
     }
-    console.log(new Response({ ...response, method: request.method }));
+
     return new Response({ ...response, method: request.method });
   }
 

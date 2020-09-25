@@ -41,8 +41,4 @@ module.exports = class BaseObjectSet extends Array {
   generateId(params) {
     return Utils.generateId(params);
   }
-
-  static get [Symbol.species]() {
-    return Array;
-  }
 };

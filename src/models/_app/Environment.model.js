@@ -32,7 +32,7 @@ module.exports = class Environment extends BaseObject {
     const ecas = this.get({ type: 'ECA' });
 
     if (ecas.length > 1) {
-      console.warn(`${Icons.Warn} Multiple ECA config entries detected. Returning first in list.`);
+      //* console.warn(`${Icons.Warn} Multiple ECA config entries detected. Returning first in list.`);
     }
 
     return ecas[0];
