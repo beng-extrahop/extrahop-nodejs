@@ -4,9 +4,11 @@ const BaseCtrl = require('./_base/BaseCtrl.controller');
 const Apikey = require('../models/apikey/Apikey.model');
 const ApikeySet = require('../models/apikey/ApikeySet.model');
 
+const OBJECT_NAME = 'api key';
+
 module.exports = class ApikeyCtrl extends BaseCtrl {
   // -------------------------------------
-  // Defaults
+  // Aliases
   // -------------------------------------
 
   get(apikey) {
@@ -18,18 +20,18 @@ module.exports = class ApikeyCtrl extends BaseCtrl {
   }
 
   // -------------------------------------
-  // Base Functions
+  // Defaults
   // -------------------------------------
 
   getApikeys() {
-    return this.process(this.appliance.getApikeys(), 'API keys');
+    return this.process(this.appliance.getApikeys(), OBJECT_NAME);
   }
 
   getApikey(apikey) {
-    return this.process(this.appliance.getApikey(apikey.id), 'API key');
+    return this.process(this.appliance.getApikey(apikey.id), OBJECT_NAME);
   }
 
   postApikey(password) {
-    return this.process(this.appliance.postApikey({ password }), 'API key');
+    return this.process(this.appliance.postApikey({ password }), OBJECT_NAME);
   }
 };
