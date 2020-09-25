@@ -1,6 +1,6 @@
 {
   "name": "extrahop-nodejs",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Wrapper for ExtraHop REST API",
   "main": "index.js",
   "dependencies": {
