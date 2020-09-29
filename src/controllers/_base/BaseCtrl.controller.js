@@ -18,7 +18,7 @@ module.exports = class BaseCtrl {
     console.info(this.toString(options));
   }
 
-  printSuccess(method, type = '', count = 0) {
+  printSuccess(method, type, count = 0) {
     if (count > 1 && type.endsWith('y')) type = `${type.substring(0, type.length - 1)}ies`;
     else if (count === 0 || (count > 1 && !type.endsWith('s'))) type += 's';
 
@@ -36,19 +36,21 @@ module.exports = class BaseCtrl {
   }
 
   printError(method, type, message) {
-    if (type.endsWith('y')) type = `${type.substring(0, type.length - 1)}ies`;
+    if (type.endsWith('y') && !type.endsWith('key')) type = `${type.substring(0, type.length - 1)}ies`;
     else if (!type.endsWith('s')) type += 's';
 
+    const spacer = '\n    - ';
+
     if (method === 'GET') {
-      console.error(`${Icons.Error} Retrieving ${type} from ${this.appliance.host}\n${message}`);
+      console.error(`${Icons.Error} Error retrieving ${type} from ${this.appliance.host}:${spacer}${message}`);
     } else if (method === 'POST') {
-      console.error(`${Icons.Error} Posting ${type} to ${this.appliance.host}\n${message}`);
+      console.error(`${Icons.Error} Error posting ${type} to ${this.appliance.host}:${spacer}${message}`);
     } else if (method === 'PATCH') {
-      console.error(`${Icons.Error} Modifying ${type} on ${this.appliance.host}\n${message}`);
+      console.error(`${Icons.Error} Error modifying ${type} on ${this.appliance.host}:${spacer}${message}`);
     } else if (method === 'PUT') {
-      console.error(`${Icons.Error} Updating ${type} on ${this.appliance.host}\n${message}`);
+      console.error(`${Icons.Error} Error updating ${type} on ${this.appliance.host}:${spacer}${message}`);
     } else if (method === 'DELETE') {
-      console.error(`${Icons.Error} Deleting ${type} from ${this.appliance.host}\n${message}`);
+      console.error(`${Icons.Error} Error deleting ${type} from ${this.appliance.host}:${spacer}${message}`);
     }
   }
 
@@ -74,10 +76,12 @@ module.exports = class BaseCtrl {
   // -------------------------------------
 
   process(results, type, options = {}) {
-    let { data, method, success } = results;
+    let {
+      data, method, success, message,
+    } = results;
 
     if (!success) {
-      this.printError(method, type, results.error);
+      this.printError(method, type, message);
     } else if (['PATCH', 'PUT', 'DELETE'].includes(method)) {
       if (!success) {
         this.printError(method, type);

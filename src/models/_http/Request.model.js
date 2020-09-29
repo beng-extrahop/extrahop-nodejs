@@ -10,8 +10,9 @@ module.exports = class Request extends BaseObject {
     super();
 
     this.hostname = hostname;
+    this.apikey = apikey;
     this.url = params.url || `https://${hostname}/api/v1`;
-    this.headers = { Authorization: `ExtraHop apikey=${apikey}` };
+    this.headers = { Authorization: `ExtraHop apikey=${this.apikey}` };
 
     this.config = {
       cache: params.cache || 'file',
@@ -34,9 +35,9 @@ module.exports = class Request extends BaseObject {
         ...this.config,
       });
 
-      response.data = response.getBody('utf8');
+      response.body = JSON.parse(response.getBody('utf-8'));
     } catch (err) {
-      response.error = err;
+      response.body = response.body.toString('utf-8');
     }
 
     return new Response({ ...response, method: request.method });
