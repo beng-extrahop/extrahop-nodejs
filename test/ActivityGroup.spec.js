@@ -10,7 +10,7 @@ describe('Activity Group endpoints', () => {
     expect(data[0]).toHaveProperty('type');
   });
 
-  it('GET one: activityGroups.get({ id })', async () => {
+  it('GET dashboards: activityGroups.get({ id })', async () => {
     const data = await extrahop.eca.activityGroups.get({ id: 19 });
     expect(data).toHaveProperty('description');
     expect(data).toHaveProperty('type');
