@@ -7,6 +7,7 @@ const { Config, Icons } = require('../../constants/Global.constants');
 module.exports = class BaseCtrl {
   constructor(appliance) {
     this.appliance = appliance;
+    this.host = this.appliance.hostname;
   }
 
   toString(config = {}) {
@@ -23,11 +24,11 @@ module.exports = class BaseCtrl {
 
     let message = Icons.Success;
 
-    if (method === 'GET') message += ` Retrieved ${count} ${type} from ${this.appliance.hostname}`;
-    else if (method === 'POST') message += ` Posted ${count} ${type} to ${this.appliance.hostname}`;
-    else if (method === 'PATCH') message += ` Modified ${type} on ${this.appliance.hostname}`;
-    else if (method === 'PUT') message += ` Updated ${type} on ${this.appliance.hostname}`;
-    else if (method === 'DELETE') message += ` Deleted ${type} from ${this.appliance.hostname}`;
+    if (method === 'GET') message += ` Retrieved ${count} ${type} from ${this.host}`;
+    else if (method === 'POST') message += ` Posted ${count} ${type} to ${this.host}`;
+    else if (method === 'PATCH') message += ` Modified ${type} on ${this.host}`;
+    else if (method === 'PUT') message += ` Updated ${type} on ${this.host}`;
+    else if (method === 'DELETE') message += ` Deleted ${type} from ${this.host}`;
 
     console.info(message);
   }
@@ -38,11 +39,11 @@ module.exports = class BaseCtrl {
 
     let message = Icons.Warn;
 
-    if (method === 'GET') message += ` Retrieved ${count} ${type} from ${this.appliance.hostname}`;
-    else if (method === 'POST') message += ` Posted ${count} ${type} to ${this.appliance.hostname}`;
-    else if (method === 'PATCH') message += ` Modified ${count} ${type} on ${this.appliance.hostname}`;
-    else if (method === 'PUT') message += ` Updated ${count} ${type} on ${this.appliance.hostname}`;
-    else if (method === 'DELETE') message += ` Deleted ${count} ${type} from ${this.appliance.hostname}`;
+    if (method === 'GET') message += ` Retrieved ${count} ${type} from ${this.host}`;
+    else if (method === 'POST') message += ` Posted ${count} ${type} to ${this.host}`;
+    else if (method === 'PATCH') message += ` Modified ${count} ${type} on ${this.host}`;
+    else if (method === 'PUT') message += ` Updated ${count} ${type} on ${this.host}`;
+    else if (method === 'DELETE') message += ` Deleted ${count} ${type} from ${this.host}`;
 
     console.warn(message);
   }
@@ -52,13 +53,13 @@ module.exports = class BaseCtrl {
     else if (!type.endsWith('s')) type += 's';
 
     let message = Icons.Error;
-    const spacer = '\n    - ';
+    error = `\n    - ${error}`;
 
-    if (method === 'GET') message += ` Error retrieving ${type} from ${this.appliance.hostname}:${spacer}${error}`;
-    else if (method === 'POST') message += ` Error posting ${type} to ${this.appliance.hostname}:${spacer}${error}`;
-    else if (method === 'PATCH') message += ` Error modifying ${type} on ${this.appliance.hostname}:${spacer}${error}`;
-    else if (method === 'PUT') message += ` Error updating ${type} on ${this.appliance.hostname}:${spacer}${error}`;
-    else if (method === 'DELETE') message += ` Error deleting ${type} from ${this.appliance.hostname}:${spacer}${error}`;
+    if (method === 'GET') message += ` Error retrieving ${type} from ${this.host} ${error}`;
+    else if (method === 'POST') message += ` Error posting ${type} to ${this.host} ${error}`;
+    else if (method === 'PATCH') message += ` Error modifying ${type} on ${this.host} ${error}`;
+    else if (method === 'PUT') message += ` Error updating ${type} on ${this.host} ${error}`;
+    else if (method === 'DELETE') message += ` Error deleting ${type} from ${this.host} ${error}`;
 
     console.error(message);
   }
@@ -74,7 +75,10 @@ module.exports = class BaseCtrl {
 
     if (!success) {
       this.printError(method, type, error);
-    } else if (['PATCH', 'PUT', 'DELETE'].includes(method)) {
+      return;
+    }
+
+    if (['PATCH', 'PUT', 'DELETE'].includes(method)) {
       this.printSuccess(method, type);
     } else if (['GET', 'POST'].includes(method)) {
       data = options.subkey ? data[options.subkey] : data;
@@ -130,7 +134,7 @@ module.exports = class BaseCtrl {
           const deviceName = getDevice.data[0].display_name;
           console.log('Adding discovery ID to cache:', discoveryId, deviceName)
 
-          cache.push(`${discoveryId}:${deviceName}`);
+          cache.push(`${discoveryId} ${deviceName}`);
           parseData[key] = deviceName;
         }
       }
