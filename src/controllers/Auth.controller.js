@@ -38,30 +38,30 @@ module.exports = class AuthCtrl extends BaseCtrl {
 
   getSaml() {
     return new AuthSaml(this.getAuthSaml());
-  }baseObjects
+  }
 
   // -------------------------------------
   // Defaults
   // -------------------------------------
 
   getAuths() {
-    return this.process(this.appliance.getAuths(), OBJECT_NAME);
+    return this.process(this.appliance.getAuths(), `${OBJECT_NAME} providers`);
   }
 
   getAuth(auth) {
-    return this.process(this.appliance.getAuth(auth.id), OBJECT_NAME);
+    return this.process(this.appliance.getAuth(auth.id), `${OBJECT_NAME} providers`);
   }
 
   patchAuth(auth, data) {
-    return this.process(this.appliance.patchAuth(auth, data), OBJECT_NAME);
+    return this.process(this.appliance.patchAuth(auth, data), `${OBJECT_NAME} providers`);
   }
 
   postAuth(auth) {
-    return this.process(this.appliance.postAuth(auth), OBJECT_NAME);
+    return this.process(this.appliance.postAuth(auth), `${OBJECT_NAME} providers`);
   }
 
   deleteAuth(id) {
-    return this.process(this.appliance.deleteAuth(id), OBJECT_NAME);
+    return this.process(this.appliance.deleteAuth(id), `${OBJECT_NAME} providers`);
   }
 
   getAuthPrivileges(auth) {

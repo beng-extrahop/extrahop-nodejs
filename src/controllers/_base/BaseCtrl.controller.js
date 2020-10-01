@@ -23,15 +23,15 @@ module.exports = class BaseCtrl {
     else if (count === 0 || (count > 1 && !type.endsWith('s'))) type += 's';
 
     if (method === 'GET') {
-      console.info(`${Icons.Success} Retrieved ${count} ${type} from ${this.appliance.host}`);
+      console.info(`${Icons.Success} Retrieved ${count} ${type} from ${this.appliance.hostname}`);
     } else if (method === 'POST') {
-      console.info(`${Icons.Success} Posted ${count} ${type} to ${this.appliance.host}`);
+      console.info(`${Icons.Success} Posted ${count} ${type} to ${this.appliance.hostname}`);
     } else if (method === 'PATCH') {
-      console.info(`${Icons.Info} Modified ${type} on ${this.appliance.host}`);
+      console.info(`${Icons.Info} Modified ${type} on ${this.appliance.hostname}`);
     } else if (method === 'PUT') {
-      console.info(`${Icons.Info} Updated ${type} on ${this.appliance.host}`);
+      console.info(`${Icons.Info} Updated ${type} on ${this.appliance.hostname}`);
     } else if (method === 'DELETE') {
-      console.info(`${Icons.Info} Deleted ${type} from ${this.appliance.host}`);
+      console.info(`${Icons.Info} Deleted ${type} from ${this.appliance.hostname}`);
     }
   }
 
@@ -42,15 +42,15 @@ module.exports = class BaseCtrl {
     const spacer = '\n    - ';
 
     if (method === 'GET') {
-      console.error(`${Icons.Error} Error retrieving ${type} from ${this.appliance.host}:${spacer}${message}`);
+      console.error(`${Icons.Error} Error retrieving ${type} from ${this.appliance.hostname}:${spacer}${message}`);
     } else if (method === 'POST') {
-      console.error(`${Icons.Error} Error posting ${type} to ${this.appliance.host}:${spacer}${message}`);
+      console.error(`${Icons.Error} Error posting ${type} to ${this.appliance.hostname}:${spacer}${message}`);
     } else if (method === 'PATCH') {
-      console.error(`${Icons.Error} Error modifying ${type} on ${this.appliance.host}:${spacer}${message}`);
+      console.error(`${Icons.Error} Error modifying ${type} on ${this.appliance.hostname}:${spacer}${message}`);
     } else if (method === 'PUT') {
-      console.error(`${Icons.Error} Error updating ${type} on ${this.appliance.host}:${spacer}${message}`);
+      console.error(`${Icons.Error} Error updating ${type} on ${this.appliance.hostname}:${spacer}${message}`);
     } else if (method === 'DELETE') {
-      console.error(`${Icons.Error} Error deleting ${type} from ${this.appliance.host}:${spacer}${message}`);
+      console.error(`${Icons.Error} Error deleting ${type} from ${this.appliance.hostname}:${spacer}${message}`);
     }
   }
 
@@ -59,15 +59,15 @@ module.exports = class BaseCtrl {
     else if (!type.endsWith('s')) type += 's';
 
     if (method === 'GET') {
-      console.warn(`${Icons.Warn} Retrieved ${count} ${type} from ${this.appliance.host}`);
+      console.warn(`${Icons.Warn} Retrieved ${count} ${type} from ${this.appliance.hostname}`);
     } else if (method === 'POST') {
-      console.warn(`${Icons.Warn} Posted ${count} ${type} to ${this.appliance.host}`);
+      console.warn(`${Icons.Warn} Posted ${count} ${type} to ${this.appliance.hostname}`);
     } else if (method === 'PATCH') {
-      console.warn(`${Icons.Warn} Modified ${count} ${type} on ${this.appliance.host}`);
+      console.warn(`${Icons.Warn} Modified ${count} ${type} on ${this.appliance.hostname}`);
     } else if (method === 'PUT') {
-      console.warn(`${Icons.Warn} Updated ${count} ${type} on ${this.appliance.host}`);
+      console.warn(`${Icons.Warn} Updated ${count} ${type} on ${this.appliance.hostname}`);
     } else if (method === 'DELETE') {
-      console.warn(`${Icons.Warn} Deleted ${count} ${type} from ${this.appliance.host}`);
+      console.warn(`${Icons.Warn} Deleted ${count} ${type} from ${this.appliance.hostname}`);
     }
   }
 

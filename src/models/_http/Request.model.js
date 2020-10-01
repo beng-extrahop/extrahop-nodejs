@@ -16,7 +16,7 @@ module.exports = class Request extends BaseObject {
 
     this.config = {
       cache: params.cache || 'file',
-      gzip: params.gzip || false,
+      gzip: params.gzip || true,
       timeout: params.timeout || 5000,
       retry: params.retry || true,
       retryDelay: params.retryDelay || 1000,
@@ -37,7 +37,8 @@ module.exports = class Request extends BaseObject {
 
       response.body = JSON.parse(response.getBody('utf-8'));
     } catch (err) {
-      response.body = response.body.toString('utf-8');
+      const message = (response.body || '').toString('utf-8');
+      response.body = message.startsWith('{') ? JSON.parse(message).error_message : message;
     }
 
     return new Response({ ...response, method: request.method });

@@ -8,7 +8,8 @@ module.exports = class EnvironmentSet extends BaseObjectSet {
     super(Array.from(environments).map((environment) => new Environment(environment)));
   }
 
-  getEnvironment(name) {
-    return this.find((environment) => environment.name === name);
+  get(filter = {}) {
+    const key = Object.keys(filter)[0];
+    return this.find((environment) => environment[key] === filter[key]);
   }
 };

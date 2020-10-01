@@ -11,12 +11,12 @@ module.exports = class Extrahop {
     console.log(Banner);
 
     // ApplianceSet
-    if (Array.from(config).length && config[0].hostname && config[0].apikey) {
+    if (config instanceof Array && config[0].hostname && config[0].apikey) {
       return config.length > 1 ? new ApplianceSet(config) : new Appliance(config[0]);
     }
 
     // EnvironmentSet
-    if (Array.from(config).length && config[0].appliances) {
+    if (config instanceof Array && config[0].appliances) {
       return config.length > 1 ? new EnvironmentSet(config) : new Environment(config[0]);
     }
 

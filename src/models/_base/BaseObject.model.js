@@ -5,11 +5,7 @@ const fs = require('fs');
 const { parse } = require('json2csv');
 const { Config } = require('../../constants/Global.constants');
 
-module.exports = class BaseObject extends Object {
-  constructor() {
-    super();
-  }
-
+module.exports = class BaseObject {
   toString({ format = true } = {}) {
     return JSON.stringify(this, null, format ? 2 : null);
   }
