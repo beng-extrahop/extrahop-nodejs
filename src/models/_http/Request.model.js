@@ -35,11 +35,18 @@ module.exports = class Request extends BaseObject {
         ...this.config,
       });
 
-      response.body = JSON.parse(response.getBody('utf-8') || '{}');
+      response.data = JSON.parse(response.getBody('utf-8'));
+      response.success = true;
     } catch (err) {
-      const message = (response.body || '').toString('utf-8');
-      response.body = message.startsWith('{') ? (JSON.parse(message) || '{}').error_message : message;
+      const error = (response.body || '').toString('utf-8');
+
+      response.data = error.startsWith('{') ? JSON.parse(error).error_message : error;
+      response.error = `[HTTP ${response.statusCode}] ${response.data.split('\n')[0]}`;
+      response.success = false;
     }
+
+    delete response.body;
+    delete response.headers;
 
     return new Response({ method: request.method, ...response });
   }

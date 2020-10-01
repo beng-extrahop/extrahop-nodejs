@@ -35,22 +35,22 @@ module.exports = class BaseCtrl {
     }
   }
 
-  printError(method, type, message) {
+  printError(method, type, error) {
     if (type.endsWith('y') && !type.endsWith('key')) type = `${type.substring(0, type.length - 1)}ies`;
     else if (!type.endsWith('s')) type += 's';
 
     const spacer = '\n    - ';
 
     if (method === 'GET') {
-      console.error(`${Icons.Error} Error retrieving ${type} from ${this.appliance.hostname}:${spacer}${message}`);
+      console.error(`${Icons.Error} Error retrieving ${type} from ${this.appliance.hostname}:${spacer}${error}`);
     } else if (method === 'POST') {
-      console.error(`${Icons.Error} Error posting ${type} to ${this.appliance.hostname}:${spacer}${message}`);
+      console.error(`${Icons.Error} Error posting ${type} to ${this.appliance.hostname}:${spacer}${error}`);
     } else if (method === 'PATCH') {
-      console.error(`${Icons.Error} Error modifying ${type} on ${this.appliance.hostname}:${spacer}${message}`);
+      console.error(`${Icons.Error} Error modifying ${type} on ${this.appliance.hostname}:${spacer}${error}`);
     } else if (method === 'PUT') {
-      console.error(`${Icons.Error} Error updating ${type} on ${this.appliance.hostname}:${spacer}${message}`);
+      console.error(`${Icons.Error} Error updating ${type} on ${this.appliance.hostname}:${spacer}${error}`);
     } else if (method === 'DELETE') {
-      console.error(`${Icons.Error} Error deleting ${type} from ${this.appliance.hostname}:${spacer}${message}`);
+      console.error(`${Icons.Error} Error deleting ${type} from ${this.appliance.hostname}:${spacer}${error}`);
     }
   }
 
@@ -77,11 +77,11 @@ module.exports = class BaseCtrl {
 
   process(results, type, options = {}) {
     let {
-      data, method, success, message,
+      data, method, success, error,
     } = results;
 
     if (!success) {
-      this.printError(method, type, message);
+      this.printError(method, type, error);
     } else if (['PATCH', 'PUT', 'DELETE'].includes(method)) {
       if (!success) {
         this.printError(method, type);

@@ -71,7 +71,7 @@ module.exports = class Appliance extends BaseObject {
       console.warn(`${Icons.Warn} Failed to populate additional data for ${this.hostname}`);
       return;
     }
-    // console.log(data);
+
     Object.keys(data).forEach((key) => { this[key] = data[key]; });
   }
 
