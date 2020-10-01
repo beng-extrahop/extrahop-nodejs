@@ -1,9 +1,8 @@
 // BaseCtrl.controller.js
 
 const moment = require('moment-timezone');
-const { Config } = require('../../constants/Global.constants');
-const { Icons } = require('../../constants/Global.constants');
 const Request = require('../../models/_http/Request.model');
+const { Config, Icons } = require('../../constants/Global.constants');
 
 module.exports = class BaseCtrl {
   constructor(appliance) {
@@ -22,53 +21,46 @@ module.exports = class BaseCtrl {
     if (count > 1 && type.endsWith('y')) type = `${type.substring(0, type.length - 1)}ies`;
     else if (count === 0 || (count > 1 && !type.endsWith('s'))) type += 's';
 
-    if (method === 'GET') {
-      console.info(`${Icons.Success} Retrieved ${count} ${type} from ${this.appliance.hostname}`);
-    } else if (method === 'POST') {
-      console.info(`${Icons.Success} Posted ${count} ${type} to ${this.appliance.hostname}`);
-    } else if (method === 'PATCH') {
-      console.info(`${Icons.Info} Modified ${type} on ${this.appliance.hostname}`);
-    } else if (method === 'PUT') {
-      console.info(`${Icons.Info} Updated ${type} on ${this.appliance.hostname}`);
-    } else if (method === 'DELETE') {
-      console.info(`${Icons.Info} Deleted ${type} from ${this.appliance.hostname}`);
-    }
-  }
+    let message = Icons.Success;
 
-  printError(method, type, error) {
-    if (type.endsWith('y') && !type.endsWith('key')) type = `${type.substring(0, type.length - 1)}ies`;
-    else if (!type.endsWith('s')) type += 's';
+    if (method === 'GET') message += ` Retrieved ${count} ${type} from ${this.appliance.hostname}`;
+    else if (method === 'POST') message += ` Posted ${count} ${type} to ${this.appliance.hostname}`;
+    else if (method === 'PATCH') message += ` Modified ${type} on ${this.appliance.hostname}`;
+    else if (method === 'PUT') message += ` Updated ${type} on ${this.appliance.hostname}`;
+    else if (method === 'DELETE') message += ` Deleted ${type} from ${this.appliance.hostname}`;
 
-    const spacer = '\n    - ';
-
-    if (method === 'GET') {
-      console.error(`${Icons.Error} Error retrieving ${type} from ${this.appliance.hostname}:${spacer}${error}`);
-    } else if (method === 'POST') {
-      console.error(`${Icons.Error} Error posting ${type} to ${this.appliance.hostname}:${spacer}${error}`);
-    } else if (method === 'PATCH') {
-      console.error(`${Icons.Error} Error modifying ${type} on ${this.appliance.hostname}:${spacer}${error}`);
-    } else if (method === 'PUT') {
-      console.error(`${Icons.Error} Error updating ${type} on ${this.appliance.hostname}:${spacer}${error}`);
-    } else if (method === 'DELETE') {
-      console.error(`${Icons.Error} Error deleting ${type} from ${this.appliance.hostname}:${spacer}${error}`);
-    }
+    console.info(message);
   }
 
   printWarning(method, type, count = 0) {
     if (type.endsWith('y')) type = `${type.substring(0, type.length - 1)}ies`;
     else if (!type.endsWith('s')) type += 's';
 
-    if (method === 'GET') {
-      console.warn(`${Icons.Warn} Retrieved ${count} ${type} from ${this.appliance.hostname}`);
-    } else if (method === 'POST') {
-      console.warn(`${Icons.Warn} Posted ${count} ${type} to ${this.appliance.hostname}`);
-    } else if (method === 'PATCH') {
-      console.warn(`${Icons.Warn} Modified ${count} ${type} on ${this.appliance.hostname}`);
-    } else if (method === 'PUT') {
-      console.warn(`${Icons.Warn} Updated ${count} ${type} on ${this.appliance.hostname}`);
-    } else if (method === 'DELETE') {
-      console.warn(`${Icons.Warn} Deleted ${count} ${type} from ${this.appliance.hostname}`);
-    }
+    let message = Icons.Warn;
+
+    if (method === 'GET') message += ` Retrieved ${count} ${type} from ${this.appliance.hostname}`;
+    else if (method === 'POST') message += ` Posted ${count} ${type} to ${this.appliance.hostname}`;
+    else if (method === 'PATCH') message += ` Modified ${count} ${type} on ${this.appliance.hostname}`;
+    else if (method === 'PUT') message += ` Updated ${count} ${type} on ${this.appliance.hostname}`;
+    else if (method === 'DELETE') message += ` Deleted ${count} ${type} from ${this.appliance.hostname}`;
+
+    console.warn(message);
+  }
+
+  printError(method, type, error) {
+    if (type.endsWith('y') && !type.endsWith('key')) type = `${type.substring(0, type.length - 1)}ies`;
+    else if (!type.endsWith('s')) type += 's';
+
+    let message = Icons.Error;
+    const spacer = '\n    - ';
+
+    if (method === 'GET') message += ` Error retrieving ${type} from ${this.appliance.hostname}:${spacer}${error}`;
+    else if (method === 'POST') message += ` Error posting ${type} to ${this.appliance.hostname}:${spacer}${error}`;
+    else if (method === 'PATCH') message += ` Error modifying ${type} on ${this.appliance.hostname}:${spacer}${error}`;
+    else if (method === 'PUT') message += ` Error updating ${type} on ${this.appliance.hostname}:${spacer}${error}`;
+    else if (method === 'DELETE') message += ` Error deleting ${type} from ${this.appliance.hostname}:${spacer}${error}`;
+
+    console.error(message);
   }
 
   // -------------------------------------
@@ -83,11 +75,7 @@ module.exports = class BaseCtrl {
     if (!success) {
       this.printError(method, type, error);
     } else if (['PATCH', 'PUT', 'DELETE'].includes(method)) {
-      if (!success) {
-        this.printError(method, type);
-      } else {
-        this.printSuccess(method, type);
-      }
+      this.printSuccess(method, type);
     } else if (['GET', 'POST'].includes(method)) {
       data = options.subkey ? data[options.subkey] : data;
 
