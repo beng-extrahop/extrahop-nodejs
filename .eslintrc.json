@@ -4,14 +4,45 @@
 		"es2021": true,
 		"node": true
 	},
-	"extends": "eslint:recommended",
+	"extends": ["eslint:recommended", "plugin:prettier/recommended"],
 	"parserOptions": {
 		"ecmaVersion": 12
 	},
 	"rules": {
-		"indent": ["error", "tab"],
+		"indent": ["error", 2],
 		"linebreak-style": ["error", "unix"],
 		"quotes": ["error", "single"],
-		"semi": ["error", "always"]
-	}
+		"semi": ["error", "always"],
+		"max-len": ["error", { "code": 120, "ignoreUrls": true }],
+		"max-attributes-per-line": "off",
+		"lines-around-comment": [
+			"error",
+			{
+				"beforeBlockComment": true,
+				"afterBlockComment": true,
+				"beforeLineComment": true,
+				"afterLineComment": false,
+				"allowBlockStart": true,
+				"allowBlockEnd": true,
+				"allowObjectStart": true,
+				"allowObjectEnd": true,
+				"allowArrayStart": true,
+				"allowArrayEnd": true
+			}
+		],
+		"prettier/prettier": [
+			"error",
+			{
+				"parser": "flow",
+				"trailingComma": "none",
+				"semi": true,
+				"singleQuote": true,
+				"printWidth": 120
+			},
+			{
+				"usePrettierrc": false
+			}
+		]
+	},
+	"plugins": ["prettier"]
 }

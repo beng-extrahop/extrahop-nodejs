@@ -1,5 +1,7 @@
 // Record.controller.js
 
+'use strict';
+
 const Database = require('nedb');
 const BaseCtrl = require('./_base/BaseCtrl.controller');
 const RecordSet = require('../models/record/RecordSet.model');
@@ -22,7 +24,9 @@ module.exports = class RecordCtrl extends BaseCtrl {
   }
 
   searchInit(search = {}) {
-    return Object.assign(search, this.postRecordsSearch(search).data, { id: Utils.generateId() });
+    return Object.assign(search, this.postRecordsSearch(search).data, {
+      id: Utils.generateId()
+    });
   }
 
   searchNext(cursor, contextTtl) {
@@ -40,7 +44,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
       } else if (results.length === 0) {
         console.warn(`${Icons.Warn} No results found in database.`);
       } else {
-        (new RecordSet(results)).writeToCSV(`records-${search.id}.csv`);
+        new RecordSet(results).writeToCSV(`records-${search.id}.csv`);
         console.info(`${Icons.Success} Saved ${results.length} records to CSV: records-${search.id}.csv`);
       }
     });
@@ -52,20 +56,25 @@ module.exports = class RecordCtrl extends BaseCtrl {
 
   store(searchFilter = {}) {
     const search = this.searchInit(new RecordSearch(this.parseSearchFilter(searchFilter)));
-    const db = new Database({ filename: `${Config.DB_DIR}/records-${search.id}.db`, autoload: true });
+
+    const db = new Database({
+      filename: `${Config.DB_DIR}/records-${search.id}.db`,
+      autoload: true
+    });
 
     this.printSearchInfo(search);
 
     const numPages = this.getPageCount(search);
-    let { records } = search;
-    const pageAt = 0;
-    const count = 0;
+    let { records } = search,
+      pageAt = 0,
+      count = 0;
 
     while (records && records.length > 0) {
       records = records.map((record) => this.parse(record, '_source'));
       db.insert(records);
 
       console.info(`[${++pageAt}/${numPages}] Processed ${(count += records.length)} results, awaiting next page...`);
+
       records = this.searchNext(search.cursor, search.context_ttl);
     }
 
@@ -95,6 +104,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
 
         if (devices.length > 0) {
           console.log('Substituting discovery id for name:', rule.value, '=>', devices[0].discovery_id);
+
           rule.operand = { type: 'device', value: devices[0].discovery_id };
           delete rule.value;
         }
@@ -102,6 +112,7 @@ module.exports = class RecordCtrl extends BaseCtrl {
     });
 
     console.log(JSON.stringify(searchFilter, null, 2));
+
     return searchFilter;
   }
 
