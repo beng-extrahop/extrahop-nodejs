@@ -35,13 +35,13 @@ module.exports = class Request extends BaseObject {
         ...this.config,
       });
 
-      response.body = JSON.parse(response.getBody('utf-8'));
+      response.body = JSON.parse(response.getBody('utf-8') || '{}');
     } catch (err) {
       const message = (response.body || '').toString('utf-8');
-      response.body = message.startsWith('{') ? JSON.parse(message).error_message : message;
+      response.body = message.startsWith('{') ? (JSON.parse(message) || '{}').error_message : message;
     }
 
-    return new Response({ ...response, method: request.method });
+    return new Response({ method: request.method, ...response });
   }
 
   get(uri, query) {
