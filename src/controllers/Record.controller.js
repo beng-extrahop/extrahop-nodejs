@@ -37,14 +37,16 @@ module.exports = class RecordCtrl extends BaseCtrl {
   // Save Functions
   // -------------------------------------
 
-  save(search = {}) {
-    search.db.find({}).exec((err, results) => {
+  save(search, config) {
+    search.db.find().exec((err, results) => {
       if (err) {
         console.error(`${Icons.Error} ${err}`);
       } else if (results.length === 0) {
         console.warn(`${Icons.Warn} No results found in database.`);
       } else {
-        new RecordSet(results).writeToCSV(`records-${search.id}.csv`);
+        new RecordSet(results).writeToCSV({
+          filename: `records-${search.id}.csv`
+        });
         console.info(`${Icons.Success} Saved ${results.length} records to CSV: records-${search.id}.csv`);
       }
     });
@@ -65,9 +67,9 @@ module.exports = class RecordCtrl extends BaseCtrl {
     this.printSearchInfo(search);
 
     const numPages = this.getPageCount(search);
-    let { records } = search,
-      pageAt = 0,
-      count = 0;
+    let { records } = search;
+    let pageAt = 0;
+    let count = 0;
 
     while (records && records.length > 0) {
       records = records.map((record) => this.parse(record, '_source'));

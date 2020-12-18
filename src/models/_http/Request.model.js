@@ -3,7 +3,7 @@
 const SyncRequest = require('sync-request');
 const BaseObject = require('../_base/BaseObject.model');
 const Response = require('./Response.model');
-const { Icons } = require('../../constants/Global.constants');
+//const { Icons } = require('../../constants/Global.constants');
 
 module.exports = class Request extends BaseObject {
   constructor(hostname, apikey, params = {}) {
@@ -11,8 +11,8 @@ module.exports = class Request extends BaseObject {
 
     this.hostname = hostname;
     this.apikey = apikey;
-    this.url = params.url || `https://${hostname}/api/v1`;
-    this.headers = { Authorization: `ExtraHop apikey=${this.apikey}` };
+    this.urlBase = params.url || `https://${hostname}/api/v1`;
+    this.headers = { Authorization: `ExtraHop apikey=${apikey}` };
 
     this.config = {
       cache: params.cache || 'file',
@@ -25,17 +25,15 @@ module.exports = class Request extends BaseObject {
   }
 
   send(request) {
-    const { qs, json } = request;
-    const { headers, config } = this;
-
+    const { method, headers, uri, qs, json } = request;
     let response = {};
 
     try {
-      response = SyncRequest(request.method, this.url + request.uri, {
+      response = SyncRequest(method, this.urlBase + uri, {
         headers,
         qs,
         json,
-        ...config
+        ...this.config
       });
 
       response.data = JSON.parse(response.getBody('utf-8'));
@@ -43,14 +41,8 @@ module.exports = class Request extends BaseObject {
     } catch (err) {
       const error = (response.body || '').toString('utf-8');
 
-      response.data = error.startsWith('{')
-        ? JSON.parse(error).error_message
-        : error;
-
-      response.error = `[HTTP ${response.statusCode}] ${
-        (response.data || 'null').split('\n')[0]
-      }`;
-
+      response.data = error.startsWith('{') ? JSON.parse(error).error_message : error;
+      response.error = `[HTTP ${response.statusCode}] ${(response.data || 'null').split('\n')[0]}`;
       response.success = false;
     }
 
@@ -61,22 +53,37 @@ module.exports = class Request extends BaseObject {
   }
 
   get(uri, query) {
-    return this.send({ method: 'GET', uri, qs: query });
+    return this.send({ headers: this.headers, method: 'GET', uri, qs: query });
   }
 
   post(uri, body) {
-    return this.send({ method: 'POST', uri, json: body });
+    return this.send({
+      headers: this.headers,
+      method: 'POST',
+      uri,
+      json: body
+    });
   }
 
   patch(uri, body) {
-    return this.send({ method: 'PATCH', uri, json: body });
+    return this.send({
+      headers: this.headers,
+      method: 'PATCH',
+      uri,
+      json: body
+    });
   }
 
   put(uri, body) {
-    return this.send({ method: 'PUT', uri, json: body });
+    return this.send({ headers: this.headers, method: 'PUT', uri, json: body });
   }
 
   delete(uri, body) {
-    return this.send({ method: 'DELETE', uri, json: body });
+    return this.send({
+      headers: this.headers,
+      method: 'DELETE',
+      uri,
+      json: body
+    });
   }
 };

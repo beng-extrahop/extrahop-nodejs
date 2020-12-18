@@ -8,7 +8,7 @@ module.exports = class RecordSet extends BaseObjectSet {
     super(Array.from(records).map((record) => new Record(record)));
   }
 
-  writeToCSV({ filename = `records-${this.generateId()}.csv`, subkey = '_source' }) {
-    super.writeToCSV({ filename, subkey, headers: true });
+  writeToCSV({ filename = `records-${this.generateId()}.csv`, subkey = '_source', headers = true }) {
+    super.writeToCSV({ filename, subkey, headers });
   }
 };
